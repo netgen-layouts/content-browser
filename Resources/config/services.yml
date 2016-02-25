@@ -1,0 +1,44 @@
+parameters:
+    netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
+
+    netgen_content_browser.adapter.ezpublish.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\Adapter
+    netgen_content_browser.repository.class: Netgen\Bundle\ContentBrowserBundle\Repository\Repository
+
+    netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
+
+services:
+    # API controllers
+
+    netgen_content_browser.controller.api.tree:
+        class: %netgen_content_browser.controller.api.tree.class%
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    # Adapters
+
+    netgen_content_browser.adapter:
+        alias: netgen_content_browser.adapter.ezpublish
+
+    netgen_content_browser.adapter.ezpublish:
+        class: %netgen_content_browser.adapter.ezpublish.class%
+        arguments:
+            - "@ezpublish.api.service.search"
+            - "@ezpublish.api.service.content_type"
+            - "@ezpublish.translation_helper"
+        tags:
+            - { name: netgen_content_browser.adapter, identifier: ezpublish }
+
+    # Repository
+
+    netgen_content_browser.repository:
+        class: %netgen_content_browser.repository.class%
+        shared: false
+        arguments:
+            - "@netgen_content_browser.adapter"
+
+    # Event listeners
+
+    netgen_content_browser.event_listener.exception_conversion:
+        class: %netgen_content_browser.event_listener.exception_conversion.class%
+        tags:
+            - { name: kernel.event_subscriber }

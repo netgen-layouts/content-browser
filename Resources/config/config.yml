@@ -1,0 +1,3 @@
+trees:
+    default:
+        root_locations: [2, 43, 5]

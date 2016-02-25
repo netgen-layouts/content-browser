@@ -1,0 +1,18 @@
+netgen_content_browser_api_v1_config:
+    path: /{tree}/config
+    methods: [GET]
+    defaults:
+        _controller: netgen_content_browser.controller.api.tree:getConfig
+
+netgen_content_browser_api_v1_location:
+    path: /{tree}/locations/{locationId}
+    methods: [GET]
+    defaults:
+        _controller: netgen_content_browser.controller.api.tree:getLocation
+
+
+netgen_content_browser_api_v1_location_children:
+    path: /{tree}/locations/{locationId}/children
+    methods: [GET]
+    defaults:
+        _controller: netgen_content_browser.controller.api.tree:getLocationChildren
