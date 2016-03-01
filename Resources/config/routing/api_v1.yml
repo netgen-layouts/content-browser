@@ -16,3 +16,9 @@ netgen_content_browser_api_v1_location_children:
     methods: [GET]
     defaults:
         _controller: netgen_content_browser.controller.api.tree:getLocationChildren
+
+netgen_content_browser_api_v1_location_categories:
+    path: /{tree}/locations/{locationId}/categories
+    methods: [GET]
+    defaults:
+        _controller: netgen_content_browser.controller.api.tree:getLocationCategories

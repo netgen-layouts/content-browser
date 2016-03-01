@@ -80,7 +80,65 @@ class Repository implements RepositoryInterface
      */
     public function getChildren(LocationInterface $location)
     {
-        return $this->adapter->loadLocationChildren($location);
+        $types = array();
+        if (!empty($this->config['children']['types'])) {
+            $types = $this->config['children']['types'];
+            if (isset($this->config['children']['include_category_types']) && $this->config['children']['include_category_types']) {
+                $types = array_merge($types, $this->config['categories']['types']);
+            }
+        }
+
+        return $this->adapter->loadLocationChildren($location, $types);
+    }
+
+    /**
+     * Returns if current location has children.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return bool
+     */
+    public function hasChildren(LocationInterface $location)
+    {
+        $types = array();
+        if (!empty($this->config['children']['types'])) {
+            $types = $this->config['children']['types'];
+            if (isset($this->config['children']['include_category_types']) && $this->config['children']['include_category_types']) {
+                $types = array_merge($types, $this->config['categories']['types']);
+            }
+        }
+
+        return $this->adapter->hasChildren($location, $types);
+    }
+
+    /**
+     * Loads all categories below the specified location.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     */
+    public function getCategories(LocationInterface $location)
+    {
+        return $this->adapter->loadLocationChildren(
+            $location,
+            $this->config['categories']['types']
+        );
+    }
+
+    /**
+     * Returns if current location has child categories.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return bool
+     */
+    public function hasChildrenCategories(LocationInterface $location)
+    {
+        return $this->adapter->hasChildren(
+            $location,
+            $this->config['categories']['types']
+        );
     }
 
     /**

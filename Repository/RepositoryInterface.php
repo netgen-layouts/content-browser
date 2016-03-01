@@ -44,6 +44,33 @@ interface RepositoryInterface
     public function getChildren(LocationInterface $location);
 
     /**
+     * Returns if current location has children.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return bool
+     */
+    public function hasChildren(LocationInterface $location);
+
+    /**
+     * Loads all categories below the specified location.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     */
+    public function getCategories(LocationInterface $location);
+
+    /**
+     * Returns if current location has child categories.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     *
+     * @return bool
+     */
+    public function hasChildrenCategories(LocationInterface $location);
+
+    /**
      * Returns if provided location is one of the root locations.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location

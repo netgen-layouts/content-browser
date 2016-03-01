@@ -21,8 +21,19 @@ interface AdapterInterface
      * Loads all children of the provided location.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param string[] $types
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
      */
-    public function loadLocationChildren(LocationInterface $location);
+    public function loadLocationChildren(LocationInterface $location, array $types = array());
+
+    /**
+     * Returns true if provided location has children.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param string[] $types
+     *
+     * @return bool
+     */
+    public function hasChildren(LocationInterface $location, array $types = array());
 }

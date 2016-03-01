@@ -27,12 +27,17 @@ class TreeController extends BaseController
         $translator = $this->get('translator');
         $this->initRepository($tree);
 
+        $rootLocations = array();
+        foreach ($this->repository->getRootLocations() as $location) {
+            $locationData = $this->serializeLocation($location);
+            $locationData['has_children'] = $this->repository->hasChildrenCategories($location);
+            $rootLocations[] = $locationData;
+        }
+
         $config = $this->repository->getConfig();
         $data = array(
             'name' => $translator->trans('netgen_content_browser.trees.' . $tree . '.name'),
-            'root_locations' => $this->serializeLocations(
-                $this->repository->getRootLocations()
-            ),
+            'root_locations' => $rootLocations,
             'min_selected' => $config['min_selected'],
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
@@ -63,6 +68,8 @@ class TreeController extends BaseController
 
         $location = $this->repository->getLocation($locationId);
         $data = $this->serializeLocation($location);
+
+        $data['has_children'] = $this->repository->hasChildren($location);
         $data['html'] = $this->renderView(
             $this->repository->getConfig()['location_template'],
             array(
@@ -87,26 +94,40 @@ class TreeController extends BaseController
 
         $location = $this->repository->getLocation($locationId);
         $locations = $this->repository->getChildren($location);
-        $data = $this->serializeLocations($locations);
+
+        $data = array();
+        foreach ($locations as $location) {
+            $locationData = $this->serializeLocation($location);
+            $locationData['has_children'] = $this->repository->hasChildren($location);
+            $data[] = $locationData;
+        }
 
         return new JsonResponse($data);
     }
 
     /**
-     * Serializes a set of locations.
+     * Loads all children of the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[] $locations
+     * @param string $tree
+     * @param int|string $locationId
      *
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    protected function serializeLocations(array $locations)
+    public function getLocationCategories($tree, $locationId)
     {
+        $this->initRepository($tree);
+
+        $location = $this->repository->getLocation($locationId);
+        $locations = $this->repository->getCategories($location);
+
         $data = array();
         foreach ($locations as $location) {
-            $data[] = $this->serializeLocation($location);
+            $locationData = $this->serializeLocation($location);
+            $locationData['has_children'] = $this->repository->hasChildrenCategories($location);
+            $data[] = $locationData;
         }
 
-        return $data;
+        return new JsonResponse($data);
     }
 
     /**
@@ -128,7 +149,6 @@ class TreeController extends BaseController
             'thumbnail' => $location->getThumbnail(),
             'type' => $location->getType(),
             'visible' => $location->isVisible(),
-            'has_children' => $location->hasChildren(),
         );
     }
 

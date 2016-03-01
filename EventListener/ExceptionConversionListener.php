@@ -11,8 +11,6 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Netgen\Bundle\ContentBrowserBundle\Exception\InternalServerErrorHttpException;
 
 class ExceptionConversionListener implements EventSubscriberInterface
 {

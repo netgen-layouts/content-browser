@@ -38,6 +38,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'max_selected' => 5,
                         'location_template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
+                        'categories' => array(
+                            'types' => array('type'),
+                        ),
+                        'children' => array(
+                            'types' => array('type2'),
+                            'include_category_types' => false,
+                        ),
                     ),
                 ),
             ),
@@ -51,6 +58,13 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'max_selected' => 5,
                     'location_template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
+                    'categories' => array(
+                        'types' => array('type'),
+                    ),
+                    'children' => array(
+                        'types' => array('type2'),
+                        'include_category_types' => false,
+                    ),
                 ),
             ),
         );
@@ -68,6 +82,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'root_locations' => array(42),
+                        'categories' => array(
+                            'types' => array('type'),
+                        ),
                     ),
                 ),
             ),
@@ -81,75 +98,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'max_selected' => 0,
                     'location_template' => 'NetgenContentBrowserBundle:ezpublish:location.html.twig',
                     'default_columns' => array('name', 'type', 'visible'),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testMissingTrees()
-    {
-        $config = array(array());
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidTrees()
-    {
-        $config = array(array('trees' => 'trees'));
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testEmptyTrees()
-    {
-        $config = array(array('trees' => array()));
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testMissingRootLocations()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidRootLocations()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => 'root',
+                    'categories' => array(
+                        'types' => array('type'),
                     ),
                 ),
             ),
         );
 
-        $this->assertConfigurationIsInvalid($config);
+        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
     }
 
     /**
@@ -162,43 +118,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'root_locations' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidRootLocation()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array('42'),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidMinSelected()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array(42),
-                        'min_selected' => '42',
                     ),
                 ),
             ),
@@ -240,6 +159,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'max_selected' => 5,
                         'location_template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
+                        'categories' => array(
+                            'types' => array('type'),
+                        ),
                     ),
                 ),
             ),
@@ -253,30 +175,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'max_selected' => 5,
                     'location_template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidMaxSelected()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array(42),
-                        'max_selected' => '42',
+                    'categories' => array(
+                        'types' => array('type'),
                     ),
                 ),
             ),
         );
 
-        $this->assertConfigurationIsInvalid($config);
+        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
     }
 
     /**
@@ -312,6 +218,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'max_selected' => null,
                         'location_template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
+                        'categories' => array(
+                            'types' => array('type'),
+                        ),
                     ),
                 ),
             ),
@@ -325,30 +234,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'max_selected' => 0,
                     'location_template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidLocationTemplate()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array(42),
-                        'location_template' => 42,
+                    'categories' => array(
+                        'types' => array('type'),
                     ),
                 ),
             ),
         );
 
-        $this->assertConfigurationIsInvalid($config);
+        $this->assertProcessedConfigurationEquals($config, $expectedConfig);
     }
 
     /**
@@ -362,25 +255,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'default' => array(
                         'root_locations' => array(42),
                         'location_template' => '',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testInvalidDefaultColumns()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array(42),
-                        'default_columns' => 'columns',
                     ),
                 ),
             ),
@@ -411,14 +285,16 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      */
-    public function testInvalidDefaultColumn()
+    public function testEmptyCategoryTypes()
     {
         $config = array(
             array(
                 'trees' => array(
                     'default' => array(
                         'root_locations' => array(42),
-                        'default_columns' => array('column'),
+                        'categories' => array(
+                            'types' => array(),
+                        ),
                     ),
                 ),
             ),

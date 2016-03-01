@@ -52,11 +52,4 @@ interface LocationInterface
      * @return bool
      */
     public function isVisible();
-
-    /**
-     * Returns if location has children.
-     *
-     * @return bool
-     */
-    public function hasChildren();
 }
