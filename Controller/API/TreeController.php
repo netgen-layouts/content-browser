@@ -128,6 +128,7 @@ class TreeController extends BaseController
             'thumbnail' => $location->getThumbnail(),
             'type' => $location->getType(),
             'visible' => $location->isVisible(),
+            'has_children' => $location->hasChildren(),
         );
     }
 
