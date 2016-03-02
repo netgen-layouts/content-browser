@@ -1,7 +1,8 @@
 parameters:
     netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
 
-    netgen_content_browser.adapter.ezpublish.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\Adapter
+    netgen_content_browser.ezpublish.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\LocationBuilder
+    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\Adapter
     netgen_content_browser.repository.class: Netgen\Bundle\ContentBrowserBundle\Repository\Repository
 
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
@@ -17,14 +18,19 @@ services:
     # Adapters
 
     netgen_content_browser.adapter:
-        alias: netgen_content_browser.adapter.ezpublish
+        alias: netgen_content_browser.ezpublish.adapter
 
-    netgen_content_browser.adapter.ezpublish:
-        class: %netgen_content_browser.adapter.ezpublish.class%
+    netgen_content_browser.ezpublish.location_builder:
+        class: %netgen_content_browser.ezpublish.location_builder.class%
+        arguments:
+            - "@ezpublish.api.repository"
+            - "@ezpublish.translation_helper"
+
+    netgen_content_browser.ezpublish.adapter:
+        class: %netgen_content_browser.ezpublish.adapter.class%
         arguments:
             - "@ezpublish.api.service.search"
-            - "@ezpublish.api.service.content_type"
-            - "@ezpublish.translation_helper"
+            - "@netgen_content_browser.ezpublish.location_builder"
         tags:
             - { name: netgen_content_browser.adapter, identifier: ezpublish }
 

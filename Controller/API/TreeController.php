@@ -7,6 +7,7 @@ use Netgen\Bundle\ContentBrowserBundle\Repository\RepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Netgen\Bundle\ContentBrowserBundle\Repository\Location;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use DateTime;
 
 class TreeController extends BaseController
 {
@@ -150,10 +151,10 @@ class TreeController extends BaseController
             'type' => $location->type,
             'visible' => $location->isVisible,
             'owner' => $location->owner,
-            'modified' => $location->modified,
-            'published' => $location->published,
+            'modified' => $location->modified->format(DateTime::ISO8601),
+            'published' => $location->published->format(DateTime::ISO8601),
             'priority' => $location->priority,
-            'section' => $location->section
+            'section' => $location->section,
         );
     }
 
