@@ -21,7 +21,7 @@ interface RepositoryInterface
     /**
      * Returns all root locations.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
     public function getRootLocations();
 
@@ -30,52 +30,52 @@ interface RepositoryInterface
      *
      * @param int|string $locationId
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location
      */
     public function getLocation($locationId);
 
     /**
      * Loads all children of the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
-    public function getChildren(LocationInterface $location);
+    public function getChildren(Location $location);
 
     /**
      * Returns if current location has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function hasChildren(LocationInterface $location);
+    public function hasChildren(Location $location);
 
     /**
      * Loads all categories below the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
-    public function getCategories(LocationInterface $location);
+    public function getCategories(Location $location);
 
     /**
      * Returns if current location has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function hasChildrenCategories(LocationInterface $location);
+    public function hasChildrenCategories(Location $location);
 
     /**
      * Returns if provided location is one of the root locations.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function isRootLocation(LocationInterface $location);
+    public function isRootLocation(Location $location);
 }

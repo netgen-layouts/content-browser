@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Repository\RepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface;
+use Netgen\Bundle\ContentBrowserBundle\Repository\Location;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TreeController extends BaseController
@@ -133,22 +133,27 @@ class TreeController extends BaseController
     /**
      * Serializes the location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return array
      */
-    protected function serializeLocation(LocationInterface $location)
+    protected function serializeLocation(Location $location)
     {
         return array(
-            'id' => $location->getId(),
+            'id' => $location->id,
             'parent_id' => !$this->repository->isRootLocation($location) ?
-                $location->getParentId() :
+                $location->parentId :
                 null,
-            'name' => $location->getName(),
-            'enabled' => $location->isEnabled(),
-            'thumbnail' => $location->getThumbnail(),
-            'type' => $location->getType(),
-            'visible' => $location->isVisible(),
+            'name' => $location->name,
+            'enabled' => $location->isEnabled,
+            'thumbnail' => $location->thumbnail,
+            'type' => $location->type,
+            'visible' => $location->isVisible,
+            'owner' => $location->owner,
+            'modified' => $location->modified,
+            'published' => $location->published,
+            'priority' => $location->priority,
+            'section' => $location->section
         );
     }
 

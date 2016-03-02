@@ -46,7 +46,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns all root locations.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
     public function getRootLocations()
     {
@@ -64,7 +64,7 @@ class Repository implements RepositoryInterface
      *
      * @param int|string $locationId
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location
      */
     public function getLocation($locationId)
     {
@@ -74,11 +74,11 @@ class Repository implements RepositoryInterface
     /**
      * Loads all children of the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
-    public function getChildren(LocationInterface $location)
+    public function getChildren(Location $location)
     {
         $types = array();
         if (!empty($this->config['children']['types'])) {
@@ -94,11 +94,11 @@ class Repository implements RepositoryInterface
     /**
      * Returns if current location has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function hasChildren(LocationInterface $location)
+    public function hasChildren(Location $location)
     {
         $types = array();
         if (!empty($this->config['children']['types'])) {
@@ -114,11 +114,11 @@ class Repository implements RepositoryInterface
     /**
      * Loads all categories below the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
      */
-    public function getCategories(LocationInterface $location)
+    public function getCategories(Location $location)
     {
         return $this->adapter->loadLocationChildren(
             $location,
@@ -129,11 +129,11 @@ class Repository implements RepositoryInterface
     /**
      * Returns if current location has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function hasChildrenCategories(LocationInterface $location)
+    public function hasChildrenCategories(Location $location)
     {
         return $this->adapter->hasChildren(
             $location,
@@ -144,14 +144,14 @@ class Repository implements RepositoryInterface
     /**
      * Returns if provided location is one of the root locations.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\LocationInterface $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
      *
      * @return bool
      */
-    public function isRootLocation(LocationInterface $location)
+    public function isRootLocation(Location $location)
     {
         foreach ($this->config['root_locations'] as $rootLocation) {
-            if ($location->getId() == $rootLocation) {
+            if ($location->id == $rootLocation) {
                 return true;
             }
         }
