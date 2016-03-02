@@ -8,6 +8,7 @@ class Repository implements RepositoryInterface
      * @var \Netgen\Bundle\ContentBrowserBundle\Repository\AdapterInterface
      */
     protected $adapter;
+
     /**
      * @var array
      */
