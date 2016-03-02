@@ -69,7 +69,7 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue(array('name', 'type', 'visible'))
                             ->prototype('scalar')
                                 ->validate()
-                                ->ifNotInArray(array('id', 'parent_id', 'name', 'thumbnail', 'type', 'visible'))
+                                ->ifNotInArray(array('id', 'parent_id', 'name', 'thumbnail', 'type', 'visible', 'owner', 'modified', 'published', 'priority', 'section'))
                                     ->thenInvalid('Invalid column name "%s"')
                                 ->end()
                             ->end()

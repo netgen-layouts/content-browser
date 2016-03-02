@@ -49,6 +49,11 @@ class TreeController extends BaseController
                 'thumbnail' => $translator->trans('netgen_content_browser.columns.thumbnail'),
                 'type' => $translator->trans('netgen_content_browser.columns.type'),
                 'visible' => $translator->trans('netgen_content_browser.columns.visible'),
+                'owner' => $translator->trans('netgen_content_browser.columns.owner'),
+                'modified' => $translator->trans('netgen_content_browser.columns.modified'),
+                'published' => $translator->trans('netgen_content_browser.columns.published'),
+                'priority' => $translator->trans('netgen_content_browser.columns.priority'),
+                'section' => $translator->trans('netgen_content_browser.columns.section'),
             ),
         );
 
