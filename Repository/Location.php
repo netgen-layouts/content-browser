@@ -38,6 +38,11 @@ class Location
     public $parentId;
 
     /**
+     * @var array
+     */
+    public $path;
+
+    /**
      * @var string
      */
     public $name;

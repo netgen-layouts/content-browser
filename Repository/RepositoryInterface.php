@@ -30,6 +30,8 @@ interface RepositoryInterface
      *
      * @param int|string $locationId
      *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If location is outside of root locations
+     *
      * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location
      */
     public function getLocation($locationId);
@@ -78,4 +80,13 @@ interface RepositoryInterface
      * @return bool
      */
     public function isRootLocation(Location $location);
+
+    /**
+     * Returns if provided location is inside one of the root locations.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     *
+     * @return bool
+     */
+    public function isInsideRootLocations(Location $location);
 }

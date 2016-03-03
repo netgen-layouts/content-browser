@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Repository;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
+
 class Repository implements RepositoryInterface
 {
     /**
@@ -65,11 +67,19 @@ class Repository implements RepositoryInterface
      *
      * @param int|string $locationId
      *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If location is outside of root locations
+     *
      * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location
      */
     public function getLocation($locationId)
     {
-        return $this->adapter->loadLocation($locationId, $this->config['root_locations']);
+        $location = $this->adapter->loadLocation($locationId);
+
+        if (!$this->isInsideRootLocations($location)) {
+            throw new OutOfBoundsException("Location #{$locationId} is not inside root locations.");
+        }
+
+        return $location;
     }
 
     /**
@@ -153,6 +163,24 @@ class Repository implements RepositoryInterface
     {
         foreach ($this->config['root_locations'] as $rootLocation) {
             if ($location->id == $rootLocation) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns if provided location is inside one of the root locations.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     *
+     * @return bool
+     */
+    public function isInsideRootLocations(Location $location)
+    {
+        foreach ($this->config['root_locations'] as $rootLocation) {
+            if (in_array($rootLocation, $location->path)) {
                 return true;
             }
         }

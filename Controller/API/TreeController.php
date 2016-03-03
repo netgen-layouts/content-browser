@@ -95,12 +95,30 @@ class TreeController extends BaseController
         $location = $this->repository->getLocation($locationId);
         $locations = $this->repository->getChildren($location);
 
-        $data = array();
+        $path = array();
+        foreach ($location->path as $pathLocationId) {
+            $pathItemLocation = $this->repository->getLocation($pathLocationId);
+            if (!$this->repository->isInsideRootLocations($pathItemLocation)) {
+                continue;
+            }
+
+            $path[] = array(
+                'id' => $pathItemLocation->id,
+                'name' => $pathItemLocation->name,
+            );
+        }
+
+        $children = array();
         foreach ($locations as $location) {
             $locationData = $this->serializeLocation($location);
             $locationData['has_children'] = $this->repository->hasChildren($location);
-            $data[] = $locationData;
+            $children[] = $locationData;
         }
+
+        $data = array(
+            'path' => $path,
+            'children' => $children,
+        );
 
         return new JsonResponse($data);
     }
@@ -120,12 +138,30 @@ class TreeController extends BaseController
         $location = $this->repository->getLocation($locationId);
         $locations = $this->repository->getCategories($location);
 
-        $data = array();
+        $path = array();
+        foreach ($location->path as $pathLocationId) {
+            $pathItemLocation = $this->repository->getLocation($pathLocationId);
+            if (!$this->repository->isInsideRootLocations($pathItemLocation)) {
+                continue;
+            }
+
+            $path[] = array(
+                'id' => $pathItemLocation->id,
+                'name' => $pathItemLocation->name,
+            );
+        }
+
+        $children = array();
         foreach ($locations as $location) {
             $locationData = $this->serializeLocation($location);
             $locationData['has_children'] = $this->repository->hasChildrenCategories($location);
-            $data[] = $locationData;
+            $children[] = $locationData;
         }
+
+        $data = array(
+            'path' => $path,
+            'children' => $children,
+        );
 
         return new JsonResponse($data);
     }
