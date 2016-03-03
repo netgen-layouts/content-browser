@@ -76,12 +76,6 @@ class TreeController extends BaseController
         $data = $this->serializeLocation($location);
 
         $data['has_children'] = $this->repository->hasChildren($location);
-        $data['html'] = $this->renderView(
-            $this->repository->getConfig()['location_template'],
-            array(
-                'location' => $location,
-            )
-        );
 
         return new JsonResponse($data);
     }
@@ -160,6 +154,12 @@ class TreeController extends BaseController
             'published' => $location->published->format(DateTime::ISO8601),
             'priority' => $location->priority,
             'section' => $location->section,
+            'html' => $this->renderView(
+                $this->repository->getConfig()['location_template'],
+                array(
+                    'location' => $location,
+                )
+            )
         );
     }
 
