@@ -178,7 +178,7 @@ class TreeController extends BaseController
                 array(
                     'location' => $location,
                 )
-            )
+            ),
         );
     }
 
