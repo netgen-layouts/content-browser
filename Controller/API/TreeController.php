@@ -75,19 +75,6 @@ class TreeController extends BaseController
         $location = $this->repository->getLocation($locationId);
         $locations = $this->repository->getChildren($location);
 
-        $path = array();
-        foreach ($location->path as $pathLocationId) {
-            $pathItemLocation = $this->repository->getLocation($pathLocationId);
-            if (!$this->repository->isInsideRootLocations($pathItemLocation)) {
-                continue;
-            }
-
-            $path[] = array(
-                'id' => $pathItemLocation->id,
-                'name' => $pathItemLocation->name,
-            );
-        }
-
         $children = array();
         foreach ($locations as $location) {
             $children[] = $this->serializeLocation(
@@ -97,7 +84,7 @@ class TreeController extends BaseController
         }
 
         $data = array(
-            'path' => $path,
+            'path' => $this->getLocationPath($location),
             'children' => $children,
         );
 
@@ -119,6 +106,31 @@ class TreeController extends BaseController
         $location = $this->repository->getLocation($locationId);
         $locations = $this->repository->getCategories($location);
 
+        $children = array();
+        foreach ($locations as $location) {
+            $children[] = $this->serializeLocation(
+                $location,
+                $this->repository->hasChildrenCategories($location)
+            );
+        }
+
+        $data = array(
+            'path' => $this->getLocationPath($location),
+            'children' => $children,
+        );
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Generates the location path.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     *
+     * @return array
+     */
+    protected function getLocationPath(Location $location)
+    {
         $path = array();
         foreach ($location->path as $pathLocationId) {
             $pathItemLocation = $this->repository->getLocation($pathLocationId);
@@ -132,20 +144,7 @@ class TreeController extends BaseController
             );
         }
 
-        $children = array();
-        foreach ($locations as $location) {
-            $children[] = $this->serializeLocation(
-                $location,
-                $this->repository->hasChildrenCategories($location)
-            );
-        }
-
-        $data = array(
-            'path' => $path,
-            'children' => $children,
-        );
-
-        return new JsonResponse($data);
+        return $path;
     }
 
     /**
