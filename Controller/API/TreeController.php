@@ -90,9 +90,10 @@ class TreeController extends BaseController
 
         $children = array();
         foreach ($locations as $location) {
-            $locationData = $this->serializeLocation($location);
-            $locationData['has_children'] = $this->repository->hasChildren($location);
-            $children[] = $locationData;
+            $children[] = $this->serializeLocation(
+                $location,
+                $this->repository->hasChildren($location)
+            );
         }
 
         $data = array(
@@ -133,9 +134,10 @@ class TreeController extends BaseController
 
         $children = array();
         foreach ($locations as $location) {
-            $locationData = $this->serializeLocation($location);
-            $locationData['has_children'] = $this->repository->hasChildrenCategories($location);
-            $children[] = $locationData;
+            $children[] = $this->serializeLocation(
+                $location,
+                $this->repository->hasChildrenCategories($location)
+            );
         }
 
         $data = array(
@@ -150,10 +152,11 @@ class TreeController extends BaseController
      * Serializes the location.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param bool $hasChildren
      *
      * @return array
      */
-    protected function serializeLocation(Location $location)
+    protected function serializeLocation(Location $location, $hasChildren = false)
     {
         return array(
             'id' => $location->id,
@@ -170,6 +173,7 @@ class TreeController extends BaseController
             'published' => $location->published->format(DateTime::ISO8601),
             'priority' => $location->priority,
             'section' => $location->section,
+            'has_children' => (bool)$hasChildren,
             'html' => $this->renderView(
                 $this->repository->getConfig()['location_template'],
                 array(
