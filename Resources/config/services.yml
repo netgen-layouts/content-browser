@@ -31,6 +31,7 @@ services:
             - "@ezpublish.field_helper"
             - "@ezpublish.fieldtype.ezimage.variation_service"
             - "%netgen_content_browser.adapters.ezpublish.image_fields%"
+            - "%netgen_content_browser.adapters.ezpublish.variation_name%"
 
     netgen_content_browser.ezpublish.location_builder:
         class: %netgen_content_browser.ezpublish.location_builder.class%

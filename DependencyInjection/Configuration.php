@@ -151,6 +151,14 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->scalarNode('variation_name')
+                    ->validate()
+                    ->ifTrue(function ($v) { return !is_string($v); })
+                        ->thenInvalid('Variation name should be a string')
+                    ->end()
+                    ->cannotBeEmpty()
+                    ->defaultValue('netgen_content_browser')
+                ->end()
             ->end();
 
         return $node;

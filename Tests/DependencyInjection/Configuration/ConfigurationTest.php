@@ -52,6 +52,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -77,6 +78,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'adapters' => array(
                 'ezpublish' => array(
                     'image_fields' => array('image'),
+                    'variation_name' => 'netgen_content_browser'
                 ),
             ),
         );
@@ -102,6 +104,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -123,6 +126,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'adapters' => array(
                 'ezpublish' => array(
                     'image_fields' => array('image'),
+                    'variation_name' => 'netgen_content_browser'
                 ),
             ),
         );
@@ -145,6 +149,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -169,6 +174,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -199,6 +205,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -220,6 +227,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'adapters' => array(
                 'ezpublish' => array(
                     'image_fields' => array('image'),
+                    'variation_name' => 'netgen_content_browser'
                 ),
             ),
         );
@@ -243,6 +251,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -273,6 +282,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -294,6 +304,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'adapters' => array(
                 'ezpublish' => array(
                     'image_fields' => array('image'),
+                    'variation_name' => 'netgen_content_browser'
                 ),
             ),
         );
@@ -317,6 +328,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -341,6 +353,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -367,6 +380,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array('image'),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
@@ -393,6 +407,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'adapters' => array(
                     'ezpublish' => array(
                         'image_fields' => array(),
+                        'variation_name' => 'netgen_content_browser'
                     ),
                 ),
             ),
