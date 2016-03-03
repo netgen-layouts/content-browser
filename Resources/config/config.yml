@@ -3,3 +3,6 @@ trees:
         root_locations: [2, 43, 5]
         categories:
             types: [frontpage, folder]
+
+adapters:
+    ezpublish: ~

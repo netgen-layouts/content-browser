@@ -47,6 +47,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -65,6 +70,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'types' => array('type2'),
                         'include_category_types' => false,
                     ),
+                ),
+            ),
+            'adapters' => array(
+                'ezpublish' => array(
+                    'image_fields' => array('image'),
                 ),
             ),
         );
@@ -87,6 +97,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -101,6 +116,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'categories' => array(
                         'types' => array('type'),
                     ),
+                ),
+            ),
+            'adapters' => array(
+                'ezpublish' => array(
+                    'image_fields' => array('image'),
                 ),
             ),
         );
@@ -120,6 +140,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'root_locations' => array(),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -137,6 +162,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'default' => array(
                         'root_locations' => array(42),
                         'min_selected' => -5,
+                    ),
+                ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
                     ),
                 ),
             ),
@@ -164,6 +194,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -178,6 +213,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'categories' => array(
                         'types' => array('type'),
                     ),
+                ),
+            ),
+            'adapters' => array(
+                'ezpublish' => array(
+                    'image_fields' => array('image'),
                 ),
             ),
         );
@@ -196,6 +236,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'default' => array(
                         'root_locations' => array(42),
                         'max_selected' => -5,
+                    ),
+                ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
                     ),
                 ),
             ),
@@ -223,6 +268,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         ),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -237,6 +287,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'categories' => array(
                         'types' => array('type'),
                     ),
+                ),
+            ),
+            'adapters' => array(
+                'ezpublish' => array(
+                    'image_fields' => array('image'),
                 ),
             ),
         );
@@ -255,6 +310,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'default' => array(
                         'root_locations' => array(42),
                         'location_template' => '',
+                    ),
+                ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
                     ),
                 ),
             ),
@@ -276,6 +336,11 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'default_columns' => array(),
                     ),
                 ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
             ),
         );
 
@@ -295,6 +360,37 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'categories' => array(
                             'types' => array(),
                         ),
+                    ),
+                ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array('image'),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid($config);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     */
+    public function testEmptyEzPublishAdapterImageFields()
+    {
+        $config = array(
+            array(
+                'trees' => array(
+                    'default' => array(
+                        'root_locations' => array(42),
+                        'categories' => array(
+                            'types' => array('type'),
+                        ),
+                    ),
+                ),
+                'adapters' => array(
+                    'ezpublish' => array(
+                        'image_fields' => array(),
                     ),
                 ),
             ),
