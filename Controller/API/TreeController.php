@@ -61,26 +61,6 @@ class TreeController extends BaseController
     }
 
     /**
-     * Loads the specified location.
-     *
-     * @param string $tree
-     * @param int|string $locationId
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function getLocation($tree, $locationId)
-    {
-        $this->initRepository($tree);
-
-        $location = $this->repository->getLocation($locationId);
-        $data = $this->serializeLocation($location);
-
-        $data['has_children'] = $this->repository->hasChildren($location);
-
-        return new JsonResponse($data);
-    }
-
-    /**
      * Loads all children of the specified location.
      *
      * @param string $tree
