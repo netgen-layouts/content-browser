@@ -26,6 +26,8 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::generateTreesConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::generateEzPublishAdapterConfig
      */
     public function testConfiguration()
     {
