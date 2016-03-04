@@ -73,19 +73,19 @@ class TreeController extends BaseController
         $this->initRepository($tree);
 
         $location = $this->repository->getLocation($locationId);
-        $locations = $this->repository->getChildren($location);
+        $children = $this->repository->getChildren($location);
 
-        $children = array();
-        foreach ($locations as $location) {
-            $children[] = $this->serializeLocation(
-                $location,
-                $this->repository->hasChildren($location)
+        $childrenData = array();
+        foreach ($children as $child) {
+            $childrenData[] = $this->serializeLocation(
+                $child,
+                $this->repository->hasChildren($child)
             );
         }
 
         $data = array(
             'path' => $this->getLocationPath($location),
-            'children' => $children,
+            'children' => $childrenData,
         );
 
         return new JsonResponse($data);
@@ -104,19 +104,19 @@ class TreeController extends BaseController
         $this->initRepository($tree);
 
         $location = $this->repository->getLocation($locationId);
-        $locations = $this->repository->getCategories($location);
+        $children = $this->repository->getCategories($location);
 
-        $children = array();
-        foreach ($locations as $location) {
-            $children[] = $this->serializeLocation(
-                $location,
-                $this->repository->hasChildrenCategories($location)
+        $childrenData = array();
+        foreach ($children as $child) {
+            $childrenData[] = $this->serializeLocation(
+                $child,
+                $this->repository->hasChildrenCategories($child)
             );
         }
 
         $data = array(
             'path' => $this->getLocationPath($location),
-            'children' => $children,
+            'children' => $childrenData,
         );
 
         return new JsonResponse($data);
