@@ -18,7 +18,6 @@ class Location
         foreach ($properties as $property => $value) {
             if (!property_exists($this, $property)) {
                 throw new InvalidArgumentException(
-                    'properties',
                     'Property "' . $property . '" does not exist in "' . get_class($this) . '" class.'
                 );
             }
