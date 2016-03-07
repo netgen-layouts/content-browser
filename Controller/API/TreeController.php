@@ -42,19 +42,7 @@ class TreeController extends BaseController
             'min_selected' => $config['min_selected'],
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
-            'available_columns' => array(
-                'id' => $translator->trans('netgen_content_browser.columns.id'),
-                'parent_id' => $translator->trans('netgen_content_browser.columns.parent_id'),
-                'name' => $translator->trans('netgen_content_browser.columns.name'),
-                'thumbnail' => $translator->trans('netgen_content_browser.columns.thumbnail'),
-                'type' => $translator->trans('netgen_content_browser.columns.type'),
-                'visible' => $translator->trans('netgen_content_browser.columns.visible'),
-                'owner' => $translator->trans('netgen_content_browser.columns.owner'),
-                'modified' => $translator->trans('netgen_content_browser.columns.modified'),
-                'published' => $translator->trans('netgen_content_browser.columns.published'),
-                'priority' => $translator->trans('netgen_content_browser.columns.priority'),
-                'section' => $translator->trans('netgen_content_browser.columns.section'),
-            ),
+            'available_columns' => $this->repository->getAvailableColumns(),
         );
 
         return new JsonResponse($data);
@@ -164,14 +152,6 @@ class TreeController extends BaseController
                 null,
             'name' => $location->name,
             'enabled' => $location->isEnabled,
-            'thumbnail' => $location->thumbnail,
-            'type' => $location->type,
-            'visible' => $location->isVisible,
-            'owner' => $location->owner,
-            'modified' => $location->modified->format(DateTime::ISO8601),
-            'published' => $location->published->format(DateTime::ISO8601),
-            'priority' => $location->priority,
-            'section' => $location->section,
             'has_children' => (bool)$hasChildren,
             'html' => $this->renderView(
                 $this->repository->getConfig()['location_template'],
@@ -179,7 +159,7 @@ class TreeController extends BaseController
                     'location' => $location,
                 )
             ),
-        );
+        ) + $location->additionalColumns;
     }
 
     /**

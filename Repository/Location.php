@@ -52,42 +52,7 @@ class Location
     public $isEnabled = true;
 
     /**
-     * @var string
+     * @var array
      */
-    public $thumbnail;
-
-    /**
-     * @var string
-     */
-    public $type;
-
-    /**
-     * @var bool
-     */
-    public $isVisible = true;
-
-    /**
-     * @var string
-     */
-    public $owner;
-
-    /**
-     * @var \DateTime
-     */
-    public $modified;
-
-    /**
-     * @var \DateTime
-     */
-    public $published;
-
-    /**
-     * @var int
-     */
-    public $priority;
-
-    /**
-     * @var string
-     */
-    public $section;
+    public $additionalColumns = array();
 }

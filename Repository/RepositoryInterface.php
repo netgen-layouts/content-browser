@@ -19,6 +19,13 @@ interface RepositoryInterface
     public function getConfig();
 
     /**
+     * Returns the available columns.
+     *
+     * @return array
+     */
+    public function getAvailableColumns();
+
+    /**
      * Returns all root locations.
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]

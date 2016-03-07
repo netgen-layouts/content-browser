@@ -45,6 +45,7 @@ services:
         arguments:
             - "@ezpublish.api.service.search"
             - "@netgen_content_browser.ezpublish.location_builder"
+            - "@translator"
         tags:
             - { name: netgen_content_browser.adapter, identifier: ezpublish }
 
@@ -55,6 +56,7 @@ services:
         shared: false
         arguments:
             - "@netgen_content_browser.adapter"
+            - "@translator"
 
     # Event listeners
 

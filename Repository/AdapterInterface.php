@@ -5,6 +5,13 @@ namespace Netgen\Bundle\ContentBrowserBundle\Repository;
 interface AdapterInterface
 {
     /**
+     * Returns all available columns and their names
+     *
+     * @return array
+     */
+    public function getColumns();
+
+    /**
      * Loads the location for provided ID.
      *
      * @param int|string $locationId

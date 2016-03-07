@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Repository;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Repository implements RepositoryInterface
 {
@@ -10,6 +11,11 @@ class Repository implements RepositoryInterface
      * @var \Netgen\Bundle\ContentBrowserBundle\Repository\AdapterInterface
      */
     protected $adapter;
+
+    /**
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    protected $translator;
 
     /**
      * @var array
@@ -20,10 +26,12 @@ class Repository implements RepositoryInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Repository\AdapterInterface $adapter
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      */
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(AdapterInterface $adapter, TranslatorInterface $translator)
     {
         $this->adapter = $adapter;
+        $this->translator = $translator;
     }
 
     /**
@@ -44,6 +52,20 @@ class Repository implements RepositoryInterface
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Returns the available columns.
+     *
+     * @return array
+     */
+    public function getAvailableColumns()
+    {
+        return array(
+            'id' => $this->translator->trans('netgen_content_browser.columns.id'),
+            'parent_id' => $this->translator->trans('netgen_content_browser.columns.parent_id'),
+            'name' => $this->translator->trans('netgen_content_browser.columns.name'),
+        ) + $this->adapter->getColumns();
     }
 
     /**
