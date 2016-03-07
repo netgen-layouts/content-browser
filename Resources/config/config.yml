@@ -4,6 +4,11 @@ trees:
         root_locations: [2, 43, 5]
         categories:
             types: [frontpage, folder]
+    tags:
+        adapter: eztags
+        root_locations: [0]
+        default_columns: [name]
+        location_template: 'NetgenContentBrowserBundle:eztags:location.html.twig'
 
 adapters:
     ezpublish: ~

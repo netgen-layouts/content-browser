@@ -4,6 +4,10 @@ parameters:
     netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ThumbnailLoader\VariationThumbnailLoader
     netgen_content_browser.ezpublish.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\LocationBuilder
     netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\Adapter
+
+    netgen_content_browser.eztags.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\LocationBuilder
+    netgen_content_browser.eztags.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\Adapter
+
     netgen_content_browser.tree.class: Netgen\Bundle\ContentBrowserBundle\Tree\Tree
 
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
@@ -16,7 +20,7 @@ services:
         calls:
             - [setContainer, ["@service_container"]]
 
-    # Adapters
+    # eZ Publish adapter
 
     netgen_content_browser.ezpublish.thumbnail_loader:
         alias: netgen_content_browser.ezpublish.thumbnail_loader.variation
@@ -44,6 +48,21 @@ services:
             - "@netgen_content_browser.ezpublish.location_builder"
         tags:
             - { name: netgen_content_browser.adapter, identifier: ezpublish }
+
+    # eZ Tags adapter
+
+    netgen_content_browser.eztags.location_builder:
+        class: %netgen_content_browser.eztags.location_builder.class%
+        arguments:
+            - "@ezpublish.translation_helper"
+
+    netgen_content_browser.eztags.adapter:
+        class: %netgen_content_browser.eztags.adapter.class%
+        arguments:
+            - "@ezpublish.api.service.tags"
+            - "@netgen_content_browser.eztags.location_builder"
+        tags:
+            - { name: netgen_content_browser.adapter, identifier: eztags }
 
     # Event listeners
 
