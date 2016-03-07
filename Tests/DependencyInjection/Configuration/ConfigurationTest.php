@@ -35,6 +35,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'min_selected' => 3,
                         'max_selected' => 5,
@@ -61,6 +62,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'trees' => array(
                 'default' => array(
+                    'adapter' => 'ezpublish',
                     'root_locations' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 5,
@@ -95,6 +97,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'categories' => array(
                             'types' => array('type'),
@@ -113,6 +116,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'trees' => array(
                 'default' => array(
+                    'adapter' => 'ezpublish',
                     'root_locations' => array(42),
                     'min_selected' => 1,
                     'max_selected' => 0,
@@ -143,6 +147,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(),
                     ),
                 ),
@@ -167,6 +172,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'min_selected' => -5,
                     ),
@@ -192,6 +198,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'min_selected' => null,
                         'max_selected' => 5,
@@ -214,6 +221,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'trees' => array(
                 'default' => array(
+                    'adapter' => 'ezpublish',
                     'root_locations' => array(42),
                     'min_selected' => 0,
                     'max_selected' => 5,
@@ -244,6 +252,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'max_selected' => -5,
                     ),
@@ -269,6 +278,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'min_selected' => 3,
                         'max_selected' => null,
@@ -291,6 +301,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $expectedConfig = array(
             'trees' => array(
                 'default' => array(
+                    'adapter' => 'ezpublish',
                     'root_locations' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 0,
@@ -321,6 +332,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'location_template' => '',
                     ),
@@ -346,35 +358,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'default_columns' => array(),
-                    ),
-                ),
-                'adapters' => array(
-                    'ezpublish' => array(
-                        'image_fields' => array('image'),
-                        'variation_name' => 'netgen_content_browser',
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid($config);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     */
-    public function testEmptyCategoryTypes()
-    {
-        $config = array(
-            array(
-                'trees' => array(
-                    'default' => array(
-                        'root_locations' => array(42),
-                        'categories' => array(
-                            'types' => array(),
-                        ),
                     ),
                 ),
                 'adapters' => array(
@@ -398,6 +384,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             array(
                 'trees' => array(
                     'default' => array(
+                        'adapter' => 'ezpublish',
                         'root_locations' => array(42),
                         'categories' => array(
                             'types' => array('type'),
