@@ -5,18 +5,18 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 interface TreeInterface
 {
     /**
-     * Returns the tree config.
-     *
-     * @return array
-     */
-    public function getConfig();
-
-    /**
      * Returns the configured adapter.
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
      */
     public function getAdapter();
+
+    /**
+     * Returns the tree config.
+     *
+     * @return array
+     */
+    public function getConfig();
 
     /**
      * Returns all root locations.

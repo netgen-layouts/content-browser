@@ -31,16 +31,6 @@ class Tree implements TreeInterface
     }
 
     /**
-     * Returns the tree config.
-     *
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
      * Returns the configured adapter.
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
@@ -48,6 +38,16 @@ class Tree implements TreeInterface
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    /**
+     * Returns the tree config.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 
     /**
@@ -95,15 +95,10 @@ class Tree implements TreeInterface
      */
     public function getChildren(Location $location)
     {
-        $types = array();
-        if (!empty($this->config['children']['types'])) {
-            $types = $this->config['children']['types'];
-            if (!empty($this->config['children']['include_category_types']) && !empty($this->config['categories']['types'])) {
-                $types = array_merge($types, $this->config['categories']['types']);
-            }
-        }
-
-        return $this->adapter->loadLocationChildren($location, $types);
+        return $this->adapter->loadLocationChildren(
+            $location,
+            $this->getChildrenTypes()
+        );
     }
 
     /**
@@ -115,15 +110,10 @@ class Tree implements TreeInterface
      */
     public function hasChildren(Location $location)
     {
-        $types = array();
-        if (!empty($this->config['children']['types'])) {
-            $types = $this->config['children']['types'];
-            if (isset($this->config['children']['include_category_types']) && $this->config['children']['include_category_types']) {
-                $types = array_merge($types, $this->config['categories']['types']);
-            }
-        }
-
-        return $this->adapter->hasChildren($location, $types);
+        return $this->adapter->hasChildren(
+            $location,
+            $this->getChildrenTypes()
+        );
     }
 
     /**
@@ -137,9 +127,7 @@ class Tree implements TreeInterface
     {
         return $this->adapter->loadLocationChildren(
             $location,
-            !empty($this->config['categories']['types']) ?
-                $this->config['categories']['types'] :
-                array()
+            $this->getCategoryTypes()
         );
     }
 
@@ -154,9 +142,7 @@ class Tree implements TreeInterface
     {
         return $this->adapter->hasChildren(
             $location,
-            !empty($this->config['categories']['types']) ?
-                $this->config['categories']['types'] :
-                array()
+            $this->getCategoryTypes()
         );
     }
 
@@ -194,5 +180,39 @@ class Tree implements TreeInterface
         }
 
         return false;
+    }
+
+    /**
+     * Returns types used to filter the children list
+     *
+     * @return array
+     */
+    protected function getChildrenTypes()
+    {
+        $types = array();
+        if (!empty($this->config['children']['types'])) {
+            $types = $this->config['children']['types'];
+
+            if (!empty($this->config['children']['include_category_types'])) {
+                $types = array_merge($types, $this->getCategoryTypes());
+            }
+        }
+
+        return $types;
+    }
+
+    /**
+     * Returns types used to filter the categories list
+     *
+     * @return array
+     */
+    protected function getCategoryTypes()
+    {
+        if (!empty($this->config['categories']['types']))
+        {
+            return $this->config['categories']['types'];
+        }
+
+        return array();
     }
 }
