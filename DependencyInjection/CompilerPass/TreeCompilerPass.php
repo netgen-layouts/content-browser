@@ -41,7 +41,6 @@ class TreeCompilerPass implements CompilerPassInterface
                 $treeClass,
                 array(
                     new Reference($adapters[$treeConfig['adapter']]),
-                    new Reference('translator'),
                     $treeConfig
                 )
             );

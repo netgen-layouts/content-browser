@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class Tree implements TreeInterface
 {
@@ -11,11 +10,6 @@ class Tree implements TreeInterface
      * @var \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
      */
     protected $adapter;
-
-    /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected $translator;
 
     /**
      * @var array
@@ -26,16 +20,13 @@ class Tree implements TreeInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface $adapter
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      * @param array $config
      */
     public function __construct(
         AdapterInterface $adapter,
-        TranslatorInterface $translator,
         array $config
     ) {
         $this->adapter = $adapter;
-        $this->translator = $translator;
         $this->config = $config;
     }
 
@@ -50,17 +41,13 @@ class Tree implements TreeInterface
     }
 
     /**
-     * Returns the available columns.
+     * Returns the configured adapter.
      *
-     * @return array
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
      */
-    public function getAvailableColumns()
+    public function getAdapter()
     {
-        return array(
-            'id' => $this->translator->trans('netgen_content_browser.columns.id'),
-            'parent_id' => $this->translator->trans('netgen_content_browser.columns.parent_id'),
-            'name' => $this->translator->trans('netgen_content_browser.columns.name'),
-        ) + $this->adapter->getColumns();
+        return $this->adapter;
     }
 
     /**
@@ -146,7 +133,7 @@ class Tree implements TreeInterface
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
      */
-    public function getCategories(Location $location)
+    public function getSubCategories(Location $location)
     {
         return $this->adapter->loadLocationChildren(
             $location,
@@ -161,7 +148,7 @@ class Tree implements TreeInterface
      *
      * @return bool
      */
-    public function hasChildrenCategories(Location $location)
+    public function hasSubCategories(Location $location)
     {
         return $this->adapter->hasChildren(
             $location,

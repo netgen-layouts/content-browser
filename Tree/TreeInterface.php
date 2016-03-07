@@ -12,11 +12,11 @@ interface TreeInterface
     public function getConfig();
 
     /**
-     * Returns the available columns.
+     * Returns the configured adapter.
      *
-     * @return array
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
      */
-    public function getAvailableColumns();
+    public function getAdapter();
 
     /**
      * Returns all root locations.
@@ -61,7 +61,7 @@ interface TreeInterface
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
      */
-    public function getCategories(Location $location);
+    public function getSubCategories(Location $location);
 
     /**
      * Returns if current location has child categories.
@@ -70,7 +70,7 @@ interface TreeInterface
      *
      * @return bool
      */
-    public function hasChildrenCategories(Location $location);
+    public function hasSubCategories(Location $location);
 
     /**
      * Returns if provided location is one of the root locations.

@@ -31,7 +31,7 @@ class TreeController extends BaseController
         foreach ($this->tree->getRootLocations() as $location) {
             $rootLocations[] = $this->serializeLocation(
                 $location,
-                $this->tree->hasChildrenCategories($location)
+                $this->tree->hasSubCategories($location)
             );
         }
 
@@ -42,7 +42,11 @@ class TreeController extends BaseController
             'min_selected' => $config['min_selected'],
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
-            'available_columns' => $this->tree->getAvailableColumns(),
+            'available_columns' => array(
+                'id' => $translator->trans('netgen_content_browser.columns.id'),
+                'parent_id' => $translator->trans('netgen_content_browser.columns.parent_id'),
+                'name' => $translator->trans('netgen_content_browser.columns.name'),
+            ) + $this->tree->getAdapter()->getColumns(),
         );
 
         return new JsonResponse($data);
@@ -92,13 +96,13 @@ class TreeController extends BaseController
         $this->initTree($tree);
 
         $location = $this->tree->getLocation($locationId);
-        $children = $this->tree->getCategories($location);
+        $children = $this->tree->getSubCategories($location);
 
         $childrenData = array();
         foreach ($children as $child) {
             $childrenData[] = $this->serializeLocation(
                 $child,
-                $this->tree->hasChildrenCategories($child)
+                $this->tree->hasSubCategories($child)
             );
         }
 
