@@ -57,6 +57,7 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->scalarNode('adapter')
+                        ->isRequired()
                         ->validate()
                         ->ifTrue(function ($v) { return !is_string($v); })
                             ->thenInvalid('Adapter identifier should be a string')
