@@ -21,9 +21,6 @@ services:
     netgen_content_browser.ezpublish.thumbnail_loader:
         alias: netgen_content_browser.ezpublish.thumbnail_loader.variation
 
-    netgen_content_browser.adapter:
-        alias: netgen_content_browser.ezpublish.adapter
-
     netgen_content_browser.ezpublish.thumbnail_loader.variation:
         class: %netgen_content_browser.ezpublish.thumbnail_loader.variation.class%
         arguments:

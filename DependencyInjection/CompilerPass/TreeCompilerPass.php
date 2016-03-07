@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class TreeCompilerPass implements CompilerPassInterface
 {
@@ -18,13 +19,30 @@ class TreeCompilerPass implements CompilerPassInterface
     {
         $trees = $container->getParameter('netgen_content_browser.trees');
 
+        $adapters = $container->findTaggedServiceIds('netgen_content_browser.adapter');
+        $adapters = array_map(
+            function(array $v) {
+                return $v[0]['identifier'];
+            },
+            $adapters
+        );
+
+        $adapters = array_flip($adapters);
+
+        $treeClass = $container->getParameter('netgen_content_browser.tree.class');
         foreach ($trees as $tree) {
+            $treeConfig = $container->getParameter('netgen_content_browser.tree.' . $tree);
+
+            if (!isset($adapters[$treeConfig['adapter']])) {
+                throw new RuntimeException("Adapter '{$treeConfig['adapter']}' does not exist.");
+            }
+
             $treeDefinition = new Definition(
-                $container->getParameter('netgen_content_browser.tree.class'),
+                $treeClass,
                 array(
-                    new Reference('netgen_content_browser.adapter'),
+                    new Reference($adapters[$treeConfig['adapter']]),
                     new Reference('translator'),
-                    $container->getParameter('netgen_content_browser.tree.' . $tree)
+                    $treeConfig
                 )
             );
 
