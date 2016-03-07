@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Repository;
+namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 

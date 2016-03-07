@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Repository;
+namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class Repository implements RepositoryInterface
+class Tree implements TreeInterface
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Repository\AdapterInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
      */
     protected $adapter;
 
@@ -25,27 +25,22 @@ class Repository implements RepositoryInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\AdapterInterface $adapter
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface $adapter
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     */
-    public function __construct(AdapterInterface $adapter, TranslatorInterface $translator)
-    {
-        $this->adapter = $adapter;
-        $this->translator = $translator;
-    }
-
-    /**
-     * Sets the repository config.
-     *
      * @param array $config
      */
-    public function setConfig(array $config)
-    {
+    public function __construct(
+        AdapterInterface $adapter,
+        TranslatorInterface $translator,
+        array $config
+    ) {
+        $this->adapter = $adapter;
+        $this->translator = $translator;
         $this->config = $config;
     }
 
     /**
-     * Returns the repository config.
+     * Returns the tree config.
      *
      * @return array
      */
@@ -71,7 +66,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns all root locations.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
      */
     public function getRootLocations()
     {
@@ -91,7 +86,7 @@ class Repository implements RepositoryInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If location is outside of root locations
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location
      */
     public function getLocation($locationId)
     {
@@ -107,9 +102,9 @@ class Repository implements RepositoryInterface
     /**
      * Loads all children of the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
      */
     public function getChildren(Location $location)
     {
@@ -127,7 +122,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns if current location has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
      * @return bool
      */
@@ -147,9 +142,9 @@ class Repository implements RepositoryInterface
     /**
      * Loads all categories below the specified location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Repository\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
      */
     public function getCategories(Location $location)
     {
@@ -162,7 +157,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns if current location has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
      * @return bool
      */
@@ -177,7 +172,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns if provided location is one of the root locations.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
      * @return bool
      */
@@ -195,7 +190,7 @@ class Repository implements RepositoryInterface
     /**
      * Returns if provided location is inside one of the root locations.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Repository\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
      *
      * @return bool
      */

@@ -1,10 +1,10 @@
 parameters:
     netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
 
-    netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\ThumbnailLoader\VariationThumbnailLoader
-    netgen_content_browser.ezpublish.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\LocationBuilder
-    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Repository\EzPublish\Adapter
-    netgen_content_browser.repository.class: Netgen\Bundle\ContentBrowserBundle\Repository\Repository
+    netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ThumbnailLoader\VariationThumbnailLoader
+    netgen_content_browser.ezpublish.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\LocationBuilder
+    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\Adapter
+    netgen_content_browser.tree.class: Netgen\Bundle\ContentBrowserBundle\Tree\Tree
 
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
 
@@ -48,15 +48,6 @@ services:
             - "@translator"
         tags:
             - { name: netgen_content_browser.adapter, identifier: ezpublish }
-
-    # Repository
-
-    netgen_content_browser.repository:
-        class: %netgen_content_browser.repository.class%
-        shared: false
-        arguments:
-            - "@netgen_content_browser.adapter"
-            - "@translator"
 
     # Event listeners
 
