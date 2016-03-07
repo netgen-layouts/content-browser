@@ -29,9 +29,10 @@ class TreeController extends BaseController
 
         $rootLocations = array();
         foreach ($this->tree->getRootLocations() as $location) {
-            $locationData = $this->serializeLocation($location);
-            $locationData['has_children'] = $this->tree->hasChildrenCategories($location);
-            $rootLocations[] = $locationData;
+            $rootLocations[] = $this->serializeLocation(
+                $location,
+                $this->tree->hasChildrenCategories($location)
+            );
         }
 
         $config = $this->tree->getConfig();
@@ -144,13 +145,16 @@ class TreeController extends BaseController
      */
     protected function serializeLocation(Location $location, $hasChildren = false)
     {
-        return array(
+        $columns = array(
             'id' => $location->id,
             'parent_id' => !$this->tree->isRootLocation($location) ?
                 $location->parentId :
                 null,
             'name' => $location->name,
             'enabled' => $location->isEnabled,
+        ) + $location->additionalColumns;
+
+        return $columns + array(
             'has_children' => (bool)$hasChildren,
             'html' => $this->renderView(
                 $this->tree->getConfig()['location_template'],
@@ -158,7 +162,7 @@ class TreeController extends BaseController
                     'location' => $location,
                 )
             ),
-        ) + $location->additionalColumns;
+        );
     }
 
     /**
