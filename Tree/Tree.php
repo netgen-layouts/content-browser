@@ -98,7 +98,7 @@ class Tree implements TreeInterface
         $types = array();
         if (!empty($this->config['children']['types'])) {
             $types = $this->config['children']['types'];
-            if (isset($this->config['children']['include_category_types']) && $this->config['children']['include_category_types']) {
+            if (!empty($this->config['children']['include_category_types']) && !empty($this->config['categories']['types'])) {
                 $types = array_merge($types, $this->config['categories']['types']);
             }
         }
@@ -137,7 +137,9 @@ class Tree implements TreeInterface
     {
         return $this->adapter->loadLocationChildren(
             $location,
-            $this->config['categories']['types']
+            !empty($this->config['categories']['types']) ?
+                $this->config['categories']['types'] :
+                array()
         );
     }
 
@@ -152,7 +154,9 @@ class Tree implements TreeInterface
     {
         return $this->adapter->hasChildren(
             $location,
-            $this->config['categories']['types']
+            !empty($this->config['categories']['types']) ?
+                $this->config['categories']['types'] :
+                array()
         );
     }
 
