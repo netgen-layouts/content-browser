@@ -46,8 +46,13 @@ class TreeController extends BaseController
                 'id' => $translator->trans('netgen_content_browser.columns.id'),
                 'parent_id' => $translator->trans('netgen_content_browser.columns.parent_id'),
                 'name' => $translator->trans('netgen_content_browser.columns.name'),
-            ) + $this->tree->getAdapter()->getColumns(),
+            ),
         );
+
+        $adapterColumns = $this->tree->getAdapter()->getColumns();
+        foreach ($adapterColumns as $adapterColumn => $adapterColumnName) {
+            $data['available_columns'][$adapterColumn] = $translator->trans($adapterColumnName);
+        }
 
         return new JsonResponse($data);
     }
