@@ -8,7 +8,7 @@ trees:
         adapter: eztags
         root_locations: [0]
         default_columns: [name]
-        location_template: 'NetgenContentBrowserBundle:eztags:location.html.twig'
+        template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
 
 adapters:
     ezpublish: ~

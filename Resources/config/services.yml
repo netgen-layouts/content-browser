@@ -2,10 +2,10 @@ parameters:
     netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
 
     netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ThumbnailLoader\VariationThumbnailLoader
-    netgen_content_browser.ezpublish.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\LocationBuilder
+    netgen_content_browser.ezpublish.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ItemBuilder
     netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\Adapter
 
-    netgen_content_browser.eztags.location_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\LocationBuilder
+    netgen_content_browser.eztags.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\ItemBuilder
     netgen_content_browser.eztags.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\Adapter
 
     netgen_content_browser.tree.class: Netgen\Bundle\ContentBrowserBundle\Tree\Tree
@@ -34,8 +34,8 @@ services:
             - "%netgen_content_browser.adapters.ezpublish.image_fields%"
             - "%netgen_content_browser.adapters.ezpublish.variation_name%"
 
-    netgen_content_browser.ezpublish.location_builder:
-        class: %netgen_content_browser.ezpublish.location_builder.class%
+    netgen_content_browser.ezpublish.item_builder:
+        class: %netgen_content_browser.ezpublish.item_builder.class%
         arguments:
             - "@ezpublish.api.repository"
             - "@ezpublish.translation_helper"
@@ -45,14 +45,14 @@ services:
         class: %netgen_content_browser.ezpublish.adapter.class%
         arguments:
             - "@ezpublish.api.service.search"
-            - "@netgen_content_browser.ezpublish.location_builder"
+            - "@netgen_content_browser.ezpublish.item_builder"
         tags:
             - { name: netgen_content_browser.adapter, identifier: ezpublish }
 
     # eZ Tags adapter
 
-    netgen_content_browser.eztags.location_builder:
-        class: %netgen_content_browser.eztags.location_builder.class%
+    netgen_content_browser.eztags.item_builder:
+        class: %netgen_content_browser.eztags.item_builder.class%
         arguments:
             - "@ezpublish.translation_helper"
 
@@ -60,7 +60,7 @@ services:
         class: %netgen_content_browser.eztags.adapter.class%
         arguments:
             - "@ezpublish.api.service.tags"
-            - "@netgen_content_browser.eztags.location_builder"
+            - "@netgen_content_browser.eztags.item_builder"
         tags:
             - { name: netgen_content_browser.adapter, identifier: eztags }
 

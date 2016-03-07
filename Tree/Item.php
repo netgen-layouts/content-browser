@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 
-class Location
+class Item
 {
     /**
      * Construct object optionally with a set of properties.

@@ -39,7 +39,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'root_locations' => array(42),
                         'min_selected' => 3,
                         'max_selected' => 5,
-                        'location_template' => 'template.html.twig',
+                        'template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
                         'categories' => array(
                             'types' => array('type'),
@@ -66,7 +66,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'root_locations' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 5,
-                    'location_template' => 'template.html.twig',
+                    'template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
                     'categories' => array(
                         'types' => array('type'),
@@ -120,7 +120,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'root_locations' => array(42),
                     'min_selected' => 1,
                     'max_selected' => 0,
-                    'location_template' => 'NetgenContentBrowserBundle:ezpublish:location.html.twig',
+                    'template' => 'NetgenContentBrowserBundle:ezpublish:item.html.twig',
                     'default_columns' => array('name', 'type', 'visible'),
                     'categories' => array(
                         'types' => array('type'),
@@ -141,7 +141,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      */
-    public function testEmptyRootLocations()
+    public function testEmptyRootItems()
     {
         $config = array(
             array(
@@ -202,7 +202,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'root_locations' => array(42),
                         'min_selected' => null,
                         'max_selected' => 5,
-                        'location_template' => 'template.html.twig',
+                        'template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
                         'categories' => array(
                             'types' => array('type'),
@@ -225,7 +225,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'root_locations' => array(42),
                     'min_selected' => 0,
                     'max_selected' => 5,
-                    'location_template' => 'template.html.twig',
+                    'template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
                     'categories' => array(
                         'types' => array('type'),
@@ -282,7 +282,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'root_locations' => array(42),
                         'min_selected' => 3,
                         'max_selected' => null,
-                        'location_template' => 'template.html.twig',
+                        'template' => 'template.html.twig',
                         'default_columns' => array('id', 'parent_id'),
                         'categories' => array(
                             'types' => array('type'),
@@ -305,7 +305,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'root_locations' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 0,
-                    'location_template' => 'template.html.twig',
+                    'template' => 'template.html.twig',
                     'default_columns' => array('id', 'parent_id'),
                     'categories' => array(
                         'types' => array('type'),
@@ -326,7 +326,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      */
-    public function testEmptyLocationTemplate()
+    public function testEmptyTemplate()
     {
         $config = array(
             array(
@@ -334,7 +334,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'default' => array(
                         'adapter' => 'ezpublish',
                         'root_locations' => array(42),
-                        'location_template' => '',
+                        'template' => '',
                     ),
                 ),
                 'adapters' => array(

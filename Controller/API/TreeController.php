@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Tree\TreeInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Netgen\Bundle\ContentBrowserBundle\Tree\Location;
+use Netgen\Bundle\ContentBrowserBundle\Tree\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TreeController extends BaseController
@@ -27,18 +27,18 @@ class TreeController extends BaseController
         $translator = $this->get('translator');
         $this->initTree($tree);
 
-        $rootLocations = array();
-        foreach ($this->tree->getRootLocations() as $location) {
-            $rootLocations[] = $this->serializeLocation(
-                $location,
-                $this->tree->hasSubCategories($location)
+        $rootItems = array();
+        foreach ($this->tree->getRootItems() as $item) {
+            $rootItems[] = $this->serializeItem(
+                $item,
+                $this->tree->hasSubCategories($item)
             );
         }
 
         $config = $this->tree->getConfig();
         $data = array(
             'name' => $translator->trans('netgen_content_browser.trees.' . $tree . '.name'),
-            'root_locations' => $rootLocations,
+            'root_locations' => $rootItems,
             'min_selected' => $config['min_selected'],
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
@@ -58,30 +58,30 @@ class TreeController extends BaseController
     }
 
     /**
-     * Loads all children of the specified location.
+     * Loads all children of the specified item.
      *
      * @param string $tree
-     * @param int|string $locationId
+     * @param int|string $itemId
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getLocationChildren($tree, $locationId)
+    public function getItemChildren($tree, $itemId)
     {
         $this->initTree($tree);
 
-        $location = $this->tree->getLocation($locationId);
-        $children = $this->tree->getChildren($location);
+        $item = $this->tree->getItem($itemId);
+        $children = $this->tree->getChildren($item);
 
         $childrenData = array();
         foreach ($children as $child) {
-            $childrenData[] = $this->serializeLocation(
+            $childrenData[] = $this->serializeItem(
                 $child,
                 $this->tree->hasChildren($child)
             );
         }
 
         $data = array(
-            'path' => $this->getLocationPath($location),
+            'path' => $this->getItemPath($item),
             'children' => $childrenData,
         );
 
@@ -89,30 +89,30 @@ class TreeController extends BaseController
     }
 
     /**
-     * Loads all children of the specified location.
+     * Loads all children of the specified item.
      *
      * @param string $tree
-     * @param int|string $locationId
+     * @param int|string $itemId
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getLocationCategories($tree, $locationId)
+    public function getItemCategories($tree, $itemId)
     {
         $this->initTree($tree);
 
-        $location = $this->tree->getLocation($locationId);
-        $children = $this->tree->getSubCategories($location);
+        $item = $this->tree->getItem($itemId);
+        $children = $this->tree->getSubCategories($item);
 
         $childrenData = array();
         foreach ($children as $child) {
-            $childrenData[] = $this->serializeLocation(
+            $childrenData[] = $this->serializeItem(
                 $child,
                 $this->tree->hasSubCategories($child)
             );
         }
 
         $data = array(
-            'path' => $this->getLocationPath($location),
+            'path' => $this->getItemPath($item),
             'children' => $childrenData,
         );
 
@@ -120,24 +120,24 @@ class TreeController extends BaseController
     }
 
     /**
-     * Generates the location path.
+     * Generates the item path.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
      * @return array
      */
-    protected function getLocationPath(Location $location)
+    protected function getItemPath(Item $item)
     {
         $path = array();
-        foreach ($location->path as $pathLocationId) {
-            $pathItemLocation = $this->tree->getLocation($pathLocationId);
-            if (!$this->tree->isInsideRootLocations($pathItemLocation)) {
+        foreach ($item->path as $pathItemId) {
+            $pathItem = $this->tree->getItem($pathItemId);
+            if (!$this->tree->isInsideRootItems($pathItem)) {
                 continue;
             }
 
             $path[] = array(
-                'id' => $pathItemLocation->id,
-                'name' => $pathItemLocation->name,
+                'id' => $pathItem->id,
+                'name' => $pathItem->name,
             );
         }
 
@@ -145,30 +145,30 @@ class TreeController extends BaseController
     }
 
     /**
-     * Serializes the location.
+     * Serializes the item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      * @param bool $hasChildren
      *
      * @return array
      */
-    protected function serializeLocation(Location $location, $hasChildren = false)
+    protected function serializeItem(Item $item, $hasChildren = false)
     {
         $columns = array(
-            'id' => $location->id,
-            'parent_id' => !$this->tree->isRootLocation($location) ?
-                $location->parentId :
+            'id' => $item->id,
+            'parent_id' => !$this->tree->isRootItem($item) ?
+                $item->parentId :
                 null,
-            'name' => $location->name,
-            'enabled' => $location->isEnabled,
-        ) + $location->additionalColumns;
+            'name' => $item->name,
+            'enabled' => $item->isEnabled,
+        ) + $item->additionalColumns;
 
         return $columns + array(
             'has_children' => (bool)$hasChildren,
             'html' => $this->renderView(
-                $this->tree->getConfig()['location_template'],
+                $this->tree->getConfig()['template'],
                 array(
-                    'location' => $location,
+                    'item' => $item,
                 )
             ),
         );

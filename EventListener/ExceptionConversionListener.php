@@ -4,7 +4,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
-use Netgen\Bundle\ContentBrowserBundle\Exceptions\Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;

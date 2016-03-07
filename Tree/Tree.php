@@ -51,112 +51,112 @@ class Tree implements TreeInterface
     }
 
     /**
-     * Returns all root locations.
+     * Returns all root items.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
      */
-    public function getRootLocations()
+    public function getRootItems()
     {
-        $rootLocations = array();
+        $rootItems = array();
 
-        foreach ($this->config['root_locations'] as $rootLocation) {
-            $rootLocations[] = $this->getLocation($rootLocation);
+        foreach ($this->config['root_locations'] as $rootItem) {
+            $rootItems[] = $this->getItem($rootItem);
         }
 
-        return $rootLocations;
+        return $rootItems;
     }
 
     /**
-     * Loads the location for specified ID.
+     * Loads the item for specified ID.
      *
-     * @param int|string $locationId
+     * @param int|string $itemId
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If location is outside of root locations
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If item is outside of root items
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item
      */
-    public function getLocation($locationId)
+    public function getItem($itemId)
     {
-        $location = $this->adapter->loadLocation($locationId);
+        $item = $this->adapter->loadItem($itemId);
 
-        if (!$this->isInsideRootLocations($location)) {
-            throw new OutOfBoundsException("Location #{$locationId} is not inside root locations.");
+        if (!$this->isInsideRootItems($item)) {
+            throw new OutOfBoundsException("Item #{$itemId} is not inside root items.");
         }
 
-        return $location;
+        return $item;
     }
 
     /**
-     * Loads all children of the specified location.
+     * Loads all children of the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
      */
-    public function getChildren(Location $location)
+    public function getChildren(Item $item)
     {
-        return $this->adapter->loadLocationChildren(
-            $location,
+        return $this->adapter->loadItemChildren(
+            $item,
             $this->getChildrenTypes()
         );
     }
 
     /**
-     * Returns if current location has children.
+     * Returns if current item has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
      * @return bool
      */
-    public function hasChildren(Location $location)
+    public function hasChildren(Item $item)
     {
         return $this->adapter->hasChildren(
-            $location,
+            $item,
             $this->getChildrenTypes()
         );
     }
 
     /**
-     * Loads all categories below the specified location.
+     * Loads all categories below the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
      */
-    public function getSubCategories(Location $location)
+    public function getSubCategories(Item $item)
     {
-        return $this->adapter->loadLocationChildren(
-            $location,
+        return $this->adapter->loadItemChildren(
+            $item,
             $this->getCategoryTypes()
         );
     }
 
     /**
-     * Returns if current location has child categories.
+     * Returns if current item has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
      * @return bool
      */
-    public function hasSubCategories(Location $location)
+    public function hasSubCategories(Item $item)
     {
         return $this->adapter->hasChildren(
-            $location,
+            $item,
             $this->getCategoryTypes()
         );
     }
 
     /**
-     * Returns if provided location is one of the root locations.
+     * Returns if provided item is one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
      * @return bool
      */
-    public function isRootLocation(Location $location)
+    public function isRootItem(Item $item)
     {
-        foreach ($this->config['root_locations'] as $rootLocation) {
-            if ($location->id == $rootLocation) {
+        foreach ($this->config['root_locations'] as $rootItem) {
+            if ($item->id == $rootItem) {
                 return true;
             }
         }
@@ -165,16 +165,16 @@ class Tree implements TreeInterface
     }
 
     /**
-     * Returns if provided location is inside one of the root locations.
+     * Returns if provided item is inside one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      *
      * @return bool
      */
-    public function isInsideRootLocations(Location $location)
+    public function isInsideRootItems(Item $item)
     {
-        foreach ($this->config['root_locations'] as $rootLocation) {
-            if (in_array($rootLocation, $location->path)) {
+        foreach ($this->config['root_locations'] as $rootItem) {
+            if (in_array($rootItem, $item->path)) {
                 return true;
             }
         }

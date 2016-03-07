@@ -12,33 +12,33 @@ interface AdapterInterface
     public function getColumns();
 
     /**
-     * Loads the location for provided ID.
+     * Loads the item for provided ID.
      *
-     * @param int|string $locationId
+     * @param int|string $itemId
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If location with provided ID was not found
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item with provided ID was not found
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item
      */
-    public function loadLocation($locationId);
+    public function loadItem($itemId);
 
     /**
-     * Loads all children of the provided location.
+     * Loads all children of the provided item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      * @param string[] $types
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Location[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
      */
-    public function loadLocationChildren(Location $location, array $types = array());
+    public function loadItemChildren(Item $item, array $types = array());
 
     /**
-     * Returns true if provided location has children.
+     * Returns true if provided item has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Location $location
+     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
      * @param string[] $types
      *
      * @return bool
      */
-    public function hasChildren(Location $location, array $types = array());
+    public function hasChildren(Item $item, array $types = array());
 }
