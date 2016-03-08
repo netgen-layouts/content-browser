@@ -64,7 +64,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->cannotBeEmpty()
                     ->end()
-                    ->arrayNode('root_locations')
+                    ->arrayNode('root_items')
                         ->isRequired()
                         ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()

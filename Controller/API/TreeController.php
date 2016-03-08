@@ -38,7 +38,7 @@ class TreeController extends BaseController
         $config = $this->tree->getConfig();
         $data = array(
             'name' => $translator->trans('netgen_content_browser.trees.' . $tree . '.name'),
-            'root_locations' => $rootItems,
+            'root_items' => $rootItems,
             'min_selected' => $config['min_selected'],
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],

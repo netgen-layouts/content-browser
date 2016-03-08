@@ -5,13 +5,13 @@ netgen_content_browser_api_v1_config:
         _controller: netgen_content_browser.controller.api.tree:getConfig
 
 netgen_content_browser_api_v1_item_children:
-    path: /{tree}/locations/{itemId}/children
+    path: /{tree}/items/{itemId}/children
     methods: [GET]
     defaults:
         _controller: netgen_content_browser.controller.api.tree:getItemChildren
 
 netgen_content_browser_api_v1_item_categories:
-    path: /{tree}/locations/{itemId}/categories
+    path: /{tree}/items/{itemId}/categories
     methods: [GET]
     defaults:
         _controller: netgen_content_browser.controller.api.tree:getItemCategories

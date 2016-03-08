@@ -1,12 +1,12 @@
 trees:
     default:
         adapter: ezpublish
-        root_locations: [2, 43, 5]
+        root_items: [2, 43, 5]
         categories:
             types: [frontpage, folder]
     tags:
         adapter: eztags
-        root_locations: [0]
+        root_items: [0]
         default_columns: [name]
         template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
 

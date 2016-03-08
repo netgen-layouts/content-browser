@@ -36,7 +36,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'min_selected' => 3,
                         'max_selected' => 5,
                         'template' => 'template.html.twig',
@@ -63,7 +63,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'trees' => array(
                 'default' => array(
                     'adapter' => 'ezpublish',
-                    'root_locations' => array(42),
+                    'root_items' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 5,
                     'template' => 'template.html.twig',
@@ -98,7 +98,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'categories' => array(
                             'types' => array('type'),
                         ),
@@ -117,7 +117,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'trees' => array(
                 'default' => array(
                     'adapter' => 'ezpublish',
-                    'root_locations' => array(42),
+                    'root_items' => array(42),
                     'min_selected' => 1,
                     'max_selected' => 0,
                     'template' => 'NetgenContentBrowserBundle:ezpublish:item.html.twig',
@@ -148,7 +148,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(),
+                        'root_items' => array(),
                     ),
                 ),
                 'adapters' => array(
@@ -173,7 +173,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'min_selected' => -5,
                     ),
                 ),
@@ -199,7 +199,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'min_selected' => null,
                         'max_selected' => 5,
                         'template' => 'template.html.twig',
@@ -222,7 +222,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'trees' => array(
                 'default' => array(
                     'adapter' => 'ezpublish',
-                    'root_locations' => array(42),
+                    'root_items' => array(42),
                     'min_selected' => 0,
                     'max_selected' => 5,
                     'template' => 'template.html.twig',
@@ -253,7 +253,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'max_selected' => -5,
                     ),
                 ),
@@ -279,7 +279,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'min_selected' => 3,
                         'max_selected' => null,
                         'template' => 'template.html.twig',
@@ -302,7 +302,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'trees' => array(
                 'default' => array(
                     'adapter' => 'ezpublish',
-                    'root_locations' => array(42),
+                    'root_items' => array(42),
                     'min_selected' => 3,
                     'max_selected' => 0,
                     'template' => 'template.html.twig',
@@ -333,7 +333,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'template' => '',
                     ),
                 ),
@@ -359,7 +359,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'default_columns' => array(),
                     ),
                 ),
@@ -385,7 +385,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                 'trees' => array(
                     'default' => array(
                         'adapter' => 'ezpublish',
-                        'root_locations' => array(42),
+                        'root_items' => array(42),
                         'categories' => array(
                             'types' => array('type'),
                         ),

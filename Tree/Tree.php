@@ -61,7 +61,7 @@ class Tree implements TreeInterface
     {
         $rootItems = array();
 
-        foreach ($this->config['root_locations'] as $rootItem) {
+        foreach ($this->config['root_items'] as $rootItem) {
             $rootItems[] = $this->getItem($rootItem);
         }
 
@@ -157,7 +157,7 @@ class Tree implements TreeInterface
      */
     public function isRootItem(Item $item)
     {
-        foreach ($this->config['root_locations'] as $rootItem) {
+        foreach ($this->config['root_items'] as $rootItem) {
             if ($item->id == $rootItem) {
                 return true;
             }
@@ -175,7 +175,7 @@ class Tree implements TreeInterface
      */
     public function isInsideRootItems(Item $item)
     {
-        foreach ($this->config['root_locations'] as $rootItem) {
+        foreach ($this->config['root_items'] as $rootItem) {
             if (in_array($rootItem, $item->path)) {
                 return true;
             }
