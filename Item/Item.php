@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Adapter;
+namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 

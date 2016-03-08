@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
-use Netgen\Bundle\ContentBrowserBundle\Adapter\Item;
+use Netgen\Bundle\ContentBrowserBundle\Item\Item;
 
 interface TreeInterface
 {
@@ -23,7 +23,7 @@ interface TreeInterface
     /**
      * Returns all root items.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item[]
      */
     public function getRootItems();
 
@@ -34,23 +34,23 @@ interface TreeInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If item is outside of root items
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item
      */
     public function getItem($itemId);
 
     /**
      * Loads all children of the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item[]
      */
     public function getChildren(Item $item);
 
     /**
      * Returns if current item has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
      * @return bool
      */
@@ -59,16 +59,16 @@ interface TreeInterface
     /**
      * Loads all categories below the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item[]
      */
     public function getSubCategories(Item $item);
 
     /**
      * Returns if current item has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
      * @return bool
      */
@@ -77,7 +77,7 @@ interface TreeInterface
     /**
      * Returns if provided item is one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
      * @return bool
      */
@@ -86,7 +86,7 @@ interface TreeInterface
     /**
      * Returns if provided item is inside one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item
      *
      * @return bool
      */

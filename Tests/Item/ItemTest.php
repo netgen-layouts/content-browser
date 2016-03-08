@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\Adapter;
+namespace Netgen\Bundle\ContentBrowserBundle\Tests\Item;
 
-use Netgen\Bundle\ContentBrowserBundle\Adapter\Item;
+use Netgen\Bundle\ContentBrowserBundle\Item\Item;
 
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Adapter\Item::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::__construct
      */
     public function testSetProperties()
     {
@@ -23,7 +23,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Adapter\Item::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::__construct
      * @expectedException \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException
      */
     public function testSetNonExistingProperties()
