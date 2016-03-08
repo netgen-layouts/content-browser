@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tree;
+namespace Netgen\Bundle\ContentBrowserBundle\Adapter;
 
 interface AdapterInterface
 {
@@ -18,24 +18,24 @@ interface AdapterInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item with provided ID was not found
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item
      */
     public function loadItem($itemId);
 
     /**
      * Loads all children of the provided item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      * @param string[] $types
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
      */
     public function loadItemChildren(Item $item, array $types = array());
 
     /**
      * Returns true if provided item has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      * @param string[] $types
      *
      * @return bool

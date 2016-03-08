@@ -1,12 +1,12 @@
 parameters:
     netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
 
-    netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ThumbnailLoader\VariationThumbnailLoader
-    netgen_content_browser.ezpublish.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\ItemBuilder
-    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzPublish\Adapter
+    netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\ThumbnailLoader\VariationThumbnailLoader
+    netgen_content_browser.ezpublish.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\ItemBuilder
+    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\Adapter
 
-    netgen_content_browser.eztags.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\ItemBuilder
-    netgen_content_browser.eztags.adapter.class: Netgen\Bundle\ContentBrowserBundle\Tree\EzTags\Adapter
+    netgen_content_browser.eztags.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzTags\ItemBuilder
+    netgen_content_browser.eztags.adapter.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzTags\Adapter
 
     netgen_content_browser.tree.class: Netgen\Bundle\ContentBrowserBundle\Tree\Tree
 

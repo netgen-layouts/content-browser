@@ -2,12 +2,14 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tree;
 
+use Netgen\Bundle\ContentBrowserBundle\Adapter\Item;
+use Netgen\Bundle\ContentBrowserBundle\Adapter\AdapterInterface;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
 
 class Tree implements TreeInterface
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Adapter\AdapterInterface
      */
     protected $adapter;
 
@@ -19,7 +21,7 @@ class Tree implements TreeInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface $adapter
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\AdapterInterface $adapter
      * @param array $config
      */
     public function __construct(
@@ -33,7 +35,7 @@ class Tree implements TreeInterface
     /**
      * Returns the configured adapter.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\AdapterInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\AdapterInterface
      */
     public function getAdapter()
     {
@@ -53,7 +55,7 @@ class Tree implements TreeInterface
     /**
      * Returns all root items.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
      */
     public function getRootItems()
     {
@@ -73,7 +75,7 @@ class Tree implements TreeInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException If item is outside of root items
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item
      */
     public function getItem($itemId)
     {
@@ -89,9 +91,9 @@ class Tree implements TreeInterface
     /**
      * Loads all children of the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
      */
     public function getChildren(Item $item)
     {
@@ -104,7 +106,7 @@ class Tree implements TreeInterface
     /**
      * Returns if current item has children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
      * @return bool
      */
@@ -119,9 +121,9 @@ class Tree implements TreeInterface
     /**
      * Loads all categories below the specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Tree\Item[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Adapter\Item[]
      */
     public function getSubCategories(Item $item)
     {
@@ -134,7 +136,7 @@ class Tree implements TreeInterface
     /**
      * Returns if current item has child categories.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
      * @return bool
      */
@@ -149,7 +151,7 @@ class Tree implements TreeInterface
     /**
      * Returns if provided item is one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
      * @return bool
      */
@@ -167,7 +169,7 @@ class Tree implements TreeInterface
     /**
      * Returns if provided item is inside one of the root items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
      * @return bool
      */

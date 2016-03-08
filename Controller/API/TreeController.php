@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Tree\TreeInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Netgen\Bundle\ContentBrowserBundle\Tree\Item;
+use Netgen\Bundle\ContentBrowserBundle\Adapter\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TreeController extends BaseController
@@ -122,7 +122,7 @@ class TreeController extends BaseController
     /**
      * Generates the item path.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      *
      * @return array
      */
@@ -147,7 +147,7 @@ class TreeController extends BaseController
     /**
      * Serializes the item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Tree\Item $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Adapter\Item $item
      * @param bool $hasChildren
      *
      * @return array
