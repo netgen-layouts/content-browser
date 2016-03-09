@@ -43,4 +43,13 @@ interface AdapterInterface
      * @return bool
      */
     public function hasChildren(Item $item, array $types = array());
+
+    /**
+     * Returns items found with search text
+     *
+     * @param string $searchText
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item[]
+     */
+    public function search($searchText);
 }

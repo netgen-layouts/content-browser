@@ -149,6 +149,18 @@ class Tree implements TreeInterface
     }
 
     /**
+     * Returns items found with provided search text.
+     *
+     * @param string $searchText
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\Item[]
+     */
+    public function search($searchText)
+    {
+        return $this->adapter->search($searchText);
+    }
+
+    /**
      * Returns if provided item is one of the root items.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Item $item

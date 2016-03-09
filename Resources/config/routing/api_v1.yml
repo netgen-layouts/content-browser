@@ -15,3 +15,9 @@ netgen_content_browser_api_v1_item_categories:
     methods: [GET]
     defaults:
         _controller: netgen_content_browser.controller.api.tree:getItemCategories
+
+netgen_content_browser_api_v1_search:
+    path: /{tree}/search
+    methods: [GET]
+    defaults:
+        _controller: netgen_content_browser.controller.api.tree:search

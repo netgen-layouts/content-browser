@@ -2,11 +2,13 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Tree\TreeInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Netgen\Bundle\ContentBrowserBundle\Item\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class TreeController extends BaseController
 {
@@ -113,6 +115,40 @@ class TreeController extends BaseController
 
         $data = array(
             'path' => $this->getItemPath($item),
+            'children' => $childrenData,
+        );
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Searches for children with search text
+     *
+     * @param Request $request
+     * @param string $tree
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function search(Request $request, $tree)
+    {
+        $this->initTree($tree);
+
+        $searchText = $request->query->get('searchText', '');
+        if (empty($searchText)) {
+            throw new InvalidArgumentException('Search text cannot be empty');
+        }
+
+        $children = $this->tree->search($searchText);
+
+        $childrenData = array();
+        foreach ($children as $child) {
+            $childrenData[] = $this->serializeItem(
+                $child,
+                $this->tree->hasChildren($child)
+            );
+        }
+
+        $data = array(
             'children' => $childrenData,
         );
 
