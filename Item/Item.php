@@ -49,7 +49,7 @@ class Item
     /**
      * @var bool
      */
-    public $isEnabled = true;
+    public $isSelectable = true;
 
     /**
      * @var array

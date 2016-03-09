@@ -160,7 +160,7 @@ class TreeController extends BaseController
                 $item->parentId :
                 null,
             'name' => $item->name,
-            'enabled' => $item->isEnabled,
+            'selectable' => $item->isSelectable,
         ) + $item->additionalColumns;
 
         return $columns + array(
