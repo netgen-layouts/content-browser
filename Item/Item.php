@@ -34,6 +34,11 @@ class Item
     /**
      * @var int|string
      */
+    public $value;
+
+    /**
+     * @var int|string
+     */
     public $parentId;
 
     /**

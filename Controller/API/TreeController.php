@@ -45,8 +45,6 @@ class TreeController extends BaseController
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
             'available_columns' => array(
-                'id' => $translator->trans('netgen_content_browser.columns.id'),
-                'parent_id' => $translator->trans('netgen_content_browser.columns.parent_id'),
                 'name' => $translator->trans('netgen_content_browser.columns.name'),
             ),
         );
@@ -192,6 +190,7 @@ class TreeController extends BaseController
     {
         $columns = array(
             'id' => $item->id,
+            'value' => $item->value,
             'parent_id' => !$this->tree->isRootItem($item) ?
                 $item->parentId :
                 null,
