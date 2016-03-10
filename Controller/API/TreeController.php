@@ -45,13 +45,19 @@ class TreeController extends BaseController
             'max_selected' => $config['max_selected'],
             'default_columns' => $config['default_columns'],
             'available_columns' => array(
-                'name' => $translator->trans('netgen_content_browser.columns.name'),
+                array(
+                    'id' => 'name',
+                    'name' => $translator->trans('netgen_content_browser.columns.name'),
+                )
             ),
         );
 
         $adapterColumns = $this->tree->getAdapter()->getColumns();
         foreach ($adapterColumns as $adapterColumn => $adapterColumnName) {
-            $data['available_columns'][$adapterColumn] = $translator->trans($adapterColumnName);
+            $data['available_columns'][] = array(
+                'id' => $adapterColumn,
+                'name' => $translator->trans($adapterColumnName)
+            );
         }
 
         return new JsonResponse($data);
