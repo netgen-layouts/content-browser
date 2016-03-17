@@ -66,10 +66,8 @@ abstract class Controller extends BaseController
 
     public function serializeItems(array $items)
     {
-        $itemBuilder = $this->itemBuilder;
-
         $serializedItems = array_map(
-            function ($item) use ($itemBuilder) {
+            function ($item) {
                 return $this->serializeItem(
                     $this->itemBuilder->buildItem($item)
                 );
