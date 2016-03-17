@@ -14,7 +14,7 @@ netgen_content_browser_api_v1_browse_categories:
     path: /{config}/browse/{itemId}/categories
     methods: [GET]
     defaults:
-        _controller: netgen_content_browser.controller.api.browse:getChildren
+        _controller: netgen_content_browser.controller.api.browse:getSubCategories
 
 netgen_content_browser_api_v1_search:
     path: /{config}/search
