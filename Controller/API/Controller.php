@@ -80,11 +80,13 @@ abstract class Controller extends BaseController
 
     protected function serializeItem(ItemInterface $item)
     {
-        return array(
-            'html' => $this->get('twig')->render(
-                $this->config['template'],
-                $item->getTemplateVariables()
-            ),
-        ) + $item->jsonSerialize();
+        $data = $item->jsonSerialize();
+
+        $data['html'] = $this->get('twig')->render(
+            $this->config['template'],
+            $item->getTemplateVariables()
+        );
+
+        return $data;
     }
 }
