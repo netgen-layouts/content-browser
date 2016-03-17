@@ -89,7 +89,9 @@ class Builder implements BuilderInterface
                     $item->getTemplateVariables()
                 );
             } else {
-                $columns[$columnIdentifier] = $valueObjectColumns[$columnIdentifier];
+                $columns[$columnIdentifier] = isset($valueObjectColumns[$columnIdentifier]) ?
+                    $valueObjectColumns[$columnIdentifier] :
+                    '';
             }
         }
 
