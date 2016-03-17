@@ -5,14 +5,14 @@ namespace Netgen\Bundle\ContentBrowserBundle\Backend;
 interface BackendInterface
 {
     /**
-     * Returns the configured sections
+     * Returns the configured sections.
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
     public function getSections();
 
     /**
-     * Loads the item by its ID
+     * Loads the item by its ID.
      *
      * @param int|string $itemId
      *

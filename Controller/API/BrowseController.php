@@ -6,6 +6,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BrowseController extends Controller
 {
+    /**
+     * Returns all subcategories of specified item.
+     *
+     * @param int|string $itemId
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function getSubCategories($itemId)
     {
         $subCategories = $this->backend->getChildren(
@@ -23,6 +30,13 @@ class BrowseController extends Controller
         return new JsonResponse($data);
     }
 
+    /**
+     * Returns all children of specified item.
+     *
+     * @param int|string $itemId
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function getChildren($itemId)
     {
         $children = $this->backend->getChildren($itemId);

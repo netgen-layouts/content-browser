@@ -41,6 +41,13 @@ abstract class Controller extends BaseController
         $this->config = $config;
     }
 
+    /**
+     * Builds the path array for specified item.
+     *
+     * @param int|string $itemId
+     *
+     * @return array
+     */
     protected function buildPath($itemId)
     {
         $path = array();
@@ -64,6 +71,13 @@ abstract class Controller extends BaseController
         return $path;
     }
 
+    /**
+     * Builds the specified items and serializes them to an array.
+     *
+     * @param array $items
+     *
+     * @return array
+     */
     public function serializeItems(array $items)
     {
         $serializedItems = array_map(
@@ -78,6 +92,13 @@ abstract class Controller extends BaseController
         return $serializedItems;
     }
 
+    /**
+     * Serializes specified item to an array.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     *
+     * @return array
+     */
     protected function serializeItem(ItemInterface $item)
     {
         $data = $item->jsonSerialize();

@@ -6,6 +6,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConfigController extends Controller
 {
+    /**
+     * Returns the configuration for content browser.
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function getConfig()
     {
         $availableColumns = array();

@@ -43,14 +43,20 @@ class Builder implements BuilderInterface
         BackendInterface $backend,
         Twig_Environment $twig,
         array $config
-    )
-    {
+    ) {
         $this->converter = $converter;
         $this->backend = $backend;
         $this->twig = $twig;
         $this->config = $config;
     }
 
+    /**
+     * Builds the item from provided value object.
+     *
+     * @param mixed $valueObject
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     */
     public function buildItem($valueObject)
     {
         $childrenCount = $this->backend->getChildrenCount($valueObject->id);
@@ -92,6 +98,13 @@ class Builder implements BuilderInterface
         return $item;
     }
 
+    /**
+     * Builds the item reference from provided value object.
+     *
+     * @param mixed $valueObject
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface
+     */
     public function buildItemReference($valueObject)
     {
         $itemReference = new ItemReference();
