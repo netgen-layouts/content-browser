@@ -2,9 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-use JsonSerializable;
-
-interface ItemReferenceInterface extends JsonSerializable
+interface ItemReferenceInterface
 {
     public function getId();
 

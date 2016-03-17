@@ -45,8 +45,4 @@ class ItemReference implements ItemReferenceInterface
 
         return $this;
     }
-
-    public function jsonSerialize()
-    {
-    }
 }
