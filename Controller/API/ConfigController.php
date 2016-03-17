@@ -8,11 +8,8 @@ class ConfigController extends Controller
 {
     public function getConfig()
     {
-        $config = $this->get('netgen_content_browser.current_config');
-        $backend = $this->get('netgen_content_browser.current_backend');
-
         $availableColumns = array();
-        foreach ($config['columns'] as $identifier => $columnData) {
+        foreach ($this->config['columns'] as $identifier => $columnData) {
             $availableColumns[] = array(
                 'id' => $identifier,
                 'name' => $this->get('translator')->trans($columnData['name']),
@@ -27,13 +24,13 @@ class ConfigController extends Controller
             )
         );
 
-        $defaultColumns = $config['default_columns'];
+        $defaultColumns = $this->config['default_columns'];
         array_unshift($defaultColumns, 'name');
 
         $data = array(
-            'sections' => $this->serializeItems($backend->getSections()),
-            'min_selected' => $config['min_selected'],
-            'max_selected' => $config['max_selected'],
+            'sections' => $this->serializeItems($this->backend->getSections()),
+            'min_selected' => $this->config['min_selected'],
+            'max_selected' => $this->config['max_selected'],
             'default_columns' => $defaultColumns,
             'available_columns' => $availableColumns,
         );

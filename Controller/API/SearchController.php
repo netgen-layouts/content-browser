@@ -15,9 +15,7 @@ class SearchController extends Controller
             throw new InvalidArgumentException('Search text cannot be empty');
         }
 
-        $backend = $this->get('netgen_content_browser.current_backend');
-
-        $children = $backend->search($searchText);
+        $children = $this->backend->search($searchText);
 
         $data = array(
             'children' => $this->serializeItems($children),

@@ -32,6 +32,10 @@ services:
 
     netgen_content_browser.controller.base:
         class: %netgen_content_browser.controller.base.class%
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.item_builder"
+            - "@netgen_content_browser.current_config"
         calls:
             - [setContainer, ["@service_container"]]
 

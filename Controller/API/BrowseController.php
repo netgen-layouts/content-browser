@@ -8,13 +8,10 @@ class BrowseController extends Controller
 {
     public function getSubCategories($itemId)
     {
-        $config = $this->get('netgen_content_browser.current_config');
-        $backend = $this->get('netgen_content_browser.current_backend');
-
-        $subCategories = $backend->getChildren(
+        $subCategories = $this->backend->getChildren(
             $itemId,
             array(
-                'types' => $config['category_types'],
+                'types' => $this->config['category_types'],
             )
         );
 
@@ -28,9 +25,7 @@ class BrowseController extends Controller
 
     public function getChildren($itemId)
     {
-        $backend = $this->get('netgen_content_browser.current_backend');
-
-        $children = $backend->getChildren($itemId);
+        $children = $this->backend->getChildren($itemId);
 
         $data = array(
             'path' => $this->buildPath($itemId),
