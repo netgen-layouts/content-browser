@@ -1,70 +1,103 @@
 parameters:
-    netgen_content_browser.controller.api.tree.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\TreeController
+    netgen_content_browser.controller.base.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
+    netgen_content_browser.controller.api.config.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
+    netgen_content_browser.controller.api.browse.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
+    netgen_content_browser.controller.api.search.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
 
-    netgen_content_browser.ezpublish.thumbnail_loader.variation.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\ThumbnailLoader\VariationThumbnailLoader
-    netgen_content_browser.ezpublish.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\ItemBuilder
-    netgen_content_browser.ezpublish.adapter.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzPublish\Adapter
+    netgen_content_browser.backend.ezpublish.class: Netgen\Bundle\ContentBrowserBundle\Backend\EzPublishBackend
+    netgen_content_browser.backend.eztags.class: Netgen\Bundle\ContentBrowserBundle\Backend\EzTagsBackend
 
-    netgen_content_browser.eztags.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzTags\ItemBuilder
-    netgen_content_browser.eztags.adapter.class: Netgen\Bundle\ContentBrowserBundle\Adapter\EzTags\Adapter
+    netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\Builder
 
-    netgen_content_browser.tree.class: Netgen\Bundle\ContentBrowserBundle\Tree\Tree
+    netgen_content_browser.converter.ezcontent.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzContentItemConverter
+    netgen_content_browser.converter.ezlocation.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzLocationItemConverter
+    netgen_content_browser.converter.eztags.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzTagsItemConverter
 
+    netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigEventListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
 
 services:
+    # Virtual services
+
+    netgen_content_browser.current_backend:
+        synthetic: true
+
+    netgen_content_browser.current_config:
+        synthetic: true
+
     # API controllers
 
-    netgen_content_browser.controller.api.tree:
-        class: %netgen_content_browser.controller.api.tree.class%
+    netgen_content_browser.controller.base:
+        class: %netgen_content_browser.controller.base.class%
         calls:
             - [setContainer, ["@service_container"]]
 
-    # eZ Publish adapter
+    netgen_content_browser.controller.api.config:
+        class: %netgen_content_browser.controller.api.config.class%
+        parent: netgen_content_browser.controller.base
 
-    netgen_content_browser.ezpublish.thumbnail_loader:
-        alias: netgen_content_browser.ezpublish.thumbnail_loader.variation
+    netgen_content_browser.controller.api.browse:
+        class: %netgen_content_browser.controller.api.browse.class%
+        parent: netgen_content_browser.controller.base
 
-    netgen_content_browser.ezpublish.thumbnail_loader.variation:
-        class: %netgen_content_browser.ezpublish.thumbnail_loader.variation.class%
+    netgen_content_browser.controller.api.search:
+        class: %netgen_content_browser.controller.api.search.class%
+        parent: netgen_content_browser.controller.base
+
+    # Backends
+
+    netgen_content_browser.backend.ezpublish:
+        class: %netgen_content_browser.backend.ezpublish.class%
         arguments:
-            - "@ezpublish.translation_helper"
-            - "@ezpublish.field_helper"
-            - "@ezpublish.fieldtype.ezimage.variation_service"
-            - "%netgen_content_browser.adapters.ezpublish.image_fields%"
-            - "%netgen_content_browser.adapters.ezpublish.variation_name%"
+            - "@ezpublish.api.service.search"
+            - "@netgen_content_browser.current_config"
 
-    netgen_content_browser.ezpublish.item_builder:
-        class: %netgen_content_browser.ezpublish.item_builder.class%
+    netgen_content_browser.backend.eztags:
+        class: %netgen_content_browser.backend.eztags.class%
+        arguments:
+            - "@ezpublish.api.service.tags"
+
+    # Builder
+
+    netgen_content_browser.item_builder:
+        class: %netgen_content_browser.item_builder.class%
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@twig"
+            - "@netgen_content_browser.current_config"
+
+    # Converters
+
+    netgen_content_browser.converter.ezlocation:
+        class: %netgen_content_browser.converter.ezlocation.class%
         arguments:
             - "@ezpublish.api.repository"
             - "@ezpublish.translation_helper"
-            - "@netgen_content_browser.ezpublish.thumbnail_loader"
-
-    netgen_content_browser.ezpublish.adapter:
-        class: %netgen_content_browser.ezpublish.adapter.class%
-        arguments:
-            - "@ezpublish.api.service.search"
-            - "@netgen_content_browser.ezpublish.item_builder"
+            - %netgen_content_browser.config.ezlocation%
         tags:
-            - { name: netgen_content_browser.adapter, identifier: ezpublish }
+            - { name: netgen_content_browser.converter, identifier: ezlocation }
 
-    # eZ Tags adapter
+    netgen_content_browser.converter.ezcontent:
+        class: %netgen_content_browser.converter.ezcontent.class%
+        parent: netgen_content_browser.converter.ezlocation
+        tags:
+            - { name: netgen_content_browser.converter, identifier: ezcontent }
 
-    netgen_content_browser.eztags.item_builder:
-        class: %netgen_content_browser.eztags.item_builder.class%
+    netgen_content_browser.converter.eztags:
+        class: %netgen_content_browser.converter.eztags.class%
         arguments:
             - "@ezpublish.translation_helper"
-
-    netgen_content_browser.eztags.adapter:
-        class: %netgen_content_browser.eztags.adapter.class%
-        arguments:
-            - "@ezpublish.api.service.tags"
-            - "@netgen_content_browser.eztags.item_builder"
         tags:
-            - { name: netgen_content_browser.adapter, identifier: eztags }
+            - { name: netgen_content_browser.converter, identifier: eztags }
 
     # Event listeners
+
+    netgen_content_browser.event_listener.set_current_config:
+        class: %netgen_content_browser.event_listener.set_current_config.class%
+        calls:
+            - [setContainer, ["@service_container"]]
+        tags:
+            - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.exception_conversion:
         class: %netgen_content_browser.event_listener.exception_conversion.class%

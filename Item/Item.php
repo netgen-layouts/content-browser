@@ -2,62 +2,144 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-
-class Item
+class Item implements ItemInterface
 {
-    /**
-     * Construct object optionally with a set of properties.
-     *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If one of the properties does not exist in value object
-     *
-     * @param array $properties
-     */
-    public function __construct(array $properties = array())
-    {
-        foreach ($properties as $property => $value) {
-            if (!property_exists($this, $property)) {
-                throw new InvalidArgumentException(
-                    'Property "' . $property . '" does not exist in "' . get_class($this) . '" class.'
-                );
-            }
+    protected $id;
 
-            $this->$property = $value;
-        }
+    protected $value;
+
+    protected $parentId;
+
+    protected $name;
+
+    protected $isSelectable;
+
+    protected $hasChildren;
+
+    protected $hasSubCategories;
+
+    protected $templateVariables = array();
+
+    protected $columns = array();
+
+    public function getId()
+    {
+        return $this->id;
     }
 
-    /**
-     * @var int|string
-     */
-    public $id;
+    public function setId($id)
+    {
+        $this->id = $id;
 
-    /**
-     * @var int|string
-     */
-    public $value;
+        return $this;
+    }
 
-    /**
-     * @var int|string
-     */
-    public $parentId;
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-    /**
-     * @var array
-     */
-    public $path;
+    public function setValue($value)
+    {
+        $this->value = $value;
 
-    /**
-     * @var string
-     */
-    public $name;
+        return $this;
+    }
 
-    /**
-     * @var bool
-     */
-    public $isSelectable = true;
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
 
-    /**
-     * @var array
-     */
-    public $additionalColumns = array();
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function isSelectable()
+    {
+        return $this->isSelectable;
+    }
+
+    public function setIsSelectable($isSelectable)
+    {
+        $this->isSelectable = $isSelectable;
+
+        return $this;
+    }
+
+    public function hasChildren()
+    {
+        return $this->hasChildren;
+    }
+
+    public function setHasChildren($hasChildren)
+    {
+        $this->hasChildren = $hasChildren;
+
+        return $this;
+    }
+
+    public function hasSubCategories()
+    {
+        return $this->hasSubCategories;
+    }
+
+    public function setHasSubCategories($hasSubCategories)
+    {
+        $this->hasSubCategories = $hasSubCategories;
+
+        return $this;
+    }
+
+    public function getTemplateVariables()
+    {
+        return $this->templateVariables;
+    }
+
+    public function setTemplateVariables(array $templateVariables)
+    {
+        $this->templateVariables = $templateVariables;
+
+        return $this;
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->getId(),
+            'value' => $this->getValue(),
+            'parent_id' => $this->getParentId(),
+            'name' => $this->getName(),
+            'selectable' => $this->isSelectable(),
+            'has_children' => $this->hasChildren(),
+            'has_sub_categories' => $this->hasSubCategories(),
+        ) + $this->getColumns();
+    }
 }

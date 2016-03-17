@@ -1,14 +1,74 @@
-trees:
-    default:
-        adapter: ezpublish
+items:
+    ezcontent:
+        item_type: ezcontent
+        backend: netgen_content_browser.backend.ezpublish
         root_items: [2, 43, 5]
-        categories:
-            types: [frontpage, folder]
-    tags:
-        adapter: eztags
-        root_items: [0]
-        default_columns: [name]
-        template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
+        min_selected: 1
+        max_selected: 0
+        template: 'NetgenContentBrowserBundle:ezpublish:item.html.twig'
+        types: []
+        category_types:
+            - ng_frontpage
+            - ng_category
+            - ng_landing_page
+            - ng_category_page
+            - ng_container
+            - user_group
+        columns:
+            location_id: { name: netgen_content_browser.columns.ezpublish.location_id }
+            content_id: { name: netgen_content_browser.columns.ezpublish.content_id }
+            thumbnail: { name: netgen_content_browser.columns.ezpublish.thumbnail, template: NetgenContentBrowserBundle:ezpublish/columns:thumbnail.html.twig }
+            type: { name: netgen_content_browser.columns.ezpublish.type }
+            visible: { name: netgen_content_browser.columns.ezpublish.visible }
+            owner: { name: netgen_content_browser.columns.ezpublish.owner }
+            modified: { name: netgen_content_browser.columns.ezpublish.modified }
+            published: { name: netgen_content_browser.columns.ezpublish.published }
+            priority: { name: netgen_content_browser.columns.ezpublish.priority }
+            section: { name: netgen_content_browser.columns.ezpublish.section }
+        default_columns:
+            - type
+            - visible
 
-adapters:
-    ezpublish: ~
+    ezlocation:
+        item_type: ezlocation
+        backend: netgen_content_browser.backend.ezpublish
+        root_items: [2, 43, 5]
+        min_selected: 1
+        max_selected: 0
+        template: 'NetgenContentBrowserBundle:ezpublish:item.html.twig'
+        types: []
+        category_types:
+            - ng_frontpage
+            - ng_category
+            - ng_landing_page
+            - ng_category_page
+            - ng_container
+            - user_group
+        columns:
+            location_id: { name: netgen_content_browser.columns.ezpublish.location_id }
+            content_id: { name: netgen_content_browser.columns.ezpublish.content_id }
+            thumbnail: { name: netgen_content_browser.columns.ezpublish.thumbnail, template: NetgenContentBrowserBundle:ezpublish/columns:thumbnail.html.twig }
+            type: { name: netgen_content_browser.columns.ezpublish.type }
+            visible: { name: netgen_content_browser.columns.ezpublish.visible }
+            owner: { name: netgen_content_browser.columns.ezpublish.owner }
+            modified: { name: netgen_content_browser.columns.ezpublish.modified }
+            published: { name: netgen_content_browser.columns.ezpublish.published }
+            priority: { name: netgen_content_browser.columns.ezpublish.priority }
+            section: { name: netgen_content_browser.columns.ezpublish.section }
+        default_columns:
+            - type
+            - visible
+
+    eztags:
+        item_type: eztags
+        backend: netgen_content_browser.backend.eztags
+        root_items: []
+        min_selected: 1
+        max_selected: 0
+        template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
+        types: []
+        category_types: []
+        columns:
+            tag_id: { name: netgen_content_browser.columns.eztags.tag_id }
+        default_columns:
+            - tag_id

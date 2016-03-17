@@ -32,42 +32,22 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root($this->alias);
 
-        $children = $rootNode->children();
-        $children->append($this->generateTreesConfig());
-
-        $adapters = $children->arrayNode('adapters');
-        $adapters->isRequired();
-
-        $adapters->append($this->generateEzPublishAdapterConfig());
-
-        $children->end();
-
-        return $treeBuilder;
-    }
-
-    public function generateTreesConfig()
-    {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('trees');
-
-        $node
+        $rootNode->children()
+            ->arrayNode('items')
             ->isRequired()
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()
-                    ->scalarNode('adapter')
+                    ->scalarNode('item_type')
                         ->isRequired()
-                        ->validate()
-                        ->ifTrue(function ($v) { return !is_string($v); })
-                            ->thenInvalid('Adapter identifier should be a string')
-                        ->end()
-                        ->cannotBeEmpty()
+                    ->end()
+                    ->scalarNode('backend')
+                        ->isRequired()
                     ->end()
                     ->arrayNode('root_items')
                         ->isRequired()
                         ->performNoDeepMerging()
-                        ->requiresAtLeastOneElement()
                         ->prototype('integer')->end()
                     ->end()
                     ->integerNode('min_selected')
@@ -81,92 +61,37 @@ class Configuration implements ConfigurationInterface
                         ->min(0)
                     ->end()
                     ->scalarNode('template')
-                        ->validate()
-                        ->ifTrue(function ($v) { return !is_string($v); })
-                            ->thenInvalid('Item template should be a string')
-                        ->end()
-                        ->cannotBeEmpty()
                         ->defaultValue('NetgenContentBrowserBundle:ezpublish:item.html.twig')
+                    ->end()
+                    ->arrayNode('types')
+                        ->performNoDeepMerging()
+                        ->prototype('scalar')->end()
+                    ->end()
+                    ->arrayNode('category_types')
+                        ->performNoDeepMerging()
+                        ->prototype('scalar')->end()
+                    ->end()
+                    ->arrayNode('columns')
+                        ->performNoDeepMerging()
+                        ->requiresAtLeastOneElement()
+                        ->prototype('array')
+                            ->children()
+                                ->scalarNode('name')
+                                    ->isRequired()
+                                ->end()
+                                ->scalarNode('template')->end()
+                            ->end()
+                        ->end()
                     ->end()
                     ->arrayNode('default_columns')
                         ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->defaultValue(array('name', 'type', 'visible'))
-                        ->prototype('scalar')
-                            ->validate()
-                            ->ifTrue(function ($v) { return !is_string($v); })
-                                ->thenInvalid('Column identifier should be a string')
-                            ->end()
-                            ->cannotBeEmpty()
-                        ->end()
-                    ->end()
-                    ->arrayNode('categories')
-                        ->children()
-                            ->arrayNode('types')
-                                ->performNoDeepMerging()
-                                ->prototype('scalar')
-                                    ->validate()
-                                    ->ifTrue(function ($v) { return !is_string($v); })
-                                        ->thenInvalid('Category type should be a string')
-                                    ->end()
-                                    ->cannotBeEmpty()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('children')
-                        ->children()
-                            ->arrayNode('types')
-                                ->performNoDeepMerging()
-                                ->prototype('scalar')
-                                    ->validate()
-                                    ->ifTrue(function ($v) { return !is_string($v); })
-                                        ->thenInvalid('Child type should be a string')
-                                    ->end()
-                                    ->cannotBeEmpty()
-                                ->end()
-                            ->end()
-                            ->booleanNode('include_category_types')
-                                ->defaultValue(true)
-                            ->end()
-                        ->end()
+                        ->prototype('scalar')->end()
                     ->end()
                 ->end()
             ->end();
 
-        return $node;
-    }
-
-    public function generateEzPublishAdapterConfig()
-    {
-        $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('ezpublish');
-        $node->isRequired();
-
-        $node
-            ->children()
-                ->arrayNode('image_fields')
-                    ->performNoDeepMerging()
-                    ->requiresAtLeastOneElement()
-                    ->defaultValue(array('image'))
-                    ->prototype('scalar')
-                        ->cannotBeEmpty()
-                        ->validate()
-                        ->ifTrue(function ($v) { return !is_string($v); })
-                            ->thenInvalid('Image field identifier should be a string')
-                        ->end()
-                    ->end()
-                ->end()
-                ->scalarNode('variation_name')
-                    ->validate()
-                    ->ifTrue(function ($v) { return !is_string($v); })
-                        ->thenInvalid('Variation name should be a string')
-                    ->end()
-                    ->cannotBeEmpty()
-                    ->defaultValue('netgen_content_browser')
-                ->end()
-            ->end();
-
-        return $node;
+        return $treeBuilder;
     }
 }
