@@ -28,15 +28,9 @@ class BrowseController extends Controller
 
     public function getChildren($itemId)
     {
-        $config = $this->get('netgen_content_browser.current_config');
         $backend = $this->get('netgen_content_browser.current_backend');
 
-        $children = $backend->getChildren(
-            $itemId,
-            array(
-                'types' => $config['types'],
-            )
-        );
+        $children = $backend->getChildren($itemId);
 
         $data = array(
             'path' => $this->buildPath($itemId),
