@@ -17,11 +17,7 @@ class SearchController extends Controller
 
         $backend = $this->get('netgen_content_browser.current_backend');
 
-        $children = $backend->search(
-            array(
-                'search_text' => $searchText,
-            )
-        );
+        $children = $backend->search($searchText);
 
         $data = array(
             'children' => $this->serializeItems($children),

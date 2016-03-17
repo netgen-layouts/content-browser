@@ -9,7 +9,6 @@ abstract class Controller extends BaseController
 {
     protected function buildPath($itemId)
     {
-        $config = $this->get('netgen_content_browser.current_config');
         $backend = $this->get('netgen_content_browser.current_backend');
         $itemBuilder = $this->get('netgen_content_browser.item_builder');
 
@@ -17,7 +16,6 @@ abstract class Controller extends BaseController
 
         while ($itemId !== null) {
             $item = $itemBuilder->buildItemReference(
-                $config['item_type'],
                 $backend->loadItem($itemId)
             );
 
@@ -44,7 +42,7 @@ abstract class Controller extends BaseController
             function ($item) use ($config, $itemBuilder) {
                 return $this->serializeItem(
                     $config,
-                    $itemBuilder->buildItem($config['item_type'], $item)
+                    $itemBuilder->buildItem($item)
                 );
             },
             $items

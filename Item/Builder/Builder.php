@@ -11,6 +11,11 @@ use Twig_Environment;
 class Builder implements BuilderInterface
 {
     /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Converter\ConverterInterface
+     */
+    protected $converter;
+
+    /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
      */
     protected $backend;
@@ -20,54 +25,61 @@ class Builder implements BuilderInterface
      */
     protected $twig;
 
+    /**
+     * @var array
+     */
     protected $config = array();
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Converter\ConverterInterface[]
+     * Constructor.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Converter\ConverterInterface $converter
+     * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
+     * @param \Twig_Environment $twig
+     * @param array $config
      */
-    protected $converters = array();
-
-    public function __construct(BackendInterface $backend, Twig_Environment $twig, array $config)
+    public function __construct(
+        ConverterInterface $converter,
+        BackendInterface $backend,
+        Twig_Environment $twig,
+        array $config
+    )
     {
+        $this->converter = $converter;
         $this->backend = $backend;
         $this->twig = $twig;
         $this->config = $config;
     }
 
-    public function addConverter($itemType, ConverterInterface $converter)
-    {
-        $this->converters[$itemType] = $converter;
-    }
-
-    public function buildItem($itemType, $valueObject)
+    public function buildItem($valueObject)
     {
         $childrenCount = $this->backend->getChildrenCount(
+            $valueObject->id,
             array(
-                'item_id' => $valueObject->id,
                 'types' => $this->config['types'],
             )
         );
 
         $subCategoriesCount = $this->backend->getChildrenCount(
+            $valueObject->id,
             array(
-                'item_id' => $valueObject->id,
                 'types' => $this->config['category_types'],
             )
         );
 
         $item = new Item();
         $item
-            ->setId($this->converters[$itemType]->getId($valueObject))
-            ->setValue($this->converters[$itemType]->getValue($valueObject))
-            ->setTemplateVariables($this->converters[$itemType]->getTemplateVariables($valueObject))
-            ->setParentId($this->converters[$itemType]->getParentId($valueObject))
-            ->setName($this->converters[$itemType]->getName($valueObject))
-            ->setIsSelectable($this->converters[$itemType]->getIsSelectable($valueObject))
+            ->setId($this->converter->getId($valueObject))
+            ->setValue($this->converter->getValue($valueObject))
+            ->setTemplateVariables($this->converter->getTemplateVariables($valueObject))
+            ->setParentId($this->converter->getParentId($valueObject))
+            ->setName($this->converter->getName($valueObject))
+            ->setIsSelectable($this->converter->getIsSelectable($valueObject))
             ->setHasChildren($childrenCount > 0)
             ->setHasSubCategories($subCategoriesCount > 0);
 
         $columns = array();
-        $valueObjectColumns = $this->converters[$itemType]->getColumns($valueObject);
+        $valueObjectColumns = $this->converter->getColumns($valueObject);
 
         foreach ($this->config['columns'] as $columnIdentifier => $columnConfig) {
             if (isset($columnConfig['template'])) {
@@ -85,13 +97,13 @@ class Builder implements BuilderInterface
         return $item;
     }
 
-    public function buildItemReference($itemType, $valueObject)
+    public function buildItemReference($valueObject)
     {
         $itemReference = new ItemReference();
         $itemReference
-            ->setId($this->converters[$itemType]->getId($valueObject))
-            ->setName($this->converters[$itemType]->getName($valueObject))
-            ->setParentId($this->converters[$itemType]->getParentId($valueObject));
+            ->setId($this->converter->getId($valueObject))
+            ->setName($this->converter->getName($valueObject))
+            ->setParentId($this->converter->getParentId($valueObject));
 
         return $itemReference;
     }

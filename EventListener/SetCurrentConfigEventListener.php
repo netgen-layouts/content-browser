@@ -48,6 +48,12 @@ class SetCurrentConfigEventListener implements EventSubscriberInterface
         );
 
         $this->container->set('netgen_content_browser.current_config', $config);
+
+        $this->container->set(
+            'netgen_content_browser.current_converter',
+            $this->container->get($config['converter'])
+        );
+
         $this->container->set(
             'netgen_content_browser.current_backend',
             $this->container->get($config['backend'])
