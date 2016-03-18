@@ -15,6 +15,7 @@ parameters:
 
     netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigEventListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
+    netgen_content_browser.event_listener.exception_serializer.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
 
 services:
     # Virtual services
@@ -104,5 +105,12 @@ services:
 
     netgen_content_browser.event_listener.exception_conversion:
         class: %netgen_content_browser.event_listener.exception_conversion.class%
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_content_browser.event_listener.exception_serializer:
+        class: %netgen_content_browser.event_listener.exception_serializer.class%
+        calls:
+            - [setOutputDebugInfo, [%kernel.debug%]]
         tags:
             - { name: kernel.event_subscriber }
