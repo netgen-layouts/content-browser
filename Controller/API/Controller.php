@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\Builder\BuilderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
@@ -53,9 +54,13 @@ abstract class Controller extends BaseController
         $path = array();
 
         while ($itemId !== null) {
-            $item = $this->itemBuilder->buildItemReference(
-                $this->backend->loadItem($itemId)
-            );
+            try {
+                $item = $this->itemBuilder->buildItemReference(
+                    $this->backend->loadItem($itemId)
+                );
+            } catch (NotFoundException $e) {
+                break;
+            }
 
             array_unshift(
                 $path,

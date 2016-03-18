@@ -16,6 +16,8 @@ interface BackendInterface
      *
      * @param int|string $itemId
      *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item does not exist
+     *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
      */
     public function loadItem($itemId);
