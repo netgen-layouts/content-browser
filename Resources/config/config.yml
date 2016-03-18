@@ -73,5 +73,9 @@ items:
         category_types: []
         columns:
             tag_id: { name: netgen_content_browser.columns.eztags.tag_id }
+            parent_tag_id: { name: netgen_content_browser.columns.eztags.parent_tag_id }
+            parent_tag: { name: netgen_content_browser.columns.eztags.parent_tag }
+            modified: { name: netgen_content_browser.columns.eztags.modified }
         default_columns:
-            - tag_id
+            - parent_tag
+            - modified

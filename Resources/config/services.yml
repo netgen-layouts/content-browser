@@ -99,6 +99,7 @@ services:
     netgen_content_browser.converter.eztags:
         class: %netgen_content_browser.converter.eztags.class%
         arguments:
+            - "@ezpublish.api.service.tags"
             - "@ezpublish.translation_helper"
 
     # Event listeners
