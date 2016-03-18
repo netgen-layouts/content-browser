@@ -63,6 +63,7 @@ services:
         class: %netgen_content_browser.backend.eztags.class%
         arguments:
             - "@ezpublish.api.service.tags"
+            - "@netgen_content_browser.current_config"
 
     # Builder
 
