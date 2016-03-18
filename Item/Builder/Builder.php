@@ -68,12 +68,17 @@ class Builder implements BuilderInterface
             )
         );
 
+        $itemId = $this->converter->getId($valueObject);
+        $parentId = $this->converter->getParentId($valueObject);
+
         $item = new Item();
         $item
-            ->setId($this->converter->getId($valueObject))
+            ->setId($itemId)
             ->setValue($this->converter->getValue($valueObject))
             ->setTemplateVariables($this->converter->getTemplateVariables($valueObject))
-            ->setParentId($this->converter->getParentId($valueObject))
+            ->setParentId(
+                !in_array($itemId, $this->config['root_items']) ? $parentId : null
+            )
             ->setName($this->converter->getName($valueObject))
             ->setIsSelectable($this->converter->getIsSelectable($valueObject))
             ->setHasChildren($childrenCount > 0)
@@ -109,11 +114,16 @@ class Builder implements BuilderInterface
      */
     public function buildItemReference($valueObject)
     {
+        $itemId = $this->converter->getId($valueObject);
+        $parentId = $this->converter->getParentId($valueObject);
+
         $itemReference = new ItemReference();
         $itemReference
-            ->setId($this->converter->getId($valueObject))
+            ->setId($itemId)
             ->setName($this->converter->getName($valueObject))
-            ->setParentId($this->converter->getParentId($valueObject));
+            ->setParentId(
+                !in_array($itemId, $this->config['root_items']) ? $parentId : null
+            );
 
         return $itemReference;
     }

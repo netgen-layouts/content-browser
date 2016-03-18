@@ -1,6 +1,5 @@
 items:
     ezcontent:
-        item_type: ezcontent
         converter: netgen_content_browser.converter.ezcontent
         backend: netgen_content_browser.backend.ezpublish
         root_items: [2, 43, 5]
@@ -32,7 +31,6 @@ items:
             - visible
 
     ezlocation:
-        item_type: ezlocation
         converter: netgen_content_browser.converter.ezlocation
         backend: netgen_content_browser.backend.ezpublish
         root_items: [2, 43, 5]
@@ -64,7 +62,6 @@ items:
             - visible
 
     eztags:
-        item_type: eztags
         converter: netgen_content_browser.converter.eztags
         backend: netgen_content_browser.backend.eztags
         root_items: [0]

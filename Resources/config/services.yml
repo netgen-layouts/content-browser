@@ -17,6 +17,13 @@ parameters:
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
     netgen_content_browser.event_listener.exception_serializer.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
 
+    netgen_content_browser.config_loader.chained.class: Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
+    netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
+
+    netgen_content_browser.config_loader.field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinitionConfigLoader
+    netgen_content_browser.config_loader.eztags_field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\EzTagsFieldDefinitionConfigLoader
+    netgen_content_browser.config_loader.ezobjectrelationlist_field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\RelationListFieldDefinitionConfigLoader
+
 services:
     # Virtual services
 
@@ -98,6 +105,8 @@ services:
 
     netgen_content_browser.event_listener.set_current_config:
         class: %netgen_content_browser.event_listener.set_current_config.class%
+        arguments:
+            - "@netgen_content_browser.config_loader"
         calls:
             - [setContainer, ["@service_container"]]
         tags:
@@ -114,3 +123,35 @@ services:
             - [setOutputDebugInfo, [%kernel.debug%]]
         tags:
             - { name: kernel.event_subscriber }
+
+    # Config loaders
+
+    netgen_content_browser.config_loader:
+        alias: netgen_content_browser.config_loader.chained
+
+    netgen_content_browser.config_loader.default:
+        class: %netgen_content_browser.config_loader.default.class%
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    netgen_content_browser.config_loader.chained:
+        class: %netgen_content_browser.config_loader.chained.class%
+        arguments:
+            - "@netgen_content_browser.config_loader.default"
+
+    netgen_content_browser.config_loader.field_definition:
+        class: %netgen_content_browser.config_loader.field_definition.class%
+        arguments:
+            - "@ezpublish.api.service.content_type"
+
+    netgen_content_browser.config_loader.eztags_field_definition:
+        class: %netgen_content_browser.config_loader.eztags_field_definition.class%
+        parent: netgen_content_browser.config_loader.field_definition
+        tags:
+            - { name: netgen_content_browser.config_loader }
+
+    netgen_content_browser.config_loader.ezobjectrelationlist_field_definition:
+        class: %netgen_content_browser.config_loader.ezobjectrelationlist_field_definition.class%
+        parent: netgen_content_browser.config_loader.field_definition
+        tags:
+            - { name: netgen_content_browser.config_loader }

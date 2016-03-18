@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
+use Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -11,6 +12,21 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetCurrentConfigEventListener implements EventSubscriberInterface
 {
     use ContainerAwareTrait;
+
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface
+     */
+    protected $configLoader;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface $configLoader
+     */
+    public function __construct(ConfigLoaderInterface $configLoader)
+    {
+        $this->configLoader = $configLoader;
+    }
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -43,9 +59,7 @@ class SetCurrentConfigEventListener implements EventSubscriberInterface
             return;
         }
 
-        $config = $this->container->getParameter(
-            'netgen_content_browser.config.' . $attributes->get('config')
-        );
+        $config = $this->configLoader->loadConfig($attributes->get('config'));
 
         $this->container->set('netgen_content_browser.current_config', $config);
 
