@@ -36,6 +36,7 @@ class ConfigController extends Controller
             'sections' => $this->serializeItems($this->backend->getSections()),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
+            'default_limit' => $this->config['default_limit'],
             'default_columns' => $defaultColumns,
             'available_columns' => $availableColumns,
         );
