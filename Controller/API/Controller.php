@@ -108,7 +108,7 @@ abstract class Controller extends BaseController
      *
      * @return array
      */
-    public function serializeItems(array $items)
+    protected function serializeItems(array $items)
     {
         $serializedItems = array_map(
             function ($item) {
