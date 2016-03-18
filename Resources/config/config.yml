@@ -6,6 +6,7 @@ items:
         root_items: [2, 43, 5]
         min_selected: 1
         max_selected: 0
+        default_limit: 25
         template: 'NetgenContentBrowserBundle:ezpublish:item.html.twig'
         types: []
         category_types:
@@ -37,6 +38,7 @@ items:
         root_items: [2, 43, 5]
         min_selected: 1
         max_selected: 0
+        default_limit: 25
         template: 'NetgenContentBrowserBundle:ezpublish:item.html.twig'
         types: []
         category_types:
@@ -68,6 +70,7 @@ items:
         root_items: [0]
         min_selected: 1
         max_selected: 0
+        default_limit: 25
         template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
         types: []
         category_types: []

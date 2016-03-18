@@ -7,6 +7,9 @@ use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\Builder\BuilderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\HttpFoundation\Request;
+use Pagerfanta\Adapter\AdapterInterface;
+use Pagerfanta\Pagerfanta;
 
 abstract class Controller extends BaseController
 {
@@ -40,6 +43,28 @@ abstract class Controller extends BaseController
         $this->backend = $backend;
         $this->itemBuilder = $itemBuilder;
         $this->config = $config;
+    }
+
+    /**
+     * Builds the pager from provided adapter
+     *
+     * @param \Pagerfanta\Adapter\AdapterInterface $adapter
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Pagerfanta\Pagerfanta
+     */
+    protected function buildPager(AdapterInterface $adapter, Request $request)
+    {
+        $currentPage = (int)$request->query->get('page', 1);
+        $limit = (int)$request->query->get('limit', 0);
+
+        $pager = new Pagerfanta($adapter);
+
+        $pager->setNormalizeOutOfRangePages(true);
+        $pager->setMaxPerPage($limit > 0 ? $limit : $this->config['default_limit']);
+        $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
+
+        return $pager;
     }
 
     /**

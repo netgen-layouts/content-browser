@@ -2,7 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemChildrenAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class BrowseController extends Controller
 {
@@ -33,17 +35,25 @@ class BrowseController extends Controller
     /**
      * Returns all children of specified item.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int|string $itemId
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getChildren($itemId)
+    public function getChildren(Request $request, $itemId)
     {
-        $children = $this->backend->getChildren($itemId);
+        $pager = $this->buildPager(
+            new ItemChildrenAdapter(
+                $this->backend,
+                $itemId
+            ),
+            $request
+        );
 
         $data = array(
             'path' => $this->buildPath($itemId),
-            'children' => $this->serializeItems($children),
+            'children_count' => $pager->getNbResults(),
+            'children' => $this->serializeItems($pager->getCurrentPageResults()),
         );
 
         return new JsonResponse($data);

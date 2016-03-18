@@ -51,4 +51,14 @@ interface BackendInterface
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
     public function search($searchText, array $params = array());
+
+    /**
+     * Returns the count of searched items.
+     *
+     * @param string $searchText
+     * @param array $params
+     *
+     * @return int
+     */
+    public function searchCount($searchText, array $params = array());
 }
