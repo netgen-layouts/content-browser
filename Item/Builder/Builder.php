@@ -75,14 +75,14 @@ class Builder implements BuilderInterface
         $item
             ->setId($itemId)
             ->setValue($this->converter->getValue($valueObject))
-            ->setTemplateVariables($this->converter->getTemplateVariables($valueObject))
             ->setParentId(
                 !in_array($itemId, $this->config['root_items']) ? $parentId : null
             )
             ->setName($this->converter->getName($valueObject))
             ->setIsSelectable($this->converter->getIsSelectable($valueObject))
             ->setHasChildren($childrenCount > 0)
-            ->setHasSubCategories($subCategoriesCount > 0);
+            ->setHasSubCategories($subCategoriesCount > 0)
+            ->setTemplateVariables($this->converter->getTemplateVariables($valueObject));
 
         $columns = array();
         $valueObjectColumns = $this->converter->getColumns($valueObject);
