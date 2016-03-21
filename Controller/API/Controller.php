@@ -46,7 +46,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Builds the pager from provided adapter
+     * Builds the pager from provided adapter.
      *
      * @param \Pagerfanta\Adapter\AdapterInterface $adapter
      * @param \Symfony\Component\HttpFoundation\Request $request

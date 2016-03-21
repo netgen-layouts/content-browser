@@ -10,7 +10,7 @@ class DefaultConfigLoader implements ConfigLoaderInterface
     use ContainerAwareTrait;
 
     /**
-     * Loads the configuration by its name
+     * Loads the configuration by its name.
      *
      * @param string $configName
      *

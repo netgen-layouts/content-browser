@@ -62,7 +62,7 @@ class ItemSearchAdapter implements AdapterInterface
             $this->searchText,
             array(
                 'offset' => $offset,
-                'limit' => $length
+                'limit' => $length,
             )
         );
 

@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Config;
 interface ConfigLoaderInterface
 {
     /**
-     * Loads the configuration by its name
+     * Loads the configuration by its name.
      *
      * @param string $configName
      *

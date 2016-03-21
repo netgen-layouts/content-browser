@@ -25,7 +25,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Adds a config loader to chained config
+     * Adds a config loader to chained config.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface $configLoader
      */
@@ -35,7 +35,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Loads the configuration by its name
+     * Loads the configuration by its name.
      *
      * @param string $configName
      *
@@ -55,6 +55,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
             );
 
             $loadedConfig = $configLoader->loadConfig($configName);
+
             return $loadedConfig + $defaultConfig;
         }
 

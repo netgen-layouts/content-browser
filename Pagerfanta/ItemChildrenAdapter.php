@@ -62,7 +62,7 @@ class ItemChildrenAdapter implements AdapterInterface
             $this->itemId,
             array(
                 'offset' => $offset,
-                'limit' => $length
+                'limit' => $length,
             )
         );
 
