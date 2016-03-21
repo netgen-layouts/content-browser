@@ -20,9 +20,9 @@ parameters:
     netgen_content_browser.config_loader.chained.class: Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
     netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
 
-    netgen_content_browser.config_loader.field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinitionConfigLoader
-    netgen_content_browser.config_loader.eztags_field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\EzTagsFieldDefinitionConfigLoader
-    netgen_content_browser.config_loader.ezobjectrelationlist_field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\RelationListFieldDefinitionConfigLoader
+    netgen_content_browser.config_loader.field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\ConfigLoader
+    netgen_content_browser.config_loader.field_definition.eztags.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\EzTagsConfigLoader
+    netgen_content_browser.config_loader.field_definition.ezobjectrelationlist.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\RelationListConfigLoader
 
 services:
     # Virtual services
@@ -145,14 +145,14 @@ services:
         arguments:
             - "@ezpublish.api.service.content_type"
 
-    netgen_content_browser.config_loader.eztags_field_definition:
-        class: %netgen_content_browser.config_loader.eztags_field_definition.class%
+    netgen_content_browser.config_loader.field_definition.eztags:
+        class: %netgen_content_browser.config_loader.field_definition.eztags.class%
         parent: netgen_content_browser.config_loader.field_definition
         tags:
             - { name: netgen_content_browser.config_loader }
 
-    netgen_content_browser.config_loader.ezobjectrelationlist_field_definition:
-        class: %netgen_content_browser.config_loader.ezobjectrelationlist_field_definition.class%
+    netgen_content_browser.config_loader.field_definition.ezobjectrelationlist:
+        class: %netgen_content_browser.config_loader.field_definition.ezobjectrelationlist.class%
         parent: netgen_content_browser.config_loader.field_definition
         tags:
             - { name: netgen_content_browser.config_loader }

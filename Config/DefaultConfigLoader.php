@@ -30,16 +30,4 @@ class DefaultConfigLoader implements ConfigLoaderInterface
 
         return $this->container->getParameter($param);
     }
-
-    /**
-     * Returns if the loader supports the config with provided name.
-     *
-     * @param string $configName
-     *
-     * @return bool
-     */
-    public function supports($configName)
-    {
-        return true;
-    }
 }

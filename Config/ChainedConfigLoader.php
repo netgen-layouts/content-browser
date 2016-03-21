@@ -10,6 +10,11 @@ class ChainedConfigLoader implements ConfigLoaderInterface
     protected $defaultConfigLoader;
 
     /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface[]
+     */
+    protected $configLoaders = array();
+
+    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface $defaultConfigLoader
@@ -20,16 +25,11 @@ class ChainedConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface[]
-     */
-    protected $configLoaders = array();
-
-    /**
      * Adds a config loader to chained config
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface $configLoader
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface $configLoader
      */
-    public function addConfigLoader(ConfigLoaderInterface $configLoader)
+    public function addConfigLoader(NamedConfigLoaderInterface $configLoader)
     {
         $this->configLoaders[] = $configLoader;
     }
@@ -45,36 +45,19 @@ class ChainedConfigLoader implements ConfigLoaderInterface
      */
     public function loadConfig($configName)
     {
-        $loadedConfig = array();
-
         foreach ($this->configLoaders as $configLoader) {
             if (!$configLoader->supports($configName)) {
                 continue;
             }
 
-            $loadedConfig = $configLoader->loadConfig($configName);
-            break;
-        }
-
-        if (!empty($loadedConfig)) {
-            $itemType = $loadedConfig['item_type'];
-            return $loadedConfig + $this->defaultConfigLoader->loadConfig(
-                $itemType
+            $defaultConfig = $this->defaultConfigLoader->loadConfig(
+                $configLoader->getItemType()
             );
+
+            $loadedConfig = $configLoader->loadConfig($configName);
+            return $loadedConfig + $defaultConfig;
         }
 
         return $this->defaultConfigLoader->loadConfig($configName);
-    }
-
-    /**
-     * Returns if the loader supports the config with provided name.
-     *
-     * @param string $configName
-     *
-     * @return bool
-     */
-    public function supports($configName)
-    {
-        return true;
     }
 }

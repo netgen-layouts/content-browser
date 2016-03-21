@@ -14,13 +14,4 @@ interface ConfigLoaderInterface
      * @return array
      */
     public function loadConfig($configName);
-
-    /**
-     * Returns if the loader supports the config with provided name.
-     *
-     * @param string $configName
-     *
-     * @return bool
-     */
-    public function supports($configName);
 }
