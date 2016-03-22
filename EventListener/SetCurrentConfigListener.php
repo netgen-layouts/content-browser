@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetCurrentConfigEventListener implements EventSubscriberInterface
+class SetCurrentConfigListener implements EventSubscriberInterface
 {
     use ContainerAwareTrait;
 

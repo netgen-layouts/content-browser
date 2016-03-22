@@ -13,7 +13,7 @@ parameters:
     netgen_content_browser.converter.ezlocation.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzLocationItemConverter
     netgen_content_browser.converter.eztags.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzTagsItemConverter
 
-    netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigEventListener
+    netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
     netgen_content_browser.event_listener.exception_serializer.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
 
