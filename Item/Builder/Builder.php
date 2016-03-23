@@ -59,17 +59,17 @@ class Builder implements BuilderInterface
      */
     public function buildItem($valueObject)
     {
-        $childrenCount = $this->backend->getChildrenCount($valueObject->id);
+        $itemId = $this->converter->getId($valueObject);
+        $parentId = $this->converter->getParentId($valueObject);
+
+        $childrenCount = $this->backend->getChildrenCount($itemId);
 
         $subCategoriesCount = $this->backend->getChildrenCount(
-            $valueObject->id,
+            $itemId,
             array(
                 'types' => $this->config['category_types'],
             )
         );
-
-        $itemId = $this->converter->getId($valueObject);
-        $parentId = $this->converter->getParentId($valueObject);
 
         $item = new Item();
         $item
