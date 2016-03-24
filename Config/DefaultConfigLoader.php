@@ -28,6 +28,9 @@ class DefaultConfigLoader implements ConfigLoaderInterface
             );
         }
 
-        return $this->container->getParameter($param);
+        $config = $this->container->getParameter($param);
+        $config['item_type'] = $configName;
+
+        return $config;
     }
 }

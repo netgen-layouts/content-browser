@@ -33,6 +33,7 @@ class ConfigController extends Controller
         array_unshift($defaultColumns, 'name');
 
         $data = array(
+            'item_type' => $this->config['item_type'],
             'sections' => $this->serializeItems($this->backend->getSections()),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
