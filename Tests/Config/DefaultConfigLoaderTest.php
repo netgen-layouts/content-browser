@@ -40,10 +40,17 @@ class DefaultConfigLoaderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getParameter')
             ->with('netgen_content_browser.config.test')
-            ->will($this->returnValue(array('config')));
+            ->will($this->returnValue(array('config' => 'value')));
 
         $config = $this->defaultConfigLoader->loadConfig('test');
-        self::assertEquals(array('config'), $config);
+
+        self::assertEquals(
+            array(
+                'config' => 'value',
+                'item_type' => 'test'
+            ),
+            $config
+        );
     }
 
     /**
