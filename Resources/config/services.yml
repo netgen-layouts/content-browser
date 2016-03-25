@@ -72,6 +72,7 @@ services:
         arguments:
             - "@ezpublish.api.service.tags"
             - "@netgen_content_browser.current_config"
+            - $languages$
 
     # Builder
 
