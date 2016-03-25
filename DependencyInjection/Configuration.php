@@ -34,8 +34,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
             ->arrayNode('items')
-            ->isRequired()
-            ->requiresAtLeastOneElement()
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()
