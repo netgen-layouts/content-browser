@@ -43,12 +43,16 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     * @dataProvider onExceptionDataProvider
+     *
+     * @param \Exception $exception
+     * @param string $convertedClass
+     * @param int $statusCode
      */
-    public function testOnExceptionConvertsNotFoundException()
+    public function testOnException($exception, $convertedClass, $statusCode)
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $exception = new NotFoundException('Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -60,98 +64,11 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $this->eventListener->onException($event);
 
         self::assertInstanceOf(
-            NotFoundHttpException::class,
+            $convertedClass,
             $event->getException()
         );
 
-        self::assertEquals(Response::HTTP_NOT_FOUND, $event->getException()->getStatusCode());
-        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        self::assertEquals($exception->getCode(), $event->getException()->getCode());
-        self::assertEquals($exception, $event->getException()->getPrevious());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
-     */
-    public function testOnExceptionConvertsInvalidArgumentException()
-    {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $exception = new InvalidArgumentException('Some error');
-
-        $event = new GetResponseForExceptionEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception
-        );
-
-        $this->eventListener->onException($event);
-
-        self::assertInstanceOf(
-            BadRequestHttpException::class,
-            $event->getException()
-        );
-
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $event->getException()->getStatusCode());
-        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        self::assertEquals($exception->getCode(), $event->getException()->getCode());
-        self::assertEquals($exception, $event->getException()->getPrevious());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
-     */
-    public function testOnExceptionConvertsOutOfBoundsException()
-    {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $exception = new OutOfBoundsException('Some error');
-
-        $event = new GetResponseForExceptionEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception
-        );
-
-        $this->eventListener->onException($event);
-
-        self::assertInstanceOf(
-            UnprocessableEntityHttpException::class,
-            $event->getException()
-        );
-
-        self::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $event->getException()->getStatusCode());
-        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        self::assertEquals($exception->getCode(), $event->getException()->getCode());
-        self::assertEquals($exception, $event->getException()->getPrevious());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
-     */
-    public function testOnExceptionConvertsAccessDeniedException()
-    {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $exception = new AccessDeniedException('Some error');
-
-        $event = new GetResponseForExceptionEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception
-        );
-
-        $this->eventListener->onException($event);
-
-        self::assertInstanceOf(
-            AccessDeniedHttpException::class,
-            $event->getException()
-        );
-
-        self::assertEquals(Response::HTTP_FORBIDDEN, $event->getException()->getStatusCode());
+        self::assertEquals($statusCode, $event->getException()->getStatusCode());
         self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
         self::assertEquals($exception->getCode(), $event->getException()->getCode());
         self::assertEquals($exception, $event->getException()->getPrevious());
@@ -197,5 +114,31 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
         $this->eventListener->onException($event);
 
         self::assertEquals($exception, $event->getException());
+    }
+
+    public function onExceptionDataProvider()
+    {
+        return array(
+            array(
+                new NotFoundException('Some error'),
+                NotFoundHttpException::class,
+                Response::HTTP_NOT_FOUND
+            ),
+            array(
+                new InvalidArgumentException('Some error'),
+                BadRequestHttpException::class,
+                Response::HTTP_BAD_REQUEST
+            ),
+            array(
+                new OutOfBoundsException('Some error'),
+                UnprocessableEntityHttpException::class,
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            ),
+            array(
+                new AccessDeniedException('Some error'),
+                AccessDeniedHttpException::class,
+                Response::HTTP_FORBIDDEN
+            ),
+        );
     }
 }
