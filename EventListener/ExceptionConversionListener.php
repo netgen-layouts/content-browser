@@ -5,11 +5,13 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -43,6 +45,9 @@ class ExceptionConversionListener implements EventSubscriberInterface
             $exceptionClass = UnprocessableEntityHttpException::class;
         } elseif ($exception instanceof InvalidArgumentException) {
             $exceptionClass = BadRequestHttpException::class;
+        // Various other useful exceptions
+        } elseif ($exception instanceof AccessDeniedException) {
+            $exceptionClass = AccessDeniedHttpException::class;
         }
 
         if (isset($exceptionClass)) {

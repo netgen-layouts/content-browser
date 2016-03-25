@@ -8,6 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\Exceptions\OutOfBoundsException;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -129,7 +131,36 @@ class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
      */
-    public function testOnExceptionNotConvertsNonContentBrowserException()
+    public function testOnExceptionConvertsAccessDeniedException()
+    {
+        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new AccessDeniedException('Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
+
+        $this->eventListener->onException($event);
+
+        self::assertInstanceOf(
+            AccessDeniedHttpException::class,
+            $event->getException()
+        );
+
+        self::assertEquals(Response::HTTP_FORBIDDEN, $event->getException()->getStatusCode());
+        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
+        self::assertEquals($exception->getCode(), $event->getException()->getCode());
+        self::assertEquals($exception, $event->getException()->getPrevious());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionNotConvertsOtherExceptions()
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');

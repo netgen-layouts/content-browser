@@ -35,7 +35,8 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::EXCEPTION => 'onException');
+        // Must happen BEFORE Symfony Security component ExceptionListener
+        return array(KernelEvents::EXCEPTION => array('onException', 5));
     }
 
     /**
@@ -84,5 +85,6 @@ class ExceptionSerializerListener implements EventSubscriberInterface
         }
 
         $event->setResponse(new JsonResponse($data));
+        $event->stopPropagation();
     }
 }
