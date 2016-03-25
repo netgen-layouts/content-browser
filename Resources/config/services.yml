@@ -4,14 +4,7 @@ parameters:
     netgen_content_browser.controller.api.browse.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
     netgen_content_browser.controller.api.search.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
 
-    netgen_content_browser.backend.ezpublish.class: Netgen\Bundle\ContentBrowserBundle\Backend\EzPublishBackend
-    netgen_content_browser.backend.eztags.class: Netgen\Bundle\ContentBrowserBundle\Backend\EzTagsBackend
-
     netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\Builder
-
-    netgen_content_browser.converter.ezcontent.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzContentItemConverter
-    netgen_content_browser.converter.ezlocation.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzLocationItemConverter
-    netgen_content_browser.converter.eztags.class: Netgen\Bundle\ContentBrowserBundle\Item\Converter\EzTagsItemConverter
 
     netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
@@ -19,10 +12,6 @@ parameters:
 
     netgen_content_browser.config_loader.chained.class: Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
     netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
-
-    netgen_content_browser.config_loader.field_definition.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\ConfigLoader
-    netgen_content_browser.config_loader.field_definition.eztags.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\EzTagsConfigLoader
-    netgen_content_browser.config_loader.field_definition.ezobjectrelationlist.class: Netgen\Bundle\ContentBrowserBundle\Config\FieldDefinition\RelationListConfigLoader
 
 services:
     # Virtual services
@@ -59,21 +48,6 @@ services:
         class: %netgen_content_browser.controller.api.search.class%
         parent: netgen_content_browser.controller.base
 
-    # Backends
-
-    netgen_content_browser.backend.ezpublish:
-        class: %netgen_content_browser.backend.ezpublish.class%
-        arguments:
-            - "@ezpublish.api.service.search"
-            - "@netgen_content_browser.current_config"
-
-    netgen_content_browser.backend.eztags:
-        class: %netgen_content_browser.backend.eztags.class%
-        arguments:
-            - "@ezpublish.api.service.tags"
-            - "@netgen_content_browser.current_config"
-            - $languages$
-
     # Builder
 
     netgen_content_browser.item_builder:
@@ -83,25 +57,6 @@ services:
             - "@netgen_content_browser.current_backend"
             - "@twig"
             - "@netgen_content_browser.current_config"
-
-    # Converters
-
-    netgen_content_browser.converter.ezlocation:
-        class: %netgen_content_browser.converter.ezlocation.class%
-        arguments:
-            - "@ezpublish.api.repository"
-            - "@ezpublish.translation_helper"
-            - %netgen_content_browser.config.ezlocation%
-
-    netgen_content_browser.converter.ezcontent:
-        class: %netgen_content_browser.converter.ezcontent.class%
-        parent: netgen_content_browser.converter.ezlocation
-
-    netgen_content_browser.converter.eztags:
-        class: %netgen_content_browser.converter.eztags.class%
-        arguments:
-            - "@ezpublish.api.service.tags"
-            - "@ezpublish.translation_helper"
 
     # Event listeners
 
@@ -140,20 +95,3 @@ services:
         class: %netgen_content_browser.config_loader.chained.class%
         arguments:
             - "@netgen_content_browser.config_loader.default"
-
-    netgen_content_browser.config_loader.field_definition:
-        class: %netgen_content_browser.config_loader.field_definition.class%
-        arguments:
-            - "@ezpublish.api.service.content_type"
-
-    netgen_content_browser.config_loader.field_definition.eztags:
-        class: %netgen_content_browser.config_loader.field_definition.eztags.class%
-        parent: netgen_content_browser.config_loader.field_definition
-        tags:
-            - { name: netgen_content_browser.config_loader }
-
-    netgen_content_browser.config_loader.field_definition.ezobjectrelationlist:
-        class: %netgen_content_browser.config_loader.field_definition.ezobjectrelationlist.class%
-        parent: netgen_content_browser.config_loader.field_definition
-        tags:
-            - { name: netgen_content_browser.config_loader }
