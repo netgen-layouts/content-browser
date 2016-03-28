@@ -47,7 +47,7 @@ class DefaultConfigLoaderTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(
             array(
                 'config' => 'value',
-                'item_type' => 'test'
+                'item_type' => 'test',
             ),
             $config
         );
