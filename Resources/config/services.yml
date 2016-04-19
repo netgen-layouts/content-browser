@@ -28,7 +28,7 @@ services:
     # API controllers
 
     netgen_content_browser.controller.base:
-        class: %netgen_content_browser.controller.base.class%
+        class: "%netgen_content_browser.controller.base.class%"
         arguments:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.item_builder"
@@ -37,21 +37,21 @@ services:
             - [setContainer, ["@service_container"]]
 
     netgen_content_browser.controller.api.config:
-        class: %netgen_content_browser.controller.api.config.class%
+        class: "%netgen_content_browser.controller.api.config.class%"
         parent: netgen_content_browser.controller.base
 
     netgen_content_browser.controller.api.browse:
-        class: %netgen_content_browser.controller.api.browse.class%
+        class: "%netgen_content_browser.controller.api.browse.class%"
         parent: netgen_content_browser.controller.base
 
     netgen_content_browser.controller.api.search:
-        class: %netgen_content_browser.controller.api.search.class%
+        class: "%netgen_content_browser.controller.api.search.class%"
         parent: netgen_content_browser.controller.base
 
     # Builder
 
     netgen_content_browser.item_builder:
-        class: %netgen_content_browser.item_builder.class%
+        class: "%netgen_content_browser.item_builder.class%"
         arguments:
             - "@netgen_content_browser.current_converter"
             - "@netgen_content_browser.current_backend"
@@ -61,7 +61,7 @@ services:
     # Event listeners
 
     netgen_content_browser.event_listener.set_current_config:
-        class: %netgen_content_browser.event_listener.set_current_config.class%
+        class: "%netgen_content_browser.event_listener.set_current_config.class%"
         arguments:
             - "@netgen_content_browser.config_loader"
         calls:
@@ -70,12 +70,12 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.exception_conversion:
-        class: %netgen_content_browser.event_listener.exception_conversion.class%
+        class: "%netgen_content_browser.event_listener.exception_conversion.class%"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.exception_serializer:
-        class: %netgen_content_browser.event_listener.exception_serializer.class%
+        class: "%netgen_content_browser.event_listener.exception_serializer.class%"
         calls:
             - [setOutputDebugInfo, [%kernel.debug%]]
         tags:
@@ -87,11 +87,11 @@ services:
         alias: netgen_content_browser.config_loader.chained
 
     netgen_content_browser.config_loader.default:
-        class: %netgen_content_browser.config_loader.default.class%
+        class: "%netgen_content_browser.config_loader.default.class%"
         calls:
             - [setContainer, ["@service_container"]]
 
     netgen_content_browser.config_loader.chained:
-        class: %netgen_content_browser.config_loader.chained.class%
+        class: "%netgen_content_browser.config_loader.chained.class%"
         arguments:
             - "@netgen_content_browser.config_loader.default"
