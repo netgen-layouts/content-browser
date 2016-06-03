@@ -2,22 +2,22 @@ netgen_content_browser_api_v1_config:
     path: /{config}/config
     methods: [GET]
     defaults:
-        _controller: netgen_content_browser.controller.api.config:getConfig
+        _controller: "netgen_content_browser.controller.api.config:getConfig"
 
 netgen_content_browser_api_v1_browse_children:
     path: /{config}/browse/{itemId}/children
     methods: [GET]
     defaults:
-        _controller: netgen_content_browser.controller.api.browse:getChildren
+        _controller: "netgen_content_browser.controller.api.browse:getChildren"
 
 netgen_content_browser_api_v1_browse_categories:
     path: /{config}/browse/{itemId}/categories
     methods: [GET]
     defaults:
-        _controller: netgen_content_browser.controller.api.browse:getSubCategories
+        _controller: "netgen_content_browser.controller.api.browse:getSubCategories"
 
 netgen_content_browser_api_v1_search:
     path: /{config}/search
     methods: [GET]
     defaults:
-        _controller: netgen_content_browser.controller.api.search:search
+        _controller: "netgen_content_browser.controller.api.search:search"
