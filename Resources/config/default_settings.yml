@@ -1,0 +1,2 @@
+parameters:
+    netgen_content_browser.route_prefix: /cb
