@@ -42,14 +42,16 @@ class BrowseController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getItems(Request $request)
+    public function getValues(Request $request)
     {
         $valueIds = explode(',', $request->query->get('values'));
         if (!is_array($valueIds) || empty($valueIds)) {
             throw new InvalidArgumentException('List of value IDs is invalid.');
         }
 
-        return $this->serializeItems($this->backend->loadItems($valueIds));
+        return new JsonResponse(
+            $this->serializeItems($this->backend->loadItems($valueIds))
+        );
     }
 
     /**

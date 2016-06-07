@@ -4,6 +4,12 @@ netgen_content_browser_api_v1_config:
     defaults:
         _controller: "netgen_content_browser.controller.api.config:getConfig"
 
+netgen_content_browser_api_v1_values:
+    path: /{config}/values
+    methods: [GET]
+    defaults:
+        _controller: "netgen_content_browser.controller.api.browse:getValues"
+
 netgen_content_browser_api_v1_browse_children:
     path: /{config}/browse/{itemId}/children
     methods: [GET]
