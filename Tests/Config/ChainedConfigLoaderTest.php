@@ -14,11 +14,6 @@ class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     protected $defaultConfigLoaderMock;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
-     */
-    protected $chainedConfigLoader;
-
     public function setUp()
     {
         $this->defaultConfigLoaderMock = self::getMock(DefaultConfigLoader::class);
@@ -27,21 +22,23 @@ class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('loadConfig')
             ->will($this->returnValue(array('one' => 'default', 'three' => 'default')));
-
-        $this->chainedConfigLoader = new ChainedConfigLoader($this->defaultConfigLoaderMock);
     }
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader::addConfigLoader
      * @covers \Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader::loadConfig
      */
     public function testLoadConfig()
     {
-        $this->chainedConfigLoader->addConfigLoader(new UnsupportedConfigLoader());
-        $this->chainedConfigLoader->addConfigLoader(new SupportedConfigLoader());
+        $chainedConfigLoader = new ChainedConfigLoader(
+            $this->defaultConfigLoaderMock,
+            array(
+                new UnsupportedConfigLoader(),
+                new SupportedConfigLoader()
+            )
+        );
 
-        $config = $this->chainedConfigLoader->loadConfig('test');
+        $config = $chainedConfigLoader->loadConfig('test');
         self::assertEquals(
             array('one' => 'supported', 'two' => 'supported', 'three' => 'default'),
             $config
@@ -53,7 +50,12 @@ class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadConfigWithNoConfigLoaders()
     {
-        $config = $this->chainedConfigLoader->loadConfig('test');
+        $chainedConfigLoader = new ChainedConfigLoader(
+            $this->defaultConfigLoaderMock,
+            array()
+        );
+
+        $config = $chainedConfigLoader->loadConfig('test');
         self::assertEquals(
             array('one' => 'default', 'three' => 'default'),
             $config
@@ -65,9 +67,14 @@ class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadConfigWithNoSupportedConfigLoaders()
     {
-        $this->chainedConfigLoader->addConfigLoader(new UnsupportedConfigLoader());
+        $chainedConfigLoader = new ChainedConfigLoader(
+            $this->defaultConfigLoaderMock,
+            array(
+                new UnsupportedConfigLoader(),
+            )
+        );
 
-        $config = $this->chainedConfigLoader->loadConfig('test');
+        $config = $chainedConfigLoader->loadConfig('test');
         self::assertEquals(
             array('one' => 'default', 'three' => 'default'),
             $config

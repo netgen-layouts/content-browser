@@ -101,3 +101,4 @@ services:
         class: "%netgen_content_browser.config_loader.chained.class%"
         arguments:
             - "@netgen_content_browser.config_loader.default"
+            - []

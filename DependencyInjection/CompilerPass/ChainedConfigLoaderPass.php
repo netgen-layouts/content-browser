@@ -36,13 +36,11 @@ class ChainedConfigLoaderPass implements CompilerPassInterface
             }
         );
 
+        $configLoaderReferences = array();
         foreach ($configLoaders as $serviceName => $tag) {
-            $chainedConfigLoader->addMethodCall(
-                'addConfigLoader',
-                array(
-                    new Reference($serviceName),
-                )
-            );
+            $configLoaderReferences[] = new Reference($serviceName);
         }
+
+        $chainedConfigLoader->replaceArgument(1, $configLoaderReferences);
     }
 }

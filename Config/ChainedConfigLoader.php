@@ -18,20 +18,12 @@ class ChainedConfigLoader implements ConfigLoaderInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface $defaultConfigLoader
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface[] $configLoaders
      */
-    public function __construct(ConfigLoaderInterface $defaultConfigLoader)
+    public function __construct(ConfigLoaderInterface $defaultConfigLoader, array $configLoaders = array())
     {
         $this->defaultConfigLoader = $defaultConfigLoader;
-    }
-
-    /**
-     * Adds a config loader to chained config.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface $configLoader
-     */
-    public function addConfigLoader(NamedConfigLoaderInterface $configLoader)
-    {
-        $this->configLoaders[] = $configLoader;
+        $this->configLoaders = $configLoaders;
     }
 
     /**
