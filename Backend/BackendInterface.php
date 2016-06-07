@@ -7,7 +7,7 @@ interface BackendInterface
     /**
      * Returns the configured sections.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
+     * @return array
      */
     public function getSections();
 
@@ -18,7 +18,7 @@ interface BackendInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item does not exist
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @return mixed
      */
     public function loadItem($itemId);
 
@@ -28,7 +28,7 @@ interface BackendInterface
      * @param int|string $itemId
      * @param array $params
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
+     * @return array
      */
     public function getChildren($itemId, array $params = array());
 
@@ -48,7 +48,7 @@ interface BackendInterface
      * @param string $searchText
      * @param array $params
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
+     * @return array
      */
     public function search($searchText, array $params = array());
 
