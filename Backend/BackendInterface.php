@@ -23,6 +23,15 @@ interface BackendInterface
     public function loadItem($itemId);
 
     /**
+     * Loads items for provided value IDs.
+     *
+     * @param array $valueIds
+     *
+     * @return array
+     */
+    public function loadItems(array $valueIds = array());
+
+    /**
      * Returns the item children.
      *
      * @param int|string $itemId

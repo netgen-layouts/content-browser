@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemChildrenAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,25 @@ class BrowseController extends Controller
         );
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * Returns all items with specified value IDs.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If value IDs are missing or invalid.
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getItems(Request $request)
+    {
+        $valueIds = explode(',', $request->query->get('values'));
+        if (!is_array($valueIds) || empty($valueIds)) {
+            throw new InvalidArgumentException('List of value IDs is invalid.');
+        }
+
+        return $this->serializeItems($this->backend->loadItems($valueIds));
     }
 
     /**
