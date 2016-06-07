@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,7 +45,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -81,7 +82,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
 
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -126,7 +127,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -147,7 +148,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'some_route');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,

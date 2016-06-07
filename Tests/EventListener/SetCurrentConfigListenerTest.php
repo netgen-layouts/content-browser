@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -55,7 +56,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('config', 'config_name');
 
         $event = new GetResponseEvent(
@@ -121,7 +122,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('config', 'config_name');
 
         $event = new GetResponseEvent(
@@ -148,7 +149,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'netgen_content_browser_api_test');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent(
             $kernelMock,
@@ -174,7 +175,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
     {
         $kernelMock = $this->getMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'some_route');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
         $event = new GetResponseEvent(
             $kernelMock,

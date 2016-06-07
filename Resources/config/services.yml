@@ -6,6 +6,7 @@ parameters:
 
     netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\Builder
 
+    netgen_content_browser.event_listener.set_is_api_request.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
     netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
     netgen_content_browser.event_listener.exception_serializer.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
@@ -59,6 +60,11 @@ services:
             - "@netgen_content_browser.current_config"
 
     # Event listeners
+
+    netgen_content_browser.event_listener.set_is_api_request:
+        class: "%netgen_content_browser.event_listener.set_is_api_request.class%"
+        tags:
+            - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.set_current_config:
         class: "%netgen_content_browser.event_listener.set_current_config.class%"

@@ -50,8 +50,7 @@ class SetCurrentConfigListener implements EventSubscriberInterface
         }
 
         $attributes = $event->getRequest()->attributes;
-
-        if (stripos($attributes->get('_route'), 'netgen_content_browser_api_') !== 0) {
+        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
 
