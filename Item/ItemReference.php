@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-class ItemReference implements ItemReferenceInterface
+class ItemReference extends AbstractItem implements ItemReferenceInterface
 {
     /**
      * @var int|string
@@ -30,20 +30,6 @@ class ItemReference implements ItemReferenceInterface
     }
 
     /**
-     * Sets the item ID.
-     *
-     * @param int|string $id
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Returns the item parent ID.
      *
      * @return int|string
@@ -54,20 +40,6 @@ class ItemReference implements ItemReferenceInterface
     }
 
     /**
-     * Sets the item parent ID.
-     *
-     * @param int|string $parentId
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
      * Returns the item name.
      *
      * @return string
@@ -75,19 +47,5 @@ class ItemReference implements ItemReferenceInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Sets the item name.
-     *
-     * @param string $name
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 }

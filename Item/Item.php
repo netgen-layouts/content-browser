@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-class Item implements ItemInterface
+class Item extends AbstractItem implements ItemInterface
 {
     /**
      * @var int|string
@@ -60,20 +60,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Sets the item ID.
-     *
-     * @param int|string $id
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Returns the item value.
      *
      * @return int|string
@@ -81,20 +67,6 @@ class Item implements ItemInterface
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Sets the item value.
-     *
-     * @param int|string $value
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
     }
 
     /**
@@ -108,20 +80,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Sets the item parent ID.
-     *
-     * @param int|string $parentId
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
      * Returns the item name.
      *
      * @return string
@@ -129,20 +87,6 @@ class Item implements ItemInterface
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Sets the item name.
-     *
-     * @param string $name
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -156,20 +100,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Sets if the item is selectable.
-     *
-     * @param bool $isSelectable
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setIsSelectable($isSelectable)
-    {
-        $this->isSelectable = $isSelectable;
-
-        return $this;
-    }
-
-    /**
      * Returns if the item has children.
      *
      * @return bool
@@ -177,20 +107,6 @@ class Item implements ItemInterface
     public function hasChildren()
     {
         return $this->hasChildren;
-    }
-
-    /**
-     * Sets if the item has children.
-     *
-     * @param bool $hasChildren
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setHasChildren($hasChildren)
-    {
-        $this->hasChildren = $hasChildren;
-
-        return $this;
     }
 
     /**
@@ -204,20 +120,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Sets if the item has subcategories.
-     *
-     * @param bool $hasSubCategories
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setHasSubCategories($hasSubCategories)
-    {
-        $this->hasSubCategories = $hasSubCategories;
-
-        return $this;
-    }
-
-    /**
      * Returns the item template variables.
      *
      * @return array
@@ -228,20 +130,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Sets the item template variables.
-     *
-     * @param array $templateVariables
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setTemplateVariables(array $templateVariables)
-    {
-        $this->templateVariables = $templateVariables;
-
-        return $this;
-    }
-
-    /**
      * Returns the item columns.
      *
      * @return array
@@ -249,20 +137,6 @@ class Item implements ItemInterface
     public function getColumns()
     {
         return $this->columns;
-    }
-
-    /**
-     * Sets the item columns.
-     *
-     * @param array $columns
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
-     */
-    public function setColumns(array $columns)
-    {
-        $this->columns = $columns;
-
-        return $this;
     }
 
     /**

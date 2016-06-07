@@ -71,18 +71,18 @@ class Builder implements BuilderInterface
             )
         );
 
-        $item = new Item();
-        $item
-            ->setId($itemId)
-            ->setValue($this->converter->getValue($valueObject))
-            ->setParentId(
-                !in_array($itemId, $this->config['root_items']) ? $parentId : null
-            )
-            ->setName($this->converter->getName($valueObject))
-            ->setIsSelectable($this->converter->getIsSelectable($valueObject))
-            ->setHasChildren($childrenCount > 0)
-            ->setHasSubCategories($subCategoriesCount > 0)
-            ->setTemplateVariables($this->converter->getTemplateVariables($valueObject));
+        $templateVariables = $this->converter->getTemplateVariables($valueObject);
+
+        $itemData = array(
+            'id' => $itemId,
+            'value' => $this->converter->getValue($valueObject),
+            'parentId' => !in_array($itemId, $this->config['root_items']) ? $parentId : null,
+            'name' => $this->converter->getName($valueObject),
+            'isSelectable' => $this->converter->getIsSelectable($valueObject),
+            'hasChildren' => $childrenCount > 0,
+            'hasSubCategories' => $subCategoriesCount > 0,
+            'templateVariables' => $templateVariables,
+        );
 
         $columns = array();
         $valueObjectColumns = $this->converter->getColumns($valueObject);
@@ -91,7 +91,7 @@ class Builder implements BuilderInterface
             if (isset($columnConfig['template'])) {
                 $columns[$columnIdentifier] = $this->twig->render(
                     $columnConfig['template'],
-                    $item->getTemplateVariables()
+                    $templateVariables
                 );
             } else {
                 $columns[$columnIdentifier] = isset($valueObjectColumns[$columnIdentifier]) ?
@@ -100,9 +100,9 @@ class Builder implements BuilderInterface
             }
         }
 
-        $item->setColumns($columns);
+        $itemData['columns'] = $columns;
 
-        return $item;
+        return new Item($itemData);
     }
 
     /**
@@ -117,14 +117,12 @@ class Builder implements BuilderInterface
         $itemId = $this->converter->getId($valueObject);
         $parentId = $this->converter->getParentId($valueObject);
 
-        $itemReference = new ItemReference();
-        $itemReference
-            ->setId($itemId)
-            ->setName($this->converter->getName($valueObject))
-            ->setParentId(
-                !in_array($itemId, $this->config['root_items']) ? $parentId : null
-            );
-
-        return $itemReference;
+        return new ItemReference(
+            array(
+                'id' => $itemId,
+                'name' => $this->converter->getName($valueObject),
+                'parentId' => !in_array($itemId, $this->config['root_items']) ? $parentId : null,
+            )
+        );
     }
 }
