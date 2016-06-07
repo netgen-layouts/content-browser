@@ -77,7 +77,7 @@ services:
     netgen_content_browser.event_listener.exception_serializer:
         class: "%netgen_content_browser.event_listener.exception_serializer.class%"
         calls:
-            - [setOutputDebugInfo, [%kernel.debug%]]
+            - [setOutputDebugInfo, ["%kernel.debug%"]]
         tags:
             - { name: kernel.event_subscriber }
 
