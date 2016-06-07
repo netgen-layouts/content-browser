@@ -56,10 +56,8 @@ class ExceptionConversionListener implements EventSubscriberInterface
                 $exception,
                 $exception->getCode()
             );
-        } else {
-            $convertedException = $exception;
-        }
 
-        $event->setException($convertedException);
+            $event->setException($convertedException);
+        }
     }
 }
