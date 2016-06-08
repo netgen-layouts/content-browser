@@ -44,7 +44,7 @@ class ChainedConfigLoaderPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_content_browser.config_loader.loader3', $loader3);
 
         $loader4 = new Definition();
-        $loader4->addTag('netgen_content_browser.config_loader', array('priority' => 4));
+        $loader4->addTag('netgen_content_browser.config_loader', array('priority' => 2));
         $this->setDefinition('netgen_content_browser.config_loader.loader4', $loader4);
 
         $this->compile();
@@ -54,8 +54,8 @@ class ChainedConfigLoaderPassTest extends AbstractCompilerPassTestCase
             1,
             array(
                 new Reference('netgen_content_browser.config_loader.loader3'),
-                new Reference('netgen_content_browser.config_loader.loader4'),
                 new Reference('netgen_content_browser.config_loader.loader1'),
+                new Reference('netgen_content_browser.config_loader.loader4'),
                 new Reference('netgen_content_browser.config_loader.loader2'),
             )
         );
