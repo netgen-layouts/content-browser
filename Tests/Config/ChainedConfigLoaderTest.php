@@ -16,7 +16,7 @@ class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->defaultConfigLoaderMock = self::getMock(DefaultConfigLoader::class);
+        $this->defaultConfigLoaderMock = $this->createMock(DefaultConfigLoader::class);
 
         $this->defaultConfigLoaderMock
             ->expects($this->any())

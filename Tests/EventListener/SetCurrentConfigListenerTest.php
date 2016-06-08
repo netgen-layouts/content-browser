@@ -30,8 +30,8 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configLoaderMock = self::getMock(ConfigLoaderInterface::class);
-        $this->containerMock = self::getMock(ContainerInterface::class);
+        $this->configLoaderMock = $this->createMock(ConfigLoaderInterface::class);
+        $this->containerMock = $this->createMock(ContainerInterface::class);
 
         $this->eventListener = new SetCurrentConfigListener($this->configLoaderMock);
         $this->eventListener->setContainer($this->containerMock);
@@ -54,7 +54,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequest()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('config', 'config_name');
@@ -120,7 +120,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestInSubRequest()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('config', 'config_name');
@@ -147,7 +147,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithNoConfig()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -173,7 +173,7 @@ class SetCurrentConfigListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnKernelRequestWithNoContentBrowserRequest()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 

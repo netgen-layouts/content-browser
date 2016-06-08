@@ -43,7 +43,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $exception = new NotFoundHttpException('Some message');
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -80,7 +80,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $exception = new NotFoundHttpException('Some message', new Exception('Previous exception'));
 
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -125,7 +125,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnExceptionInSubRequest()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
@@ -146,7 +146,7 @@ class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnExceptionWithNoContentBrowserRequest()
     {
-        $kernelMock = $this->getMock(HttpKernelInterface::class);
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 

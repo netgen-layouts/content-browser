@@ -19,7 +19,7 @@ class ItemChildrenAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->backendMock = $this->getMock(BackendInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
         $this->adapter = new ItemChildrenAdapter($this->backendMock, 42);
     }

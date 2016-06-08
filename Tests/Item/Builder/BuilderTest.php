@@ -29,7 +29,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->backendMock = $this->getMock(BackendInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
         $this->twigMock = $this->getMockBuilder(Twig_Environment::class)
             ->disableOriginalConstructor()

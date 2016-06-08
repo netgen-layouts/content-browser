@@ -19,7 +19,7 @@ class DefaultConfigLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->containerMock = self::getMock(ContainerInterface::class);
+        $this->containerMock = $this->createMock(ContainerInterface::class);
 
         $this->defaultConfigLoader = new DefaultConfigLoader();
         $this->defaultConfigLoader->setContainer($this->containerMock);
