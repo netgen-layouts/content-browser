@@ -31,9 +31,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $this->twigMock = $this->getMockBuilder(Twig_Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->twigMock = $this->createMock(Twig_Environment::class);
 
         $this->builder = new Builder(
             new ConverterStub(),
