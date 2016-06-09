@@ -35,7 +35,7 @@ class ChainedConfigLoaderTest extends TestCase
             $this->defaultConfigLoaderMock,
             array(
                 new UnsupportedConfigLoader(),
-                new SupportedConfigLoader()
+                new SupportedConfigLoader(),
             )
         );
 

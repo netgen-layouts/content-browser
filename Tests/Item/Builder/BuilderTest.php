@@ -47,7 +47,7 @@ class BuilderTest extends TestCase
                     ),
                     'column2' => array(),
                     'column3' => array(),
-                )
+                ),
             )
         );
     }
@@ -91,7 +91,7 @@ class BuilderTest extends TestCase
                         'column1' => 'rendered column 1',
                         'column2' => 'value2',
                         'column3' => '',
-                    )
+                    ),
                 )
             ),
             $this->builder->buildItem(new stdClass())
