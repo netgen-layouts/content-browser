@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DefaultConfigLoaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $containerMock;
 

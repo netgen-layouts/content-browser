@@ -14,12 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 class SetCurrentConfigListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $configLoaderMock;
 
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $containerMock;
 
