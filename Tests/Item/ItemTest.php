@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Item;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\Item;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\Item

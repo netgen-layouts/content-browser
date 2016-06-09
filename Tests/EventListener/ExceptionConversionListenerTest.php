@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Exception;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ExceptionConversionListenerTest extends \PHPUnit_Framework_TestCase
+class ExceptionConversionListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener

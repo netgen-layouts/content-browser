@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
 
-class ExceptionSerializerListenerTest extends \PHPUnit_Framework_TestCase
+class ExceptionSerializerListenerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener

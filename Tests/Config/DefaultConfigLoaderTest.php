@@ -5,10 +5,10 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Config;
 use Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DefaultConfigLoaderTest extends \PHPUnit_Framework_TestCase
+class DefaultConfigLoaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $containerMock;
 

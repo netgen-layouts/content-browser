@@ -10,15 +10,15 @@ use Netgen\Bundle\ContentBrowserBundle\Tests\Item\Converter\Stubs\ConverterStub;
 use Twig_Environment;
 use stdClass;
 
-class BuilderTest extends \PHPUnit_Framework_TestCase
+class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $backendMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $twigMock;
 

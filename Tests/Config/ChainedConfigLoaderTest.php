@@ -7,10 +7,10 @@ use Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\SupportedConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\UnsupportedConfigLoader;
 
-class ChainedConfigLoaderTest extends \PHPUnit_Framework_TestCase
+class ChainedConfigLoaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $defaultConfigLoaderMock;
 
