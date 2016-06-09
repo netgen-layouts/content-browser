@@ -6,8 +6,9 @@ use Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\SupportedConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\UnsupportedConfigLoader;
+use PHPUnit\Framework\TestCase;
 
-class ChainedConfigLoaderTest extends \PHPUnit\Framework\TestCase
+class ChainedConfigLoaderTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader|\PHPUnit_Framework_MockObject_MockObject

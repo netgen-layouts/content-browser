@@ -3,8 +3,9 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Item;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\Item;
+use PHPUnit\Framework\TestCase;
 
-class ItemTest extends \PHPUnit\Framework\TestCase
+class ItemTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\Item

@@ -10,8 +10,9 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class SetCurrentConfigListenerTest extends \PHPUnit\Framework\TestCase
+class SetCurrentConfigListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface|\PHPUnit_Framework_MockObject_MockObject

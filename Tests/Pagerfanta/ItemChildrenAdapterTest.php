@@ -4,8 +4,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Pagerfanta;
 
 use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
 use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemChildrenAdapter;
+use PHPUnit\Framework\TestCase;
 
-class ItemChildrenAdapterTest extends \PHPUnit\Framework\TestCase
+class ItemChildrenAdapterTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

@@ -12,8 +12,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
-class ExceptionSerializerListenerTest extends \PHPUnit\Framework\TestCase
+class ExceptionSerializerListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener

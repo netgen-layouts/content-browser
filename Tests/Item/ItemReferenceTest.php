@@ -3,8 +3,9 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Item;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemReference;
+use PHPUnit\Framework\TestCase;
 
-class ItemReferenceTest extends \PHPUnit\Framework\TestCase
+class ItemReferenceTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemReference

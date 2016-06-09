@@ -4,8 +4,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Config;
 
 use Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 
-class DefaultConfigLoaderTest extends \PHPUnit\Framework\TestCase
+class DefaultConfigLoaderTest extends TestCase
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit_Framework_MockObject_MockObject

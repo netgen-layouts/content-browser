@@ -9,8 +9,9 @@ use Netgen\Bundle\ContentBrowserBundle\Item\ItemReference;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Item\Converter\Stubs\ConverterStub;
 use Twig_Environment;
 use stdClass;
+use PHPUnit\Framework\TestCase;
 
-class BuilderTest extends \PHPUnit\Framework\TestCase
+class BuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
