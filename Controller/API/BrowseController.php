@@ -27,7 +27,9 @@ class BrowseController extends Controller
 
         $data = array(
             'path' => $this->buildPath($itemId),
-            'children' => $this->serializeItems($subCategories),
+            'children' => $this->itemSerializer->serializeValues(
+                $subCategories
+            ),
         );
 
         return new JsonResponse($data);
@@ -44,13 +46,18 @@ class BrowseController extends Controller
      */
     public function getValues(Request $request)
     {
-        $valueIds = explode(',', $request->query->get('values'));
-        if (!is_array($valueIds) || empty($valueIds)) {
-            throw new InvalidArgumentException('List of value IDs is invalid.');
+        $values = explode(',', $request->query->get('values'));
+        if (!is_array($values) || empty($values)) {
+            throw new InvalidArgumentException('List of values is invalid.');
+        }
+
+        $valueObjects = array();
+        foreach ($values as $value) {
+            $valueObjects[] = $this->valueLoader->loadByValue($value);
         }
 
         return new JsonResponse(
-            $this->serializeItems($this->backend->loadItems($valueIds))
+            $this->itemSerializer->serializeValues($valueObjects)
         );
     }
 
@@ -75,7 +82,9 @@ class BrowseController extends Controller
         $data = array(
             'path' => $this->buildPath($itemId),
             'children_count' => $pager->getNbResults(),
-            'children' => $this->serializeItems($pager->getCurrentPageResults()),
+            'children' => $this->itemSerializer->serializeValues(
+                $pager->getCurrentPageResults()
+            ),
         );
 
         return new JsonResponse($data);

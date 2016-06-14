@@ -35,7 +35,9 @@ class SearchController extends Controller
 
         $data = array(
             'children_count' => $pager->getNbResults(),
-            'children' => $this->serializeItems($pager->getCurrentPageResults()),
+            'children' => $this->itemSerializer->serializeValues(
+                $pager->getCurrentPageResults()
+            ),
         );
 
         return new JsonResponse($data);

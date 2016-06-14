@@ -2,9 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-use JsonSerializable;
-
-interface ItemInterface extends JsonSerializable
+interface ItemInterface
 {
     /**
      * Returns the item ID.
@@ -14,6 +12,13 @@ interface ItemInterface extends JsonSerializable
     public function getId();
 
     /**
+     * Returns the value type.
+     *
+     * @return int|string
+     */
+    public function getValueType();
+
+    /**
      * Returns the item value.
      *
      * @return int|string
@@ -21,18 +26,18 @@ interface ItemInterface extends JsonSerializable
     public function getValue();
 
     /**
-     * Returns the item parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId();
-
-    /**
      * Returns the item name.
      *
      * @return string
      */
     public function getName();
+
+    /**
+     * Returns the item parent ID.
+     *
+     * @return int|string
+     */
+    public function getParentId();
 
     /**
      * Returns if the item is selectable.
@@ -56,16 +61,9 @@ interface ItemInterface extends JsonSerializable
     public function hasSubCategories();
 
     /**
-     * Returns the item template variables.
+     * Returns the object.
      *
-     * @return array
+     * @return bool
      */
-    public function getTemplateVariables();
-
-    /**
-     * Returns the item columns.
-     *
-     * @return array
-     */
-    public function getColumns();
+    public function getObject();
 }

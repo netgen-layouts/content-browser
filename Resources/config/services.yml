@@ -4,8 +4,6 @@ parameters:
     netgen_content_browser.controller.api.browse.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
     netgen_content_browser.controller.api.search.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
 
-    netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\Builder
-
     netgen_content_browser.event_listener.set_is_api_request.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
     netgen_content_browser.event_listener.set_current_config.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
@@ -14,14 +12,16 @@ parameters:
     netgen_content_browser.config_loader.chained.class: Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
     netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
 
+    netgen_content_browser.registry.backend.class: Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistry
+    netgen_content_browser.registry.value_loader.class: Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistry
+
+    netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilder
+    netgen_content_browser.item_serializer.class: Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializer
+    netgen_content_browser.item_renderer.class: Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRenderer
+    netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProvider
+
 services:
     # Virtual services
-
-    netgen_content_browser.current_converter:
-        synthetic: true
-
-    netgen_content_browser.current_backend:
-        synthetic: true
 
     netgen_content_browser.current_config:
         synthetic: true
@@ -31,8 +31,10 @@ services:
     netgen_content_browser.controller.base:
         class: "%netgen_content_browser.controller.base.class%"
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.registry.backend"
+            - "@netgen_content_browser.registry.value_loader"
             - "@netgen_content_browser.item_builder"
+            - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.current_config"
         calls:
             - [setContainer, ["@service_container"]]
@@ -48,16 +50,6 @@ services:
     netgen_content_browser.controller.api.search:
         class: "%netgen_content_browser.controller.api.search.class%"
         parent: netgen_content_browser.controller.base
-
-    # Builder
-
-    netgen_content_browser.item_builder:
-        class: "%netgen_content_browser.item_builder.class%"
-        arguments:
-            - "@netgen_content_browser.current_converter"
-            - "@netgen_content_browser.current_backend"
-            - "@twig"
-            - "@netgen_content_browser.current_config"
 
     # Event listeners
 
@@ -101,4 +93,42 @@ services:
         class: "%netgen_content_browser.config_loader.chained.class%"
         arguments:
             - "@netgen_content_browser.config_loader.default"
+            - []
+
+    # Registries
+
+    netgen_content_browser.registry.backend:
+        class: "%netgen_content_browser.registry.backend.class%"
+
+    netgen_content_browser.registry.value_loader:
+        class: "%netgen_content_browser.registry.value_loader.class%"
+
+    # Main services
+
+    netgen_content_browser.item_builder:
+        class: "%netgen_content_browser.item_builder.class%"
+        arguments:
+            - "@netgen_content_browser.registry.backend"
+            - "@netgen_content_browser.current_config"
+            - []
+
+    netgen_content_browser.item_serializer:
+        class: "%netgen_content_browser.item_serializer.class%"
+        arguments:
+            - "@netgen_content_browser.column_provider"
+            - "@netgen_content_browser.item_builder"
+            - "@netgen_content_browser.item_renderer"
+            - "@netgen_content_browser.current_config"
+
+    netgen_content_browser.item_renderer:
+        class: "%netgen_content_browser.item_renderer.class%"
+        arguments:
+            - "@twig"
+            - []
+
+    netgen_content_browser.column_provider:
+        class: "%netgen_content_browser.column_provider.class%"
+        arguments:
+            - "@netgen_content_browser.item_renderer"
+            - "@netgen_content_browser.current_config"
             - []

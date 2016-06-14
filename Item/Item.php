@@ -10,19 +10,24 @@ class Item extends AbstractItem implements ItemInterface
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $valueType;
+
+    /**
      * @var int|string
      */
     protected $value;
 
     /**
-     * @var int|string
-     */
-    protected $parentId;
-
-    /**
      * @var string
      */
     protected $name;
+
+    /**
+     * @var int|string
+     */
+    protected $parentId;
 
     /**
      * @var bool
@@ -40,14 +45,9 @@ class Item extends AbstractItem implements ItemInterface
     protected $hasSubCategories;
 
     /**
-     * @var array
+     * @var mixed
      */
-    protected $templateVariables = array();
-
-    /**
-     * @var array
-     */
-    protected $columns = array();
+    protected $object;
 
     /**
      * Returns the item ID.
@@ -57,6 +57,16 @@ class Item extends AbstractItem implements ItemInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Returns the value type.
+     *
+     * @return int|string
+     */
+    public function getValueType()
+    {
+        return $this->valueType;
     }
 
     /**
@@ -70,16 +80,6 @@ class Item extends AbstractItem implements ItemInterface
     }
 
     /**
-     * Returns the item parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }
-
-    /**
      * Returns the item name.
      *
      * @return string
@@ -87,6 +87,16 @@ class Item extends AbstractItem implements ItemInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the item parent ID.
+     *
+     * @return int|string
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
     }
 
     /**
@@ -120,40 +130,12 @@ class Item extends AbstractItem implements ItemInterface
     }
 
     /**
-     * Returns the item template variables.
+     * Returns the object.
      *
-     * @return array
+     * @return bool
      */
-    public function getTemplateVariables()
+    public function getObject()
     {
-        return $this->templateVariables;
-    }
-
-    /**
-     * Returns the item columns.
-     *
-     * @return array
-     */
-    public function getColumns()
-    {
-        return $this->columns;
-    }
-
-    /**
-     * Specifies data which should be serialized to JSON.
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return array(
-            'id' => $this->getId(),
-            'value' => $this->getValue(),
-            'parent_id' => $this->getParentId(),
-            'name' => $this->getName(),
-            'selectable' => $this->isSelectable(),
-            'has_children' => $this->hasChildren(),
-            'has_sub_categories' => $this->hasSubCategories(),
-        ) + $this->getColumns();
+        return $this->object;
     }
 }

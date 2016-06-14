@@ -43,7 +43,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
             }
 
             $defaultConfig = $this->defaultConfigLoader->loadConfig(
-                $configLoader->getItemType()
+                $configLoader->getValueType()
             );
 
             $loadedConfig = $configLoader->loadConfig($configName);

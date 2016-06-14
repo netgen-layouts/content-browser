@@ -10,14 +10,24 @@ class ItemReference extends AbstractItem implements ItemReferenceInterface
     protected $id;
 
     /**
-     * @var int|string
+     * @var string
      */
-    protected $parentId;
+    protected $valueType;
+
+    /**
+     * @var mixed
+     */
+    protected $value;
 
     /**
      * @var string
      */
     protected $name;
+
+    /**
+     * @var int|string
+     */
+    protected $parentId;
 
     /**
      * Returns the item ID.
@@ -30,13 +40,23 @@ class ItemReference extends AbstractItem implements ItemReferenceInterface
     }
 
     /**
-     * Returns the item parent ID.
+     * Returns the value type.
      *
      * @return int|string
      */
-    public function getParentId()
+    public function getValueType()
     {
-        return $this->parentId;
+        return $this->valueType;
+    }
+
+    /**
+     * Returns the item value.
+     *
+     * @return int|string
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
@@ -47,5 +67,15 @@ class ItemReference extends AbstractItem implements ItemReferenceInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the item parent ID.
+     *
+     * @return int|string
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
     }
 }

@@ -5,64 +5,44 @@ namespace Netgen\Bundle\ContentBrowserBundle\Backend;
 interface BackendInterface
 {
     /**
-     * Returns the configured sections.
+     * Returns the value type this backend supports.
      *
-     * @return array
+     * @return string
      */
-    public function getSections();
+    public function getValueType();
 
     /**
-     * Loads the item by its ID.
+     * Returns the value children.
      *
-     * @param int|string $itemId
-     *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item does not exist
-     *
-     * @return mixed
-     */
-    public function loadItem($itemId);
-
-    /**
-     * Loads items for provided value IDs.
-     *
-     * @param array $valueIds
-     *
-     * @return array
-     */
-    public function loadItems(array $valueIds = array());
-
-    /**
-     * Returns the item children.
-     *
-     * @param int|string $itemId
+     * @param int|string $valueId
      * @param array $params
      *
-     * @return array
+     * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[]
      */
-    public function getChildren($itemId, array $params = array());
+    public function getChildren($valueId, array $params = array());
 
     /**
-     * Returns the item children count.
+     * Returns the value children count.
      *
-     * @param int|string $itemId
+     * @param int|string $valueId
      * @param array $params
      *
      * @return int
      */
-    public function getChildrenCount($itemId, array $params = array());
+    public function getChildrenCount($valueId, array $params = array());
 
     /**
-     * Searches for items.
+     * Searches for values.
      *
      * @param string $searchText
      * @param array $params
      *
-     * @return array
+     * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[]
      */
     public function search($searchText, array $params = array());
 
     /**
-     * Returns the count of searched items.
+     * Returns the count of searched values.
      *
      * @param string $searchText
      * @param array $params

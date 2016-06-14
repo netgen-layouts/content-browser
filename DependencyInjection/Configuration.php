@@ -83,6 +83,7 @@ class Configuration implements ConfigurationInterface
                                     ->isRequired()
                                 ->end()
                                 ->scalarNode('template')->end()
+                                ->scalarNode('value_provider')->end()
                             ->end()
                         ->end()
                     ->end()

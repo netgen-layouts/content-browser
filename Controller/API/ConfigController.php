@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConfigController extends Controller
@@ -32,9 +33,18 @@ class ConfigController extends Controller
         $defaultColumns = $this->config['default_columns'];
         array_unshift($defaultColumns, 'name');
 
+        $sections = array();
+        foreach ($this->config['root_items'] as $itemId) {
+            try {
+                $sections[] = $this->valueLoader->load($itemId);
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
+
         $data = array(
-            'item_type' => $this->config['item_type'],
-            'sections' => $this->serializeItems($this->backend->getSections()),
+            'value_type' => $this->config['value_type'],
+            'sections' => $this->itemSerializer->serializeValues($sections),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
             'default_limit' => $this->config['default_limit'],

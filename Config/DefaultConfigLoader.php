@@ -29,7 +29,7 @@ class DefaultConfigLoader implements ConfigLoaderInterface
         }
 
         $config = $this->container->getParameter($param);
-        $config['item_type'] = $configName;
+        $config['value_type'] = $configName;
 
         return $config;
     }

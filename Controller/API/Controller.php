@@ -2,10 +2,11 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
+use Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
-use Netgen\Bundle\ContentBrowserBundle\Item\Builder\BuilderInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -14,14 +15,24 @@ use Pagerfanta\Pagerfanta;
 abstract class Controller extends BaseController
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface
      */
-    protected $backend;
+    protected $backendRegistry;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Builder\BuilderInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface
+     */
+    protected $valueLoaderRegistry;
+
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface
      */
     protected $itemBuilder;
+
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface
+     */
+    protected $itemSerializer;
 
     /**
      * @var array
@@ -29,20 +40,39 @@ abstract class Controller extends BaseController
     protected $config;
 
     /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
+     */
+    protected $backend;
+
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Value\ValueLoaderInterface
+     */
+    protected $valueLoader;
+
+    /**
      * Constructor.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Builder\BuilderInterface $itemBuilder
+     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface $backendRegistry
+     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface $itemBuilder
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface $itemSerializer
      * @param array $config
      */
     public function __construct(
-        BackendInterface $backend,
-        BuilderInterface $itemBuilder,
+        BackendRegistryInterface $backendRegistry,
+        ValueLoaderRegistryInterface $valueLoaderRegistry,
+        ItemBuilderInterface $itemBuilder,
+        ItemSerializerInterface $itemSerializer,
         array $config
     ) {
-        $this->backend = $backend;
+        $this->backendRegistry = $backendRegistry;
+        $this->valueLoaderRegistry = $valueLoaderRegistry;
         $this->itemBuilder = $itemBuilder;
+        $this->itemSerializer = $itemSerializer;
         $this->config = $config;
+
+        $this->backend = $this->backendRegistry->getBackend($this->config['value_type']);
+        $this->valueLoader = $this->valueLoaderRegistry->getValueLoader($this->config['value_type']);
     }
 
     /**
@@ -81,7 +111,7 @@ abstract class Controller extends BaseController
         while ($itemId !== null) {
             try {
                 $item = $this->itemBuilder->buildItemReference(
-                    $this->backend->loadItem($itemId)
+                    $this->valueLoader->load($itemId)
                 );
             } catch (NotFoundException $e) {
                 break;
@@ -99,45 +129,5 @@ abstract class Controller extends BaseController
         }
 
         return $path;
-    }
-
-    /**
-     * Builds the specified items and serializes them to an array.
-     *
-     * @param array $items
-     *
-     * @return array
-     */
-    protected function serializeItems(array $items)
-    {
-        $serializedItems = array_map(
-            function ($item) {
-                return $this->serializeItem(
-                    $this->itemBuilder->buildItem($item)
-                );
-            },
-            $items
-        );
-
-        return $serializedItems;
-    }
-
-    /**
-     * Serializes specified item to an array.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
-     *
-     * @return array
-     */
-    protected function serializeItem(ItemInterface $item)
-    {
-        $data = $item->jsonSerialize();
-
-        $data['html'] = $this->get('twig')->render(
-            $this->config['template'],
-            $item->getTemplateVariables()
-        );
-
-        return $data;
     }
 }

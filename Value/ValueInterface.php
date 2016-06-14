@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Item;
+namespace Netgen\Bundle\ContentBrowserBundle\Value;
 
-interface ItemReferenceInterface
+interface ValueInterface
 {
     /**
-     * Returns the item ID.
+     * Returns the value ID.
      *
      * @return int|string
      */
@@ -38,4 +38,11 @@ interface ItemReferenceInterface
      * @return int|string
      */
     public function getParentId();
+
+    /**
+     * Returns the value object.
+     *
+     * @return int|string
+     */
+    public function getValueObject();
 }
