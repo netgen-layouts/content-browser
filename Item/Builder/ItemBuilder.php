@@ -64,7 +64,7 @@ class ItemBuilder implements ItemBuilderInterface
                 'id' => $value->getId(),
                 'valueType' => $value->getValueType(),
                 'value' => $value->getValue(),
-                'parentId' => !in_array($value->getId(), $this->config['root_items']) ?
+                'parentId' => !in_array($value->getId(), $this->config['sections']) ?
                     $value->getParentId() :
                     null,
                 'name' => $value->getName(),

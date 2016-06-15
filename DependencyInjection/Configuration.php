@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()
-                    ->arrayNode('root_items')
+                    ->arrayNode('sections')
                         ->isRequired()
                         ->requiresAtLeastOneElement()
                         ->performNoDeepMerging()

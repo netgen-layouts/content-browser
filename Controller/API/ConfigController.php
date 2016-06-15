@@ -32,9 +32,9 @@ class ConfigController extends Controller
         }
 
         $sections = array();
-        foreach ($this->config['root_items'] as $valueId) {
+        foreach ($this->config['sections'] as $sectionId) {
             try {
-                $sections[] = $this->valueLoader->load($valueId);
+                $sections[] = $this->valueLoader->load($sectionId);
             } catch (NotFoundException $e) {
                 // Do nothing
             }
