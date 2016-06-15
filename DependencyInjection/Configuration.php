@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 class Configuration implements ConfigurationInterface
 {
@@ -37,14 +38,9 @@ class Configuration implements ConfigurationInterface
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()
-                    ->scalarNode('converter')
-                        ->isRequired()
-                    ->end()
-                    ->scalarNode('backend')
-                        ->isRequired()
-                    ->end()
                     ->arrayNode('root_items')
                         ->isRequired()
+                        ->requiresAtLeastOneElement()
                         ->performNoDeepMerging()
                         ->prototype('integer')->end()
                     ->end()
@@ -64,34 +60,76 @@ class Configuration implements ConfigurationInterface
                         ->min(0)
                     ->end()
                     ->scalarNode('template')
+                        ->cannotBeEmpty()
                         ->defaultValue('NetgenContentBrowserBundle:ezpublish:item.html.twig')
                     ->end()
                     ->arrayNode('types')
                         ->performNoDeepMerging()
-                        ->prototype('scalar')->end()
+                        ->prototype('scalar')
+                            ->cannotBeEmpty()
+                        ->end()
                     ->end()
                     ->arrayNode('category_types')
                         ->performNoDeepMerging()
-                        ->prototype('scalar')->end()
+                        ->prototype('scalar')
+                            ->cannotBeEmpty()
+                        ->end()
                     ->end()
                     ->arrayNode('columns')
+                        ->validate()
+                            ->always(function ($v) {
+                                if (isset($v['name'])) {
+                                    throw new InvalidConfigurationException('Column with "name" identifier cannot be used as it is added automatically');
+                                }
+
+                                return $v;
+                            })
+                        ->end()
                         ->performNoDeepMerging()
-                        ->requiresAtLeastOneElement()
                         ->prototype('array')
+                            ->validate()
+                                ->always(function ($v) {
+                                    $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
+
+                                    if (isset($v['template']) && isset($v['value_provider'])) {
+                                        throw $exception;
+                                    }
+
+                                    if (!isset($v['template']) && !isset($v['value_provider'])) {
+                                        throw $exception;
+                                    }
+
+                                    return $v;
+                                })
+                            ->end()
                             ->children()
                                 ->scalarNode('name')
                                     ->isRequired()
+                                    ->cannotBeEmpty()
                                 ->end()
-                                ->scalarNode('template')->end()
-                                ->scalarNode('value_provider')->end()
+                                ->scalarNode('template')
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->scalarNode('value_provider')
+                                    ->cannotBeEmpty()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
                     ->arrayNode('default_columns')
+                        ->validate()
+                            ->always(function ($v) {
+                                if (in_array('name', $v)) {
+                                    throw new InvalidConfigurationException('Column with "name" identifier cannot be used as it is added automatically');
+                                }
+
+                                return $v;
+                            })
+                        ->end()
                         ->performNoDeepMerging()
-                        ->requiresAtLeastOneElement()
-                        ->defaultValue(array('name', 'type', 'visible'))
-                        ->prototype('scalar')->end()
+                        ->prototype('scalar')
+                            ->cannotBeEmpty()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

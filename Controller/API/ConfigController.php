@@ -17,24 +17,19 @@ class ConfigController extends Controller
         /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
         $translator = $this->get('translator');
 
-        $availableColumns = array();
-        foreach ($this->config['columns'] as $identifier => $columnData) {
-            $availableColumns[] = array(
-                'id' => $identifier,
-                'name' => $translator->trans($columnData['name'], array(), 'ngcb'),
-            );
-        }
-
-        array_unshift(
-            $availableColumns,
+        $availableColumns = array(
             array(
                 'id' => 'name',
                 'name' => $translator->trans('columns.name', array(), 'ngcb'),
             )
         );
 
-        $defaultColumns = $this->config['default_columns'];
-        array_unshift($defaultColumns, 'name');
+        foreach ($this->config['columns'] as $identifier => $columnData) {
+            $availableColumns[] = array(
+                'id' => $identifier,
+                'name' => $translator->trans($columnData['name'], array(), 'ngcb'),
+            );
+        }
 
         $sections = array();
         foreach ($this->config['root_items'] as $valueId) {
@@ -51,7 +46,7 @@ class ConfigController extends Controller
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
             'default_limit' => $this->config['default_limit'],
-            'default_columns' => $defaultColumns,
+            'default_columns' => array_merge(array('name'), $this->config['default_columns']),
             'available_columns' => $availableColumns,
         );
 
