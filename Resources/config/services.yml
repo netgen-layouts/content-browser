@@ -22,6 +22,8 @@ parameters:
 
     netgen_content_browser.form.type.content_browser.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType
 
+    netgen_content_browser.param_converter.value.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ValueParamConverter
+
 services:
     # Virtual services
 
@@ -142,3 +144,13 @@ services:
             - "@netgen_content_browser.registry.value_loader"
         tags:
             - { name: form.type }
+
+    # Param converters
+
+    netgen_content_browser.param_converter.value:
+        class: "%netgen_content_browser.param_converter.value.class%"
+        arguments:
+            - "@netgen_content_browser.registry.value_loader"
+            - "@netgen_content_browser.current_config"
+        tags:
+            - { name: request.param_converter, priority: 0 }

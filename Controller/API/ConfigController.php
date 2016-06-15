@@ -37,9 +37,9 @@ class ConfigController extends Controller
         array_unshift($defaultColumns, 'name');
 
         $sections = array();
-        foreach ($this->config['root_items'] as $itemId) {
+        foreach ($this->config['root_items'] as $valueId) {
             try {
-                $sections[] = $this->valueLoader->load($itemId);
+                $sections[] = $this->valueLoader->load($valueId);
             } catch (NotFoundException $e) {
                 // Do nothing
             }
