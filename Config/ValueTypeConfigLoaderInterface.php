@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Config;
 
-interface NamedConfigLoaderInterface extends ConfigLoaderInterface
+interface ValueTypeConfigLoaderInterface extends ConfigLoaderInterface
 {
     /**
      * Returns the value type which this config supports.

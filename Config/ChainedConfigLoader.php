@@ -10,7 +10,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
     protected $defaultConfigLoader;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface[]
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ValueTypeConfigLoaderInterface[]
      */
     protected $configLoaders = array();
 
@@ -18,7 +18,7 @@ class ChainedConfigLoader implements ConfigLoaderInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface $defaultConfigLoader
-     * @param \Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface[] $configLoaders
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ValueTypeConfigLoaderInterface[] $configLoaders
      */
     public function __construct(ConfigLoaderInterface $defaultConfigLoader, array $configLoaders = array())
     {
