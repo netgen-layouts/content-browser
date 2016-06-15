@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root($this->alias);
 
         $rootNode->children()
-            ->arrayNode('items')
+            ->arrayNode('configs')
             ->useAttributeAsKey('identifier')
             ->prototype('array')
                 ->children()

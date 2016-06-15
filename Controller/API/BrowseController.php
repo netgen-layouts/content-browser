@@ -36,11 +36,11 @@ class BrowseController extends Controller
     }
 
     /**
-     * Returns all items with specified value IDs.
+     * Returns all value objects with specified values.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If value IDs are missing or invalid.
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If values are missing or invalid.
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SearchController extends Controller
 {
     /**
-     * Performs the search for items by using the specified text.
+     * Performs the search for values by using the specified text.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
