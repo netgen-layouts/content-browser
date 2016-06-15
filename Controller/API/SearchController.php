@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemSearchAdapter;
+use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ValueSearchAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,7 +26,7 @@ class SearchController extends Controller
         }
 
         $pager = $this->buildPager(
-            new ItemSearchAdapter(
+            new ValueSearchAdapter(
                 $this->backend,
                 $searchText
             ),

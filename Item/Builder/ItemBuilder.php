@@ -53,7 +53,7 @@ class ItemBuilder implements ItemBuilderInterface
         $converter = $this->converters[$value->getValueType()];
 
         $subCategoriesCount = $backend->getChildrenCount(
-            $value->getId(),
+            $value,
             array(
                 'types' => $this->config['category_types'],
             )
@@ -69,7 +69,7 @@ class ItemBuilder implements ItemBuilderInterface
                     null,
                 'name' => $value->getName(),
                 'isSelectable' => $converter->getIsSelectable($value),
-                'hasChildren' => $backend->getChildrenCount($value->getId()) > 0,
+                'hasChildren' => $backend->getChildrenCount($value) > 0,
                 'hasSubCategories' => $subCategoriesCount > 0,
                 'object' => $value->getValueObject(),
             )

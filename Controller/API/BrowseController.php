@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemChildrenAdapter;
+use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ValueChildrenAdapter;
 use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,9 +47,9 @@ class BrowseController extends Controller
     public function getChildren(ValueInterface $value, Request $request)
     {
         $pager = $this->buildPager(
-            new ItemChildrenAdapter(
+            new ValueChildrenAdapter(
                 $this->backend,
-                $value->getId()
+                $value
             ),
             $request
         );
@@ -75,7 +75,7 @@ class BrowseController extends Controller
     public function getSubCategories(ValueInterface $value)
     {
         $subCategories = $this->backend->getChildren(
-            $value->getId(),
+            $value,
             array(
                 'types' => $this->config['category_types'],
             )

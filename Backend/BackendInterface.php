@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Backend;
 
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+
 interface BackendInterface
 {
     /**
@@ -14,22 +16,22 @@ interface BackendInterface
     /**
      * Returns the value children.
      *
-     * @param int|string $valueId
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      * @param array $params
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[]
      */
-    public function getChildren($valueId, array $params = array());
+    public function getChildren(ValueInterface $value, array $params = array());
 
     /**
      * Returns the value children count.
      *
-     * @param int|string $valueId
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      * @param array $params
      *
      * @return int
      */
-    public function getChildrenCount($valueId, array $params = array());
+    public function getChildrenCount(ValueInterface $value, array $params = array());
 
     /**
      * Searches for values.

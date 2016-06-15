@@ -3,9 +3,10 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Pagerfanta;
 
 use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class ItemChildrenAdapter implements AdapterInterface
+class ValueChildrenAdapter implements AdapterInterface
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
@@ -13,9 +14,9 @@ class ItemChildrenAdapter implements AdapterInterface
     protected $backend;
 
     /**
-     * @var int|string
+     * @var \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface
      */
-    protected $itemId;
+    protected $value;
 
     /**
      * @var int
@@ -26,12 +27,12 @@ class ItemChildrenAdapter implements AdapterInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
-     * @param int|string $itemId
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      */
-    public function __construct(BackendInterface $backend, $itemId)
+    public function __construct(BackendInterface $backend, ValueInterface $value)
     {
         $this->backend = $backend;
-        $this->itemId = $itemId;
+        $this->value = $value;
     }
 
     /**
@@ -42,7 +43,7 @@ class ItemChildrenAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->backend->getChildrenCount($this->itemId);
+            $this->nbResults = $this->backend->getChildrenCount($this->value);
         }
 
         return $this->nbResults;
@@ -59,7 +60,7 @@ class ItemChildrenAdapter implements AdapterInterface
     public function getSlice($offset, $length)
     {
         $children = $this->backend->getChildren(
-            $this->itemId,
+            $this->value,
             array(
                 'offset' => $offset,
                 'limit' => $length,
@@ -67,7 +68,7 @@ class ItemChildrenAdapter implements AdapterInterface
         );
 
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->backend->getChildrenCount($this->itemId);
+            $this->nbResults = $this->backend->getChildrenCount($this->value);
         }
 
         return $children;

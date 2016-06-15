@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Pagerfanta;
 use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class ItemSearchAdapter implements AdapterInterface
+class ValueSearchAdapter implements AdapterInterface
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
