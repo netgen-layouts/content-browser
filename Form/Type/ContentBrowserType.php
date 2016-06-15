@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
@@ -51,12 +52,18 @@ class ContentBrowserType extends HiddenType
     {
         parent::buildView($view, $form, $options);
 
+        $valueLoader = $this->valueLoaderRegistry->getValueLoader($options['value_type']);
+
+        try {
+            $valueName = $valueLoader->loadByValue($form->getData())->getName();
+        } catch (NotFoundException $e) {
+            $valueName = '(INVALID VALUE)';
+        }
+
         $view->vars = array(
             'value_type' => $options['value_type'],
             'config_name' => $options['config_name'],
-            'value_name' => $this->valueLoaderRegistry->getValueLoader($options['value_type'])
-                ->loadByValue($form->getData()
-            )->getName(),
+            'value_name' => $valueName,
         ) + $view->vars;
     }
 
