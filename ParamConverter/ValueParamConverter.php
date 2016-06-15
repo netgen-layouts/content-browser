@@ -42,7 +42,7 @@ class ValueParamConverter implements ParamConverterInterface
 
         $valueId = $request->attributes->get('valueId');
         // 0 is a valid value ID
-        if ($valueId === null || $valueId === "") {
+        if ($valueId === null || $valueId === '') {
             if ($configuration->isOptional()) {
                 return false;
             }

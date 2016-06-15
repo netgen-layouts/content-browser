@@ -109,7 +109,7 @@ abstract class Controller extends BaseController
                 )
             );
 
-            if(in_array($valueId, $this->config['root_items'])) {
+            if (in_array($valueId, $this->config['root_items'])) {
                 break;
             }
 
