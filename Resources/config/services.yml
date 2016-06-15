@@ -20,6 +20,8 @@ parameters:
     netgen_content_browser.item_renderer.class: Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRenderer
     netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProvider
 
+    netgen_content_browser.form.type.content_browser.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType
+
 services:
     # Virtual services
 
@@ -132,3 +134,12 @@ services:
             - "@netgen_content_browser.item_renderer"
             - "@netgen_content_browser.current_config"
             - []
+
+    # Form types
+
+    netgen_content_browser.form.type.content_browser:
+        class: "%netgen_content_browser.form.type.content_browser.class%"
+        arguments:
+            - "@netgen_content_browser.registry.value_loader"
+        tags:
+            - { name: form.type }
