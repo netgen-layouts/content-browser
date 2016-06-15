@@ -151,6 +151,5 @@ services:
         class: "%netgen_content_browser.param_converter.value.class%"
         arguments:
             - "@netgen_content_browser.registry.value_loader"
-            - "@netgen_content_browser.current_config"
         tags:
             - { name: request.param_converter, priority: 0 }

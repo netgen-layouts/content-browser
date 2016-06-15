@@ -17,20 +17,13 @@ class ValueParamConverter implements ParamConverterInterface
     protected $valueLoaderRegistry;
 
     /**
-     * @var array
-     */
-    protected $config;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param array $config
      */
-    public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry, array $config)
+    public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry)
     {
         $this->valueLoaderRegistry = $valueLoaderRegistry;
-        $this->config = $config;
     }
 
     /**
@@ -43,7 +36,7 @@ class ValueParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
-        if (!$request->attributes->has('valueId')) {
+        if (!$request->attributes->has('valueId') || !$request->attributes->has('valueType')) {
             return false;
         };
 
@@ -57,7 +50,7 @@ class ValueParamConverter implements ParamConverterInterface
             throw new UnexpectedValueException('Required request attribute "valueId" is empty');
         }
 
-        $valueLoader = $this->valueLoaderRegistry->getValueLoader($this->config['value_type']);
+        $valueLoader = $this->valueLoaderRegistry->getValueLoader($request->attributes->get('valueType'));
         $request->attributes->set('value', $valueLoader->load($valueId));
 
         return true;
