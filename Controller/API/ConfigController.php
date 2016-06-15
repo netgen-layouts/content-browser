@@ -14,11 +14,14 @@ class ConfigController extends Controller
      */
     public function getConfig()
     {
+        /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
+        $translator = $this->get('translator');
+
         $availableColumns = array();
         foreach ($this->config['columns'] as $identifier => $columnData) {
             $availableColumns[] = array(
                 'id' => $identifier,
-                'name' => $this->get('translator')->trans($columnData['name']),
+                'name' => $translator->trans($columnData['name'], array(), 'ngcb'),
             );
         }
 
@@ -26,7 +29,7 @@ class ConfigController extends Controller
             $availableColumns,
             array(
                 'id' => 'name',
-                'name' => $this->get('translator')->trans('netgen_content_browser.columns.name'),
+                'name' => $translator->trans('columns.name', array(), 'ngcb'),
             )
         );
 
