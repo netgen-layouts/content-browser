@@ -6,7 +6,6 @@ use Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProviderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface;
 
 class ItemSerializer implements ItemSerializerInterface
 {
@@ -72,23 +71,6 @@ class ItemSerializer implements ItemSerializerInterface
         $data['html'] = $this->itemRenderer->renderItem($item, $this->config['template']);
 
         return $data;
-    }
-
-    /**
-     * Serializes the item reference.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface $itemReference
-     *
-     * @return array
-     */
-    public function serializeItemReference(ItemReferenceInterface $itemReference)
-    {
-        return array(
-            'id' => $itemReference->getId(),
-            'value' => $itemReference->getValue(),
-            'parent_id' => $itemReference->getParentId(),
-            'name' => $itemReference->getName(),
-        );
     }
 
     /**

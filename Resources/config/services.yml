@@ -35,7 +35,6 @@ services:
         arguments:
             - "@netgen_content_browser.registry.backend"
             - "@netgen_content_browser.registry.value_loader"
-            - "@netgen_content_browser.item_builder"
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.current_config"
         calls:

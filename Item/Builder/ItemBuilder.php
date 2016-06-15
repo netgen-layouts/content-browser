@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Builder;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\Item;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemReference;
 use Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 
@@ -73,28 +72,6 @@ class ItemBuilder implements ItemBuilderInterface
                 'hasChildren' => $backend->getChildrenCount($value->getId()) > 0,
                 'hasSubCategories' => $subCategoriesCount > 0,
                 'object' => $value->getValueObject(),
-            )
-        );
-    }
-
-    /**
-     * Builds the item reference from provided value.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemReferenceInterface
-     */
-    public function buildItemReference(ValueInterface $value)
-    {
-        return new ItemReference(
-            array(
-                'id' => $value->getId(),
-                'valueType' => $value->getValueType(),
-                'value' => $value->getValue(),
-                'name' => $value->getName(),
-                'parentId' => !in_array($value->getId(), $this->config['root_items']) ?
-                    $value->getParentId() :
-                    null,
             )
         );
     }

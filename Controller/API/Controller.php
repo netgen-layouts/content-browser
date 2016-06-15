@@ -2,10 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
 use Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface;
-use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +21,6 @@ abstract class Controller extends BaseController
      * @var \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface
      */
     protected $valueLoaderRegistry;
-
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface
-     */
-    protected $itemBuilder;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface
@@ -54,20 +47,17 @@ abstract class Controller extends BaseController
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface $backendRegistry
      * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface $itemBuilder
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface $itemSerializer
      * @param array $config
      */
     public function __construct(
         BackendRegistryInterface $backendRegistry,
         ValueLoaderRegistryInterface $valueLoaderRegistry,
-        ItemBuilderInterface $itemBuilder,
         ItemSerializerInterface $itemSerializer,
         array $config
     ) {
         $this->backendRegistry = $backendRegistry;
         $this->valueLoaderRegistry = $valueLoaderRegistry;
-        $this->itemBuilder = $itemBuilder;
         $this->itemSerializer = $itemSerializer;
         $this->config = $config;
 
@@ -98,34 +88,32 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Builds the path array for specified item.
+     * Builds the path array for specified value.
      *
-     * @param int|string $itemId
+     * @param int|string $valueId
      *
      * @return array
      */
-    protected function buildPath($itemId)
+    protected function buildPath($valueId)
     {
         $path = array();
 
-        while ($itemId !== null) {
-            try {
-                $item = $this->itemBuilder->buildItemReference(
-                    $this->valueLoader->load($itemId)
-                );
-            } catch (NotFoundException $e) {
-                break;
-            }
+        while ($valueId !== null) {
+            $value = $this->valueLoader->load($valueId);
 
             array_unshift(
                 $path,
                 array(
-                    'id' => $item->getId(),
-                    'name' => $item->getName(),
+                    'id' => $value->getId(),
+                    'name' => $value->getName(),
                 )
             );
 
-            $itemId = $item->getParentId();
+            if(in_array($valueId, $this->config['root_items'])) {
+                break;
+            }
+
+            $valueId = $value->getParentId();
         }
 
         return $path;
