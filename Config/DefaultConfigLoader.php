@@ -24,7 +24,10 @@ class DefaultConfigLoader implements ConfigLoaderInterface
 
         if (!$this->container->hasParameter($param)) {
             throw new InvalidArgumentException(
-                "Configuration for '{$configName}' item does not exist."
+                sprintf(
+                    'Configuration for "%s" value type does not exist.',
+                    $configName
+                )
             );
         }
 
