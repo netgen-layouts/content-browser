@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class BackendRegistryPass implements CompilerPassInterface
 {
@@ -25,11 +26,19 @@ class BackendRegistryPass implements CompilerPassInterface
         $backendRegistry = $container->findDefinition(self::SERVICE_NAME);
         $backends = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($backends as $backend => $tag) {
-            $backendRegistry->addMethodCall(
-                'addBackend',
-                array($tag[0]['value_type'], new Reference($backend))
-            );
+        foreach ($backends as $backend => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Backend definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
+
+                $backendRegistry->addMethodCall(
+                    'addBackend',
+                    array($tag['value_type'], new Reference($backend))
+                );
+            }
         }
     }
 }

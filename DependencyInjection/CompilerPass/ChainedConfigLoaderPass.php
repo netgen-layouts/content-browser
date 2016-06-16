@@ -28,17 +28,13 @@ class ChainedConfigLoaderPass implements CompilerPassInterface
                 $priorityA = isset($a[0]['priority']) ? $a[0]['priority'] : 0;
                 $priorityB = isset($b[0]['priority']) ? $b[0]['priority'] : 0;
 
-                if ($priorityA == $priorityB) {
-                    return 0;
-                }
-
-                return ($priorityA > $priorityB) ? -1 : 1;
+                return $priorityB - $priorityA;
             }
         );
 
         $configLoaderReferences = array();
-        foreach ($configLoaders as $serviceName => $tag) {
-            $configLoaderReferences[] = new Reference($serviceName);
+        foreach (array_keys($configLoaders) as $configLoader) {
+            $configLoaderReferences[] = new Reference($configLoader);
         }
 
         $chainedConfigLoader->replaceArgument(1, $configLoaderReferences);

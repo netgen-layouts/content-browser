@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class ValueLoaderRegistryPass implements CompilerPassInterface
 {
@@ -25,11 +26,19 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
         $valueLoaderRegistry = $container->findDefinition(self::SERVICE_NAME);
         $valueLoaders = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($valueLoaders as $valueLoader => $tag) {
-            $valueLoaderRegistry->addMethodCall(
-                'addValueLoader',
-                array($tag[0]['value_type'], new Reference($valueLoader))
-            );
+        foreach ($valueLoaders as $valueLoader => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Value loader definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
+
+                $valueLoaderRegistry->addMethodCall(
+                    'addValueLoader',
+                    array($tag['value_type'], new Reference($valueLoader))
+                );
+            }
         }
     }
 }

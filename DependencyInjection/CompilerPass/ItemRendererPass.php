@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class ItemRendererPass implements CompilerPassInterface
 {
@@ -28,6 +29,12 @@ class ItemRendererPass implements CompilerPassInterface
         $valueProviders = array();
         foreach ($valueProviderServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Template value provider definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
+
                 $valueProviders[$tag['value_type']] = new Reference($serviceName);
             }
         }

@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class ItemBuilderPass implements CompilerPassInterface
 {
@@ -23,15 +24,21 @@ class ItemBuilderPass implements CompilerPassInterface
         }
 
         $itemBuilder = $container->findDefinition(self::SERVICE_NAME);
-        $itemConverterServices = $container->findTaggedServiceIds(self::TAG_NAME);
+        $converterServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        $itemConverters = array();
-        foreach ($itemConverterServices as $serviceName => $tags) {
+        $converters = array();
+        foreach ($converterServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
-                $itemConverters[$tag['value_type']] = new Reference($serviceName);
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Converter definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
+
+                $converters[$tag['value_type']] = new Reference($serviceName);
             }
         }
 
-        $itemBuilder->replaceArgument(2, $itemConverters);
+        $itemBuilder->replaceArgument(2, $converters);
     }
 }

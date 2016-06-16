@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use RuntimeException;
 
 class ColumnProviderPass implements CompilerPassInterface
 {
@@ -28,6 +29,12 @@ class ColumnProviderPass implements CompilerPassInterface
         $valueProviders = array();
         foreach ($valueProviderServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
+                if (!isset($tag['identifier'])) {
+                    throw new RuntimeException(
+                        "Column value provider definition must have a 'identifier' attribute in its' tag."
+                    );
+                }
+
                 $valueProviders[$tag['identifier']] = new Reference($serviceName);
             }
         }
