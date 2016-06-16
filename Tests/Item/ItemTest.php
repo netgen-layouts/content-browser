@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Item;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\Item;
+use Netgen\Bundle\ContentBrowserBundle\Tests\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
@@ -17,14 +18,14 @@ class ItemTest extends TestCase
         $this->item = new Item(
             array(
                 'id' => 42,
+                'valueType' => 'value',
                 'value' => 43,
                 'name' => 'Item',
                 'parentId' => 24,
                 'isSelectable' => true,
                 'hasChildren' => true,
                 'hasSubCategories' => true,
-                'templateVariables' => array('param' => 'value'),
-                'columns' => array('column' => 'value'),
+                'valueObject' => new Value(24, 23),
             )
         );
     }
@@ -45,6 +46,14 @@ class ItemTest extends TestCase
     public function testGetId()
     {
         self::assertEquals(42, $this->item->getId());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::getValueType
+     */
+    public function testGetValueType()
+    {
+        self::assertEquals('value', $this->item->getValueType());
     }
 
     /**
@@ -96,37 +105,10 @@ class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::getTemplateVariables
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::getValueObject
      */
-    public function testGetTemplateVariables()
+    public function testGetValueObject()
     {
-        self::assertEquals(array('param' => 'value'), $this->item->getTemplateVariables());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::getColumns
-     */
-    public function testGetColumns()
-    {
-        self::assertEquals(array('column' => 'value'), $this->item->getColumns());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Item\Item::jsonSerialize
-     */
-    public function testJsonSerialize()
-    {
-        self::assertEquals(
-            array(
-                'id' => $this->item->getId(),
-                'value' => $this->item->getValue(),
-                'parent_id' => $this->item->getParentId(),
-                'name' => $this->item->getName(),
-                'selectable' => $this->item->isSelectable(),
-                'has_children' => $this->item->hasChildren(),
-                'has_sub_categories' => $this->item->hasSubCategories(),
-            ) + $this->item->getColumns(),
-            $this->item->jsonSerialize()
-        );
+        self::assertEquals(new Value(24, 23), $this->item->getValueObject());
     }
 }
