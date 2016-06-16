@@ -67,8 +67,7 @@ class SetCurrentConfigListenerTest extends TestCase
         );
 
         $config = array(
-            'converter' => 'converter_service',
-            'backend' => 'backend_service',
+            'value_type' => 'value',
         );
 
         $this->configLoaderMock
@@ -85,35 +84,9 @@ class SetCurrentConfigListenerTest extends TestCase
                 $this->equalTo($config)
             );
 
-        $this->containerMock
-            ->expects($this->at(1))
-            ->method('get')
-            ->with($this->equalTo('converter_service'))
-            ->will($this->returnValue('converter_service_object'));
-
-        $this->containerMock
-            ->expects($this->at(2))
-            ->method('set')
-            ->with(
-                $this->equalTo('netgen_content_browser.current_converter'),
-                $this->equalTo('converter_service_object')
-            );
-
-        $this->containerMock
-            ->expects($this->at(3))
-            ->method('get')
-            ->with($this->equalTo('backend_service'))
-            ->will($this->returnValue('backend_service_object'));
-
-        $this->containerMock
-            ->expects($this->at(4))
-            ->method('set')
-            ->with(
-                $this->equalTo('netgen_content_browser.current_backend'),
-                $this->equalTo('backend_service_object')
-            );
-
         $this->eventListener->onKernelRequest($event);
+
+        self::assertEquals('value', $request->attributes->get('valueType'));
     }
 
     /**
@@ -139,6 +112,8 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->containerMock
             ->expects($this->never())
             ->method('set');
+
+        self::assertFalse($request->attributes->has('valueType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -166,6 +141,8 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
+        self::assertFalse($request->attributes->has('valueType'));
+
         $this->eventListener->onKernelRequest($event);
     }
 
@@ -191,6 +168,8 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->containerMock
             ->expects($this->never())
             ->method('set');
+
+        self::assertFalse($request->attributes->has('valueType'));
 
         $this->eventListener->onKernelRequest($event);
     }
