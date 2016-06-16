@@ -4,8 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Config;
 
 use Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader;
 use Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader;
-use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\SupportedConfigLoader;
-use Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs\UnsupportedConfigLoader;
+use Netgen\Bundle\ContentBrowserBundle\Tests\Stubs\ConfigLoader;
 use PHPUnit\Framework\TestCase;
 
 class ChainedConfigLoaderTest extends TestCase
@@ -34,14 +33,14 @@ class ChainedConfigLoaderTest extends TestCase
         $chainedConfigLoader = new ChainedConfigLoader(
             $this->defaultConfigLoaderMock,
             array(
-                new UnsupportedConfigLoader(),
-                new SupportedConfigLoader(),
+                new ConfigLoader(false),
+                new ConfigLoader(true),
             )
         );
 
         $config = $chainedConfigLoader->loadConfig('test');
         self::assertEquals(
-            array('one' => 'supported', 'two' => 'supported', 'three' => 'default'),
+            array('one' => 'config', 'two' => 'config', 'three' => 'default'),
             $config
         );
     }
@@ -71,7 +70,7 @@ class ChainedConfigLoaderTest extends TestCase
         $chainedConfigLoader = new ChainedConfigLoader(
             $this->defaultConfigLoaderMock,
             array(
-                new UnsupportedConfigLoader(),
+                new ConfigLoader(false),
             )
         );
 

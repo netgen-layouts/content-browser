@@ -1,11 +1,26 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\Config\Stubs;
+namespace Netgen\Bundle\ContentBrowserBundle\Tests\Stubs;
 
-use Netgen\Bundle\ContentBrowserBundle\Config\NamedConfigLoaderInterface;
+use Netgen\Bundle\ContentBrowserBundle\Config\ValueTypeConfigLoaderInterface;
 
-class UnsupportedConfigLoader implements NamedConfigLoaderInterface
+class ConfigLoader implements ValueTypeConfigLoaderInterface
 {
+    /**
+     * @var bool
+     */
+    protected $supports;
+
+    /**
+     * Constructor.
+     *
+     * @param bool $supports
+     */
+    public function __construct($supports = true)
+    {
+        $this->supports = $supports;
+    }
+
     /**
      * Loads the configuration by its name.
      *
@@ -17,15 +32,15 @@ class UnsupportedConfigLoader implements NamedConfigLoaderInterface
      */
     public function loadConfig($configName)
     {
-        return array('one' => 'unsupported', 'two' => 'unsupported');
+        return array('one' => 'config', 'two' => 'config');
     }
 
     /**
-     * Returns the item type which this config supports.
+     * Returns the value type which this config supports.
      *
      * @return string
      */
-    public function getItemType()
+    public function getValueType()
     {
         return 'ezcontent';
     }
@@ -39,6 +54,6 @@ class UnsupportedConfigLoader implements NamedConfigLoaderInterface
      */
     public function supports($configName)
     {
-        return false;
+        return $this->supports;
     }
 }

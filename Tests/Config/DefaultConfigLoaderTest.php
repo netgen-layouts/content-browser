@@ -48,7 +48,7 @@ class DefaultConfigLoaderTest extends TestCase
         self::assertEquals(
             array(
                 'config' => 'value',
-                'item_type' => 'test',
+                'value_type' => 'test',
             ),
             $config
         );
