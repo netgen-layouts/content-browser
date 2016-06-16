@@ -71,7 +71,7 @@ class ItemBuilder implements ItemBuilderInterface
                 'isSelectable' => $converter->getIsSelectable($value),
                 'hasChildren' => $backend->getChildrenCount($value) > 0,
                 'hasSubCategories' => $subCategoriesCount > 0,
-                'object' => $value->getValueObject(),
+                'valueObject' => $value,
             )
         );
     }

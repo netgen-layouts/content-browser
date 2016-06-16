@@ -45,9 +45,9 @@ class Item extends AbstractItem implements ItemInterface
     protected $hasSubCategories;
 
     /**
-     * @var mixed
+     * @var \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface
      */
-    protected $object;
+    protected $valueObject;
 
     /**
      * Returns the item ID.
@@ -130,12 +130,12 @@ class Item extends AbstractItem implements ItemInterface
     }
 
     /**
-     * Returns the object.
+     * Returns the value object.
      *
-     * @return bool
+     * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface
      */
-    public function getObject()
+    public function getValueObject()
     {
-        return $this->object;
+        return $this->valueObject;
     }
 }

@@ -61,9 +61,9 @@ interface ItemInterface
     public function hasSubCategories();
 
     /**
-     * Returns the object.
+     * Returns the value object.
      *
-     * @return bool
+     * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface
      */
-    public function getObject();
+    public function getValueObject();
 }
