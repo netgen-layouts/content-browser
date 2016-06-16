@@ -44,7 +44,7 @@ class ItemRenderer implements ItemRendererInterface
         return $this->twig->render(
             $template,
             $this->templateValueProviders[$item->getValueType()]
-                ->getValues($item->getObject())
+                ->getValues($item->getValueObject())
         );
     }
 }

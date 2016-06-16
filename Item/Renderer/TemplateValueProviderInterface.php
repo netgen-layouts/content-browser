@@ -2,14 +2,16 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Renderer;
 
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+
 interface TemplateValueProviderInterface
 {
     /**
      * Provides the values for template rendering.
      *
-     * @param mixed $valueObject
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      *
      * @return array
      */
-    public function getValues($valueObject);
+    public function getValues(ValueInterface $value);
 }

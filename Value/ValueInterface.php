@@ -42,7 +42,7 @@ interface ValueInterface
     /**
      * Returns the value object.
      *
-     * @return int|string
+     * @return mixed
      */
     public function getValueObject();
 }

@@ -2,14 +2,16 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Column;
 
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+
 interface ColumnValueProviderInterface
 {
     /**
      * Provides the column value.
      *
-     * @param mixed $valueObject
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      *
      * @return mixed
      */
-    public function getValue($valueObject);
+    public function getValue(ValueInterface $value);
 }

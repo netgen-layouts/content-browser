@@ -59,7 +59,7 @@ class ColumnProvider implements ColumnProviderInterface
             } else {
                 $columns[$columnIdentifier] = $this
                     ->columnValueProviders[$columnConfig['value_provider']]
-                    ->getValue($item->getObject());
+                    ->getValue($item->getValueObject());
             }
         }
 
