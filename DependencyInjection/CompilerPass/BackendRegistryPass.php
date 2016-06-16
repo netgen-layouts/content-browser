@@ -28,7 +28,7 @@ class BackendRegistryPass implements CompilerPassInterface
         foreach ($backends as $backend => $tag) {
             $backendRegistry->addMethodCall(
                 'addBackend',
-                array(new Reference($backend))
+                array($tag[0]['value_type'], new Reference($backend))
             );
         }
     }

@@ -5,13 +5,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Value;
 interface ValueLoaderInterface
 {
     /**
-     * Returns the value type this loader supports.
-     *
-     * @return string
-     */
-    public function getValueType();
-
-    /**
      * Loads the value by its ID.
      *
      * @param int|string $id

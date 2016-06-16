@@ -21,7 +21,7 @@ class ConfigController extends Controller
             array(
                 'id' => 'name',
                 'name' => $translator->trans('columns.name', array(), 'ngcb'),
-            )
+            ),
         );
 
         foreach ($this->config['columns'] as $identifier => $columnData) {

@@ -7,13 +7,6 @@ use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 interface BackendInterface
 {
     /**
-     * Returns the value type this backend supports.
-     *
-     * @return string
-     */
-    public function getValueType();
-
-    /**
      * Returns the value children.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value

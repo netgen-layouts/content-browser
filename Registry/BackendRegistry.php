@@ -15,11 +15,12 @@ class BackendRegistry implements BackendRegistryInterface
     /**
      * Adds a backend to registry.
      *
+     * @param string $valueType
      * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
      */
-    public function addBackend(BackendInterface $backend)
+    public function addBackend($valueType, BackendInterface $backend)
     {
-        $this->backends[$backend->getValueType()] = $backend;
+        $this->backends[$valueType] = $backend;
     }
 
     /**

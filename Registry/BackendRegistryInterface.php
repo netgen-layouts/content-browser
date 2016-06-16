@@ -9,9 +9,10 @@ interface BackendRegistryInterface
     /**
      * Adds a backend to registry.
      *
+     * @param string $valueType
      * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
      */
-    public function addBackend(BackendInterface $backend);
+    public function addBackend($valueType, BackendInterface $backend);
 
     /**
      * Returns if registry has a backend.

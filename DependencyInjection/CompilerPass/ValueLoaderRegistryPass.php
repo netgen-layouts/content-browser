@@ -28,7 +28,7 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
         foreach ($valueLoaders as $valueLoader => $tag) {
             $valueLoaderRegistry->addMethodCall(
                 'addValueLoader',
-                array(new Reference($valueLoader))
+                array($tag[0]['value_type'], new Reference($valueLoader))
             );
         }
     }
