@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
+use Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface;
 use Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
@@ -23,9 +23,9 @@ abstract class Controller extends BaseController
     protected $valueLoaderRegistry;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface
      */
-    protected $itemSerializer;
+    protected $valueSerializer;
 
     /**
      * @var array
@@ -47,18 +47,18 @@ abstract class Controller extends BaseController
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface $backendRegistry
      * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface $itemSerializer
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface $valueSerializer
      * @param array $config
      */
     public function __construct(
         BackendRegistryInterface $backendRegistry,
         ValueLoaderRegistryInterface $valueLoaderRegistry,
-        ItemSerializerInterface $itemSerializer,
+        ValueSerializerInterface $valueSerializer,
         array $config
     ) {
         $this->backendRegistry = $backendRegistry;
         $this->valueLoaderRegistry = $valueLoaderRegistry;
-        $this->itemSerializer = $itemSerializer;
+        $this->valueSerializer = $valueSerializer;
         $this->config = $config;
 
         $this->backend = $this->backendRegistry->getBackend($this->config['value_type']);

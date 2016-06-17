@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConfigController extends Controller
@@ -42,7 +43,12 @@ class ConfigController extends Controller
 
         $data = array(
             'value_type' => $this->config['value_type'],
-            'sections' => $this->itemSerializer->serializeValues($sections),
+            'sections' => array_map(
+                function (ValueInterface $value) {
+                    return $this->valueSerializer->serializeValue($value);
+                },
+                $sections
+            ),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
             'default_limit' => $this->config['default_limit'],

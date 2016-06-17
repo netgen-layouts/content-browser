@@ -15,8 +15,9 @@ parameters:
     netgen_content_browser.registry.backend.class: Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistry
     netgen_content_browser.registry.value_loader.class: Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistry
 
+    netgen_content_browser.value_serializer.class: Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializer
+
     netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilder
-    netgen_content_browser.item_serializer.class: Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializer
     netgen_content_browser.item_renderer.class: Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRenderer
     netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProvider
 
@@ -37,7 +38,7 @@ services:
         arguments:
             - "@netgen_content_browser.registry.backend"
             - "@netgen_content_browser.registry.value_loader"
-            - "@netgen_content_browser.item_serializer"
+            - "@netgen_content_browser.value_serializer"
             - "@netgen_content_browser.current_config"
         calls:
             - [setContainer, ["@service_container"]]
@@ -108,20 +109,20 @@ services:
 
     # Main services
 
+    netgen_content_browser.value_serializer:
+        class: "%netgen_content_browser.value_serializer.class%"
+        arguments:
+            - "@netgen_content_browser.column_provider"
+            - "@netgen_content_browser.item_builder"
+            - "@netgen_content_browser.item_renderer"
+            - "@netgen_content_browser.current_config"
+
     netgen_content_browser.item_builder:
         class: "%netgen_content_browser.item_builder.class%"
         arguments:
             - "@netgen_content_browser.registry.backend"
             - "@netgen_content_browser.current_config"
             - []
-
-    netgen_content_browser.item_serializer:
-        class: "%netgen_content_browser.item_serializer.class%"
-        arguments:
-            - "@netgen_content_browser.column_provider"
-            - "@netgen_content_browser.item_builder"
-            - "@netgen_content_browser.item_renderer"
-            - "@netgen_content_browser.current_config"
 
     netgen_content_browser.item_renderer:
         class: "%netgen_content_browser.item_renderer.class%"

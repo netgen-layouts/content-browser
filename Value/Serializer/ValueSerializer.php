@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Item\Serializer;
+namespace Netgen\Bundle\ContentBrowserBundle\Value\Serializer;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProviderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 
-class ItemSerializer implements ItemSerializerInterface
+class ValueSerializer implements ValueSerializerInterface
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProviderInterface
@@ -50,14 +50,16 @@ class ItemSerializer implements ItemSerializerInterface
     }
 
     /**
-     * Serializes the item.
+     * Serializes the value to the array.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
      *
      * @return array
      */
-    public function serializeItem(ItemInterface $item)
+    public function serializeValue(ValueInterface $value)
     {
+        $item = $this->itemBuilder->buildItem($value);
+
         $data = array(
             'id' => $item->getId(),
             'value' => $item->getValue(),
@@ -71,24 +73,5 @@ class ItemSerializer implements ItemSerializerInterface
         $data['html'] = $this->itemRenderer->renderItem($item, $this->config['template']);
 
         return $data;
-    }
-
-    /**
-     * Builds items from specified values and serializes them to an array.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[] $values
-     *
-     * @return array
-     */
-    public function serializeValues(array $values)
-    {
-        return array_map(
-            function ($value) {
-                return $this->serializeItem(
-                    $this->itemBuilder->buildItem($value)
-                );
-            },
-            $values
-        );
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ValueSearchAdapter;
+use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,7 +36,10 @@ class SearchController extends Controller
 
         $data = array(
             'children_count' => $pager->getNbResults(),
-            'children' => $this->itemSerializer->serializeValues(
+            'children' => array_map(
+                function (ValueInterface $value) {
+                    return $this->valueSerializer->serializeValue($value);
+                },
                 $pager->getCurrentPageResults()
             ),
         );
