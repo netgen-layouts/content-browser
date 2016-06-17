@@ -74,4 +74,21 @@ class ValueSerializer implements ValueSerializerInterface
 
         return $data;
     }
+
+    /**
+     * Serializes the list of values to the array.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[] $values
+     *
+     * @return array
+     */
+    public function serializeValues(array $values)
+    {
+        return array_map(
+            function (ValueInterface $value) {
+                return $this->serializeValue($value);
+            },
+            $values
+        );
+    }
 }

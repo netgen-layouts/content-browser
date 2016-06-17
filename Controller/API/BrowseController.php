@@ -32,12 +32,7 @@ class BrowseController extends Controller
         }
 
         return new JsonResponse(
-            array_map(
-                function (ValueInterface $value) {
-                    return $this->valueSerializer->serializeValue($value);
-                },
-                $valueObjects
-            )
+            $this->valueSerializer->serializeValues($valueObjects)
         );
     }
 
@@ -62,10 +57,7 @@ class BrowseController extends Controller
         $data = array(
             'path' => $this->buildPath($value->getId()),
             'children_count' => $pager->getNbResults(),
-            'children' => array_map(
-                function (ValueInterface $value) {
-                    return $this->valueSerializer->serializeValue($value);
-                },
+            'children' => $this->valueSerializer->serializeValues(
                 $pager->getCurrentPageResults()
             ),
         );
@@ -91,10 +83,7 @@ class BrowseController extends Controller
 
         $data = array(
             'path' => $this->buildPath($value->getId()),
-            'children' => array_map(
-                function (ValueInterface $value) {
-                    return $this->valueSerializer->serializeValue($value);
-                },
+            'children' => $this->valueSerializer->serializeValues(
                 $subCategories
             ),
         );

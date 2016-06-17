@@ -14,4 +14,13 @@ interface ValueSerializerInterface
      * @return array
      */
     public function serializeValue(ValueInterface $value);
+
+    /**
+     * Serializes the list of values to the array.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface[] $values
+     *
+     * @return array
+     */
+    public function serializeValues(array $values);
 }
