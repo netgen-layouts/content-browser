@@ -8,16 +8,6 @@ use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 class ConverterStub implements ConverterInterface
 {
     /**
-     * Returns the value type this converter supports.
-     *
-     * @return string
-     */
-    public function getValueType()
-    {
-        return 'value';
-    }
-
-    /**
      * Returns the selectable flag of the value.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value

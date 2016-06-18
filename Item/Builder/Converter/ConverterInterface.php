@@ -7,13 +7,6 @@ use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
 interface ConverterInterface
 {
     /**
-     * Returns the value type this converter supports.
-     *
-     * @return string
-     */
-    public function getValueType();
-
-    /**
      * Returns the selectable flag of the value.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
