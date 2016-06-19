@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Item\Column;
+namespace Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 

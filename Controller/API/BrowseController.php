@@ -3,8 +3,9 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ValueChildrenAdapter;
-use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
+use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\ItemChildrenAdapter;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,38 +27,38 @@ class BrowseController extends Controller
             throw new InvalidArgumentException('List of values is invalid.');
         }
 
-        $valueObjects = array();
+        $items = array();
         foreach ($values as $value) {
-            $valueObjects[] = $this->valueLoader->loadByValue($value);
+            $items[] = $this->itemRepository->loadByValue($value, $this->config['value_type']);
         }
 
         return new JsonResponse(
-            $this->valueSerializer->serializeValues($valueObjects)
+            $this->itemSerializer->serializeItems($items)
         );
     }
 
     /**
      * Returns all children of specified value.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getChildren(ValueInterface $value, Request $request)
+    public function getChildren(ItemInterface $item, Request $request)
     {
         $pager = $this->buildPager(
-            new ValueChildrenAdapter(
-                $this->backend,
-                $value
+            new ItemChildrenAdapter(
+                $this->itemRepository,
+                $item
             ),
             $request
         );
 
         $data = array(
-            'path' => $this->buildPath($value->getId()),
+            'path' => $this->buildPath($item),
             'children_count' => $pager->getNbResults(),
-            'children' => $this->valueSerializer->serializeValues(
+            'children' => $this->itemSerializer->serializeItems(
                 $pager->getCurrentPageResults()
             ),
         );
@@ -68,26 +69,50 @@ class BrowseController extends Controller
     /**
      * Returns all subcategories of specified value.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface $value
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getSubCategories(ValueInterface $value)
+    public function getSubCategories(ItemInterface $item)
     {
-        $subCategories = $this->backend->getChildren(
-            $value,
-            array(
-                'types' => $this->config['category_types'],
-            )
-        );
-
         $data = array(
-            'path' => $this->buildPath($value->getId()),
-            'children' => $this->valueSerializer->serializeValues(
-                $subCategories
+            'path' => $this->buildPath($item),
+            'children' => $this->itemSerializer->serializeItems(
+                $this->itemRepository->getSubCategories($item)
             ),
         );
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * Builds the path array for specified item.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     *
+     * @return array
+     */
+    protected function buildPath(ItemInterface $item)
+    {
+        $path = array();
+
+        while (true) {
+            $path[] = array(
+                'id' => $item->getId(),
+                'name' => $item->getName(),
+            );
+
+            if (in_array($item->getId(), $this->config['sections'])) {
+                break;
+            }
+
+            try {
+                $item = $this->itemRepository->load($item->getParentId(), $item->getValueType());
+            } catch (NotFoundException $e) {
+                break;
+            }
+        }
+
+        return array_reverse($path);
     }
 }

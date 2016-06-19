@@ -13,17 +13,17 @@ parameters:
     netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
 
     netgen_content_browser.registry.backend.class: Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistry
-    netgen_content_browser.registry.value_loader.class: Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistry
 
-    netgen_content_browser.value_serializer.class: Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializer
+    netgen_content_browser.item_repository.class: Netgen\Bundle\ContentBrowserBundle\Item\ItemRepository
+    netgen_content_browser.item_serializer.class: Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializer
 
-    netgen_content_browser.item_builder.class: Netgen\Bundle\ContentBrowserBundle\Item\Builder\ItemBuilder
+    netgen_content_browser.item_configurator.class: Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfigurator
     netgen_content_browser.item_renderer.class: Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRenderer
-    netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnProvider
+    netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProvider
 
     netgen_content_browser.form.type.content_browser.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType
 
-    netgen_content_browser.param_converter.value.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ValueParamConverter
+    netgen_content_browser.param_converter.item.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter
 
 services:
     # Virtual services
@@ -36,9 +36,8 @@ services:
     netgen_content_browser.controller.base:
         class: "%netgen_content_browser.controller.base.class%"
         arguments:
-            - "@netgen_content_browser.registry.backend"
-            - "@netgen_content_browser.registry.value_loader"
-            - "@netgen_content_browser.value_serializer"
+            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.current_config"
         calls:
             - [setContainer, ["@service_container"]]
@@ -104,23 +103,24 @@ services:
     netgen_content_browser.registry.backend:
         class: "%netgen_content_browser.registry.backend.class%"
 
-    netgen_content_browser.registry.value_loader:
-        class: "%netgen_content_browser.registry.value_loader.class%"
-
     # Main services
 
-    netgen_content_browser.value_serializer:
-        class: "%netgen_content_browser.value_serializer.class%"
-        arguments:
-            - "@netgen_content_browser.column_provider"
-            - "@netgen_content_browser.item_builder"
-            - "@netgen_content_browser.item_renderer"
-            - "@netgen_content_browser.current_config"
-
-    netgen_content_browser.item_builder:
-        class: "%netgen_content_browser.item_builder.class%"
+    netgen_content_browser.item_repository:
+        class: "%netgen_content_browser.item_repository.class%"
         arguments:
             - "@netgen_content_browser.registry.backend"
+
+    netgen_content_browser.item_serializer:
+        class: "%netgen_content_browser.item_serializer.class%"
+        arguments:
+            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.item_configurator"
+            - "@netgen_content_browser.column_provider"
+            - "@netgen_content_browser.item_renderer"
+
+    netgen_content_browser.item_configurator:
+        class: "%netgen_content_browser.item_configurator.class%"
+        arguments:
             - "@netgen_content_browser.current_config"
             - []
 
@@ -141,16 +141,14 @@ services:
 
     netgen_content_browser.form.type.content_browser:
         class: "%netgen_content_browser.form.type.content_browser.class%"
-        arguments:
-            - "@netgen_content_browser.registry.value_loader"
         tags:
             - { name: form.type }
 
     # Param converters
 
-    netgen_content_browser.param_converter.value:
-        class: "%netgen_content_browser.param_converter.value.class%"
+    netgen_content_browser.param_converter.item:
+        class: "%netgen_content_browser.param_converter.item.class%"
         arguments:
-            - "@netgen_content_browser.registry.value_loader"
+            - "@netgen_content_browser.item_repository"
         tags:
             - { name: request.param_converter, priority: 0 }

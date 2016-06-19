@@ -11,13 +11,13 @@ netgen_content_browser_api_v1_values:
         _controller: "netgen_content_browser.controller.api.browse:getValues"
 
 netgen_content_browser_api_v1_browse_children:
-    path: /{config}/browse/{valueId}/children
+    path: /{config}/browse/{itemId}/children
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getChildren"
 
 netgen_content_browser_api_v1_browse_categories:
-    path: /{config}/browse/{valueId}/categories
+    path: /{config}/browse/{itemId}/categories
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getSubCategories"

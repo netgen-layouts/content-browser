@@ -7,10 +7,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use RuntimeException;
 
-class ValueLoaderRegistryPass implements CompilerPassInterface
+class ItemConfiguratorPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_content_browser.registry.value_loader';
-    const TAG_NAME = 'netgen_content_browser.value_loader';
+    const SERVICE_NAME = 'netgen_content_browser.item_configurator';
+    const TAG_NAME = 'netgen_content_browser.item_configurator.handler';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -23,22 +23,22 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
             return;
         }
 
-        $valueLoaderRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $valueLoaders = $container->findTaggedServiceIds(self::TAG_NAME);
+        $itemConfigurator = $container->findDefinition(self::SERVICE_NAME);
+        $handlerServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($valueLoaders as $valueLoader => $tags) {
+        $handlers = array();
+        foreach ($handlerServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {
                     throw new RuntimeException(
-                        "Value loader definition must have a 'value_type' attribute in its' tag."
+                        "Configurator handler definition must have a 'value_type' attribute in its' tag."
                     );
                 }
 
-                $valueLoaderRegistry->addMethodCall(
-                    'addValueLoader',
-                    array($tag['value_type'], new Reference($valueLoader))
-                );
+                $handlers[$tag['value_type']] = new Reference($serviceName);
             }
         }
+
+        $itemConfigurator->replaceArgument(1, $handlers);
     }
 }

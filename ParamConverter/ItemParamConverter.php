@@ -2,28 +2,28 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
-use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
-use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
 use UnexpectedValueException;
 
-class ValueParamConverter implements ParamConverterInterface
+class ItemParamConverter implements ParamConverterInterface
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
      */
-    protected $valueLoaderRegistry;
+    protected $itemRepository;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
      */
-    public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry)
+    public function __construct(ItemRepositoryInterface $itemRepository)
     {
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
+        $this->itemRepository = $itemRepository;
     }
 
     /**
@@ -36,22 +36,24 @@ class ValueParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
-        if (!$request->attributes->has('valueId') || !$request->attributes->has('valueType')) {
+        if (!$request->attributes->has('itemId') || !$request->attributes->has('valueType')) {
             return false;
         };
 
-        $valueId = $request->attributes->get('valueId');
-        // 0 is a valid value ID
-        if ($valueId === null || $valueId === '') {
+        $itemId = $request->attributes->get('itemId');
+        // 0 is a valid item ID
+        if ($itemId === null || $itemId === '') {
             if ($configuration->isOptional()) {
                 return false;
             }
 
-            throw new UnexpectedValueException('Required request attribute "valueId" is empty');
+            throw new UnexpectedValueException('Required request attribute "itemId" is empty');
         }
 
-        $valueLoader = $this->valueLoaderRegistry->getValueLoader($request->attributes->get('valueType'));
-        $request->attributes->set('value', $valueLoader->load($valueId));
+        $request->attributes->set(
+            'item',
+            $this->itemRepository->load($itemId, $request->attributes->get('valueType'))
+        );
 
         return true;
     }
@@ -65,6 +67,6 @@ class ValueParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverterConfiguration $configuration)
     {
-        return is_a($configuration->getClass(), ValueInterface::class, true);
+        return is_a($configuration->getClass(), ItemInterface::class, true);
     }
 }

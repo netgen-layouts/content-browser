@@ -1,32 +1,32 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Backend;
+namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
-
-interface BackendInterface
+interface ItemRepositoryInterface
 {
     /**
      * Loads the item by its ID.
      *
      * @param int|string $id
+     * @param string $valueType
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item does not exist
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
      */
-    public function load($id);
+    public function load($id, $valueType);
 
     /**
      * Loads the item by its value ID.
      *
      * @param int|string $id
+     * @param string $valueType
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If value does not exist
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
      */
-    public function loadByValue($id);
+    public function loadByValue($id, $valueType);
 
     /**
      * Returns the category children.
@@ -70,19 +70,21 @@ interface BackendInterface
      * Searches for items.
      *
      * @param string $searchText
+     * @param string $valueType
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function search($searchText, $offset = 0, $limit = 25);
+    public function search($searchText, $valueType, $offset = 0, $limit = 25);
 
     /**
      * Returns the count of searched items.
      *
      * @param string $searchText
+     * @param string $valueType
      *
      * @return int
      */
-    public function searchCount($searchText);
+    public function searchCount($searchText, $valueType);
 }

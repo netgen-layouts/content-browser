@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Item\Column;
+namespace Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
@@ -18,7 +18,7 @@ class ColumnProvider implements ColumnProviderInterface
     protected $config;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnValueProviderInterface[]
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProviderInterface[]
      */
     protected $columnValueProviders = array();
 
@@ -27,7 +27,7 @@ class ColumnProvider implements ColumnProviderInterface
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface $itemRenderer
      * @param array $config
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Column\ColumnValueProviderInterface[] $columnValueProviders
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
      */
     public function __construct(
         ItemRendererInterface $itemRenderer,
@@ -59,7 +59,7 @@ class ColumnProvider implements ColumnProviderInterface
             } else {
                 $columns[$columnIdentifier] = $this
                     ->columnValueProviders[$columnConfig['value_provider']]
-                    ->getValue($item->getValueObject());
+                    ->getValue($item);
             }
         }
 

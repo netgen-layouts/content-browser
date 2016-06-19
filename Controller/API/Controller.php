@@ -2,9 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface;
-use Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface;
-use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -15,17 +14,12 @@ abstract class Controller extends BaseController
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    protected $itemRepository;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface
      */
-    protected $valueLoaderRegistry;
-
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface
-     */
-    protected $valueSerializer;
+    protected $itemSerializer;
 
     /**
      * @var array
@@ -33,36 +27,20 @@ abstract class Controller extends BaseController
     protected $config;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
-     */
-    protected $backend;
-
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Value\ValueLoaderInterface
-     */
-    protected $valueLoader;
-
-    /**
      * Constructor.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface $backendRegistry
-     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     * @param \Netgen\Bundle\ContentBrowserBundle\Value\Serializer\ValueSerializerInterface $valueSerializer
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface $itemSerializer
      * @param array $config
      */
     public function __construct(
-        BackendRegistryInterface $backendRegistry,
-        ValueLoaderRegistryInterface $valueLoaderRegistry,
-        ValueSerializerInterface $valueSerializer,
+        ItemRepositoryInterface $itemRepository,
+        ItemSerializerInterface $itemSerializer,
         array $config
     ) {
-        $this->backendRegistry = $backendRegistry;
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
-        $this->valueSerializer = $valueSerializer;
+        $this->itemRepository = $itemRepository;
+        $this->itemSerializer = $itemSerializer;
         $this->config = $config;
-
-        $this->backend = $this->backendRegistry->getBackend($this->config['value_type']);
-        $this->valueLoader = $this->valueLoaderRegistry->getValueLoader($this->config['value_type']);
     }
 
     /**
@@ -81,41 +59,13 @@ abstract class Controller extends BaseController
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
-        $pager->setMaxPerPage($limit > 0 ? $limit : $this->config['default_limit']);
         $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
+        $pager->setMaxPerPage(
+            $limit > 0 ?
+                $limit :
+                $this->getParameter('netgen_content_browser.browser.default_limit')
+        );
 
         return $pager;
-    }
-
-    /**
-     * Builds the path array for specified value.
-     *
-     * @param int|string $valueId
-     *
-     * @return array
-     */
-    protected function buildPath($valueId)
-    {
-        $path = array();
-
-        while ($valueId !== null) {
-            $value = $this->valueLoader->load($valueId);
-
-            array_unshift(
-                $path,
-                array(
-                    'id' => $value->getId(),
-                    'name' => $value->getName(),
-                )
-            );
-
-            if (in_array($valueId, $this->config['sections'])) {
-                break;
-            }
-
-            $valueId = $value->getParentId();
-        }
-
-        return $path;
     }
 }

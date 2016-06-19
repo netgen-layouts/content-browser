@@ -19,13 +19,6 @@ interface ItemInterface
     public function getValueType();
 
     /**
-     * Returns the item value.
-     *
-     * @return int|string
-     */
-    public function getValue();
-
-    /**
      * Returns the item name.
      *
      * @return string
@@ -40,30 +33,16 @@ interface ItemInterface
     public function getParentId();
 
     /**
-     * Returns if the item is selectable.
+     * Returns the value.
      *
-     * @return bool
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
      */
-    public function isSelectable();
-
-    /**
-     * Returns if the item has children.
-     *
-     * @return bool
-     */
-    public function hasChildren();
-
-    /**
-     * Returns if the item has subcategories.
-     *
-     * @return bool
-     */
-    public function hasSubCategories();
+    public function getValue();
 
     /**
      * Returns the value object.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface
+     * @return mixed
      */
     public function getValueObject();
 }

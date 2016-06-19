@@ -34,7 +34,7 @@ class ConfigController extends Controller
         $sections = array();
         foreach ($this->config['sections'] as $sectionId) {
             try {
-                $sections[] = $this->valueLoader->load($sectionId);
+                $sections[] = $this->itemRepository->load($sectionId, $this->config['value_type']);
             } catch (NotFoundException $e) {
                 // Do nothing
             }
@@ -42,10 +42,10 @@ class ConfigController extends Controller
 
         $data = array(
             'value_type' => $this->config['value_type'],
-            'sections' => $this->valueSerializer->serializeValues($sections),
+            'sections' => $this->itemSerializer->serializeItems($sections),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
-            'default_limit' => $this->config['default_limit'],
+            'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
             'default_columns' => array_merge(array('name'), $this->config['default_columns']),
             'available_columns' => $availableColumns,
         );
