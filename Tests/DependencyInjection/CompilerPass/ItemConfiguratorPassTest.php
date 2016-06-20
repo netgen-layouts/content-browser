@@ -37,7 +37,7 @@ class ItemConfiguratorPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.item_configurator',
-            2,
+            1,
             array('test' => new Reference('netgen_content_browser.item_configurator.handler.test'))
         );
     }

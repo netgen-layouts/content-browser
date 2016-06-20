@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Stubs;
 
-use Netgen\Bundle\ContentBrowserBundle\Value\ValueInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 
-class Value implements ValueInterface
+class Item implements ItemInterface
 {
     /**
      * @var int
@@ -12,24 +12,17 @@ class Value implements ValueInterface
     protected $id;
 
     /**
-     * @var int
-     */
-    protected $value;
-
-    /**
      * Constructor.
      *
      * @param int $id
-     * @param int $value
      */
-    public function __construct($id, $value)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->value = $value;
     }
 
     /**
-     * Returns the value ID.
+     * Returns the item ID.
      *
      * @return int|string
      */
@@ -46,16 +39,6 @@ class Value implements ValueInterface
     public function getValueType()
     {
         return 'value';
-    }
-
-    /**
-     * Returns the item value.
-     *
-     * @return int|string
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**
@@ -76,6 +59,15 @@ class Value implements ValueInterface
     public function getParentId()
     {
         return 45;
+    }
+
+    /**
+     * Returns the value.
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
+     */
+    public function getValue()
+    {
     }
 
     /**
