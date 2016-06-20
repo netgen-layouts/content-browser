@@ -141,6 +141,8 @@ services:
 
     netgen_content_browser.form.type.content_browser:
         class: "%netgen_content_browser.form.type.content_browser.class%"
+        arguments:
+            - "@netgen_content_browser.item_repository"
         tags:
             - { name: form.type }
 

@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
-use Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -12,19 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentBrowserType extends HiddenType
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
      */
-    protected $valueLoaderRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
-     */
-    public function __construct(ValueLoaderRegistryInterface $valueLoaderRegistry)
-    {
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
-    }
+    protected $itemRepository;
 
     /**
      * Configures the options for this type.
@@ -42,6 +32,16 @@ class ContentBrowserType extends HiddenType
     }
 
     /**
+     * Constructor.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
+     */
+    public function __construct(ItemRepositoryInterface $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
+
+    /**
      * Builds the form view.
      *
      * @param \Symfony\Component\Form\FormView $view
@@ -52,10 +52,11 @@ class ContentBrowserType extends HiddenType
     {
         parent::buildView($view, $form, $options);
 
-        $valueLoader = $this->valueLoaderRegistry->getValueLoader($options['value_type']);
-
         try {
-            $valueName = $valueLoader->loadByValue($form->getData())->getName();
+            $valueName = $this->itemRepository->loadByValue(
+                $form->getData(),
+                $options['value_type']
+            )->getName();
         } catch (NotFoundException $e) {
             $valueName = '(INVALID VALUE)';
         }
