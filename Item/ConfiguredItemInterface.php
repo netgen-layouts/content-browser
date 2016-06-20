@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-interface ConfiguredItemInterface extends ItemInterface
+interface ConfiguredItemInterface
 {
     /**
      * Returns if the item is selectable.

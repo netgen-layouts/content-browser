@@ -36,58 +36,12 @@ class ConfiguredItem implements ConfiguredItemInterface
     }
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType()
-    {
-        return $this->item->getType();
-    }
-
-    /**
-     * Returns the item name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->item->getName();
-    }
-
-    /**
-     * Returns the item parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId()
-    {
-        return !in_array($this->item->getId(), $this->config['sections']) ?
-            $this->item->getParentId() :
-            null;
-    }
-
-    /**
-     * Returns the value.
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
-     */
-    public function getValue()
-    {
-        return $this->item->getValue();
-    }
-
-    /**
      * Returns if the item is selectable.
      *
      * @return bool
      */
     public function isSelectable()
     {
-        if (!$this->item->getValue() instanceof ValueInterface) {
-            return false;
-        }
-
         return $this->handler->isSelectable($this->item, $this->config);
     }
 
