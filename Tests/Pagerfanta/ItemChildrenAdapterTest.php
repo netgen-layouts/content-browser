@@ -34,7 +34,7 @@ class ItemChildrenAdapterTest extends TestCase
     {
         $this->itemRepositoryMock
             ->expects($this->once())
-            ->method('getChildrenCount')
+            ->method('getSubItemsCount')
             ->with($this->equalTo(new Item(42)), $this->equalTo('value'))
             ->will($this->returnValue(3));
 
@@ -48,7 +48,7 @@ class ItemChildrenAdapterTest extends TestCase
     {
         $this->itemRepositoryMock
             ->expects($this->at(0))
-            ->method('getChildren')
+            ->method('getSubItems')
             ->with(
                 $this->equalTo(new Item(42)),
                 $this->equalTo(5),
@@ -59,7 +59,7 @@ class ItemChildrenAdapterTest extends TestCase
 
         $this->itemRepositoryMock
             ->expects($this->at(1))
-            ->method('getChildrenCount')
+            ->method('getSubItemsCount')
             ->with($this->equalTo(new Item(42)), $this->equalTo('value'))
             ->will($this->returnValue(3));
 

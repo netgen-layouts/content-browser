@@ -43,7 +43,7 @@ class ItemChildrenAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getChildrenCount($this->item);
+            $this->nbResults = $this->itemRepository->getSubItemsCount($this->item);
         }
 
         return $this->nbResults;
@@ -59,14 +59,14 @@ class ItemChildrenAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $children = $this->itemRepository->getChildren(
+        $children = $this->itemRepository->getSubItems(
             $this->item,
             $offset,
             $length
         );
 
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getChildrenCount($this->item);
+            $this->nbResults = $this->itemRepository->getSubItemsCount($this->item);
         }
 
         return $children;

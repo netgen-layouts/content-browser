@@ -70,7 +70,7 @@ class ItemSerializer implements ItemSerializerInterface
             'parent_id' => $configuredItem->getParentId(),
             'name' => $configuredItem->getName(),
             'selectable' => $configuredItem->isSelectable(),
-            'has_children' => $this->itemRepository->getChildrenCount($configuredItem) > 0,
+            'has_children' => $this->itemRepository->getSubItemsCount($configuredItem) > 0,
             'has_sub_categories' => $this->itemRepository->getSubCategoriesCount($configuredItem) > 0,
         ) + $this->columnProvider->provideColumns($configuredItem);
 

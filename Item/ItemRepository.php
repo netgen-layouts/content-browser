@@ -88,11 +88,11 @@ class ItemRepository implements ItemRepositoryInterface
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function getChildren(ItemInterface $item, $offset = 0, $limit = 25)
+    public function getSubItems(ItemInterface $item, $offset = 0, $limit = 25)
     {
         $backend = $this->backendRegistry->getBackend($item->getValueType());
 
-        return $backend->getChildren($item, $offset, $limit);
+        return $backend->getSubItems($item, $offset, $limit);
     }
 
     /**
@@ -102,11 +102,11 @@ class ItemRepository implements ItemRepositoryInterface
      *
      * @return int
      */
-    public function getChildrenCount(ItemInterface $item)
+    public function getSubItemsCount(ItemInterface $item)
     {
         $backend = $this->backendRegistry->getBackend($item->getValueType());
 
-        return $backend->getChildrenCount($item);
+        return $backend->getSubItemsCount($item);
     }
 
     /**

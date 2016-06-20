@@ -45,7 +45,7 @@ class BrowseController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getChildren(ItemInterface $item, Request $request)
+    public function getSubItems(ItemInterface $item, Request $request)
     {
         $pager = $this->buildPager(
             new ItemChildrenAdapter(

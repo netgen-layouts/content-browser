@@ -55,7 +55,7 @@ interface ItemRepositoryInterface
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function getChildren(ItemInterface $item, $offset = 0, $limit = 25);
+    public function getSubItems(ItemInterface $item, $offset = 0, $limit = 25);
 
     /**
      * Returns the item children count.
@@ -64,7 +64,7 @@ interface ItemRepositoryInterface
      *
      * @return int
      */
-    public function getChildrenCount(ItemInterface $item);
+    public function getSubItemsCount(ItemInterface $item);
 
     /**
      * Searches for items.
