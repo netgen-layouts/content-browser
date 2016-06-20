@@ -2,12 +2,12 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Serializer;
 
+use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfiguratorInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface;
 
 class ItemSerializer implements ItemSerializerInterface
 {
@@ -52,45 +52,82 @@ class ItemSerializer implements ItemSerializerInterface
     }
 
     /**
-     * Serializes the value to the array.
+     * Returns the common data.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      *
      * @return array
      */
-    public function serializeItem(ItemInterface $item)
+    protected function getCommonData(ItemInterface $item)
     {
-        $configuredItem = $this->itemConfigurator->configureItem($item);
-
         $data = array(
-            'id' => $configuredItem->getId(),
-            'value' => $configuredItem->getValue() instanceof ValueInterface ?
-                $configuredItem->getValue()->getId() :
-                null,
-            'parent_id' => $configuredItem->getParentId(),
-            'name' => $configuredItem->getName(),
-            'selectable' => $configuredItem->isSelectable(),
-            'has_children' => $this->itemRepository->getSubItemsCount($configuredItem) > 0,
-            'has_sub_categories' => $this->itemRepository->getSubCategoriesCount($configuredItem) > 0,
-        ) + $this->columnProvider->provideColumns($configuredItem);
-
-        $data['html'] = $this->itemRenderer->renderItem($configuredItem, $configuredItem->getTemplate());
+            'id' => $item->getId(),
+            'parent_id' => $item->getParentId(),
+            'name' => $item->getName(),
+        );
 
         return $data;
     }
 
     /**
-     * Serializes the list of values to the array.
+     * Returns the item data.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     *
+     * @return array
+     */
+    protected function getItemData(ItemInterface $item)
+    {
+        $configuredItem = $this->itemConfigurator->configureItem($item);
+
+        $data = array(
+            'id' => $item->getId(),
+            'value' => $configuredItem->getValue()->getId(),
+            'parent_id' => $item->getParentId(),
+            'name' => $item->getName(),
+            'selectable' => $configuredItem->isSelectable(),
+            'has_children' => false,
+            'has_sub_categories' => false,
+        ) + $this->columnProvider->provideColumns($item);
+
+        $data['html'] = $this->itemRenderer->renderItem($item, $configuredItem->getTemplate());
+
+        return $data;
+    }
+
+    protected function getCategoryData(CategoryInterface $category)
+    {
+        return array(
+            'id' => $category->getId(),
+            'parent_id' => $category->getParentId(),
+            'name' => $category->getName(),
+            'has_children' => $this->itemRepository->getSubItemsCount($category) > 0,
+            'has_sub_categories' => $this->itemRepository->getSubCategoriesCount($category) > 0,
+        );
+    }
+
+    /**
+     * Serializes the list of items to the array.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[] $items
      *
      * @return array
      */
-    public function serializeItems(array $items)
+    public function serialize(array $items)
     {
         return array_map(
-            function (ItemInterface $item) {
-                return $this->serializeItem($item);
+            function ($item) {
+                $data = array();
+
+                if ($item instanceof CategoryInterface) {
+                    $data += $this->getCategoryData($item);
+                }
+
+                if ($item instanceof ItemInterface) {
+                    $data += $this->getItemData($item);
+                }
+
+                return $data;
             },
             $items
         );

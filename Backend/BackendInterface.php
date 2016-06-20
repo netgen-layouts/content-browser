@@ -2,12 +2,23 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Backend;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
 
 interface BackendInterface
 {
     /**
-     * Loads the item by its ID.
+     * Loads a  category by its ID.
+     *
+     * @param int|string $id
+     *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If category does not exist
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface
+     */
+    public function loadCategory($id);
+
+    /**
+     * Loads the item by its value ID.
      *
      * @param int|string $id
      *
@@ -15,56 +26,45 @@ interface BackendInterface
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
      */
-    public function load($id);
+    public function loadItem($id);
 
     /**
-     * Loads the item by its value ID.
+     * Returns the categories below provided category.
      *
-     * @param int|string $id
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If value does not exist
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
      */
-    public function loadByValue($id);
+    public function getSubCategories(CategoryInterface $category);
 
     /**
-     * Returns the category children.
+     * Returns the count of categories below provided category.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
-     */
-    public function getSubCategories(ItemInterface $item);
-
-    /**
-     * Returns the category children count.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      *
      * @return int
      */
-    public function getSubCategoriesCount(ItemInterface $item);
+    public function getSubCategoriesCount(CategoryInterface $category);
 
     /**
-     * Returns the item children.
+     * Returns the category items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function getSubItems(ItemInterface $item, $offset = 0, $limit = 25);
+    public function getSubItems(CategoryInterface $category, $offset = 0, $limit = 25);
 
     /**
-     * Returns the item children count.
+     * Returns the category items count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      *
      * @return int
      */
-    public function getSubItemsCount(ItemInterface $item);
+    public function getSubItemsCount(CategoryInterface $category);
 
     /**
      * Searches for items.

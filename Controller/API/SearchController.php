@@ -36,7 +36,7 @@ class SearchController extends Controller
 
         $data = array(
             'children_count' => $pager->getNbResults(),
-            'children' => $this->itemSerializer->serializeItems(
+            'children' => $this->itemSerializer->serialize(
                 $pager->getCurrentPageResults()
             ),
         );

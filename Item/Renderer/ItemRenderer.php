@@ -43,7 +43,7 @@ class ItemRenderer implements ItemRendererInterface
     {
         return $this->twig->render(
             $template,
-            $this->templateValueProviders[$item->getValueType()]
+            $this->templateValueProviders[$item->getType()]
                 ->getValues($item)
         );
     }

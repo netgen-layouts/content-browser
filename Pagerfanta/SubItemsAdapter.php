@@ -3,10 +3,10 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Pagerfanta;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class ItemChildrenAdapter implements AdapterInterface
+class SubItemsAdapter implements AdapterInterface
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
@@ -14,9 +14,9 @@ class ItemChildrenAdapter implements AdapterInterface
     protected $itemRepository;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface
      */
-    protected $item;
+    protected $category;
 
     /**
      * @var int
@@ -27,12 +27,12 @@ class ItemChildrenAdapter implements AdapterInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, ItemInterface $item)
+    public function __construct(ItemRepositoryInterface $itemRepository, CategoryInterface $category)
     {
         $this->itemRepository = $itemRepository;
-        $this->item = $item;
+        $this->category = $category;
     }
 
     /**
@@ -43,7 +43,9 @@ class ItemChildrenAdapter implements AdapterInterface
     public function getNbResults()
     {
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getSubItemsCount($this->item);
+            $this->nbResults = $this->itemRepository->getSubItemsCount(
+                $this->category
+            );
         }
 
         return $this->nbResults;
@@ -60,13 +62,15 @@ class ItemChildrenAdapter implements AdapterInterface
     public function getSlice($offset, $length)
     {
         $children = $this->itemRepository->getSubItems(
-            $this->item,
+            $this->category,
             $offset,
             $length
         );
 
         if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getSubItemsCount($this->item);
+            $this->nbResults = $this->itemRepository->getSubItemsCount(
+                $this->category
+            );
         }
 
         return $children;

@@ -12,11 +12,11 @@ interface ItemInterface
     public function getId();
 
     /**
-     * Returns the value type.
+     * Returns the type.
      *
      * @return int|string
      */
-    public function getValueType();
+    public function getType();
 
     /**
      * Returns the item name.
@@ -38,11 +38,4 @@ interface ItemInterface
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
      */
     public function getValue();
-
-    /**
-     * Returns the value object.
-     *
-     * @return mixed
-     */
-    public function getValueObject();
 }

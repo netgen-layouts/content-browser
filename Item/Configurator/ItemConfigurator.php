@@ -40,7 +40,7 @@ class ItemConfigurator implements ItemConfiguratorInterface
      */
     public function configureItem(ItemInterface $item)
     {
-        $handler = $this->handlers[$item->getValueType()];
+        $handler = $this->handlers[$item->getType()];
 
         return new ConfiguredItem($item, $handler, $this->config);
     }

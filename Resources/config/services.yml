@@ -1,7 +1,8 @@
 parameters:
     netgen_content_browser.controller.base.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
     netgen_content_browser.controller.api.config.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
-    netgen_content_browser.controller.api.browse.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
+    netgen_content_browser.controller.api.items.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController
+    netgen_content_browser.controller.api.categories.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\CategoriesController
     netgen_content_browser.controller.api.search.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
 
     netgen_content_browser.event_listener.set_is_api_request.class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
@@ -23,7 +24,7 @@ parameters:
 
     netgen_content_browser.form.type.content_browser.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType
 
-    netgen_content_browser.param_converter.item.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter
+    netgen_content_browser.param_converter.category.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\CategoryParamConverter
 
 services:
     # Virtual services
@@ -46,8 +47,12 @@ services:
         class: "%netgen_content_browser.controller.api.config.class%"
         parent: netgen_content_browser.controller.base
 
-    netgen_content_browser.controller.api.browse:
-        class: "%netgen_content_browser.controller.api.browse.class%"
+    netgen_content_browser.controller.api.items:
+        class: "%netgen_content_browser.controller.api.items.class%"
+        parent: netgen_content_browser.controller.base
+
+    netgen_content_browser.controller.api.categories:
+        class: "%netgen_content_browser.controller.api.categories.class%"
         parent: netgen_content_browser.controller.base
 
     netgen_content_browser.controller.api.search:
@@ -148,8 +153,8 @@ services:
 
     # Param converters
 
-    netgen_content_browser.param_converter.item:
-        class: "%netgen_content_browser.param_converter.item.class%"
+    netgen_content_browser.param_converter.category:
+        class: "%netgen_content_browser.param_converter.category.class%"
         arguments:
             - "@netgen_content_browser.item_repository"
         tags:

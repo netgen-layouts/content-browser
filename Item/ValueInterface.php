@@ -17,11 +17,4 @@ interface ValueInterface
      * @return string
      */
     public function getName();
-
-    /**
-     * Returns the value object.
-     *
-     * @return mixed
-     */
-    public function getValueObject();
 }

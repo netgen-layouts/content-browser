@@ -46,13 +46,13 @@ class ConfiguredItem implements ConfiguredItemInterface
     }
 
     /**
-     * Returns the value type.
+     * Returns the type.
      *
      * @return int|string
      */
-    public function getValueType()
+    public function getType()
     {
-        return $this->item->getValueType();
+        return $this->item->getType();
     }
 
     /**
@@ -85,16 +85,6 @@ class ConfiguredItem implements ConfiguredItemInterface
     public function getValue()
     {
         return $this->item->getValue();
-    }
-
-    /**
-     * Returns the value object.
-     *
-     * @return mixed
-     */
-    public function getValueObject()
-    {
-        return $this->item->getValueObject();
     }
 
     /**

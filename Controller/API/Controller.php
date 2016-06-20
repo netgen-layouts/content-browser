@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
+use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
@@ -67,5 +69,39 @@ abstract class Controller extends BaseController
         );
 
         return $pager;
+    }
+
+    /**
+     * Builds the path array for specified item.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     *
+     * @return array
+     */
+    protected function buildPath(CategoryInterface $category)
+    {
+        $path = array();
+
+        while (true) {
+            $path[] = array(
+                'id' => $category->getId(),
+                'name' => $category->getName(),
+            );
+
+            if (in_array($category->getId(), $this->config['sections'])) {
+                break;
+            }
+
+            try {
+                $category = $this->itemRepository->loadCategory(
+                    $category->getParentId(),
+                    $category->getType()
+                );
+            } catch (NotFoundException $e) {
+                break;
+            }
+        }
+
+        return array_reverse($path);
     }
 }

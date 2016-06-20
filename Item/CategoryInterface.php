@@ -12,6 +12,13 @@ interface CategoryInterface
     public function getId();
 
     /**
+     * Returns the type.
+     *
+     * @return int|string
+     */
+    public function getType();
+
+    /**
      * Returns the category name.
      *
      * @return string

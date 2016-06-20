@@ -32,11 +32,11 @@ class Item implements ItemInterface
     }
 
     /**
-     * Returns the value type.
+     * Returns the type.
      *
      * @return int|string
      */
-    public function getValueType()
+    public function getType()
     {
         return 'value';
     }
@@ -67,15 +67,6 @@ class Item implements ItemInterface
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
      */
     public function getValue()
-    {
-    }
-
-    /**
-     * Returns the value object.
-     *
-     * @return mixed
-     */
-    public function getValueObject()
     {
     }
 }

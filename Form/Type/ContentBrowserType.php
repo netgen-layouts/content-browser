@@ -53,7 +53,7 @@ class ContentBrowserType extends HiddenType
         parent::buildView($view, $form, $options);
 
         try {
-            $valueName = $this->itemRepository->loadByValue(
+            $valueName = $this->itemRepository->loadItem(
                 $form->getData(),
                 $options['value_type']
             )->getName();
