@@ -106,6 +106,9 @@ class ItemSerializer implements ItemSerializerInterface
 
             $data['value'] = $category->getValue()->getId();
             $data['selectable'] = $configuredItem->isSelectable();
+            $data['html'] = $this->itemRenderer->renderItem($category, $configuredItem->getTemplate());
+
+            $data = $data + $this->columnProvider->provideColumns($category);
         }
 
         return $data;
