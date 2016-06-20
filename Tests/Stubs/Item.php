@@ -9,26 +9,16 @@ class Item implements ItemInterface
     /**
      * @var int
      */
-    protected $id;
+    protected $parentId;
 
     /**
      * Constructor.
      *
-     * @param int $id
+     * @param int $parentId
      */
-    public function __construct($id)
+    public function __construct($parentId)
     {
-        $this->id = $id;
-    }
-
-    /**
-     * Returns the item ID.
-     *
-     * @return int|string
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->parentId = $parentId;
     }
 
     /**
@@ -58,7 +48,7 @@ class Item implements ItemInterface
      */
     public function getParentId()
     {
-        return 45;
+        return $this->parentId;
     }
 
     /**

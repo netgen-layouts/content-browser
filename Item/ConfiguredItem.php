@@ -36,16 +36,6 @@ class ConfiguredItem implements ConfiguredItemInterface
     }
 
     /**
-     * Returns the item ID.
-     *
-     * @return int|string
-     */
-    public function getId()
-    {
-        return $this->item->getId();
-    }
-
-    /**
      * Returns the type.
      *
      * @return int|string

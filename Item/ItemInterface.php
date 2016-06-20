@@ -5,13 +5,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Item;
 interface ItemInterface
 {
     /**
-     * Returns the item ID.
-     *
-     * @return int|string
-     */
-    public function getId();
-
-    /**
      * Returns the type.
      *
      * @return int|string
