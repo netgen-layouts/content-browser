@@ -5,6 +5,15 @@ namespace Netgen\Bundle\ContentBrowserBundle\Item;
 interface ItemRepositoryInterface
 {
     /**
+     * Returns the default sections available in the backend.
+     *
+     * @param string $valueType
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     */
+    public function getDefaultSections($valueType);
+
+    /**
      * Loads a  category by its ID.
      *
      * @param int|string $id

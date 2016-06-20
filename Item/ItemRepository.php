@@ -22,6 +22,18 @@ class ItemRepository implements ItemRepositoryInterface
     }
 
     /**
+     * Returns the default sections available in the backend.
+     *
+     * @param string $valueType
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     */
+    public function getDefaultSections($valueType)
+    {
+        return $this->backendRegistry->getBackend($valueType)->getDefaultSections();
+    }
+
+    /**
      * Loads a  category by its ID.
      *
      * @param int|string $id

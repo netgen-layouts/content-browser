@@ -7,6 +7,13 @@ use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
 interface BackendInterface
 {
     /**
+     * Returns the default sections available in the backend.
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     */
+    public function getDefaultSections();
+
+    /**
      * Loads a  category by its ID.
      *
      * @param int|string $id

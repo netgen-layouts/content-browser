@@ -31,16 +31,20 @@ class ConfigController extends Controller
             );
         }
 
-        $sections = array();
-        foreach ($this->config['sections'] as $sectionId) {
-            try {
-                $sections[] = $this->itemRepository->loadCategory(
-                    $sectionId,
-                    $this->config['value_type']
-                );
-            } catch (NotFoundException $e) {
-                // Do nothing
+        if (!empty($this->config['sections'])) {
+            $sections = array();
+            foreach ($this->config['sections'] as $sectionId) {
+                try {
+                    $sections[] = $this->itemRepository->loadCategory(
+                        $sectionId,
+                        $this->config['value_type']
+                    );
+                } catch (NotFoundException $e) {
+                    // Do nothing
+                }
             }
+        } else {
+            $sections = $this->itemRepository->getDefaultSections($this->config['value_type']);
         }
 
         $data = array(

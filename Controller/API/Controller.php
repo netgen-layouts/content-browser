@@ -92,6 +92,10 @@ abstract class Controller extends BaseController
                 break;
             }
 
+            if ($category->getParentId() === null) {
+                break;
+            }
+
             try {
                 $category = $this->itemRepository->loadCategory(
                     $category->getParentId(),
