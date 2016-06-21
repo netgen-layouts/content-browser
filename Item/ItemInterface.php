@@ -12,23 +12,23 @@ interface ItemInterface
     public function getType();
 
     /**
-     * Returns the item name.
+     * Returns the value.
+     *
+     * @return mixed
+     */
+    public function getValue();
+
+    /**
+     * Returns the name.
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Returns the item parent ID.
+     * Returns the parent ID.
      *
      * @return int|string
      */
     public function getParentId();
-
-    /**
-     * Returns the value.
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
-     */
-    public function getValue();
 }

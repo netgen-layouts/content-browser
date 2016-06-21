@@ -32,6 +32,15 @@ class Item implements ItemInterface
     }
 
     /**
+     * Returns the item value.
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+    }
+
+    /**
      * Returns the item name.
      *
      * @return string
@@ -49,14 +58,5 @@ class Item implements ItemInterface
     public function getParentId()
     {
         return $this->parentId;
-    }
-
-    /**
-     * Returns the value.
-     *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ValueInterface
-     */
-    public function getValue()
-    {
     }
 }

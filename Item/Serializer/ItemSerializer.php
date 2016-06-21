@@ -63,7 +63,7 @@ class ItemSerializer implements ItemSerializerInterface
         $configuredItem = $this->itemConfigurator->configureItem($item);
 
         $data = array(
-            'value' => $item->getValue()->getId(),
+            'value' => $item->getValue(),
             'parent_id' => $item->getParentId(),
             'name' => $item->getName(),
             'selectable' => $configuredItem->isSelectable(),

@@ -19,14 +19,14 @@ interface CategoryInterface
     public function getType();
 
     /**
-     * Returns the category name.
+     * Returns the name.
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Returns the category parent ID.
+     * Returns the parent ID.
      *
      * @return int|string
      */
