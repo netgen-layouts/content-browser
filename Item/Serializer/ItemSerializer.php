@@ -63,7 +63,7 @@ class ItemSerializer implements ItemSerializerInterface
         $configuredItem = $this->itemConfigurator->configureItem($item);
 
         $data = array(
-            'id' => null,
+            'category_id' => null,
             'value' => $item->getValue(),
             'parent_id' => $item->getParentId(),
             'name' => $item->getName(),
@@ -73,7 +73,7 @@ class ItemSerializer implements ItemSerializerInterface
         ) + $this->columnProvider->provideColumns($item);
 
         if ($item instanceof CategoryInterface) {
-            $data['id'] = $item->getId();
+            $data['category_id'] = $item->getId();
             $data['has_children'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
