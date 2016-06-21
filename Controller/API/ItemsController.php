@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class ItemsController extends Controller
         }
 
         return new JsonResponse(
-            $this->itemSerializer->serialize($items)
+            $this->itemSerializer->serializeItems($items)
         );
     }
 
@@ -56,8 +57,11 @@ class ItemsController extends Controller
 
         $data = array(
             'path' => $this->buildPath($category),
+            'parent' => $category instanceof ItemInterface ?
+                $this->itemSerializer->serializeItem($category) :
+                $this->itemSerializer->serializeCategory($category),
             'children_count' => $pager->getNbResults(),
-            'children' => $this->itemSerializer->serialize(
+            'children' => $this->itemSerializer->serializeItems(
                 $pager->getCurrentPageResults()
             ),
         );

@@ -18,7 +18,7 @@ class CategoriesController extends Controller
     {
         $data = array(
             'path' => $this->buildPath($category),
-            'children' => $this->itemSerializer->serialize(
+            'children' => $this->itemSerializer->serializeCategories(
                 $this->itemRepository->getSubCategories($category)
             ),
         );

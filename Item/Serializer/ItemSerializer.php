@@ -52,13 +52,13 @@ class ItemSerializer implements ItemSerializerInterface
     }
 
     /**
-     * Returns the item data.
+     * Serializes the item to array.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      *
      * @return array
      */
-    protected function getItemData(ItemInterface $item)
+    public function serializeItem(ItemInterface $item)
     {
         $configuredItem = $this->itemConfigurator->configureItem($item);
 
@@ -68,13 +68,10 @@ class ItemSerializer implements ItemSerializerInterface
             'name' => $item->getName(),
             'selectable' => $configuredItem->isSelectable(),
             'has_children' => false,
-            'has_sub_categories' => false,
         ) + $this->columnProvider->provideColumns($item);
 
         if ($item instanceof CategoryInterface) {
-            $data['id'] = $item->getId();
             $data['has_children'] = $this->itemRepository->getSubItemsCount($item) > 0;
-            $data['has_sub_categories'] = $this->itemRepository->getSubCategoriesCount($item) > 0;
         }
 
         $data['html'] = $this->itemRenderer->renderItem($item, $configuredItem->getTemplate());
@@ -83,35 +80,21 @@ class ItemSerializer implements ItemSerializerInterface
     }
 
     /**
-     * Returns the category data.
+     * Serializes the category to array.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
      *
      * @return array
      */
-    protected function getCategoryData(CategoryInterface $category)
+    public function serializeCategory(CategoryInterface $category)
     {
-        $data = array(
+        return array(
             'id' => $category->getId(),
-            'value' => null,
             'parent_id' => $category->getParentId(),
             'name' => $category->getName(),
-            'selectable' => false,
             'has_children' => $this->itemRepository->getSubItemsCount($category) > 0,
             'has_sub_categories' => $this->itemRepository->getSubCategoriesCount($category) > 0,
         );
-
-        if ($category instanceof ItemInterface) {
-            $configuredItem = $this->itemConfigurator->configureItem($category);
-
-            $data['value'] = $category->getValue()->getId();
-            $data['selectable'] = $configuredItem->isSelectable();
-            $data['html'] = $this->itemRenderer->renderItem($category, $configuredItem->getTemplate());
-
-            $data = $data + $this->columnProvider->provideColumns($category);
-        }
-
-        return $data;
     }
 
     /**
@@ -121,17 +104,30 @@ class ItemSerializer implements ItemSerializerInterface
      *
      * @return array
      */
-    public function serialize(array $items)
+    public function serializeItems(array $items)
     {
         return array_map(
-            function ($item) {
-                if ($item instanceof CategoryInterface) {
-                    return $this->getCategoryData($item);
-                }
-
-                return $this->getItemData($item);
+            function (ItemInterface $item) {
+                return $this->serializeItem($item);
             },
             $items
+        );
+    }
+
+    /**
+     * Serializes the list of items to the array.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[] $categories
+     *
+     * @return array
+     */
+    public function serializeCategories(array $categories)
+    {
+        return array_map(
+            function (CategoryInterface $category) {
+                return $this->serializeCategory($category);
+            },
+            $categories
         );
     }
 }
