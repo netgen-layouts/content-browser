@@ -67,6 +67,7 @@ class ItemSerializer implements ItemSerializerInterface
             'value' => $item->getValue(),
             'parent_id' => $item->getParentId(),
             'name' => $item->getName(),
+            'visible' => $item->isVisible(),
             'selectable' => $configuredItem->isSelectable(),
             'has_children' => false,
         ) + $this->columnProvider->provideColumns($item);

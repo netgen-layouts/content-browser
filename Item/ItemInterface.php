@@ -31,4 +31,11 @@ interface ItemInterface
      * @return int|string
      */
     public function getParentId();
+
+    /**
+     * Returns if the item is visible.
+     *
+     * @return bool
+     */
+    public function isVisible();
 }

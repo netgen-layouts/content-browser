@@ -59,4 +59,14 @@ class Item implements ItemInterface
     {
         return $this->parentId;
     }
+
+    /**
+     * Returns if the item is visible.
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return true;
+    }
 }
