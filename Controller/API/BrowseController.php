@@ -20,7 +20,6 @@ class BrowseController extends Controller
     public function getSubLocations(LocationInterface $location)
     {
         $data = array(
-            'path' => $this->buildPath($location),
             'children' => $this->itemSerializer->serializeLocations(
                 $this->itemRepository->getSubLocations($location)
             ),

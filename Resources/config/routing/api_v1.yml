@@ -5,13 +5,13 @@ netgen_content_browser_api_v1_config:
         _controller: "netgen_content_browser.controller.api.config:getConfig"
 
 netgen_content_browser_api_v1_browse_locations:
-    path: /{config}/browse/{locationId}/categories
+    path: /{config}/browse/{locationId}/locations
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getSubLocations"
 
 netgen_content_browser_api_v1_browse_items:
-    path: /{config}/browse/{locationId}/children
+    path: /{config}/browse/{locationId}/items
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getSubItems"
