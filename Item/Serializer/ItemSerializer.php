@@ -63,9 +63,9 @@ class ItemSerializer implements ItemSerializerInterface
         $configuredItem = $this->itemConfigurator->configureItem($item);
 
         $data = array(
-            'id' => null,
+            'location_id' => null,
             'value' => $item->getValue(),
-            'parent_id' => $item->getParentId(),
+            'parent_location_id' => $item->getParentId(),
             'name' => $item->getName(),
             'visible' => $item->isVisible(),
             'selectable' => $configuredItem->isSelectable(),
@@ -73,7 +73,7 @@ class ItemSerializer implements ItemSerializerInterface
         ) + $this->columnProvider->provideColumns($item);
 
         if ($item instanceof CategoryInterface) {
-            $data['id'] = $item->getId();
+            $data['location_id'] = $item->getId();
             $data['has_children'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
