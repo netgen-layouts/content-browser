@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
 
@@ -57,6 +58,15 @@ class ColumnProvider implements ColumnProviderInterface
                     $columnConfig['template']
                 );
             } else {
+                if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
+                    throw new InvalidArgumentException(
+                        sprintf(
+                            'Column value provider "%s" does not exist',
+                            $columnConfig['value_provider']
+                        )
+                    );
+                }
+
                 $columns[$columnIdentifier] = $this
                     ->columnValueProviders[$columnConfig['value_provider']]
                     ->getValue($item);

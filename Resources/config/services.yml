@@ -26,6 +26,8 @@ parameters:
 
     netgen_content_browser.param_converter.location.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
 
+    netgen_content_browser.column_value_provider.name.class: Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProvider\Name
+
 services:
     # Virtual services
 
@@ -159,3 +161,10 @@ services:
             - "@netgen_content_browser.item_repository"
         tags:
             - { name: request.param_converter, priority: 0 }
+
+    # Column value providers
+
+    netgen_content_browser.column_value_provider.name:
+        class: "%netgen_content_browser.column_value_provider.name.class%"
+        tags:
+            - { name: netgen_content_browser.column_value_provider, identifier: name }

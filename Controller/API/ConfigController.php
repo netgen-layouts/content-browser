@@ -17,12 +17,7 @@ class ConfigController extends Controller
         /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
         $translator = $this->get('translator');
 
-        $availableColumns = array(
-            array(
-                'id' => 'name',
-                'name' => $translator->trans('columns.name', array(), 'ngcb'),
-            ),
-        );
+        $availableColumns = array();
 
         foreach ($this->config['columns'] as $identifier => $columnData) {
             $availableColumns[] = array(
@@ -53,7 +48,7 @@ class ConfigController extends Controller
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
             'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
-            'default_columns' => array_merge(array('name'), $this->config['default_columns']),
+            'default_columns' => $this->config['default_columns'],
             'available_columns' => $availableColumns,
         );
 
