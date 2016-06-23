@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
-use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
@@ -74,32 +74,32 @@ abstract class Controller extends BaseController
     /**
      * Builds the path array for specified item.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return array
      */
-    protected function buildPath(CategoryInterface $category)
+    protected function buildPath(LocationInterface $location)
     {
         $path = array();
 
         while (true) {
             $path[] = array(
-                'id' => $category->getId(),
-                'name' => $category->getName(),
+                'id' => $location->getId(),
+                'name' => $location->getName(),
             );
 
-            if (in_array($category->getId(), $this->config['sections'])) {
+            if (in_array($location->getId(), $this->config['sections'])) {
                 break;
             }
 
-            if ($category->getParentId() === null) {
+            if ($location->getParentId() === null) {
                 break;
             }
 
             try {
-                $category = $this->itemRepository->loadCategory(
-                    $category->getParentId(),
-                    $category->getType()
+                $location = $this->itemRepository->loadLocation(
+                    $location->getParentId(),
+                    $location->getType()
                 );
             } catch (NotFoundException $e) {
                 break;

@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ItemsController extends Controller
 {
     /**
-     * Returns all value objects with specified values.
+     * Returns all items with specified values.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -20,7 +20,7 @@ class ItemsController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getValues(Request $request)
+    public function getByValues(Request $request)
     {
         $values = explode(',', $request->query->get('values'));
         if (!is_array($values) || empty($values)) {
@@ -35,37 +35,5 @@ class ItemsController extends Controller
         return new JsonResponse(
             $this->itemSerializer->serializeItems($items)
         );
-    }
-
-    /**
-     * Returns all children of specified category.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function getSubItems(CategoryInterface $category, Request $request)
-    {
-        $pager = $this->buildPager(
-            new SubItemsAdapter(
-                $this->itemRepository,
-                $category
-            ),
-            $request
-        );
-
-        $data = array(
-            'path' => $this->buildPath($category),
-            'parent' => $category instanceof ItemInterface ?
-                $this->itemSerializer->serializeItem($category) :
-                $this->itemSerializer->serializeCategory($category),
-            'children_count' => $pager->getNbResults(),
-            'children' => $this->itemSerializer->serializeItems(
-                $pager->getCurrentPageResults()
-            ),
-        );
-
-        return new JsonResponse($data);
     }
 }

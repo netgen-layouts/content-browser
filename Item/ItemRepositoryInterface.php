@@ -9,21 +9,21 @@ interface ItemRepositoryInterface
      *
      * @param string $valueType
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
      */
     public function getDefaultSections($valueType);
 
     /**
-     * Loads a  category by its ID.
+     * Loads a  location by its ID.
      *
      * @param int|string $id
      * @param string $valueType
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If category does not exist
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If location does not exist
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface
      */
-    public function loadCategory($id, $valueType);
+    public function loadLocation($id, $valueType);
 
     /**
      * Loads the item by its value ID.
@@ -38,42 +38,42 @@ interface ItemRepositoryInterface
     public function loadItem($id, $valueType);
 
     /**
-     * Returns the category children.
+     * Returns the location children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
      */
-    public function getSubCategories(CategoryInterface $category);
+    public function getSubLocations(LocationInterface $location);
 
     /**
-     * Returns the category children count.
+     * Returns the location children count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return int
      */
-    public function getSubCategoriesCount(CategoryInterface $category);
+    public function getSubLocationsCount(LocationInterface $location);
 
     /**
-     * Returns the category items.
+     * Returns the location items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function getSubItems(CategoryInterface $category, $offset = 0, $limit = 25);
+    public function getSubItems(LocationInterface $location, $offset = 0, $limit = 25);
 
     /**
-     * Returns the category items count.
+     * Returns the location items count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return int
      */
-    public function getSubItemsCount(CategoryInterface $category);
+    public function getSubItemsCount(LocationInterface $location);
 
     /**
      * Searches for items.

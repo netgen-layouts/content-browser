@@ -2,14 +2,14 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
 use UnexpectedValueException;
 
-class CategoryParamConverter implements ParamConverterInterface
+class LocationParamConverter implements ParamConverterInterface
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
@@ -36,24 +36,24 @@ class CategoryParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
-        if (!$request->attributes->has('categoryId') || !$request->attributes->has('valueType')) {
+        if (!$request->attributes->has('locationId') || !$request->attributes->has('valueType')) {
             return false;
         };
 
-        $categoryId = $request->attributes->get('categoryId');
-        // 0 is a valid category ID
-        if ($categoryId === null || $categoryId === '') {
+        $locationId = $request->attributes->get('locationId');
+        // 0 is a valid location ID
+        if ($locationId === null || $locationId === '') {
             if ($configuration->isOptional()) {
                 return false;
             }
 
-            throw new UnexpectedValueException('Required request attribute "categoryId" is empty');
+            throw new UnexpectedValueException('Required request attribute "locationId" is empty');
         }
 
         $request->attributes->set(
-            'category',
-            $this->itemRepository->loadCategory(
-                $categoryId,
+            'location',
+            $this->itemRepository->loadLocation(
+                $locationId,
                 $request->attributes->get('valueType')
             )
         );
@@ -70,6 +70,6 @@ class CategoryParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverterConfiguration $configuration)
     {
-        return is_a($configuration->getClass(), CategoryInterface::class, true);
+        return is_a($configuration->getClass(), LocationInterface::class, true);
     }
 }

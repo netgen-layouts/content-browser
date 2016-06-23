@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item;
 
-interface CategoryInterface
+interface LocationInterface
 {
     /**
-     * Returns the category ID.
+     * Returns the location ID.
      *
      * @return int|string
      */

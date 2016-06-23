@@ -26,7 +26,7 @@ class ItemRepository implements ItemRepositoryInterface
      *
      * @param string $valueType
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
      */
     public function getDefaultSections($valueType)
     {
@@ -34,18 +34,18 @@ class ItemRepository implements ItemRepositoryInterface
     }
 
     /**
-     * Loads a  category by its ID.
+     * Loads a  location by its ID.
      *
      * @param int|string $id
      * @param string $valueType
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If category does not exist
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If location does not exist
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface
      */
-    public function loadCategory($id, $valueType)
+    public function loadLocation($id, $valueType)
     {
-        return $this->backendRegistry->getBackend($valueType)->loadCategory($id);
+        return $this->backendRegistry->getBackend($valueType)->loadLocation($id);
     }
 
     /**
@@ -64,61 +64,61 @@ class ItemRepository implements ItemRepositoryInterface
     }
 
     /**
-     * Returns the category children.
+     * Returns the location children.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[]
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
      */
-    public function getSubCategories(CategoryInterface $category)
+    public function getSubLocations(LocationInterface $location)
     {
-        $backend = $this->backendRegistry->getBackend($category->getType());
+        $backend = $this->backendRegistry->getBackend($location->getType());
 
-        return $backend->getSubCategories($category);
+        return $backend->getSubLocations($location);
     }
 
     /**
-     * Returns the category children count.
+     * Returns the location children count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return int
      */
-    public function getSubCategoriesCount(CategoryInterface $category)
+    public function getSubLocationsCount(LocationInterface $location)
     {
-        $backend = $this->backendRegistry->getBackend($category->getType());
+        $backend = $this->backendRegistry->getBackend($location->getType());
 
-        return $backend->getSubCategoriesCount($category);
+        return $backend->getSubLocationsCount($location);
     }
 
     /**
-     * Returns the category items.
+     * Returns the location items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      * @param int $offset
      * @param int $limit
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
      */
-    public function getSubItems(CategoryInterface $category, $offset = 0, $limit = 25)
+    public function getSubItems(LocationInterface $location, $offset = 0, $limit = 25)
     {
-        $backend = $this->backendRegistry->getBackend($category->getType());
+        $backend = $this->backendRegistry->getBackend($location->getType());
 
-        return $backend->getSubItems($category, $offset, $limit);
+        return $backend->getSubItems($location, $offset, $limit);
     }
 
     /**
-     * Returns the category items count.
+     * Returns the location items count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return int
      */
-    public function getSubItemsCount(CategoryInterface $category)
+    public function getSubItemsCount(LocationInterface $location)
     {
-        $backend = $this->backendRegistry->getBackend($category->getType());
+        $backend = $this->backendRegistry->getBackend($location->getType());
 
-        return $backend->getSubItemsCount($category);
+        return $backend->getSubItemsCount($location);
     }
 
     /**

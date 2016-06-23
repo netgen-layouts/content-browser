@@ -35,7 +35,7 @@ class ConfigController extends Controller
             $sections = array();
             foreach ($this->config['sections'] as $sectionId) {
                 try {
-                    $sections[] = $this->itemRepository->loadCategory(
+                    $sections[] = $this->itemRepository->loadLocation(
                         $sectionId,
                         $this->config['value_type']
                     );
@@ -49,7 +49,7 @@ class ConfigController extends Controller
 
         $data = array(
             'value_type' => $this->config['value_type'],
-            'sections' => $this->itemSerializer->serializeCategories($sections),
+            'sections' => $this->itemSerializer->serializeLocations($sections),
             'min_selected' => $this->config['min_selected'],
             'max_selected' => $this->config['max_selected'],
             'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),

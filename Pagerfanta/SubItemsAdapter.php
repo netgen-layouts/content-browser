@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Pagerfanta;
 
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class SubItemsAdapter implements AdapterInterface
@@ -14,9 +14,9 @@ class SubItemsAdapter implements AdapterInterface
     protected $itemRepository;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface
      */
-    protected $category;
+    protected $location;
 
     /**
      * @var int
@@ -27,12 +27,12 @@ class SubItemsAdapter implements AdapterInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, CategoryInterface $category)
+    public function __construct(ItemRepositoryInterface $itemRepository, LocationInterface $location)
     {
         $this->itemRepository = $itemRepository;
-        $this->category = $category;
+        $this->location = $location;
     }
 
     /**
@@ -44,7 +44,7 @@ class SubItemsAdapter implements AdapterInterface
     {
         if (!isset($this->nbResults)) {
             $this->nbResults = $this->itemRepository->getSubItemsCount(
-                $this->category
+                $this->location
             );
         }
 
@@ -62,14 +62,14 @@ class SubItemsAdapter implements AdapterInterface
     public function getSlice($offset, $length)
     {
         $children = $this->itemRepository->getSubItems(
-            $this->category,
+            $this->location,
             $offset,
             $length
         );
 
         if (!isset($this->nbResults)) {
             $this->nbResults = $this->itemRepository->getSubItemsCount(
-                $this->category
+                $this->location
             );
         }
 

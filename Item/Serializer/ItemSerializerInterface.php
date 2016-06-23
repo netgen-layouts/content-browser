@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Serializer;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 
 interface ItemSerializerInterface
@@ -17,13 +17,13 @@ interface ItemSerializerInterface
     public function serializeItem(ItemInterface $item);
 
     /**
-     * Serializes the category to array.
+     * Serializes the location to array.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface $category
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
      *
      * @return array
      */
-    public function serializeCategory(CategoryInterface $category);
+    public function serializeLocation(LocationInterface $location);
 
     /**
      * Serializes the list of items to the array.
@@ -37,9 +37,9 @@ interface ItemSerializerInterface
     /**
      * Serializes the list of items to the array.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\CategoryInterface[] $categories
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[] $locations
      *
      * @return array
      */
-    public function serializeCategories(array $categories);
+    public function serializeLocations(array $locations);
 }
