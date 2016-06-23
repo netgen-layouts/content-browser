@@ -70,7 +70,8 @@ class ItemSerializer implements ItemSerializerInterface
             'visible' => $item->isVisible(),
             'selectable' => $configuredItem->isSelectable(),
             'has_children' => false,
-        ) + $this->columnProvider->provideColumns($item);
+            'columns' => $this->columnProvider->provideColumns($item),
+        );
 
         if ($item instanceof CategoryInterface) {
             $data['location_id'] = $item->getId();
