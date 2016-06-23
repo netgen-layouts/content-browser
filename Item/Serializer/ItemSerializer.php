@@ -69,13 +69,13 @@ class ItemSerializer implements ItemSerializerInterface
             'name' => $item->getName(),
             'visible' => $item->isVisible(),
             'selectable' => $configuredItem->isSelectable(),
-            'has_children' => false,
+            'has_sub_items' => false,
             'columns' => $this->columnProvider->provideColumns($item),
         );
 
         if ($item instanceof CategoryInterface) {
             $data['location_id'] = $item->getId();
-            $data['has_children'] = $this->itemRepository->getSubItemsCount($item) > 0;
+            $data['has_sub_items'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
         $data['html'] = $this->itemRenderer->renderItem($item, $configuredItem->getTemplate());
@@ -96,8 +96,8 @@ class ItemSerializer implements ItemSerializerInterface
             'id' => $category->getId(),
             'parent_id' => $category->getParentId(),
             'name' => $category->getName(),
-            'has_children' => $this->itemRepository->getSubItemsCount($category) > 0,
-            'has_sub_categories' => $this->itemRepository->getSubCategoriesCount($category) > 0,
+            'has_sub_items' => $this->itemRepository->getSubItemsCount($category) > 0,
+            'has_sub_locations' => $this->itemRepository->getSubCategoriesCount($category) > 0,
         );
     }
 
