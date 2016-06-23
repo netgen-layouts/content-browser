@@ -3,9 +3,6 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
-use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
-use Netgen\Bundle\ContentBrowserBundle\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
