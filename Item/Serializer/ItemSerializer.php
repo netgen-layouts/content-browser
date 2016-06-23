@@ -99,7 +99,6 @@ class ItemSerializer implements ItemSerializerInterface
             'has_sub_items' => $this->itemRepository->getSubItemsCount($location) > 0,
             'has_sub_locations' => $this->itemRepository->getSubLocationsCount($location) > 0,
             // Used exclusively to display columns for parent location
-            // @TODO: Names must be named as specified for items
             'columns' => array(
                 'name' => $location->getName(),
             ),

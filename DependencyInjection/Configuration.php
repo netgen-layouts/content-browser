@@ -57,6 +57,15 @@ class Configuration implements ConfigurationInterface
                         ->defaultValue('NetgenContentBrowserBundle:ezpublish:item.html.twig')
                     ->end()
                     ->arrayNode('columns')
+                        ->validate()
+                            ->always(function ($v) {
+                                if (!isset($v['name'])) {
+                                    throw new InvalidConfigurationException('Column with "name" identifier is required');
+                                }
+
+                                return $v;
+                            })
+                        ->end()
                         ->performNoDeepMerging()
                         ->prototype('array')
                             ->validate()
