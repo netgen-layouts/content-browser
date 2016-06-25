@@ -45,6 +45,8 @@ class ColumnProvider implements ColumnProviderInterface
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If one of value providers does not exist.
+     *
      * @return array
      */
     public function provideColumns(ItemInterface $item)
