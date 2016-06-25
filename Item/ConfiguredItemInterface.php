@@ -14,7 +14,7 @@ interface ConfiguredItemInterface
     /**
      * Returns the item template.
      *
-     * @return bool
+     * @return string
      */
     public function getTemplate();
 }

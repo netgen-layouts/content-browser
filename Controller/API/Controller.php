@@ -14,7 +14,7 @@ use Pagerfanta\Pagerfanta;
 abstract class Controller extends BaseController
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistryInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
      */
     protected $itemRepository;
 
