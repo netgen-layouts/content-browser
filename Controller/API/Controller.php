@@ -61,12 +61,13 @@ abstract class Controller extends BaseController
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
-        $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
         $pager->setMaxPerPage(
             $limit > 0 ?
                 $limit :
                 $this->getParameter('netgen_content_browser.browser.default_limit')
         );
+
+        $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
 
         return $pager;
     }
