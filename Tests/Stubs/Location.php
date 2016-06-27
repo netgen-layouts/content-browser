@@ -2,10 +2,15 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Stubs;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 
-class Item implements ItemInterface
+class Location implements LocationInterface
 {
+    /**
+     * @var int
+     */
+    protected $id;
+
     /**
      * @var int
      */
@@ -14,11 +19,23 @@ class Item implements ItemInterface
     /**
      * Constructor.
      *
+     * @param int $id
      * @param int $parentId
      */
-    public function __construct($parentId = null)
+    public function __construct($id, $parentId = null)
     {
+        $this->id = $id;
         $this->parentId = $parentId;
+    }
+
+    /**
+     * Returns the location ID.
+     *
+     * @return int|string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -29,15 +46,6 @@ class Item implements ItemInterface
     public function getType()
     {
         return 'value';
-    }
-
-    /**
-     * Returns the item value.
-     *
-     * @return mixed
-     */
-    public function getValue()
-    {
     }
 
     /**
@@ -58,15 +66,5 @@ class Item implements ItemInterface
     public function getParentId()
     {
         return $this->parentId;
-    }
-
-    /**
-     * Returns if the item is visible.
-     *
-     * @return bool
-     */
-    public function isVisible()
-    {
-        return true;
     }
 }

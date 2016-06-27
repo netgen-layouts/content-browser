@@ -50,9 +50,9 @@ class ItemSearchAdapterTest extends TestCase
             ->method('search')
             ->with(
                 $this->equalTo('text'),
+                $this->equalTo('value'),
                 $this->equalTo(5),
-                $this->equalTo(10),
-                $this->equalTo('value')
+                $this->equalTo(10)
             )
             ->will($this->returnValue(array(1, 2, 3)));
 

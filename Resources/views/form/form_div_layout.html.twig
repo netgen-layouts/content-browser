@@ -1,8 +1,8 @@
 {% trans_default_domain 'ngcb' %}
 
 {%- block ng_content_browser_widget -%}
-    <div data-browser-config-name="{{ form.vars.config_name }}" class="js-input-browse">
-        <a class="js-trigger" href="#"><span class="js-name">{{ form.vars.value_name }}</span></a>
+    <div data-browser-config-name="{{ config_name }}" class="js-input-browse">
+        <a class="js-trigger" href="#"><span class="js-name">{{ item_name }}</span></a>
         <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
     </div>
 {%- endblock -%}

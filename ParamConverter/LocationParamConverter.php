@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use UnexpectedValueException;
 
@@ -34,7 +34,7 @@ class LocationParamConverter implements ParamConverterInterface
      *
      * @return bool True if the object has been successfully set, else false
      */
-    public function apply(Request $request, ParamConverterConfiguration $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         if (!$request->attributes->has('locationId') || !$request->attributes->has('valueType')) {
             return false;
@@ -68,7 +68,7 @@ class LocationParamConverter implements ParamConverterInterface
      *
      * @return bool True if the object is supported, else false
      */
-    public function supports(ParamConverterConfiguration $configuration)
+    public function supports(ParamConverter $configuration)
     {
         return is_a($configuration->getClass(), LocationInterface::class, true);
     }

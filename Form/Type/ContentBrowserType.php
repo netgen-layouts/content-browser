@@ -52,19 +52,23 @@ class ContentBrowserType extends HiddenType
     {
         parent::buildView($view, $form, $options);
 
-        try {
-            $valueName = $this->itemRepository->loadItem(
-                $form->getData(),
-                $options['value_type']
-            )->getName();
-        } catch (NotFoundException $e) {
-            $valueName = '(INVALID VALUE)';
+        $itemName = $form->getData() === null ? '(NO ITEM SELECTED)' : null;
+
+        if ($form->getData() !== null) {
+            try {
+                $itemName = $this->itemRepository->loadItem(
+                    $form->getData(),
+                    $options['value_type']
+                )->getName();
+            } catch (NotFoundException $e) {
+                $itemName = '(INVALID ITEM)';
+            }
         }
 
         $view->vars = array(
             'value_type' => $options['value_type'],
             'config_name' => $options['config_name'],
-            'value_name' => $valueName,
+            'item_name' => $itemName,
         ) + $view->vars;
     }
 
