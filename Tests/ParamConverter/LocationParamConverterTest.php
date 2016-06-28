@@ -38,7 +38,7 @@ class LocationParamConverterTest extends TestCase
     {
         $configuration = new ParamConverter(
             array(
-                'class' => LocationInterface::class
+                'class' => LocationInterface::class,
             )
         );
 
@@ -64,7 +64,7 @@ class LocationParamConverterTest extends TestCase
     {
         $configuration = new ParamConverter(
             array(
-                'class' => LocationInterface::class
+                'class' => LocationInterface::class,
             )
         );
 
@@ -87,7 +87,7 @@ class LocationParamConverterTest extends TestCase
     {
         $configuration = new ParamConverter(
             array(
-                'class' => LocationInterface::class
+                'class' => LocationInterface::class,
             )
         );
 
