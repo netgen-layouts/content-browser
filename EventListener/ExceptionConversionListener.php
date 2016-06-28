@@ -18,6 +18,17 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ExceptionConversionListener implements EventSubscriberInterface
 {
     /**
+     * @var array
+     */
+    protected $exceptionMap = array(
+        NotFoundException::class => NotFoundHttpException::class,
+        OutOfBoundsException::class => UnprocessableEntityHttpException::class,
+        InvalidArgumentException::class => BadRequestHttpException::class,
+        // Various other useful exceptions
+        AccessDeniedException::class => AccessDeniedHttpException::class,
+    );
+
+    /**
      * Returns an array of event names this subscriber wants to listen to.
      *
      * @return array
@@ -39,15 +50,12 @@ class ExceptionConversionListener implements EventSubscriberInterface
         }
 
         $exception = $event->getException();
-        if ($exception instanceof NotFoundException) {
-            $exceptionClass = NotFoundHttpException::class;
-        } elseif ($exception instanceof OutOfBoundsException) {
-            $exceptionClass = UnprocessableEntityHttpException::class;
-        } elseif ($exception instanceof InvalidArgumentException) {
-            $exceptionClass = BadRequestHttpException::class;
-        // Various other useful exceptions
-        } elseif ($exception instanceof AccessDeniedException) {
-            $exceptionClass = AccessDeniedHttpException::class;
+
+        foreach ($this->exceptionMap as $sourceException => $targetException) {
+            if (is_a($exception, $sourceException, true)) {
+                $exceptionClass = $targetException;
+                break;
+            }
         }
 
         if (isset($exceptionClass)) {
