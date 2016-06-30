@@ -14,6 +14,28 @@ class ConfigController extends Controller
      */
     public function getConfig()
     {
+        $data = array(
+            'value_type' => $this->config['value_type'],
+            'sections' => $this->itemSerializer->serializeLocations(
+                $this->getSections()
+            ),
+            'min_selected' => $this->config['min_selected'],
+            'max_selected' => $this->config['max_selected'],
+            'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
+            'default_columns' => $this->config['default_columns'],
+            'available_columns' => $this->getAvailableColumns(),
+        );
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Returns the list of available columns from configuration.
+     *
+     * @return array
+     */
+    protected function getAvailableColumns()
+    {
         /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
         $translator = $this->get('translator');
 
@@ -26,32 +48,32 @@ class ConfigController extends Controller
             );
         }
 
-        if (!empty($this->config['sections'])) {
-            $sections = array();
-            foreach ($this->config['sections'] as $sectionId) {
-                try {
-                    $sections[] = $this->itemRepository->loadLocation(
-                        $sectionId,
-                        $this->config['value_type']
-                    );
-                } catch (NotFoundException $e) {
-                    // Do nothing
-                }
-            }
-        } else {
-            $sections = $this->itemRepository->getDefaultSections($this->config['value_type']);
+        return $availableColumns;
+    }
+
+    /**
+     * Returns the sections specified in config, or default ones if config list is empty.
+     *
+     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
+     */
+    protected function getSections()
+    {
+        if (empty($this->config['sections'])) {
+            return $this->itemRepository->getDefaultSections($this->config['value_type']);
         }
 
-        $data = array(
-            'value_type' => $this->config['value_type'],
-            'sections' => $this->itemSerializer->serializeLocations($sections),
-            'min_selected' => $this->config['min_selected'],
-            'max_selected' => $this->config['max_selected'],
-            'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
-            'default_columns' => $this->config['default_columns'],
-            'available_columns' => $availableColumns,
-        );
+        $sections = array();
+        foreach ($this->config['sections'] as $sectionId) {
+            try {
+                $sections[] = $this->itemRepository->loadLocation(
+                    $sectionId,
+                    $this->config['value_type']
+                );
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
 
-        return new JsonResponse($data);
+        return $sections;
     }
 }
