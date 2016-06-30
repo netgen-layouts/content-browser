@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider;
 
-use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 
 class ColumnProvider implements ColumnProviderInterface
 {
@@ -29,6 +29,8 @@ class ColumnProvider implements ColumnProviderInterface
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface $itemRenderer
      * @param array $config
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
+     *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If value provider for one of the columns does not exist
      */
     public function __construct(
         ItemRendererInterface $itemRenderer,
@@ -38,28 +40,9 @@ class ColumnProvider implements ColumnProviderInterface
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
         $this->columnValueProviders = $columnValueProviders;
-    }
-
-    /**
-     * Provides the columns for selected item.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
-     *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If one of value providers does not exist.
-     *
-     * @return array
-     */
-    public function provideColumns(ItemInterface $item)
-    {
-        $columns = array();
 
         foreach ($this->config['columns'] as $columnIdentifier => $columnConfig) {
-            if (isset($columnConfig['template'])) {
-                $columns[$columnIdentifier] = $this->itemRenderer->renderItem(
-                    $item,
-                    $columnConfig['template']
-                );
-            } else {
+            if (isset($columnConfig['value_provider'])) {
                 if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
                     throw new InvalidArgumentException(
                         sprintf(
@@ -68,13 +51,47 @@ class ColumnProvider implements ColumnProviderInterface
                         )
                     );
                 }
-
-                $columns[$columnIdentifier] = $this
-                    ->columnValueProviders[$columnConfig['value_provider']]
-                    ->getValue($item);
             }
+        }
+    }
+
+    /**
+     * Provides the columns for selected item.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     *
+     * @return array
+     */
+    public function provideColumns(ItemInterface $item)
+    {
+        $columns = array();
+
+        foreach ($this->config['columns'] as $columnIdentifier => $columnConfig) {
+            $columns[$columnIdentifier] = $this->provideColumn($item, $columnConfig);
         }
 
         return $columns;
+    }
+
+    /**
+     * Provides the column with specified identifier for selected item.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param array $columnConfig
+     *
+     * @return array
+     */
+    protected function provideColumn(ItemInterface $item, array $columnConfig)
+    {
+        if (isset($columnConfig['template'])) {
+            return $this->itemRenderer->renderItem(
+                $item,
+                $columnConfig['template']
+            );
+        }
+
+        return $this
+            ->columnValueProviders[$columnConfig['value_provider']]
+            ->getValue($item);
     }
 }
