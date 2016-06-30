@@ -41,7 +41,7 @@ class ColumnProvider implements ColumnProviderInterface
         $this->config = $config;
         $this->columnValueProviders = $columnValueProviders;
 
-        foreach ($this->config['columns'] as $columnIdentifier => $columnConfig) {
+        foreach ($this->config['columns'] as $columnConfig) {
             if (isset($columnConfig['value_provider'])) {
                 if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
                     throw new InvalidArgumentException(
