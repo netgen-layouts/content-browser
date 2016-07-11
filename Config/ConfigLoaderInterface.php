@@ -11,7 +11,7 @@ interface ConfigLoaderInterface
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If config could not be found
      *
-     * @return array
+     * @return \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface
      */
     public function loadConfig($configName);
 }

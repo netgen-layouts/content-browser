@@ -7,10 +7,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use RuntimeException;
 
-class ItemConfiguratorPass implements CompilerPassInterface
+class ItemSerializerPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_content_browser.item_configurator';
-    const TAG_NAME = 'netgen_content_browser.item_configurator.handler';
+    const SERVICE_NAME = 'netgen_content_browser.item_serializer';
+    const TAG_NAME = 'netgen_content_browser.serializer.handler';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -23,7 +23,7 @@ class ItemConfiguratorPass implements CompilerPassInterface
             return;
         }
 
-        $itemConfigurator = $container->findDefinition(self::SERVICE_NAME);
+        $serializer = $container->findDefinition(self::SERVICE_NAME);
         $handlerServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $handlers = array();
@@ -31,7 +31,7 @@ class ItemConfiguratorPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {
                     throw new RuntimeException(
-                        "Configurator handler definition must have a 'value_type' attribute in its' tag."
+                        "Item serializer handler definition must have a 'value_type' attribute in its' tag."
                     );
                 }
 
@@ -39,6 +39,6 @@ class ItemConfiguratorPass implements CompilerPassInterface
             }
         }
 
-        $itemConfigurator->replaceArgument(1, $handlers);
+        $serializer->replaceArgument(4, $handlers);
     }
 }

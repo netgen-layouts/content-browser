@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
@@ -24,7 +25,7 @@ abstract class Controller extends BaseController
     protected $itemSerializer;
 
     /**
-     * @var array
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface
      */
     protected $config;
 
@@ -33,12 +34,12 @@ abstract class Controller extends BaseController
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerInterface $itemSerializer
-     * @param array $config
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface $config
      */
     public function __construct(
         ItemRepositoryInterface $itemRepository,
         ItemSerializerInterface $itemSerializer,
-        array $config
+        ConfigurationInterface $config
     ) {
         $this->itemRepository = $itemRepository;
         $this->itemSerializer = $itemSerializer;
@@ -89,7 +90,7 @@ abstract class Controller extends BaseController
                 'name' => $location->getName(),
             );
 
-            if (in_array($location->getId(), $this->config['sections'])) {
+            if (in_array($location->getId(), $this->config->getSections())) {
                 break;
             }
 

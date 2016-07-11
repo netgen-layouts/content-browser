@@ -1,4 +1,7 @@
 parameters:
+    netgen_content_browser.config.class: Netgen\Bundle\ContentBrowserBundle\Config\Configuration
+    netgen_content_browser.config_loader.class: Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoader
+
     netgen_content_browser.controller.base.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
     netgen_content_browser.controller.api.config.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
     netgen_content_browser.controller.api.browse.class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
@@ -10,15 +13,11 @@ parameters:
     netgen_content_browser.event_listener.exception_conversion.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
     netgen_content_browser.event_listener.exception_serializer.class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
 
-    netgen_content_browser.config_loader.chained.class: Netgen\Bundle\ContentBrowserBundle\Config\ChainedConfigLoader
-    netgen_content_browser.config_loader.default.class: Netgen\Bundle\ContentBrowserBundle\Config\DefaultConfigLoader
-
     netgen_content_browser.registry.backend.class: Netgen\Bundle\ContentBrowserBundle\Registry\BackendRegistry
 
     netgen_content_browser.item_repository.class: Netgen\Bundle\ContentBrowserBundle\Item\ItemRepository
     netgen_content_browser.item_serializer.class: Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializer
 
-    netgen_content_browser.item_configurator.class: Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfigurator
     netgen_content_browser.item_renderer.class: Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRenderer
     netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProvider
 
@@ -29,10 +28,22 @@ parameters:
     netgen_content_browser.column_value_provider.name.class: Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProvider\Name
 
 services:
-    # Virtual services
+    # Config services
+
+    netgen_content_browser.config:
+        class: "%netgen_content_browser.config.class%"
+        abstract: true
+        arguments: [null, null]
 
     netgen_content_browser.current_config:
         synthetic: true
+
+    netgen_content_browser.config_loader:
+        class: "%netgen_content_browser.config_loader.class%"
+        calls:
+            - [setContainer, ["@service_container"]]
+        arguments:
+            - []
 
     # API controllers
 
@@ -89,22 +100,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    # Config loaders
-
-    netgen_content_browser.config_loader:
-        alias: netgen_content_browser.config_loader.chained
-
-    netgen_content_browser.config_loader.default:
-        class: "%netgen_content_browser.config_loader.default.class%"
-        calls:
-            - [setContainer, ["@service_container"]]
-
-    netgen_content_browser.config_loader.chained:
-        class: "%netgen_content_browser.config_loader.chained.class%"
-        arguments:
-            - "@netgen_content_browser.config_loader.default"
-            - []
-
     # Registries
 
     netgen_content_browser.registry.backend:
@@ -121,13 +116,8 @@ services:
         class: "%netgen_content_browser.item_serializer.class%"
         arguments:
             - "@netgen_content_browser.item_repository"
-            - "@netgen_content_browser.item_configurator"
             - "@netgen_content_browser.column_provider"
             - "@netgen_content_browser.item_renderer"
-
-    netgen_content_browser.item_configurator:
-        class: "%netgen_content_browser.item_configurator.class%"
-        arguments:
             - "@netgen_content_browser.current_config"
             - []
 

@@ -15,14 +15,14 @@ class ConfigController extends Controller
     public function getConfig()
     {
         $data = array(
-            'value_type' => $this->config['value_type'],
+            'value_type' => $this->config->getValueType(),
             'sections' => $this->itemSerializer->serializeLocations(
                 $this->getSections()
             ),
-            'min_selected' => $this->config['min_selected'],
-            'max_selected' => $this->config['max_selected'],
+            'min_selected' => $this->config->getMinSelected(),
+            'max_selected' => $this->config->getMaxSelected(),
             'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
-            'default_columns' => $this->config['default_columns'],
+            'default_columns' => $this->config->getDefaultColumns(),
             'available_columns' => $this->getAvailableColumns(),
         );
 
@@ -41,7 +41,7 @@ class ConfigController extends Controller
 
         $availableColumns = array();
 
-        foreach ($this->config['columns'] as $identifier => $columnData) {
+        foreach ($this->config->getColumns() as $identifier => $columnData) {
             $availableColumns[] = array(
                 'id' => $identifier,
                 'name' => $translator->trans($columnData['name'], array(), 'ngcb'),
@@ -58,16 +58,16 @@ class ConfigController extends Controller
      */
     protected function getSections()
     {
-        if (empty($this->config['sections'])) {
-            return $this->itemRepository->getDefaultSections($this->config['value_type']);
+        if (empty($this->config->getSections())) {
+            return $this->itemRepository->getDefaultSections($this->config->getValueType());
         }
 
         $sections = array();
-        foreach ($this->config['sections'] as $sectionId) {
+        foreach ($this->config->getSections() as $sectionId) {
             try {
                 $sections[] = $this->itemRepository->loadLocation(
                     $sectionId,
-                    $this->config['value_type']
+                    $this->config->getValueType()
                 );
             } catch (NotFoundException $e) {
                 // Do nothing

@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ChainedConfigLoaderPass implements CompilerPassInterface
+class ConfigLoaderPass implements CompilerPassInterface
 {
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -15,15 +15,15 @@ class ChainedConfigLoaderPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('netgen_content_browser.config_loader.chained')) {
+        if (!$container->has('netgen_content_browser.config_loader')) {
             return;
         }
 
-        $chainedConfigLoader = $container->findDefinition('netgen_content_browser.config_loader.chained');
-        $configLoaders = $container->findTaggedServiceIds('netgen_content_browser.config_loader');
+        $configLoader = $container->findDefinition('netgen_content_browser.config_loader');
+        $configProcessors = $container->findTaggedServiceIds('netgen_content_browser.config_processor');
 
         uasort(
-            $configLoaders,
+            $configProcessors,
             function ($a, $b) {
                 $priorityA = isset($a[0]['priority']) ? $a[0]['priority'] : 0;
                 $priorityB = isset($b[0]['priority']) ? $b[0]['priority'] : 0;
@@ -32,11 +32,11 @@ class ChainedConfigLoaderPass implements CompilerPassInterface
             }
         );
 
-        $configLoaderReferences = array();
-        foreach (array_keys($configLoaders) as $configLoader) {
-            $configLoaderReferences[] = new Reference($configLoader);
+        $configProcessorReferences = array();
+        foreach (array_keys($configProcessors) as $configProcessor) {
+            $configProcessorReferences[] = new Reference($configProcessor);
         }
 
-        $chainedConfigLoader->replaceArgument(1, $configLoaderReferences);
+        $configLoader->replaceArgument(0, $configProcessorReferences);
     }
 }

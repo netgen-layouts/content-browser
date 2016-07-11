@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
+use Netgen\Bundle\ContentBrowserBundle\Config\Configuration;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\Config\ConfigLoaderInterface;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
@@ -66,9 +67,7 @@ class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $config = array(
-            'value_type' => 'value',
-        );
+        $config = new Configuration('value');
 
         $this->configLoaderMock
             ->expects($this->at(0))

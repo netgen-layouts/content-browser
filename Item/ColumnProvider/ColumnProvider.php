@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider;
 
+use Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
@@ -14,7 +15,7 @@ class ColumnProvider implements ColumnProviderInterface
     protected $itemRenderer;
 
     /**
-     * @var array
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface
      */
     protected $config;
 
@@ -27,21 +28,21 @@ class ColumnProvider implements ColumnProviderInterface
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface $itemRenderer
-     * @param array $config
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface $config
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If value provider for one of the columns does not exist
      */
     public function __construct(
         ItemRendererInterface $itemRenderer,
-        array $config,
+        ConfigurationInterface $config,
         array $columnValueProviders = array()
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
         $this->columnValueProviders = $columnValueProviders;
 
-        foreach ($this->config['columns'] as $columnConfig) {
+        foreach ($this->config->getColumns() as $columnConfig) {
             if (isset($columnConfig['value_provider'])) {
                 if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
                     throw new InvalidArgumentException(
@@ -66,7 +67,7 @@ class ColumnProvider implements ColumnProviderInterface
     {
         $columns = array();
 
-        foreach ($this->config['columns'] as $columnIdentifier => $columnConfig) {
+        foreach ($this->config->getColumns() as $columnIdentifier => $columnConfig) {
             $columns[$columnIdentifier] = $this->provideColumn($item, $columnConfig);
         }
 

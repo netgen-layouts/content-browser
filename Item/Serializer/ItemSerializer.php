@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Item\Serializer;
 
+use Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProviderInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfiguratorInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
@@ -17,11 +17,6 @@ class ItemSerializer implements ItemSerializerInterface
     protected $itemRepository;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfiguratorInterface
-     */
-    protected $itemConfigurator;
-
-    /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProviderInterface
      */
     protected $columnProvider;
@@ -32,23 +27,36 @@ class ItemSerializer implements ItemSerializerInterface
     protected $itemRenderer;
 
     /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface
+     */
+    protected $config;
+
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\HandlerInterface[]
+     */
+    protected $itemHandlers = array();
+
+    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Configurator\ItemConfiguratorInterface $itemConfigurator
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProviderInterface $columnProvider
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface $itemRenderer
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface $config
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\HandlerInterface[] $itemHandlers
      */
     public function __construct(
         ItemRepositoryInterface $itemRepository,
-        ItemConfiguratorInterface $itemConfigurator,
         ColumnProviderInterface $columnProvider,
-        ItemRendererInterface $itemRenderer
+        ItemRendererInterface $itemRenderer,
+        ConfigurationInterface $config,
+        array $itemHandlers = array()
     ) {
         $this->itemRepository = $itemRepository;
-        $this->itemConfigurator = $itemConfigurator;
         $this->columnProvider = $columnProvider;
         $this->itemRenderer = $itemRenderer;
+        $this->config = $config;
+        $this->itemHandlers = $itemHandlers;
     }
 
     /**
@@ -60,7 +68,7 @@ class ItemSerializer implements ItemSerializerInterface
      */
     public function serializeItem(ItemInterface $item)
     {
-        $configuredItem = $this->itemConfigurator->configureItem($item);
+        $itemHandler = $this->itemHandlers[$item->getType()];
 
         $data = array(
             'location_id' => null,
@@ -68,7 +76,7 @@ class ItemSerializer implements ItemSerializerInterface
             'parent_location_id' => $item->getParentId(),
             'name' => $item->getName(),
             'visible' => $item->isVisible(),
-            'selectable' => $configuredItem->isSelectable(),
+            'selectable' => $itemHandler->isSelectable($item),
             'has_sub_items' => false,
             'columns' => $this->columnProvider->provideColumns($item),
         );
@@ -78,7 +86,7 @@ class ItemSerializer implements ItemSerializerInterface
             $data['has_sub_items'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
-        $data['html'] = $this->itemRenderer->renderItem($item, $configuredItem->getTemplate());
+        $data['html'] = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
 
         return $data;
     }

@@ -29,7 +29,7 @@ class SearchController extends Controller
             new ItemSearchAdapter(
                 $this->itemRepository,
                 $searchText,
-                $this->config['value_type']
+                $this->config->getValueType()
             ),
             $request
         );

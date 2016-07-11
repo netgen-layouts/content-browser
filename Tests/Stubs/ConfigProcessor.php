@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Stubs;
 
-use Netgen\Bundle\ContentBrowserBundle\Config\ValueTypeConfigLoaderInterface;
+use Netgen\Bundle\ContentBrowserBundle\Config\ConfigProcessorInterface;
 
-class ConfigLoader implements ValueTypeConfigLoaderInterface
+class ConfigProcessor implements ConfigProcessorInterface
 {
     /**
      * @var bool
@@ -22,27 +22,13 @@ class ConfigLoader implements ValueTypeConfigLoaderInterface
     }
 
     /**
-     * Loads the configuration by its name.
-     *
-     * @param string $configName
-     *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If config could not be found
-     *
-     * @return array
-     */
-    public function loadConfig($configName)
-    {
-        return array('one' => 'config', 'two' => 'config');
-    }
-
-    /**
      * Returns the value type which this config supports.
      *
      * @return string
      */
     public function getValueType()
     {
-        return 'ezcontent';
+        return 'test';
     }
 
     /**
@@ -55,5 +41,19 @@ class ConfigLoader implements ValueTypeConfigLoaderInterface
     public function supports($configName)
     {
         return $this->supports;
+    }
+
+    /**
+     * Processes the given config.
+     *
+     * @param string $configName
+     * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface $config
+     *
+     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If config could not be found
+     */
+    public function processConfig($configName, $config)
+    {
+        $config->setParameter('one', 'config');
+        $config->setParameter('two', 'config');
     }
 }
