@@ -17,7 +17,7 @@ class TemplateValueProvider implements TemplateValueProviderInterface
     public function getValues(ItemInterface $item)
     {
         return array(
-            'item' => $item
+            'item' => $item,
         );
     }
 }
