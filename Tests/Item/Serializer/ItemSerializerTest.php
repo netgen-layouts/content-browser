@@ -51,7 +51,10 @@ class ItemSerializerTest extends TestCase
         $this->config = new Configuration(
             'ezcontent',
             array(
-                'template' => 'template.html.twig',
+                'preview' => array(
+                    'enabled' => true,
+                    'template' => 'template.html.twig',
+                ),
             )
         );
 
