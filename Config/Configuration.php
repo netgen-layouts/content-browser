@@ -102,13 +102,51 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * Returns if the tree is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasTree()
+    {
+        return isset($this->config['tree']['enabled']) ?
+            $this->config['tree']['enabled'] :
+            false;
+    }
+
+    /**
+     * Returns if the search is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasSearch()
+    {
+        return isset($this->config['search']['enabled']) ?
+            $this->config['search']['enabled'] :
+            false;
+    }
+
+    /**
+     * Returns if the preview is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasPreview()
+    {
+        return isset($this->config['preview']['enabled']) ?
+            $this->config['preview']['enabled'] :
+            false;
+    }
+
+    /**
      * Returns the template used to render the item.
      *
      * @return string
      */
     public function getTemplate()
     {
-        return $this->config['template'];
+        return isset($this->config['preview']['template']) ?
+            $this->config['preview']['template'] :
+            null;
     }
 
     /**

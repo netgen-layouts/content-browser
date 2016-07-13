@@ -52,9 +52,31 @@ class Configuration implements ConfigurationInterface
                         ->defaultValue(0)
                         ->min(0)
                     ->end()
-                    ->scalarNode('template')
+                    ->arrayNode('tree')
+                        ->addDefaultsIfNotSet()
+                        ->canBeDisabled()
+                    ->end()
+                    ->arrayNode('search')
+                        ->addDefaultsIfNotSet()
+                        ->canBeDisabled()
+                    ->end()
+                    ->arrayNode('preview')
+                        ->validate()
+                            ->always(function ($v) {
+                                if ($v['enabled'] && !isset($v['template'])) {
+                                    throw new InvalidConfigurationException('When preview is enabled, template needs to be specified');
+                                }
+
+                                return $v;
+                            })
+                        ->end()
                         ->isRequired()
-                        ->cannotBeEmpty()
+                        ->canBeDisabled()
+                        ->children()
+                            ->scalarNode('template')
+                                ->cannotBeEmpty()
+                            ->end()
+                        ->end()
                     ->end()
                     ->arrayNode('columns')
                         ->validate()

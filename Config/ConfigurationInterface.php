@@ -54,6 +54,27 @@ interface ConfigurationInterface
     public function setMaxSelected($maxSelected);
 
     /**
+     * Returns if the tree is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasTree();
+
+    /**
+     * Returns if the search is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasSearch();
+
+    /**
+     * Returns if the preview is activated in the config.
+     *
+     * @return bool
+     */
+    public function hasPreview();
+
+    /**
      * Returns the template used to render the item.
      *
      * @return string

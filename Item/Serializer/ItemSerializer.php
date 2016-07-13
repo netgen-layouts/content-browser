@@ -86,7 +86,9 @@ class ItemSerializer implements ItemSerializerInterface
             $data['has_sub_items'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
-        $data['html'] = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
+        if ($this->config->hasPreview()) {
+            $data['html'] = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
+        }
 
         return $data;
     }
