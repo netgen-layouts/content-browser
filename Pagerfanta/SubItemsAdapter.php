@@ -19,11 +19,6 @@ class SubItemsAdapter implements AdapterInterface
     protected $location;
 
     /**
-     * @var int
-     */
-    protected $nbResults;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
@@ -42,13 +37,9 @@ class SubItemsAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getSubItemsCount(
-                $this->location
-            );
-        }
-
-        return $this->nbResults;
+        return $this->itemRepository->getSubItemsCount(
+            $this->location
+        );
     }
 
     /**
@@ -61,18 +52,10 @@ class SubItemsAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $children = $this->itemRepository->getSubItems(
+        return $this->itemRepository->getSubItems(
             $this->location,
             $offset,
             $length
         );
-
-        if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->getSubItemsCount(
-                $this->location
-            );
-        }
-
-        return $children;
     }
 }

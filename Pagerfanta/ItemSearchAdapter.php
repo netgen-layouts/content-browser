@@ -23,11 +23,6 @@ class ItemSearchAdapter implements AdapterInterface
     protected $valueType;
 
     /**
-     * @var int
-     */
-    protected $nbResults;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
@@ -48,14 +43,10 @@ class ItemSearchAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->searchCount(
-                $this->searchText,
-                $this->valueType
-            );
-        }
-
-        return $this->nbResults;
+        return $this->itemRepository->searchCount(
+            $this->searchText,
+            $this->valueType
+        );
     }
 
     /**
@@ -68,20 +59,11 @@ class ItemSearchAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        $children = $this->itemRepository->search(
+        return $this->itemRepository->search(
             $this->searchText,
             $this->valueType,
             $offset,
             $length
         );
-
-        if (!isset($this->nbResults)) {
-            $this->nbResults = $this->itemRepository->searchCount(
-                $this->searchText,
-                $this->valueType
-            );
-        }
-
-        return $children;
     }
 }

@@ -47,7 +47,7 @@ class SubItemsAdapterTest extends TestCase
     public function testGetSlice()
     {
         $this->itemRepositoryMock
-            ->expects($this->at(0))
+            ->expects($this->once())
             ->method('getSubItems')
             ->with(
                 $this->equalTo(new Location(42)),
@@ -55,12 +55,6 @@ class SubItemsAdapterTest extends TestCase
                 $this->equalTo(10)
             )
             ->will($this->returnValue(array(1, 2, 3)));
-
-        $this->itemRepositoryMock
-            ->expects($this->at(1))
-            ->method('getSubItemsCount')
-            ->with($this->equalTo(new Location(42)))
-            ->will($this->returnValue(3));
 
         self::assertEquals(array(1, 2, 3), $this->adapter->getSlice(5, 10));
     }

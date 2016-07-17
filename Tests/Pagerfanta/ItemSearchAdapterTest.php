@@ -46,7 +46,7 @@ class ItemSearchAdapterTest extends TestCase
     public function testGetSlice()
     {
         $this->itemRepositoryMock
-            ->expects($this->at(0))
+            ->expects($this->once())
             ->method('search')
             ->with(
                 $this->equalTo('text'),
@@ -55,12 +55,6 @@ class ItemSearchAdapterTest extends TestCase
                 $this->equalTo(10)
             )
             ->will($this->returnValue(array(1, 2, 3)));
-
-        $this->itemRepositoryMock
-            ->expects($this->at(1))
-            ->method('searchCount')
-            ->with($this->equalTo('text'), $this->equalTo('value'))
-            ->will($this->returnValue(3));
 
         self::assertEquals(array(1, 2, 3), $this->adapter->getSlice(5, 10));
     }
