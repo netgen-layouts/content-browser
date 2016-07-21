@@ -95,7 +95,7 @@ class ItemSerializerTest extends TestCase
 
         $data = $this->serializer->serializeItem($item);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'location_id' => 42,
                 'value' => 84,
@@ -141,7 +141,7 @@ class ItemSerializerTest extends TestCase
 
         $data = $this->serializer->serializeItems(array($item));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 array(
                     'location_id' => 42,
@@ -182,7 +182,7 @@ class ItemSerializerTest extends TestCase
 
         $data = $this->serializer->serializeLocation($item);
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'id' => 42,
                 'parent_id' => 24,
@@ -218,7 +218,7 @@ class ItemSerializerTest extends TestCase
 
         $data = $this->serializer->serializeLocations(array($item));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 array(
                     'id' => 42,

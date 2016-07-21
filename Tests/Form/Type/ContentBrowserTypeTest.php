@@ -50,13 +50,13 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        self::assertArrayHasKey('value_type', $view->vars);
-        self::assertArrayHasKey('config_name', $view->vars);
-        self::assertArrayHasKey('item_name', $view->vars);
+        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('config_name', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
-        self::assertEquals('value', $view->vars['value_type']);
-        self::assertEquals('config', $view->vars['config_name']);
-        self::assertEquals('This is a name', $view->vars['item_name']);
+        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('config', $view->vars['config_name']);
+        $this->assertEquals('This is a name', $view->vars['item_name']);
     }
 
     /**
@@ -83,13 +83,13 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        self::assertArrayHasKey('value_type', $view->vars);
-        self::assertArrayHasKey('config_name', $view->vars);
-        self::assertArrayHasKey('item_name', $view->vars);
+        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('config_name', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
-        self::assertEquals('value', $view->vars['value_type']);
-        self::assertEquals('config', $view->vars['config_name']);
-        self::assertEquals('(INVALID ITEM)', $view->vars['item_name']);
+        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('config', $view->vars['config_name']);
+        $this->assertEquals('(INVALID ITEM)', $view->vars['item_name']);
     }
 
     /**
@@ -114,13 +114,13 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        self::assertArrayHasKey('value_type', $view->vars);
-        self::assertArrayHasKey('config_name', $view->vars);
-        self::assertArrayHasKey('item_name', $view->vars);
+        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('config_name', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
-        self::assertEquals('value', $view->vars['value_type']);
-        self::assertEquals('config', $view->vars['config_name']);
-        self::assertEquals('(NO ITEM SELECTED)', $view->vars['item_name']);
+        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('config', $view->vars['config_name']);
+        $this->assertEquals('(NO ITEM SELECTED)', $view->vars['item_name']);
     }
 
     /**
@@ -139,8 +139,8 @@ class ContentBrowserTypeTest extends TestCase
             )
         );
 
-        self::assertEquals($options['value_type'], 'value');
-        self::assertEquals($options['config_name'], 'test');
+        $this->assertEquals($options['value_type'], 'value');
+        $this->assertEquals($options['config_name'], 'test');
     }
 
     /**
@@ -200,6 +200,6 @@ class ContentBrowserTypeTest extends TestCase
      */
     public function testGetBlockPrefix()
     {
-        self::assertEquals('ng_content_browser', $this->formType->getBlockPrefix());
+        $this->assertEquals('ng_content_browser', $this->formType->getBlockPrefix());
     }
 }

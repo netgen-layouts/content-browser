@@ -45,7 +45,7 @@ class SetCurrentConfigListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::REQUEST => 'onKernelRequest'),
             $this->eventListener->getSubscribedEvents()
         );
@@ -85,7 +85,7 @@ class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertEquals('value', $request->attributes->get('valueType'));
+        $this->assertEquals('value', $request->attributes->get('valueType'));
     }
 
     /**
@@ -112,7 +112,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        self::assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('valueType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -140,7 +140,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        self::assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('valueType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -168,7 +168,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        self::assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('valueType'));
 
         $this->eventListener->onKernelRequest($event);
     }

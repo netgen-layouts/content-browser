@@ -37,7 +37,7 @@ class ItemSearchAdapterTest extends TestCase
             ->with($this->equalTo('text'), $this->equalTo('value'))
             ->will($this->returnValue(3));
 
-        self::assertEquals(3, $this->adapter->getNbResults());
+        $this->assertEquals(3, $this->adapter->getNbResults());
     }
 
     /**
@@ -56,6 +56,6 @@ class ItemSearchAdapterTest extends TestCase
             )
             ->will($this->returnValue(array(1, 2, 3)));
 
-        self::assertEquals(array(1, 2, 3), $this->adapter->getSlice(5, 10));
+        $this->assertEquals(array(1, 2, 3), $this->adapter->getSlice(5, 10));
     }
 }

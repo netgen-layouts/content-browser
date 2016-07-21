@@ -31,7 +31,7 @@ class ExceptionSerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::EXCEPTION => array('onException', 5)),
             $this->eventListener->getSubscribedEvents()
         );
@@ -57,12 +57,12 @@ class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -95,30 +95,30 @@ class ExceptionSerializerListenerTest extends TestCase
         $this->eventListener->setOutputDebugInfo(true);
         $this->eventListener->onException($event);
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
         $data = json_decode($event->getResponse()->getContent(), true);
 
-        self::assertInternalType('array', $data);
-        self::assertArrayHasKey('code', $data);
-        self::assertArrayHasKey('message', $data);
-        self::assertArrayHasKey('status_code', $data);
-        self::assertArrayHasKey('status_text', $data);
-        self::assertArrayHasKey('debug', $data);
-        self::assertArrayHasKey('line', $data['debug']);
-        self::assertArrayHasKey('file', $data['debug']);
-        self::assertArrayHasKey('trace', $data['debug']);
+        $this->assertInternalType('array', $data);
+        $this->assertArrayHasKey('code', $data);
+        $this->assertArrayHasKey('message', $data);
+        $this->assertArrayHasKey('status_code', $data);
+        $this->assertArrayHasKey('status_text', $data);
+        $this->assertArrayHasKey('debug', $data);
+        $this->assertArrayHasKey('line', $data['debug']);
+        $this->assertArrayHasKey('file', $data['debug']);
+        $this->assertArrayHasKey('trace', $data['debug']);
 
-        self::assertEquals($exception->getCode(), $data['code']);
-        self::assertEquals($exception->getMessage(), $data['message']);
-        self::assertEquals($exception->getStatusCode(), $data['status_code']);
-        self::assertEquals(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
-        self::assertEquals(__FILE__, $data['debug']['file']);
-        self::assertGreaterThan(0, $data['debug']['line']);
-        self::assertNotEmpty($data['debug']['trace']);
+        $this->assertEquals($exception->getCode(), $data['code']);
+        $this->assertEquals($exception->getMessage(), $data['message']);
+        $this->assertEquals($exception->getStatusCode(), $data['status_code']);
+        $this->assertEquals(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
+        $this->assertEquals(__FILE__, $data['debug']['file']);
+        $this->assertGreaterThan(0, $data['debug']['line']);
+        $this->assertNotEmpty($data['debug']['trace']);
     }
 
     /**
@@ -139,7 +139,7 @@ class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 
     /**
@@ -160,6 +160,6 @@ class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertNull($event->getResponse());
+        $this->assertNull($event->getResponse());
     }
 }

@@ -67,7 +67,7 @@ class ColumnProviderTest extends TestCase
      */
     public function testProvideColumns()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array('column' => 'some_value'),
             $this->columnProvider->provideColumns(new Item())
         );
@@ -102,7 +102,7 @@ class ColumnProviderTest extends TestCase
             ->with($this->equalTo(new Item()), $this->equalTo('template.html.twig'))
             ->will($this->returnValue('rendered column'));
 
-        self::assertEquals(
+        $this->assertEquals(
             array('column' => 'rendered column'),
             $this->columnProvider->provideColumns(new Item())
         );

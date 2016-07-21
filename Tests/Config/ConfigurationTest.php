@@ -41,7 +41,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetValueType()
     {
-        self::assertEquals('value', $this->config->getValueType());
+        $this->assertEquals('value', $this->config->getValueType());
     }
 
     /**
@@ -49,7 +49,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetSections()
     {
-        self::assertEquals(array(2, 5), $this->config->getSections());
+        $this->assertEquals(array(2, 5), $this->config->getSections());
     }
 
     /**
@@ -58,7 +58,7 @@ class ConfigurationTest extends TestCase
     public function testSetSections()
     {
         $this->config->setSections(array(3, 6));
-        self::assertEquals(array(3, 6), $this->config->getSections());
+        $this->assertEquals(array(3, 6), $this->config->getSections());
     }
 
     /**
@@ -66,7 +66,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetMinSelected()
     {
-        self::assertEquals(1, $this->config->getMinSelected());
+        $this->assertEquals(1, $this->config->getMinSelected());
     }
 
     /**
@@ -75,7 +75,7 @@ class ConfigurationTest extends TestCase
     public function testSetMinSelected()
     {
         $this->config->setMinSelected(5);
-        self::assertEquals(5, $this->config->getMinSelected());
+        $this->assertEquals(5, $this->config->getMinSelected());
     }
 
     /**
@@ -83,7 +83,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetMaxSelected()
     {
-        self::assertEquals(3, $this->config->getMaxSelected());
+        $this->assertEquals(3, $this->config->getMaxSelected());
     }
 
     /**
@@ -92,7 +92,7 @@ class ConfigurationTest extends TestCase
     public function testSetMaxSelected()
     {
         $this->config->setMaxSelected(3);
-        self::assertEquals(3, $this->config->getMaxSelected());
+        $this->assertEquals(3, $this->config->getMaxSelected());
     }
 
     /**
@@ -100,7 +100,7 @@ class ConfigurationTest extends TestCase
      */
     public function testHasTree()
     {
-        self::assertTrue($this->config->hasTree());
+        $this->assertTrue($this->config->hasTree());
     }
 
     /**
@@ -108,7 +108,7 @@ class ConfigurationTest extends TestCase
      */
     public function testHasSearch()
     {
-        self::assertTrue($this->config->hasSearch());
+        $this->assertTrue($this->config->hasSearch());
     }
 
     /**
@@ -116,7 +116,7 @@ class ConfigurationTest extends TestCase
      */
     public function testHasPreview()
     {
-        self::assertTrue($this->config->hasPreview());
+        $this->assertTrue($this->config->hasPreview());
     }
 
     /**
@@ -124,7 +124,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetTemplate()
     {
-        self::assertEquals('template.html.twig', $this->config->getTemplate());
+        $this->assertEquals('template.html.twig', $this->config->getTemplate());
     }
 
     /**
@@ -132,7 +132,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetColumns()
     {
-        self::assertEquals(array('columns'), $this->config->getColumns());
+        $this->assertEquals(array('columns'), $this->config->getColumns());
     }
 
     /**
@@ -140,7 +140,7 @@ class ConfigurationTest extends TestCase
      */
     public function testGetDefaultColumns()
     {
-        self::assertEquals(array('column1', 'column2'), $this->config->getDefaultColumns());
+        $this->assertEquals(array('column1', 'column2'), $this->config->getDefaultColumns());
     }
 
     /**
@@ -153,12 +153,12 @@ class ConfigurationTest extends TestCase
     {
         $this->config->setParameter('param', 'value');
         $this->config->setParameter('param2', 'value2');
-        self::assertEquals('value', $this->config->getParameter('param'));
+        $this->assertEquals('value', $this->config->getParameter('param'));
 
-        self::assertTrue($this->config->hasParameter('param'));
-        self::assertFalse($this->config->hasParameter('other'));
+        $this->assertTrue($this->config->hasParameter('param'));
+        $this->assertFalse($this->config->hasParameter('other'));
 
-        self::assertEquals(
+        $this->assertEquals(
             array(
                 'param' => 'value',
                 'param2' => 'value2',

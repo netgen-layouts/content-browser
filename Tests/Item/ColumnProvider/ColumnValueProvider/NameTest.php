@@ -23,7 +23,7 @@ class NameTest extends TestCase
      */
     public function testGetValue()
     {
-        self::assertEquals(
+        $this->assertEquals(
             'This is a name',
             $this->provider->getValue(new Item())
         );

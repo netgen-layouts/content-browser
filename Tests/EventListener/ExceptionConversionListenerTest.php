@@ -36,7 +36,7 @@ class ExceptionConversionListenerTest extends TestCase
      */
     public function testGetSubscribedEvents()
     {
-        self::assertEquals(
+        $this->assertEquals(
             array(KernelEvents::EXCEPTION => array('onException', 10)),
             $this->eventListener->getSubscribedEvents()
         );
@@ -64,15 +64,15 @@ class ExceptionConversionListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertInstanceOf(
+        $this->assertInstanceOf(
             $convertedClass,
             $event->getException()
         );
 
-        self::assertEquals($statusCode, $event->getException()->getStatusCode());
-        self::assertEquals($exception->getMessage(), $event->getException()->getMessage());
-        self::assertEquals($exception->getCode(), $event->getException()->getCode());
-        self::assertEquals($exception, $event->getException()->getPrevious());
+        $this->assertEquals($statusCode, $event->getException()->getStatusCode());
+        $this->assertEquals($exception->getMessage(), $event->getException()->getMessage());
+        $this->assertEquals($exception->getCode(), $event->getException()->getCode());
+        $this->assertEquals($exception, $event->getException()->getPrevious());
     }
 
     /**
@@ -93,7 +93,7 @@ class ExceptionConversionListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertEquals($exception, $event->getException());
+        $this->assertEquals($exception, $event->getException());
     }
 
     /**
@@ -114,7 +114,7 @@ class ExceptionConversionListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        self::assertEquals($exception, $event->getException());
+        $this->assertEquals($exception, $event->getException());
     }
 
     public function onExceptionDataProvider()

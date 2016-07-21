@@ -38,14 +38,14 @@ class ConfigLoaderTest extends TestCase
 
         $config = $configLoader->loadConfig('test');
 
-        self::assertTrue($config->hasParameter('one'));
-        self::assertEquals('config', $config->getParameter('one'));
+        $this->assertTrue($config->hasParameter('one'));
+        $this->assertEquals('config', $config->getParameter('one'));
 
-        self::assertTrue($config->hasParameter('two'));
-        self::assertEquals('config', $config->getParameter('two'));
+        $this->assertTrue($config->hasParameter('two'));
+        $this->assertEquals('config', $config->getParameter('two'));
 
-        self::assertTrue($config->hasParameter('three'));
-        self::assertEquals('default', $config->getParameter('three'));
+        $this->assertTrue($config->hasParameter('three'));
+        $this->assertEquals('default', $config->getParameter('three'));
     }
 
     /**
@@ -70,11 +70,11 @@ class ConfigLoaderTest extends TestCase
 
         $config = $configLoader->loadConfig('test');
 
-        self::assertTrue($config->hasParameter('one'));
-        self::assertEquals('default', $config->getParameter('one'));
+        $this->assertTrue($config->hasParameter('one'));
+        $this->assertEquals('default', $config->getParameter('one'));
 
-        self::assertTrue($config->hasParameter('three'));
-        self::assertEquals('default', $config->getParameter('three'));
+        $this->assertTrue($config->hasParameter('three'));
+        $this->assertEquals('default', $config->getParameter('three'));
     }
 
     /**
@@ -103,11 +103,11 @@ class ConfigLoaderTest extends TestCase
 
         $config = $configLoader->loadConfig('test');
 
-        self::assertTrue($config->hasParameter('one'));
-        self::assertEquals('default', $config->getParameter('one'));
+        $this->assertTrue($config->hasParameter('one'));
+        $this->assertEquals('default', $config->getParameter('one'));
 
-        self::assertTrue($config->hasParameter('three'));
-        self::assertEquals('default', $config->getParameter('three'));
+        $this->assertTrue($config->hasParameter('three'));
+        $this->assertEquals('default', $config->getParameter('three'));
     }
 
     /**

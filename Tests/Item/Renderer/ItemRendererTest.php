@@ -45,7 +45,7 @@ class ItemRendererTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        self::assertEquals(
+        $this->assertEquals(
             'rendered item',
             $this->itemRenderer->renderItem(new Item(), 'template.html.twig')
         );

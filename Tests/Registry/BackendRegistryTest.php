@@ -32,7 +32,7 @@ class BackendRegistryTest extends TestCase
      */
     public function testGetBackends()
     {
-        self::assertEquals(array('value' => $this->backendMock), $this->registry->getBackends());
+        $this->assertEquals(array('value' => $this->backendMock), $this->registry->getBackends());
     }
 
     /**
@@ -40,7 +40,7 @@ class BackendRegistryTest extends TestCase
      */
     public function testGetBackend()
     {
-        self::assertEquals($this->backendMock, $this->registry->getBackend('value'));
+        $this->assertEquals($this->backendMock, $this->registry->getBackend('value'));
     }
 
     /**
@@ -57,7 +57,7 @@ class BackendRegistryTest extends TestCase
      */
     public function testHasBackend()
     {
-        self::assertTrue($this->registry->hasBackend('value'));
+        $this->assertTrue($this->registry->hasBackend('value'));
     }
 
     /**
@@ -65,6 +65,6 @@ class BackendRegistryTest extends TestCase
      */
     public function testHasBackendWithNoBackend()
     {
-        self::assertFalse($this->registry->hasBackend('other_value'));
+        $this->assertFalse($this->registry->hasBackend('other_value'));
     }
 }

@@ -52,8 +52,8 @@ class LocationParamConverterTest extends TestCase
             ->with($this->equalTo(42), $this->equalTo('value'))
             ->will($this->returnValue(new Location(42)));
 
-        self::assertTrue($this->paramConverter->apply($request, $configuration));
-        self::assertEquals(new Location(42), $request->attributes->get('location'));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
+        $this->assertEquals(new Location(42), $request->attributes->get('location'));
     }
 
     /**
@@ -75,8 +75,8 @@ class LocationParamConverterTest extends TestCase
             ->expects($this->never())
             ->method('loadLocation');
 
-        self::assertFalse($this->paramConverter->apply($request, $configuration));
-        self::assertNull($request->attributes->get('location'));
+        $this->assertFalse($this->paramConverter->apply($request, $configuration));
+        $this->assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -98,8 +98,8 @@ class LocationParamConverterTest extends TestCase
             ->expects($this->never())
             ->method('loadLocation');
 
-        self::assertFalse($this->paramConverter->apply($request, $configuration));
-        self::assertNull($request->attributes->get('location'));
+        $this->assertFalse($this->paramConverter->apply($request, $configuration));
+        $this->assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -123,8 +123,8 @@ class LocationParamConverterTest extends TestCase
             ->expects($this->never())
             ->method('loadLocation');
 
-        self::assertFalse($this->paramConverter->apply($request, $configuration));
-        self::assertNull($request->attributes->get('location'));
+        $this->assertFalse($this->paramConverter->apply($request, $configuration));
+        $this->assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -156,7 +156,7 @@ class LocationParamConverterTest extends TestCase
      */
     public function testSupports()
     {
-        self::assertTrue($this->paramConverter->supports(new ParamConverter(array('class' => LocationInterface::class))));
-        self::assertFalse($this->paramConverter->supports(new ParamConverter(array('class' => ItemInterface::class))));
+        $this->assertTrue($this->paramConverter->supports(new ParamConverter(array('class' => LocationInterface::class))));
+        $this->assertFalse($this->paramConverter->supports(new ParamConverter(array('class' => ItemInterface::class))));
     }
 }

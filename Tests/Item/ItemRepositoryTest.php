@@ -44,7 +44,7 @@ class ItemRepositoryTest extends TestCase
 
         $sections = $this->itemRepository->getDefaultSections('value');
 
-        self::assertEquals(array(new Location(42)), $sections);
+        $this->assertEquals(array(new Location(42)), $sections);
     }
 
     /**
@@ -60,7 +60,7 @@ class ItemRepositoryTest extends TestCase
 
         $location = $this->itemRepository->loadLocation(42, 'value');
 
-        self::assertEquals(new Location(42), $location);
+        $this->assertEquals(new Location(42), $location);
     }
 
     /**
@@ -76,7 +76,7 @@ class ItemRepositoryTest extends TestCase
 
         $item = $this->itemRepository->loadItem(42, 'value');
 
-        self::assertEquals(new Item(42), $item);
+        $this->assertEquals(new Item(42), $item);
     }
 
     /**
@@ -92,7 +92,7 @@ class ItemRepositoryTest extends TestCase
 
         $locations = $this->itemRepository->getSubLocations(new Location(24));
 
-        self::assertEquals(array(new Location(42)), $locations);
+        $this->assertEquals(array(new Location(42)), $locations);
     }
 
     /**
@@ -108,7 +108,7 @@ class ItemRepositoryTest extends TestCase
 
         $count = $this->itemRepository->getSubLocationsCount(new Location(24));
 
-        self::assertEquals(2, $count);
+        $this->assertEquals(2, $count);
     }
 
     /**
@@ -128,7 +128,7 @@ class ItemRepositoryTest extends TestCase
 
         $items = $this->itemRepository->getSubItems(new Location(24), 5, 10);
 
-        self::assertEquals(array(new Item(42)), $items);
+        $this->assertEquals(array(new Item(42)), $items);
     }
 
     /**
@@ -144,7 +144,7 @@ class ItemRepositoryTest extends TestCase
 
         $count = $this->itemRepository->getSubItemsCount(new Location(24));
 
-        self::assertEquals(3, $count);
+        $this->assertEquals(3, $count);
     }
 
     /**
@@ -164,7 +164,7 @@ class ItemRepositoryTest extends TestCase
 
         $items = $this->itemRepository->search('test', 'value', 5, 10);
 
-        self::assertEquals(array(new Item(42)), $items);
+        $this->assertEquals(array(new Item(42)), $items);
     }
 
     /**
@@ -180,6 +180,6 @@ class ItemRepositoryTest extends TestCase
 
         $count = $this->itemRepository->searchCount('test', 'value');
 
-        self::assertEquals(3, $count);
+        $this->assertEquals(3, $count);
     }
 }
