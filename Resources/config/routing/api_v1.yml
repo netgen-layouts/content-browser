@@ -1,28 +1,28 @@
-netgen_content_browser_api_v1_config:
+ngcb_api_v1_config:
     path: /{config}/config
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.config:getConfig"
 
-netgen_content_browser_api_v1_browse_locations:
+ngcb_api_v1_browse_locations:
     path: /{config}/browse/{locationId}/locations
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getSubLocations"
 
-netgen_content_browser_api_v1_browse_items:
+ngcb_api_v1_browse_items:
     path: /{config}/browse/{locationId}/items
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.browse:getSubItems"
 
-netgen_content_browser_api_v1_items_values:
+ngcb_api_v1_items_values:
     path: /{config}/values
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.items:getByValues"
 
-netgen_content_browser_api_v1_search:
+ngcb_api_v1_search:
     path: /{config}/search
     methods: [GET]
     defaults:

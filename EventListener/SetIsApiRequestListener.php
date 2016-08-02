@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetIsApiRequestListener implements EventSubscriberInterface
 {
     const API_FLAG_NAME = 'ngcb_is_api_request';
-    const API_ROUTE_PREFIX = 'netgen_content_browser_api_';
+    const API_ROUTE_PREFIX = 'ngcb_api_';
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
