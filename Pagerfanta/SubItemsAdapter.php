@@ -45,8 +45,8 @@ class SubItemsAdapter implements AdapterInterface
     /**
      * Returns an slice of the results.
      *
-     * @param int $offset The offset.
-     * @param int $length The length.
+     * @param int $offset The offset
+     * @param int $length The length
      *
      * @return array
      */

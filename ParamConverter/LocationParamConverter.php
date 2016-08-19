@@ -38,7 +38,7 @@ class LocationParamConverter implements ParamConverterInterface
     {
         if (!$request->attributes->has('locationId') || !$request->attributes->has('valueType')) {
             return false;
-        };
+        }
 
         $locationId = $request->attributes->get('locationId');
         // 0 is a valid location ID
