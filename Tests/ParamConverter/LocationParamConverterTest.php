@@ -130,7 +130,7 @@ class LocationParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::apply
-     * @expectedException \UnexpectedValueException
+     * @expectedException \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException
      */
     public function testApplyWithEmptyRequiredLocationId()
     {

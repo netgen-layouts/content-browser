@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use RuntimeException;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\RuntimeException;
 
 class ColumnProviderPass implements CompilerPassInterface
 {

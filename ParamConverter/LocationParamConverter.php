@@ -7,7 +7,7 @@ use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
-use UnexpectedValueException;
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException;
 
 class LocationParamConverter implements ParamConverterInterface
 {
@@ -47,7 +47,7 @@ class LocationParamConverter implements ParamConverterInterface
                 return false;
             }
 
-            throw new UnexpectedValueException('Required request attribute "locationId" is empty');
+            throw new InvalidArgumentException('Required request attribute "locationId" is empty');
         }
 
         $request->attributes->set(
