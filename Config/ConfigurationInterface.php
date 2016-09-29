@@ -5,11 +5,11 @@ namespace Netgen\Bundle\ContentBrowserBundle\Config;
 interface ConfigurationInterface
 {
     /**
-     * Returns the value type.
+     * Returns the item type.
      *
      * @return string
      */
-    public function getValueType();
+    public function getItemType();
 
     /**
      * Returns the sections.

@@ -15,44 +15,44 @@ class BackendRegistry implements BackendRegistryInterface
     /**
      * Adds a backend to registry.
      *
-     * @param string $valueType
+     * @param string $itemType
      * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
      */
-    public function addBackend($valueType, BackendInterface $backend)
+    public function addBackend($itemType, BackendInterface $backend)
     {
-        $this->backends[$valueType] = $backend;
+        $this->backends[$itemType] = $backend;
     }
 
     /**
      * Returns if registry has a backend.
      *
-     * @param string $valueType
+     * @param string $itemType
      *
      * @return bool
      */
-    public function hasBackend($valueType)
+    public function hasBackend($itemType)
     {
-        return isset($this->backends[$valueType]);
+        return isset($this->backends[$itemType]);
     }
 
     /**
-     * Returns a backend for provided value type.
+     * Returns a backend for provided item type.
      *
-     * @param string $valueType
+     * @param string $itemType
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If backend does not exist
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
      */
-    public function getBackend($valueType)
+    public function getBackend($itemType)
     {
-        if (!$this->hasBackend($valueType)) {
+        if (!$this->hasBackend($itemType)) {
             throw new InvalidArgumentException(
-                sprintf('Backend for "%s" value type does not exist.', $valueType)
+                sprintf('Backend for "%s" item type does not exist.', $itemType)
             );
         }
 
-        return $this->backends[$valueType];
+        return $this->backends[$itemType];
     }
 
     /**

@@ -26,7 +26,7 @@ class ItemsController extends Controller
 
         $items = array();
         foreach ($values as $value) {
-            $items[] = $this->itemRepository->loadItem($value, $this->config->getValueType());
+            $items[] = $this->itemRepository->loadItem($value, $this->config->getItemType());
         }
 
         return new JsonResponse(

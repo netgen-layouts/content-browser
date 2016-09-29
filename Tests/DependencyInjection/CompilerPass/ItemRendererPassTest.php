@@ -30,7 +30,7 @@ class ItemRendererPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_content_browser.item_renderer', $itemRenderer);
 
         $templateValueProvider = new Definition();
-        $templateValueProvider->addTag('netgen_content_browser.template_value_provider', array('value_type' => 'test'));
+        $templateValueProvider->addTag('netgen_content_browser.template_value_provider', array('item_type' => 'test'));
         $this->setDefinition('netgen_content_browser.template_value_provider.test', $templateValueProvider);
 
         $this->compile();

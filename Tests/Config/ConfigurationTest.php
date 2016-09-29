@@ -37,11 +37,11 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Config\Configuration::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Config\Configuration::getValueType
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Config\Configuration::getItemType
      */
-    public function testGetValueType()
+    public function testGetItemType()
     {
-        $this->assertEquals('value', $this->config->getValueType());
+        $this->assertEquals('value', $this->config->getItemType());
     }
 
     /**

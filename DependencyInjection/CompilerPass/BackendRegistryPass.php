@@ -28,15 +28,15 @@ class BackendRegistryPass implements CompilerPassInterface
 
         foreach ($backends as $backend => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['value_type'])) {
+                if (!isset($tag['item_type'])) {
                     throw new RuntimeException(
-                        "Backend definition must have a 'value_type' attribute in its' tag."
+                        "Backend definition must have a 'item_type' attribute in its' tag."
                     );
                 }
 
                 $backendRegistry->addMethodCall(
                     'addBackend',
-                    array($tag['value_type'], new Reference($backend))
+                    array($tag['item_type'], new Reference($backend))
                 );
             }
         }

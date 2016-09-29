@@ -7,7 +7,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    protected $valueType;
+    protected $itemType;
 
     /**
      * @var array
@@ -22,23 +22,23 @@ class Configuration implements ConfigurationInterface
     /**
      * Constructor.
      *
-     * @param string $valueType
+     * @param string $itemType
      * @param array $config
      */
-    public function __construct($valueType, array $config = array())
+    public function __construct($itemType, array $config = array())
     {
-        $this->valueType = $valueType;
+        $this->itemType = $itemType;
         $this->config = $config;
     }
 
     /**
-     * Returns the value type.
+     * Returns the item type.
      *
      * @return string
      */
-    public function getValueType()
+    public function getItemType()
     {
-        return $this->valueType;
+        return $this->itemType;
     }
 
     /**

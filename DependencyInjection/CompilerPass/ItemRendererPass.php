@@ -29,13 +29,13 @@ class ItemRendererPass implements CompilerPassInterface
         $valueProviders = array();
         foreach ($valueProviderServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['value_type'])) {
+                if (!isset($tag['item_type'])) {
                     throw new RuntimeException(
-                        "Template value provider definition must have a 'value_type' attribute in its' tag."
+                        "Template value provider definition must have a 'item_type' attribute in its' tag."
                     );
                 }
 
-                $valueProviders[$tag['value_type']] = new Reference($serviceName);
+                $valueProviders[$tag['item_type']] = new Reference($serviceName);
             }
         }
 

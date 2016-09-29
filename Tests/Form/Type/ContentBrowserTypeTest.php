@@ -41,7 +41,7 @@ class ContentBrowserTypeTest extends TestCase
             ContentBrowserType::class,
             null,
             array(
-                'value_type' => 'value',
+                'item_type' => 'value',
                 'config_name' => 'config',
             )
         );
@@ -50,11 +50,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('config', $view->vars['config_name']);
         $this->assertEquals('This is a name', $view->vars['item_name']);
     }
@@ -74,7 +74,7 @@ class ContentBrowserTypeTest extends TestCase
             ContentBrowserType::class,
             null,
             array(
-                'value_type' => 'value',
+                'item_type' => 'value',
                 'config_name' => 'config',
             )
         );
@@ -83,11 +83,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('config', $view->vars['config_name']);
         $this->assertEquals('(INVALID ITEM)', $view->vars['item_name']);
     }
@@ -105,7 +105,7 @@ class ContentBrowserTypeTest extends TestCase
             ContentBrowserType::class,
             null,
             array(
-                'value_type' => 'value',
+                'item_type' => 'value',
                 'config_name' => 'config',
             )
         );
@@ -114,11 +114,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('value_type', $view->vars);
+        $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['value_type']);
+        $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('config', $view->vars['config_name']);
         $this->assertEquals('(NO ITEM SELECTED)', $view->vars['item_name']);
     }
@@ -134,12 +134,12 @@ class ContentBrowserTypeTest extends TestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'value_type' => 'value',
+                'item_type' => 'value',
                 'config_name' => 'test',
             )
         );
 
-        $this->assertEquals($options['value_type'], 'value');
+        $this->assertEquals($options['item_type'], 'value');
         $this->assertEquals($options['config_name'], 'test');
     }
 
@@ -147,7 +147,7 @@ class ContentBrowserTypeTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
-    public function testConfigureOptionsWithMissingValueType()
+    public function testConfigureOptionsWithMissingItemType()
     {
         $optionsResolver = new OptionsResolver();
 
@@ -166,20 +166,20 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('value_type' => 'value'));
+        $optionsResolver->resolve(array('item_type' => 'value'));
     }
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testConfigureOptionsWithInvalidValueType()
+    public function testConfigureOptionsWithInvalidItemType()
     {
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('value_type' => 42, 'config_name' => 'test'));
+        $optionsResolver->resolve(array('item_type' => 42, 'config_name' => 'test'));
     }
 
     /**
@@ -192,7 +192,7 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('value_type' => 'value', 'config_name' => 42));
+        $optionsResolver->resolve(array('item_type' => 'value', 'config_name' => 42));
     }
 
     /**

@@ -15,7 +15,7 @@ class ConfigController extends Controller
     public function getConfig()
     {
         $data = array(
-            'value_type' => $this->config->getValueType(),
+            'item_type' => $this->config->getItemType(),
             'sections' => $this->itemSerializer->serializeLocations(
                 $this->getSections()
             ),
@@ -62,7 +62,7 @@ class ConfigController extends Controller
     protected function getSections()
     {
         if (empty($this->config->getSections())) {
-            return $this->itemRepository->getDefaultSections($this->config->getValueType());
+            return $this->itemRepository->getDefaultSections($this->config->getItemType());
         }
 
         $sections = array();
@@ -70,7 +70,7 @@ class ConfigController extends Controller
             try {
                 $sections[] = $this->itemRepository->loadLocation(
                     $sectionId,
-                    $this->config->getValueType()
+                    $this->config->getItemType()
                 );
             } catch (NotFoundException $e) {
                 // Do nothing

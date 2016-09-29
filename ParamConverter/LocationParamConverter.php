@@ -36,7 +36,7 @@ class LocationParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        if (!$request->attributes->has('locationId') || !$request->attributes->has('valueType')) {
+        if (!$request->attributes->has('locationId') || !$request->attributes->has('itemType')) {
             return false;
         }
 
@@ -54,7 +54,7 @@ class LocationParamConverter implements ParamConverterInterface
             'location',
             $this->itemRepository->loadLocation(
                 $locationId,
-                $request->attributes->get('valueType')
+                $request->attributes->get('itemType')
             )
         );
 

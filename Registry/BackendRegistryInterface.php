@@ -9,30 +9,30 @@ interface BackendRegistryInterface
     /**
      * Adds a backend to registry.
      *
-     * @param string $valueType
+     * @param string $itemType
      * @param \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface $backend
      */
-    public function addBackend($valueType, BackendInterface $backend);
+    public function addBackend($itemType, BackendInterface $backend);
 
     /**
      * Returns if registry has a backend.
      *
-     * @param string $valueType
+     * @param string $itemType
      *
      * @return bool
      */
-    public function hasBackend($valueType);
+    public function hasBackend($itemType);
 
     /**
-     * Returns a backend for provided value type.
+     * Returns a backend for provided item type.
      *
-     * @param string $valueType
+     * @param string $itemType
      *
      * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\InvalidArgumentException If backend does not exist
      *
      * @return \Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface
      */
-    public function getBackend($valueType);
+    public function getBackend($itemType);
 
     /**
      * Returns all backends.

@@ -40,7 +40,7 @@ class ConfigLoader implements ConfigLoaderInterface
                 continue;
             }
 
-            $config = $this->loadDefaultConfig($configProcessor->getValueType());
+            $config = $this->loadDefaultConfig($configProcessor->getItemType());
             $configProcessor->processConfig($configName, $config);
 
             return $config;
@@ -65,7 +65,7 @@ class ConfigLoader implements ConfigLoaderInterface
         if (!$this->container->has($service)) {
             throw new InvalidArgumentException(
                 sprintf(
-                    'Configuration for "%s" value type does not exist.',
+                    'Configuration for "%s" item type does not exist.',
                     $configName
                 )
             );

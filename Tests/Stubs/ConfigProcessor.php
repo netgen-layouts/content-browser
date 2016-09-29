@@ -22,11 +22,11 @@ class ConfigProcessor implements ConfigProcessorInterface
     }
 
     /**
-     * Returns the value type which this config supports.
+     * Returns the item type which this config supports.
      *
      * @return string
      */
-    public function getValueType()
+    public function getItemType()
     {
         return 'test';
     }

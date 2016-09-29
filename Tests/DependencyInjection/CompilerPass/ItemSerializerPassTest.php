@@ -30,7 +30,7 @@ class ItemSerializerPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_content_browser.item_serializer', $itemSerializer);
 
         $handler = new Definition();
-        $handler->addTag('netgen_content_browser.serializer.handler', array('value_type' => 'test'));
+        $handler->addTag('netgen_content_browser.serializer.handler', array('item_type' => 'test'));
         $this->setDefinition('netgen_content_browser.serializer.handler.test', $handler);
 
         $this->compile();

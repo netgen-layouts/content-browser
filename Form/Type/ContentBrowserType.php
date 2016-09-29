@@ -25,9 +25,9 @@ class ContentBrowserType extends HiddenType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('value_type', 'config_name'));
+        $resolver->setRequired(array('item_type', 'config_name'));
 
-        $resolver->setAllowedTypes('value_type', 'string');
+        $resolver->setAllowedTypes('item_type', 'string');
         $resolver->setAllowedTypes('config_name', 'string');
     }
 
@@ -58,7 +58,7 @@ class ContentBrowserType extends HiddenType
             try {
                 $itemName = $this->itemRepository->loadItem(
                     $form->getData(),
-                    $options['value_type']
+                    $options['item_type']
                 )->getName();
             } catch (NotFoundException $e) {
                 $itemName = '(INVALID ITEM)';
@@ -66,7 +66,7 @@ class ContentBrowserType extends HiddenType
         }
 
         $view->vars = array(
-            'value_type' => $options['value_type'],
+            'item_type' => $options['item_type'],
             'config_name' => $options['config_name'],
             'item_name' => $itemName,
         ) + $view->vars;

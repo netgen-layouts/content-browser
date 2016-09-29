@@ -29,13 +29,13 @@ class ItemSerializerPass implements CompilerPassInterface
         $handlers = array();
         foreach ($handlerServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
-                if (!isset($tag['value_type'])) {
+                if (!isset($tag['item_type'])) {
                     throw new RuntimeException(
-                        "Item serializer handler definition must have a 'value_type' attribute in its' tag."
+                        "Item serializer handler definition must have a 'item_type' attribute in its' tag."
                     );
                 }
 
-                $handlers[$tag['value_type']] = new Reference($serviceName);
+                $handlers[$tag['item_type']] = new Reference($serviceName);
             }
         }
 

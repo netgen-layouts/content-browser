@@ -32,7 +32,7 @@ class ItemSerializer implements ItemSerializerInterface
     protected $config;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\HandlerInterface[]
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerHandlerInterface[]
      */
     protected $itemHandlers = array();
 
@@ -43,7 +43,7 @@ class ItemSerializer implements ItemSerializerInterface
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProviderInterface $columnProvider
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\Renderer\ItemRendererInterface $itemRenderer
      * @param \Netgen\Bundle\ContentBrowserBundle\Config\ConfigurationInterface $config
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\HandlerInterface[] $itemHandlers
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\Serializer\ItemSerializerHandlerInterface[] $itemHandlers
      */
     public function __construct(
         ItemRepositoryInterface $itemRepository,

@@ -44,7 +44,7 @@ class LocationParamConverterTest extends TestCase
 
         $request = Request::create('/');
         $request->attributes->set('locationId', 42);
-        $request->attributes->set('valueType', 'value');
+        $request->attributes->set('itemType', 'value');
 
         $this->itemRepositoryMock
             ->expects($this->once())
@@ -69,7 +69,7 @@ class LocationParamConverterTest extends TestCase
         );
 
         $request = Request::create('/');
-        $request->attributes->set('valueType', 'value');
+        $request->attributes->set('itemType', 'value');
 
         $this->itemRepositoryMock
             ->expects($this->never())
@@ -83,7 +83,7 @@ class LocationParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::apply
      */
-    public function testApplyWithMissingValueType()
+    public function testApplyWithMissingItemType()
     {
         $configuration = new ParamConverter(
             array(
@@ -117,7 +117,7 @@ class LocationParamConverterTest extends TestCase
 
         $request = Request::create('/');
         $request->attributes->set('locationId', null);
-        $request->attributes->set('valueType', 'value');
+        $request->attributes->set('itemType', 'value');
 
         $this->itemRepositoryMock
             ->expects($this->never())
@@ -142,7 +142,7 @@ class LocationParamConverterTest extends TestCase
 
         $request = Request::create('/');
         $request->attributes->set('locationId', null);
-        $request->attributes->set('valueType', 'value');
+        $request->attributes->set('itemType', 'value');
 
         $this->itemRepositoryMock
             ->expects($this->never())

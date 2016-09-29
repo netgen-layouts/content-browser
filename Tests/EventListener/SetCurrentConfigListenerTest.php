@@ -85,7 +85,7 @@ class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        $this->assertEquals('value', $request->attributes->get('valueType'));
+        $this->assertEquals('value', $request->attributes->get('itemType'));
     }
 
     /**
@@ -112,7 +112,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        $this->assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('itemType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -140,7 +140,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        $this->assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('itemType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -168,7 +168,7 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        $this->assertFalse($request->attributes->has('valueType'));
+        $this->assertFalse($request->attributes->has('itemType'));
 
         $this->eventListener->onKernelRequest($event);
     }

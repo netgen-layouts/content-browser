@@ -20,20 +20,20 @@ class ItemSearchAdapter implements AdapterInterface
     /**
      * @var string
      */
-    protected $valueType;
+    protected $itemType;
 
     /**
      * Constructor.
      *
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
      * @param string $searchText
-     * @param string $valueType
+     * @param string $itemType
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, $searchText, $valueType)
+    public function __construct(ItemRepositoryInterface $itemRepository, $searchText, $itemType)
     {
         $this->itemRepository = $itemRepository;
         $this->searchText = $searchText;
-        $this->valueType = $valueType;
+        $this->itemType = $itemType;
     }
 
     /**
@@ -45,7 +45,7 @@ class ItemSearchAdapter implements AdapterInterface
     {
         return $this->itemRepository->searchCount(
             $this->searchText,
-            $this->valueType
+            $this->itemType
         );
     }
 
@@ -61,7 +61,7 @@ class ItemSearchAdapter implements AdapterInterface
     {
         return $this->itemRepository->search(
             $this->searchText,
-            $this->valueType,
+            $this->itemType,
             $offset,
             $length
         );

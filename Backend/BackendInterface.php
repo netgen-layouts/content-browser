@@ -25,7 +25,7 @@ interface BackendInterface
     public function loadLocation($id);
 
     /**
-     * Loads the item by its value ID.
+     * Loads the item by its ID.
      *
      * @param int|string $id
      *
