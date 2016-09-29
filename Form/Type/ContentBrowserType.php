@@ -4,12 +4,13 @@ namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserType extends HiddenType
+class ContentBrowserType extends AbstractType
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
@@ -29,6 +30,10 @@ class ContentBrowserType extends HiddenType
 
         $resolver->setAllowedTypes('item_type', 'string');
         $resolver->setAllowedTypes('config_name', 'string');
+
+        $resolver->setDefault('config_name', function (Options $options) {
+            return $options['item_type'];
+        });
     }
 
     /**
@@ -52,23 +57,15 @@ class ContentBrowserType extends HiddenType
     {
         parent::buildView($view, $form, $options);
 
-        $itemName = $form->getData() === null ? '(NO ITEM SELECTED)' : null;
-
+        $itemNames = array();
         if ($form->getData() !== null) {
-            try {
-                $itemName = $this->itemRepository->loadItem(
-                    $form->getData(),
-                    $options['item_type']
-                )->getName();
-            } catch (NotFoundException $e) {
-                $itemName = '(INVALID ITEM)';
-            }
+            $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
         }
 
         $view->vars = array(
             'item_type' => $options['item_type'],
             'config_name' => $options['config_name'],
-            'item_name' => $itemName,
+            'item_names' => $itemNames,
         ) + $view->vars;
     }
 
@@ -83,5 +80,34 @@ class ContentBrowserType extends HiddenType
     public function getBlockPrefix()
     {
         return 'ng_content_browser';
+    }
+
+    /**
+     * Returns the array of names for all items in the form.
+     *
+     * @param mixed $formData
+     * @param string $itemType
+     *
+     * @return array
+     */
+    protected function getItemNames($formData, $itemType)
+    {
+        $itemNames = array();
+
+        foreach ((array)$formData as $itemId) {
+            $itemName = null;
+            try {
+                $itemName = $this->itemRepository->loadItem(
+                    $itemId,
+                    $itemType
+                )->getName();
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+
+            $itemNames[$itemId] = $itemName;
+        }
+
+        return $itemNames;
     }
 }
