@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -70,6 +71,14 @@ class ContentBrowserType extends AbstractType
     }
 
     /**
+     * Returns the name of the parent type.
+     */
+    public function getParent()
+    {
+        return HiddenType::class;
+    }
+
+    /**
      * Returns the prefix of the template block name for this type.
      *
      * The block prefixes default to the underscored short class name with
@@ -94,18 +103,17 @@ class ContentBrowserType extends AbstractType
     {
         $itemNames = array();
 
-        foreach ((array)$formData as $itemId) {
-            $itemName = null;
+        foreach ((array)$formData as $value) {
             try {
-                $itemName = $this->itemRepository->loadItem(
-                    $itemId,
+                $item = $this->itemRepository->loadItem(
+                    $value,
                     $itemType
-                )->getName();
+                );
+
+                $itemNames[$item->getValue()] = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing
             }
-
-            $itemNames[$itemId] = $itemName;
         }
 
         return $itemNames;

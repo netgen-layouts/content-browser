@@ -7,6 +7,11 @@ use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
 class Item implements ItemInterface
 {
     /**
+     * @var mixed
+     */
+    protected $value;
+
+    /**
      * @var int
      */
     protected $parentId;
@@ -14,10 +19,12 @@ class Item implements ItemInterface
     /**
      * Constructor.
      *
+     * @param mixed $value
      * @param int $parentId
      */
-    public function __construct($parentId = null)
+    public function __construct($value = null, $parentId = null)
     {
+        $this->value = $value;
         $this->parentId = $parentId;
     }
 
@@ -38,6 +45,7 @@ class Item implements ItemInterface
      */
     public function getValue()
     {
+        return $this->value;
     }
 
     /**
