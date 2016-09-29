@@ -86,11 +86,11 @@ abstract class Controller extends BaseController
 
         while (true) {
             $path[] = array(
-                'id' => $location->getId(),
+                'id' => $location->getLocationId(),
                 'name' => $location->getName(),
             );
 
-            if (in_array($location->getId(), $this->config->getSections())) {
+            if (in_array($location->getLocationId(), $this->config->getSections())) {
                 break;
             }
 

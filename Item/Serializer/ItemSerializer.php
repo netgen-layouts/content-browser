@@ -82,7 +82,7 @@ class ItemSerializer implements ItemSerializerInterface
         );
 
         if ($item instanceof LocationInterface) {
-            $data['location_id'] = $item->getId();
+            $data['location_id'] = $item->getLocationId();
             $data['has_sub_items'] = $this->itemRepository->getSubItemsCount($item) > 0;
         }
 
@@ -103,7 +103,7 @@ class ItemSerializer implements ItemSerializerInterface
     public function serializeLocation(LocationInterface $location)
     {
         return array(
-            'id' => $location->getId(),
+            'id' => $location->getLocationId(),
             'parent_id' => $location->getParentId(),
             'name' => $location->getName(),
             'has_sub_items' => $this->itemRepository->getSubItemsCount($location) > 0,

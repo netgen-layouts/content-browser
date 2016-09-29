@@ -33,7 +33,7 @@ class Location implements LocationInterface
      *
      * @return int|string
      */
-    public function getId()
+    public function getLocationId()
     {
         return $this->id;
     }

@@ -9,7 +9,7 @@ interface LocationInterface
      *
      * @return int|string
      */
-    public function getId();
+    public function getLocationId();
 
     /**
      * Returns the type.
