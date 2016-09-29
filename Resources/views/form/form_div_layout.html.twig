@@ -2,9 +2,10 @@
 
 {%- block ng_content_browser_widget -%}
     <div
+        data-browser-multiple="false"
         data-browser-config-name="{{ config_name }}"
-        data-min-selected="1"
-        data-max-selected="1"
+        data-browser-min-selected="1"
+        data-browser-max-selected="1"
         class="js-input-browse">
         <a class="js-trigger" href="#">
             <span class="js-name">
@@ -16,5 +17,36 @@
             </span>
         </a>
         <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
+    </div>
+{%- endblock -%}
+
+{%- block ng_content_browser_multiple_widget -%}
+    {% macro prototype(form, item_names) %}
+        <div class="item">
+            <span class="name">
+                {% if form.vars.data is not empty %}
+                    {{ item_names[form.vars.data]|default('form.messages.invalid_item'|trans) }}
+                {% endif %}
+            </span>
+
+            {{ form_widget(form) }}
+        </div>
+    {% endmacro %}
+
+    {% import _self as self %}
+
+    <div
+        data-browser-multiple="true"
+        data-browser-config-name="{{ config_name }}"
+        {% if min is not null %} data-browser-min-selected="{{ min }}" {% endif %}
+        {% if max is not null %} data-browser-max-selected="{{ max }}" {% endif %}
+        data-browser-prototype="{{ self.prototype(form.vars.prototype, item_names)|e }}">
+        <div class="items">
+            {% for child in form %}
+                {{ self.prototype(child, item_names) }}
+            {% endfor %}
+        </div>
+
+        <a href="#" class="js-trigger">{{ 'form.add_items'|trans }}</a>
     </div>
 {%- endblock -%}

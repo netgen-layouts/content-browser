@@ -18,6 +18,16 @@ class ContentBrowserType extends AbstractType
     protected $itemRepository;
 
     /**
+     * Constructor.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
+     */
+    public function __construct(ItemRepositoryInterface $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
+
+    /**
      * Configures the options for this type.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
@@ -34,16 +44,6 @@ class ContentBrowserType extends AbstractType
         $resolver->setDefault('config_name', function (Options $options) {
             return $options['item_type'];
         });
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
-     */
-    public function __construct(ItemRepositoryInterface $itemRepository)
-    {
-        $this->itemRepository = $itemRepository;
     }
 
     /**
