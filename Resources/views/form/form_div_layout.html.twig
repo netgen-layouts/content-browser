@@ -1,12 +1,10 @@
 {% trans_default_domain 'ngcb' %}
 
 {%- block ng_content_browser_widget -%}
-    <div
-        data-browser-multiple="false"
+    <div class="js-input-browse"
         data-browser-config-name="{{ config_name }}"
-        data-browser-min-selected="1"
-        data-browser-max-selected="1"
-        class="js-input-browse">
+        data-min_selected="1"
+        data-max_selected="1">
         <a class="js-trigger" href="#">
             <span class="js-name">
                 {% if value is not empty %}
@@ -23,6 +21,7 @@
 {%- block ng_content_browser_multiple_widget -%}
     {% macro prototype(form, item_names) %}
         <div class="item">
+            <a href="#" class="js-remove"><i class="material-icons">close</i></a>
             <span class="name">
                 {% if form.vars.data is not empty %}
                     {{ item_names[form.vars.data]|default('form.messages.invalid_item'|trans) }}
@@ -36,10 +35,10 @@
     {% import _self as self %}
 
     <div
-        data-browser-multiple="true"
+        class="js-multiple-browse"
         data-browser-config-name="{{ config_name }}"
-        {% if min is not null %} data-browser-min-selected="{{ min }}" {% endif %}
-        {% if max is not null %} data-browser-max-selected="{{ max }}" {% endif %}
+        {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
+        {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
         data-browser-prototype="{{ self.prototype(form.vars.prototype, item_names)|e }}">
         <div class="items">
             {% for child in form %}
