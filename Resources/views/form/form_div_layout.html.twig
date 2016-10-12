@@ -40,10 +40,14 @@
         {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
         {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
         data-browser-prototype="{{ self.prototype(form.vars.prototype, item_names)|e }}">
-        <div class="items">
+        <div class="items {% if form is empty %}items-empty{% endif %}">
             {% for child in form %}
                 {{ self.prototype(child, item_names) }}
             {% endfor %}
+
+            <div class="no-items">
+                {{ 'form.messages.no_items_selected'|trans }}
+            </div>
         </div>
 
         <a href="#" class="js-trigger">{{ 'form.add_items'|trans }}</a>
