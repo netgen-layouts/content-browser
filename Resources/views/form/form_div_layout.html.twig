@@ -35,12 +35,12 @@
     {% import _self as self %}
 
     <div
-        class="js-multiple-browse"
+        class="js-multiple-browse {% if form is empty %}items-empty{% endif %}"
         data-browser-config-name="{{ config_name }}"
         {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
         {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
         data-browser-prototype="{{ self.prototype(form.vars.prototype, item_names)|e }}">
-        <div class="items {% if form is empty %}items-empty{% endif %}">
+        <div class="items">
             {% for child in form %}
                 {{ self.prototype(child, item_names) }}
             {% endfor %}
