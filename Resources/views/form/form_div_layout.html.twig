@@ -1,12 +1,12 @@
 {% trans_default_domain 'ngcb' %}
 
 {%- block ng_content_browser_widget -%}
-    <div class="js-input-browse"
+    <div class="js-input-browse {% if value is empty %}item-empty{% endif %}"
         data-browser-config-name="{{ config_name }}"
         data-min_selected="1"
         data-max_selected="1">
         <a class="js-trigger" href="#">
-            <span class="js-name">
+            <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
                 {% if value is not empty %}
                     {{ item_names[value]|default('form.messages.invalid_item'|trans) }}
                 {% else %}
@@ -14,6 +14,7 @@
                 {% endif %}
             </span>
         </a>
+        <a href="#" class="js-clear">X</a>
         <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
     </div>
 {%- endblock -%}
