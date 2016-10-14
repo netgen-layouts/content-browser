@@ -5,7 +5,10 @@
         data-browser-config-name="{{ config_name }}"
         data-min_selected="1"
         data-max_selected="1">
-        <span class="js-clear"><i class="material-icons">close</i></span>
+        {% if not required %}
+            <span class="js-clear"><i class="material-icons">close</i></span>
+        {% endif %}
+
         <a class="js-trigger" href="#">
             <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
                 {% if value is not empty %}
