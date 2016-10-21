@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
 use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
 use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -75,7 +75,7 @@ class ContentBrowserType extends AbstractType
      */
     public function getParent()
     {
-        return HiddenType::class;
+        return TextType::class;
     }
 
     /**
