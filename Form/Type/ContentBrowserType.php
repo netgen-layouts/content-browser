@@ -58,14 +58,23 @@ class ContentBrowserType extends AbstractType
     {
         parent::buildView($view, $form, $options);
 
-        $itemNames = array();
+        $itemName = null;
         if ($form->getData() !== null) {
-            $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
+            try {
+                $item = $this->itemRepository->loadItem(
+                    $form->getData(),
+                    $options['item_type']
+                );
+
+                $itemName = $item->getName();
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
         }
 
         $view->vars['item_type'] = $options['item_type'];
         $view->vars['config_name'] = $options['config_name'];
-        $view->vars['item_names'] = $itemNames;
+        $view->vars['item_name'] = $itemName;
     }
 
     /**
@@ -87,33 +96,5 @@ class ContentBrowserType extends AbstractType
     public function getBlockPrefix()
     {
         return 'ng_content_browser';
-    }
-
-    /**
-     * Returns the array of names for all items in the form.
-     *
-     * @param mixed $formData
-     * @param string $itemType
-     *
-     * @return array
-     */
-    protected function getItemNames($formData, $itemType)
-    {
-        $itemNames = array();
-
-        foreach ((array)$formData as $value) {
-            try {
-                $item = $this->itemRepository->loadItem(
-                    $value,
-                    $itemType
-                );
-
-                $itemNames[$item->getValue()] = $item->getName();
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        return $itemNames;
     }
 }

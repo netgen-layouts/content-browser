@@ -146,7 +146,8 @@ services:
 
     netgen_content_browser.form.type.content_browser_multiple:
         class: "%netgen_content_browser.form.type.content_browser_multiple.class%"
-        parent: netgen_content_browser.form.type.content_browser
+        arguments:
+            - "@netgen_content_browser.item_repository"
         tags:
             - { name: form.type }
 

@@ -2,15 +2,33 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Form\Type;
 
+use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
+use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormView;
 
-class ContentBrowserMultipleType extends ContentBrowserType
+class ContentBrowserMultipleType extends AbstractType
 {
+    /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface
+     */
+    protected $itemRepository;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface $itemRepository
+     */
+    public function __construct(ItemRepositoryInterface $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
+
     /**
      * Configures the options for this type.
      *
@@ -29,10 +47,16 @@ class ContentBrowserMultipleType extends ContentBrowserType
             )
         );
 
-        $resolver->setRequired(array('min', 'max'));
+        $resolver->setRequired(array('item_type', 'config_name', 'min', 'max'));
 
+        $resolver->setAllowedTypes('item_type', 'string');
+        $resolver->setAllowedTypes('config_name', 'string');
         $resolver->setAllowedTypes('min', array('int', 'null'));
         $resolver->setAllowedTypes('max', array('int', 'null'));
+
+        $resolver->setDefault('config_name', function (Options $options) {
+            return $options['item_type'];
+        });
 
         $resolver->setDefault('min', null);
         $resolver->setDefault('max', null);
@@ -64,8 +88,45 @@ class ContentBrowserMultipleType extends ContentBrowserType
     {
         parent::buildView($view, $form, $options);
 
+        $itemNames = array();
+        if ($form->getData() !== null) {
+            $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
+        }
+
+        $view->vars['item_type'] = $options['item_type'];
+        $view->vars['config_name'] = $options['config_name'];
+        $view->vars['item_names'] = $itemNames;
+
         $view->vars['min'] = $options['min'];
         $view->vars['max'] = $options['max'];
+    }
+
+    /**
+     * Returns the array of names for all provided item IDs.
+     *
+     * @param mixed $itemIds
+     * @param string $itemType
+     *
+     * @return array
+     */
+    protected function getItemNames($itemIds, $itemType)
+    {
+        $itemNames = array();
+
+        foreach ((array)$itemIds as $itemId) {
+            try {
+                $item = $this->itemRepository->loadItem(
+                    $itemId,
+                    $itemType
+                );
+
+                $itemNames[$item->getValue()] = $item->getName();
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
+
+        return $itemNames;
     }
 
     /**
