@@ -64,10 +64,8 @@ class ContentBrowserMultipleType extends ContentBrowserType
     {
         parent::buildView($view, $form, $options);
 
-        $view->vars = array(
-            'min' => $options['min'],
-            'max' => $options['max'],
-        ) + $view->vars;
+        $view->vars['min'] = $options['min'];
+        $view->vars['max'] = $options['max'];
     }
 
     /**

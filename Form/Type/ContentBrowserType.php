@@ -63,11 +63,9 @@ class ContentBrowserType extends AbstractType
             $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
         }
 
-        $view->vars = array(
-            'item_type' => $options['item_type'],
-            'config_name' => $options['config_name'],
-            'item_names' => $itemNames,
-        ) + $view->vars;
+        $view->vars['item_type'] = $options['item_type'];
+        $view->vars['config_name'] = $options['config_name'];
+        $view->vars['item_names'] = $itemNames;
     }
 
     /**
