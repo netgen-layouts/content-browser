@@ -22,6 +22,7 @@ parameters:
     netgen_content_browser.column_provider.class: Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnProvider
 
     netgen_content_browser.form.type.content_browser.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserType
+    netgen_content_browser.form.type.content_browser_dynamic.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType
     netgen_content_browser.form.type.content_browser_multiple.class: Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType
 
     netgen_content_browser.param_converter.location.class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
@@ -141,6 +142,14 @@ services:
         class: "%netgen_content_browser.form.type.content_browser.class%"
         arguments:
             - "@netgen_content_browser.item_repository"
+        tags:
+            - { name: form.type }
+
+    netgen_content_browser.form.type.content_browser_dynamic:
+        class: "%netgen_content_browser.form.type.content_browser_dynamic.class%"
+        arguments:
+            - "@netgen_content_browser.item_repository"
+            - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
 
