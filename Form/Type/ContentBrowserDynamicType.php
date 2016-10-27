@@ -105,14 +105,12 @@ class ContentBrowserDynamicType extends AbstractType
         parent::buildView($view, $form, $options);
 
         $itemName = null;
-        $formData = $form->getData();
+        $itemId = $form->get('item_id')->getData();
+        $itemType = $form->get('item_type')->getData();
 
-        if (is_array($formData) && !empty($formData['item_id']) && !empty($formData['item_type'])) {
+        if (!empty($itemId) && !empty($itemType)) {
             try {
-                $item = $this->itemRepository->loadItem(
-                    $formData['item_id'],
-                    $formData['item_type']
-                );
+                $item = $this->itemRepository->loadItem($itemId, $itemType);
 
                 $itemName = $item->getName();
             } catch (NotFoundException $e) {
