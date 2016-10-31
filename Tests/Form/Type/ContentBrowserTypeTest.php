@@ -51,11 +51,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
-        $this->assertArrayHasKey('item_names', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('value', $view->vars['config_name']);
-        $this->assertEquals(array(42 => 'This is a name'), $view->vars['item_names']);
+        $this->assertEquals('This is a name', $view->vars['item_name']);
     }
 
     /**
@@ -83,11 +83,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
-        $this->assertArrayHasKey('item_names', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('value', $view->vars['config_name']);
-        $this->assertEquals(array(), $view->vars['item_names']);
+        $this->assertNull($view->vars['item_name']);
     }
 
     /**
@@ -113,11 +113,11 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('config_name', $view->vars);
-        $this->assertArrayHasKey('item_names', $view->vars);
+        $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals('value', $view->vars['config_name']);
-        $this->assertEquals(array(), $view->vars['item_names']);
+        $this->assertNull($view->vars['item_name']);
     }
 
     /**
