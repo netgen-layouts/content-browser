@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Exceptions;
 
-class OutOfBoundsException extends Exception
+use OutOfBoundsException as BaseOutOfBoundsException;
+
+class OutOfBoundsException extends BaseOutOfBoundsException implements Exception
 {
 }

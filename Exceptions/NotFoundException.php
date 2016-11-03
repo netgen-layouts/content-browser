@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Exceptions;
 
-class NotFoundException extends Exception
+use Exception as BaseException;
+
+class NotFoundException extends BaseException implements Exception
 {
 }

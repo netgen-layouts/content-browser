@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Exceptions;
 
-class InvalidArgumentException extends Exception
+use InvalidArgumentException as BaseInvalidArgumentException;
+
+class InvalidArgumentException extends BaseInvalidArgumentException implements Exception
 {
 }
