@@ -55,7 +55,13 @@ class Item implements ItemInterface
      */
     public function getName()
     {
-        return 'This is a name';
+        $name = 'This is a name';
+
+        if ($this->value !== null) {
+            $name .= ' (' . $this->value . ')';
+        }
+
+        return $name;
     }
 
     /**
