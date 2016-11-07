@@ -1,6 +1,7 @@
 parameters:
     netgen_content_browser.route_prefix: /cb
     netgen_content_browser.columns.date_format: 'D, d M Y H:i:s'
+    netgen_content_browser.browser.max_limit: 25
     netgen_content_browser.browser.default_limit: 25
 
     netgen_content_browser.ezpublish.default_item_template: 'NetgenContentBrowserBundle:ezpublish:item.html.twig'

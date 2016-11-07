@@ -56,14 +56,16 @@ abstract class Controller extends BaseController
      */
     protected function buildPager(AdapterInterface $adapter, Request $request)
     {
+        $maxLimit = $this->getParameter('netgen_content_browser.browser.max_limit');
         $defaultLimit = $this->getParameter('netgen_content_browser.browser.default_limit');
+
         $currentPage = (int)$request->query->get('page', 1);
         $limit = (int)$request->query->get('limit', $defaultLimit);
 
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
-        $pager->setMaxPerPage($limit > 0 && $limit <= 25 ? $limit : 25);
+        $pager->setMaxPerPage($limit > 0 && $limit <= $maxLimit ? $limit : $maxLimit);
         $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
 
         return $pager;
