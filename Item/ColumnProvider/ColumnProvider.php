@@ -80,7 +80,7 @@ class ColumnProvider implements ColumnProviderInterface
      * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
      * @param array $columnConfig
      *
-     * @return array
+     * @return string
      */
     protected function provideColumn(ItemInterface $item, array $columnConfig)
     {
