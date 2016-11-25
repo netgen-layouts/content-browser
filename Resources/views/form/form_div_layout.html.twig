@@ -2,19 +2,21 @@
 
 {%- block ng_content_browser_widget -%}
     <div class="js-input-browse {% if value is empty %}item-empty{% endif %}" data-min_selected="1" data-max_selected="1">
-        {% if not required %}
-            <span class="js-clear"><i class="material-icons">close</i></span>
-        {% endif %}
+        <div class="input-browse">
+            {% if not required %}
+                <span class="js-clear"><i class="material-icons">close</i></span>
+            {% endif %}
 
-        <a class="js-trigger" href="#">
-            <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
-                {% if value is not empty %}
-                    {{ item_name|default('form.messages.invalid_item'|trans) }}
-                {% else %}
-                    {{ 'form.messages.no_item_selected'|trans }}
-                {% endif %}
-            </span>
-        </a>
+            <a class="js-trigger" href="#">
+                <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
+                    {% if value is not empty %}
+                        {{ item_name|default('form.messages.invalid_item'|trans) }}
+                    {% else %}
+                        {{ 'form.messages.no_item_selected'|trans }}
+                    {% endif %}
+                </span>
+            </a>
+        </div>
 
         <input type="hidden" class="js-config-name" value="{{ config_name }}" />
         <input type="hidden" class="js-value" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
@@ -26,19 +28,21 @@
         {{ form_row(form.item_type) }}
         {{ form_row(form.item_id) }}
 
-        {% if not required %}
-            <span class="js-clear"><i class="material-icons">close</i></span>
-        {% endif %}
+        <div class="input-browse">
+            {% if not required %}
+                <span class="js-clear"><i class="material-icons">close</i></span>
+            {% endif %}
 
-        <a class="js-trigger" href="#">
-            <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
-                {% if form.item_id.vars.value is not empty %}
-                    {{ item_name|default('form.messages.invalid_item'|trans) }}
-                {% else %}
-                    {{ 'form.messages.no_item_selected'|trans }}
-                {% endif %}
-            </span>
-        </a>
+            <a class="js-trigger" href="#">
+                <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
+                    {% if form.item_id.vars.value is not empty %}
+                        {{ item_name|default('form.messages.invalid_item'|trans) }}
+                    {% else %}
+                        {{ 'form.messages.no_item_selected'|trans }}
+                    {% endif %}
+                </span>
+            </a>
+        </div>
     </div>
 {%- endblock -%}
 
