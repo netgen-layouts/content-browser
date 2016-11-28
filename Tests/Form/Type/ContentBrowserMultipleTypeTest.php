@@ -45,6 +45,7 @@ class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::buildView
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::getItemNames
      */
     public function testBuildView()
     {
@@ -96,6 +97,7 @@ class ContentBrowserMultipleTypeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::buildView
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::getItemNames
      */
     public function testBuildViewWithNonExistingItem()
     {
@@ -128,6 +130,7 @@ class ContentBrowserMultipleTypeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::buildView
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserMultipleType::getItemNames
      */
     public function testBuildViewWithEmptyData()
     {
