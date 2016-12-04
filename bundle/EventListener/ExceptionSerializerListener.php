@@ -24,7 +24,7 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public function setOutputDebugInfo($outputDebugInfo = false)
     {
-        $this->outputDebugInfo = (bool)$outputDebugInfo;
+        $this->outputDebugInfo = (bool) $outputDebugInfo;
     }
 
     /**

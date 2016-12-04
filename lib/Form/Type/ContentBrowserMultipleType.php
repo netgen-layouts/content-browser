@@ -113,7 +113,7 @@ class ContentBrowserMultipleType extends AbstractType
     {
         $itemNames = array();
 
-        foreach ((array)$itemIds as $itemId) {
+        foreach ((array) $itemIds as $itemId) {
             try {
                 $item = $this->itemRepository->loadItem(
                     $itemId,
