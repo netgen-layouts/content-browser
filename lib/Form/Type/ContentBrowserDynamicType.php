@@ -4,13 +4,13 @@ namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentBrowserDynamicType extends AbstractType
 {
@@ -51,7 +51,7 @@ class ContentBrowserDynamicType extends AbstractType
 
         $resolver->setAllowedValues('item_types', function ($values) {
             foreach ($values as $value) {
-                if (!in_array($value, $this->availableItemTypes)) {
+                if (!in_array($value, $this->availableItemTypes, true)) {
                     return false;
                 }
             }
@@ -122,6 +122,19 @@ class ContentBrowserDynamicType extends AbstractType
     }
 
     /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @return string The prefix of the template block name
+     */
+    public function getBlockPrefix()
+    {
+        return 'ng_content_browser_dynamic';
+    }
+
+    /**
      * Returns the enabled item types based on provided list.
      *
      * @param array $itemTypes
@@ -137,21 +150,8 @@ class ContentBrowserDynamicType extends AbstractType
         return array_filter(
             $this->availableItemTypes,
             function ($itemType) use ($itemTypes) {
-                return in_array($itemType, $itemTypes);
+                return in_array($itemType, $itemTypes, true);
             }
         );
-    }
-
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
-    {
-        return 'ng_content_browser_dynamic';
     }
 }

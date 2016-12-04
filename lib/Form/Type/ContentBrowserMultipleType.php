@@ -4,13 +4,13 @@ namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentBrowserMultipleType extends AbstractType
 {
@@ -102,6 +102,27 @@ class ContentBrowserMultipleType extends AbstractType
     }
 
     /**
+     * Returns the name of the parent type.
+     */
+    public function getParent()
+    {
+        return CollectionType::class;
+    }
+
+    /**
+     * Returns the prefix of the template block name for this type.
+     *
+     * The block prefixes default to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+     *
+     * @return string The prefix of the template block name
+     */
+    public function getBlockPrefix()
+    {
+        return 'ng_content_browser_multiple';
+    }
+
+    /**
      * Returns the array of names for all provided item IDs.
      *
      * @param mixed $itemIds
@@ -127,26 +148,5 @@ class ContentBrowserMultipleType extends AbstractType
         }
 
         return $itemNames;
-    }
-
-    /**
-     * Returns the name of the parent type.
-     */
-    public function getParent()
-    {
-        return CollectionType::class;
-    }
-
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
-    {
-        return 'ng_content_browser_multiple';
     }
 }

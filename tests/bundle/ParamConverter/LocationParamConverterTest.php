@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter\Page;
 
+use Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
-use Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

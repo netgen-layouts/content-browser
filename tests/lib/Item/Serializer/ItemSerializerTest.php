@@ -2,6 +2,8 @@
 
 namespace Netgen\ContentBrowser\Tests\Item\Serializer;
 
+use DateTime;
+use DateTimeZone;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use Netgen\ContentBrowser\Config\Configuration;
@@ -12,8 +14,6 @@ use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use Netgen\ContentBrowser\Tests\Stubs\ItemSerializerHandler;
 use PHPUnit\Framework\TestCase;
-use DateTimeZone;
-use DateTime;
 
 class ItemSerializerTest extends TestCase
 {

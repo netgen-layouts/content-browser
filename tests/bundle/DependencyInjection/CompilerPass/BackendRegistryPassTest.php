@@ -11,16 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new BackendRegistryPass());
-    }
-
-    /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
      */
     public function testProcess()
@@ -66,5 +56,15 @@ class BackendRegistryPassTest extends AbstractCompilerPassTestCase
         // The container has at least self ("service_container") as the service
         $this->assertCount(1, $this->container->getServiceIds());
         $this->assertEmpty($this->container->getParameterBag()->all());
+    }
+
+    /**
+     * Register the compiler pass under test.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new BackendRegistryPass());
     }
 }

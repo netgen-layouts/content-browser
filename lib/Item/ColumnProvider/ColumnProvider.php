@@ -3,9 +3,9 @@
 namespace Netgen\ContentBrowser\Item\ColumnProvider;
 
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
-use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 
 class ColumnProvider implements ColumnProviderInterface
 {

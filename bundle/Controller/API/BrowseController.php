@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Netgen\ContentBrowser\Exceptions\RuntimeException;
 
 class ItemRendererPass implements CompilerPassInterface
 {

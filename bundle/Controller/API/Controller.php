@@ -4,13 +4,13 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class Controller extends BaseController
 {
@@ -88,7 +88,7 @@ abstract class Controller extends BaseController
                 'name' => $location->getName(),
             );
 
-            if (in_array($location->getLocationId(), $this->config->getSections())) {
+            if (in_array($location->getLocationId(), $this->config->getSections(), true)) {
                 break;
             }
 

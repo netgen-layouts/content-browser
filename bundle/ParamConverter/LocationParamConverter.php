@@ -2,12 +2,12 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
-use Netgen\ContentBrowser\Item\LocationInterface;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class LocationParamConverter implements ParamConverterInterface
 {

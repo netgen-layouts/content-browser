@@ -2,16 +2,16 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
-use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
-use Netgen\ContentBrowser\Config\ConfigLoaderInterface;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
+use Netgen\ContentBrowser\Config\ConfigLoaderInterface;
+use Netgen\ContentBrowser\Config\Configuration;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
 
 class SetCurrentConfigListenerTest extends TestCase
 {

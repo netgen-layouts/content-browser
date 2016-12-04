@@ -2,8 +2,8 @@
 
 namespace Netgen\ContentBrowser\Item\Serializer;
 
-use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 
 interface ItemSerializerInterface
 {
