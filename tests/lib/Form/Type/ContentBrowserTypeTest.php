@@ -36,7 +36,7 @@ class ContentBrowserTypeTest extends TestCase
             )
         );
 
-        $form->submit(42);
+        $form->submit('42');
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals(42, $form->getData());
@@ -62,7 +62,7 @@ class ContentBrowserTypeTest extends TestCase
             )
         );
 
-        $form->submit(42);
+        $form->submit('42');
 
         $view = $form->createView();
 
@@ -94,7 +94,7 @@ class ContentBrowserTypeTest extends TestCase
             )
         );
 
-        $form->submit(42);
+        $form->submit('42');
 
         $view = $form->createView();
 
