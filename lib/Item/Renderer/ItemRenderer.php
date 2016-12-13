@@ -2,6 +2,7 @@
 
 namespace Netgen\ContentBrowser\Item\Renderer;
 
+use Exception;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Twig_Environment;
 
@@ -32,7 +33,7 @@ class ItemRenderer implements ItemRendererInterface
     }
 
     /**
-     * Renders the item.
+     * Renders the item. In case the rendering error is occurred, an empty string is returned.
      *
      * @param \Netgen\ContentBrowser\Item\ItemInterface $item
      * @param string $template
@@ -41,10 +42,14 @@ class ItemRenderer implements ItemRendererInterface
      */
     public function renderItem(ItemInterface $item, $template)
     {
-        return $this->twig->render(
-            $template,
-            $this->templateValueProviders[$item->getType()]
-                ->getValues($item)
-        );
+        try {
+            return $this->twig->render(
+                $template,
+                $this->templateValueProviders[$item->getType()]
+                    ->getValues($item)
+            );
+        } catch (Exception $e) {
+            return '';
+        }
     }
 }

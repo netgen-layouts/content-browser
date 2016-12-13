@@ -2,6 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Item\Renderer;
 
+use Exception;
 use Netgen\ContentBrowser\Item\Renderer\ItemRenderer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\TemplateValueProvider;
@@ -49,5 +50,22 @@ class ItemRendererTest extends TestCase
             'rendered item',
             $this->itemRenderer->renderItem(new Item(), 'template.html.twig')
         );
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Item\Renderer\ItemRenderer::renderItem
+     */
+    public function testRenderItemWithException()
+    {
+        $this->twigMock
+            ->expects($this->once())
+            ->method('render')
+            ->with(
+                $this->equalTo('template.html.twig'),
+                $this->equalTo(array('item' => new Item()))
+            )
+            ->will($this->throwException(new Exception()));
+
+        $this->assertEquals('', $this->itemRenderer->renderItem(new Item(), 'template.html.twig'));
     }
 }

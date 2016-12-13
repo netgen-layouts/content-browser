@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 interface ItemRendererInterface
 {
     /**
-     * Renders the item.
+     * Renders the item. In case the rendering error is occurred, an empty string is returned.
      *
      * @param \Netgen\ContentBrowser\Item\ItemInterface $item
      * @param string $template
