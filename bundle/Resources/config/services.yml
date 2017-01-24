@@ -1,11 +1,6 @@
 services:
     # Config services
 
-    netgen_content_browser.config:
-        class: Netgen\ContentBrowser\Config\Configuration
-        abstract: true
-        arguments: [null, null]
-
     netgen_content_browser.current_config:
         synthetic: true
 
