@@ -12,6 +12,7 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class Controller extends BaseController implements ContainerAwareInterface
@@ -48,6 +49,17 @@ abstract class Controller extends BaseController implements ContainerAwareInterf
         $this->itemRepository = $itemRepository;
         $this->itemSerializer = $itemSerializer;
         $this->config = $config;
+    }
+
+    /**
+     * Initializes the controller by setting the container and performing basic access checks.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function initialize(ContainerInterface $container)
+    {
+        $this->setContainer($container);
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
     }
 
     /**

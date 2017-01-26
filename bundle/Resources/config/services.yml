@@ -20,7 +20,7 @@ services:
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.current_config"
         calls:
-            - [setContainer, ["@service_container"]]
+            - [initialize, ["@service_container"]]
 
     netgen_content_browser.controller.api.config:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
