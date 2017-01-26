@@ -10,10 +10,14 @@ use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class Controller extends BaseController
+abstract class Controller extends BaseController implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
      */
