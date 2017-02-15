@@ -34,7 +34,8 @@ class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Column value provider definition must have a 'identifier' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier()
     {

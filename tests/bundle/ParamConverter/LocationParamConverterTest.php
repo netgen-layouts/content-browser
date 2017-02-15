@@ -131,6 +131,7 @@ class LocationParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::apply
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Required request attribute "locationId" is empty
      */
     public function testApplyWithEmptyRequiredLocationId()
     {

@@ -114,6 +114,7 @@ class ConfigLoaderTest extends TestCase
      * @covers \Netgen\ContentBrowser\Config\ConfigLoader::loadConfig
      * @covers \Netgen\ContentBrowser\Config\ConfigLoader::loadDefaultConfig
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Configuration for "non_existing" item type does not exist.
      */
     public function testLoadConfigThrowsInvalidArgumentException()
     {

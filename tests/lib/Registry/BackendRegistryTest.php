@@ -46,6 +46,7 @@ class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getBackend
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Backend for "other_value" item type does not exist.
      */
     public function testGetBackendThrowsInvalidArgumentException()
     {

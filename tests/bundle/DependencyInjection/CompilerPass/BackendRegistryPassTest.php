@@ -32,7 +32,8 @@ class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Backend definition must have a 'item_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {

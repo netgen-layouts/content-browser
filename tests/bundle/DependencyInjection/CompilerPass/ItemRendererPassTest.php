@@ -34,7 +34,8 @@ class ItemRendererPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemRendererPass::process
-     * @expectedException \RuntimeException
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Template value provider definition must have a 'item_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {
