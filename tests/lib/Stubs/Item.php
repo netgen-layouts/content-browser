@@ -83,4 +83,14 @@ class Item implements ItemInterface
     {
         return true;
     }
+
+    /**
+     * Returns if the item is selectable.
+     *
+     * @return bool
+     */
+    public function isSelectable()
+    {
+        return true;
+    }
 }

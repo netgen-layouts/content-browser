@@ -12,7 +12,6 @@ use Netgen\ContentBrowser\Item\EzContent\Item;
 use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
-use Netgen\ContentBrowser\Tests\Stubs\ItemSerializerHandler;
 use PHPUnit\Framework\TestCase;
 
 class ItemSerializerTest extends TestCase
@@ -62,8 +61,7 @@ class ItemSerializerTest extends TestCase
             $this->itemRepositoryMock,
             $this->columnProviderMock,
             $this->itemRendererMock,
-            $this->config,
-            array('ezcontent' => new ItemSerializerHandler())
+            $this->config
         );
     }
 

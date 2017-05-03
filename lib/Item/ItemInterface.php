@@ -38,4 +38,11 @@ interface ItemInterface
      * @return bool
      */
     public function isVisible();
+
+    /**
+     * Returns if the item is selectable.
+     *
+     * @return bool
+     */
+    public function isSelectable();
 }

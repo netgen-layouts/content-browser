@@ -32,31 +32,23 @@ class ItemSerializer implements ItemSerializerInterface
     protected $config;
 
     /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerHandlerInterface[]
-     */
-    protected $itemHandlers = array();
-
-    /**
      * Constructor.
      *
      * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
      * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface $columnProvider
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
      * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
-     * @param \Netgen\ContentBrowser\Item\Serializer\ItemSerializerHandlerInterface[] $itemHandlers
      */
     public function __construct(
         ItemRepositoryInterface $itemRepository,
         ColumnProviderInterface $columnProvider,
         ItemRendererInterface $itemRenderer,
-        ConfigurationInterface $config,
-        array $itemHandlers = array()
+        ConfigurationInterface $config
     ) {
         $this->itemRepository = $itemRepository;
         $this->columnProvider = $columnProvider;
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
-        $this->itemHandlers = $itemHandlers;
     }
 
     /**
@@ -68,15 +60,13 @@ class ItemSerializer implements ItemSerializerInterface
      */
     public function serializeItem(ItemInterface $item)
     {
-        $itemHandler = $this->itemHandlers[$item->getType()];
-
         $data = array(
             'location_id' => null,
             'value' => $item->getValue(),
             'parent_location_id' => $item->getParentId(),
             'name' => $item->getName(),
             'visible' => $item->isVisible(),
-            'selectable' => $itemHandler->isSelectable($item),
+            'selectable' => $item->isSelectable(),
             'has_sub_items' => false,
             'columns' => $this->columnProvider->provideColumns($item),
         );
