@@ -9,21 +9,6 @@ use Symfony\Component\Form\Exception\InvalidConfigurationException;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * @var string
-     */
-    protected $alias;
-
-    /**
-     * Constructor.
-     *
-     * @param string $alias
-     */
-    public function __construct($alias)
-    {
-        $this->alias = $alias;
-    }
-
-    /**
      * Generates the configuration tree builder.
      *
      * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
@@ -31,7 +16,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root($this->alias);
+        $rootNode = $treeBuilder->root('netgen_content_browser');
 
         $rootNode->children()
             ->arrayNode('item_types')
