@@ -14,22 +14,13 @@ class ItemRenderer implements ItemRendererInterface
     protected $twig;
 
     /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\TemplateValueProviderInterface[]
-     */
-    protected $templateValueProviders = array();
-
-    /**
      * Constructor.
      *
      * @param \Twig_Environment $twig
-     * @param \Netgen\ContentBrowser\Item\Renderer\TemplateValueProviderInterface[] $templateValueProviders
      */
-    public function __construct(
-        Twig_Environment $twig,
-        array $templateValueProviders = array()
-    ) {
+    public function __construct(Twig_Environment $twig)
+    {
         $this->twig = $twig;
-        $this->templateValueProviders = $templateValueProviders;
     }
 
     /**
@@ -45,8 +36,9 @@ class ItemRenderer implements ItemRendererInterface
         try {
             return $this->twig->render(
                 $template,
-                $this->templateValueProviders[$item->getType()]
-                    ->getValues($item)
+                array(
+                    'item' => $item,
+                )
             );
         } catch (Exception $e) {
             return '';

@@ -5,7 +5,6 @@ namespace Netgen\ContentBrowser\Tests\Item\Renderer;
 use Exception;
 use Netgen\ContentBrowser\Item\Renderer\ItemRenderer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
-use Netgen\ContentBrowser\Tests\Stubs\TemplateValueProvider;
 use PHPUnit\Framework\TestCase;
 use Twig_Environment;
 
@@ -25,10 +24,7 @@ class ItemRendererTest extends TestCase
     {
         $this->twigMock = $this->createMock(Twig_Environment::class);
 
-        $this->itemRenderer = new ItemRenderer(
-            $this->twigMock,
-            array('value' => new TemplateValueProvider())
-        );
+        $this->itemRenderer = new ItemRenderer($this->twigMock);
     }
 
     /**

@@ -5,7 +5,9 @@ namespace Netgen\ContentBrowser\Tests\Item\Serializer;
 use DateTime;
 use DateTimeZone;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\EzContent\Item;
@@ -257,6 +259,16 @@ class ItemSerializerTest extends TestCase
             )
         );
 
+        $content = new Content(
+            array(
+                'versionInfo' => new VersionInfo(
+                    array(
+                        'contentInfo' => $contentInfo,
+                    )
+                ),
+            )
+        );
+
         $location = new Location(
             array(
                 'id' => 42,
@@ -267,6 +279,6 @@ class ItemSerializerTest extends TestCase
             )
         );
 
-        return new Item($location, $contentInfo, 'Some name');
+        return new Item($location, $content, 'Some name');
     }
 }
