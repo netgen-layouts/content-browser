@@ -1,0 +1,28 @@
+{% trans_default_domain 'ngcb' %}
+
+{% set value = value|default(null) %}
+{% set item_name = item_name|default(value) %}
+{% set required = required|default(false) %}
+{% set min = min|default(1) %}
+{% set max = max|default(1) %}
+
+<div class="js-input-browse {% if value is empty %}item-empty{% endif %}" data-min_selected="{{ min }}" data-max_selected="{{ max }}">
+    <div class="input-browse">
+        {% if not required %}
+            <span class="js-clear"><i class="material-icons">close</i></span>
+        {% endif %}
+
+        <a class="js-trigger" href="#">
+            <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
+                {% if value is not empty %}
+                    {{ item_name }}
+                {% else %}
+                    {{ 'form.messages.no_item_selected'|trans }}
+                {% endif %}
+            </span>
+        </a>
+    </div>
+
+    <input type="hidden" class="js-config-name" value="{{ item_type }}" />
+    <input type="hidden" class="js-value" id="{{ input_id }}" {% if value is not empty %} value="{{ value }}" {% endif %} />
+</div>
