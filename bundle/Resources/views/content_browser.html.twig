@@ -3,12 +3,16 @@
 {% set value = value|default(null) %}
 {% set item_name = item_name|default(value) %}
 {% set no_item_message = no_item_message|default('form.messages.no_item_selected'|trans) %}
-
 {% set required = required is defined ? required : false %}
-{% set min = min is defined ? min : 1 %}
-{% set max = max is defined ? max : 1 %}
 
-<div class="js-input-browse {% if value is empty %}item-empty{% endif %}" data-min_selected="{{ min }}" data-max_selected="{{ max }}">
+<div class="js-input-browse {% if value is empty %}item-empty{% endif %}"
+    {% if min is defined %}data-min_selected="{{ min }}"{% endif %}
+    {% if max is defined %}data-max_selected="{{ max }}"{% endif %}
+    {% if show_tree is defined %}data-has_tree="{{ show_tree ? '1' : '0' }}"{% endif %}
+    {% if show_search is defined %}data-has_search="{{ show_search ? '1' : '0' }}"{% endif %}
+    {% if show_preview is defined %}data-has_preview="{{ show_preview ? '1' : '0' }}"{% endif %}
+>
+
     <div class="input-browse">
         {% if not required %}
             <span class="js-clear"><i class="material-icons">close</i></span>
