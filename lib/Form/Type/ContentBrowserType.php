@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentBrowserType extends AbstractType
@@ -37,14 +36,8 @@ class ContentBrowserType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('item_type', 'config_name'));
-
+        $resolver->setRequired(array('item_type'));
         $resolver->setAllowedTypes('item_type', 'string');
-        $resolver->setAllowedTypes('config_name', 'string');
-
-        $resolver->setDefault('config_name', function (Options $options) {
-            return $options['item_type'];
-        });
     }
 
     /**
@@ -56,8 +49,6 @@ class ContentBrowserType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $itemName = null;
         if ($form->getData() !== null) {
             try {
@@ -73,7 +64,6 @@ class ContentBrowserType extends AbstractType
         }
 
         $view->vars['item_type'] = $options['item_type'];
-        $view->vars['config_name'] = $options['config_name'];
         $view->vars['item_name'] = $itemName;
     }
 

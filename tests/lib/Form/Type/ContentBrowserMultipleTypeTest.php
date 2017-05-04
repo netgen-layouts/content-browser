@@ -76,13 +76,11 @@ class ContentBrowserMultipleTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_names', $view->vars);
         $this->assertArrayHasKey('min', $view->vars);
         $this->assertArrayHasKey('max', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertEquals(
             array(
                 42 => 'This is a name (42)',
@@ -120,11 +118,9 @@ class ContentBrowserMultipleTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_names', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertEquals(array(), $view->vars['item_names']);
     }
 
@@ -151,11 +147,9 @@ class ContentBrowserMultipleTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_names', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertEquals(array(), $view->vars['item_names']);
     }
 
@@ -177,31 +171,8 @@ class ContentBrowserMultipleTypeTest extends TestCase
         );
 
         $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['config_name'], 'value');
         $this->assertEquals($options['min'], 3);
         $this->assertEquals($options['max'], 5);
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
-    public function testConfigureOptionsWithConfigName()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $options = $optionsResolver->resolve(
-            array(
-                'item_type' => 'value',
-                'config_name' => 'test',
-            )
-        );
-
-        $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['config_name'], 'test');
-        $this->assertEquals($options['min'], null);
-        $this->assertEquals($options['max'], null);
     }
 
     /**
@@ -222,7 +193,6 @@ class ContentBrowserMultipleTypeTest extends TestCase
         );
 
         $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['config_name'], 'value');
         $this->assertEquals($options['min'], 3);
         $this->assertEquals($options['max'], 3);
     }
@@ -237,7 +207,7 @@ class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('config_name' => 'test'));
+        $optionsResolver->resolve(array());
     }
 
     /**
@@ -251,19 +221,6 @@ class ContentBrowserMultipleTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(array('item_type' => 42));
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function testConfigureOptionsWithInvalidConfigName()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(array('item_type' => 'value', 'config_name' => 42));
     }
 
     /**

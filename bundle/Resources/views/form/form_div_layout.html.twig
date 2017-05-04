@@ -18,7 +18,7 @@
             </a>
         </div>
 
-        <input type="hidden" class="js-config-name" value="{{ config_name }}" />
+        <input type="hidden" class="js-config-name" value="{{ item_type }}" />
         <input type="hidden" class="js-value" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
     </div>
 {%- endblock -%}
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <input type="hidden" class="js-config-name" value="{{ config_name }}" />
+        <input type="hidden" class="js-config-name" value="{{ item_type }}" />
 
         <a href="#" class="js-trigger">{{ 'form.add_items'|trans }}</a>
     </div>

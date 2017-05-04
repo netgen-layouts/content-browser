@@ -67,11 +67,9 @@ class ContentBrowserTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertEquals('This is a name (42)', $view->vars['item_name']);
     }
 
@@ -99,11 +97,9 @@ class ContentBrowserTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertNull($view->vars['item_name']);
     }
 
@@ -129,11 +125,9 @@ class ContentBrowserTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('config_name', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('value', $view->vars['config_name']);
         $this->assertNull($view->vars['item_name']);
     }
 
@@ -153,27 +147,6 @@ class ContentBrowserTypeTest extends TestCase
         );
 
         $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['config_name'], 'value');
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
-    public function testConfigureOptionsWithConfigName()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $options = $optionsResolver->resolve(
-            array(
-                'item_type' => 'value',
-                'config_name' => 'test',
-            )
-        );
-
-        $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['config_name'], 'test');
     }
 
     /**
@@ -186,7 +159,7 @@ class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('config_name' => 'test'));
+        $optionsResolver->resolve(array());
     }
 
     /**
@@ -200,19 +173,6 @@ class ContentBrowserTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(array('item_type' => 42));
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function testConfigureOptionsWithInvalidConfigName()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(array('item_type' => 'value', 'config_name' => 42));
     }
 
     /**

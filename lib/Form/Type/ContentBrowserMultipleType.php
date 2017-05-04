@@ -47,16 +47,11 @@ class ContentBrowserMultipleType extends AbstractType
             )
         );
 
-        $resolver->setRequired(array('item_type', 'config_name', 'min', 'max'));
+        $resolver->setRequired(array('item_type', 'min', 'max'));
 
         $resolver->setAllowedTypes('item_type', 'string');
-        $resolver->setAllowedTypes('config_name', 'string');
         $resolver->setAllowedTypes('min', array('int', 'null'));
         $resolver->setAllowedTypes('max', array('int', 'null'));
-
-        $resolver->setDefault('config_name', function (Options $options) {
-            return $options['item_type'];
-        });
 
         $resolver->setDefault('min', null);
         $resolver->setDefault('max', null);
@@ -86,15 +81,12 @@ class ContentBrowserMultipleType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $itemNames = array();
         if ($form->getData() !== null) {
             $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
         }
 
         $view->vars['item_type'] = $options['item_type'];
-        $view->vars['config_name'] = $options['config_name'];
         $view->vars['item_names'] = $itemNames;
 
         $view->vars['min'] = $options['min'];
