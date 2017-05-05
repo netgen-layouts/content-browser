@@ -36,7 +36,7 @@ class ConfigLoaderTest extends TestCase
 
         $configLoader->setContainer($container);
 
-        $config = $configLoader->loadConfig('test');
+        $config = $configLoader->loadConfig('test', 'test');
 
         $this->assertTrue($config->hasParameter('one'));
         $this->assertEquals('config', $config->getParameter('one'));
@@ -68,7 +68,7 @@ class ConfigLoaderTest extends TestCase
 
         $configLoader->setContainer($container);
 
-        $config = $configLoader->loadConfig('test');
+        $config = $configLoader->loadConfig('test', 'test');
 
         $this->assertTrue($config->hasParameter('one'));
         $this->assertEquals('default', $config->getParameter('one'));
@@ -101,7 +101,7 @@ class ConfigLoaderTest extends TestCase
 
         $configLoader->setContainer($container);
 
-        $config = $configLoader->loadConfig('test');
+        $config = $configLoader->loadConfig('test', 'test');
 
         $this->assertTrue($config->hasParameter('one'));
         $this->assertEquals('default', $config->getParameter('one'));
@@ -128,6 +128,6 @@ class ConfigLoaderTest extends TestCase
 
         $configLoader->setContainer($container);
 
-        $configLoader->loadConfig('non_existing');
+        $configLoader->loadConfig('non_existing', 'non_existing');
     }
 }

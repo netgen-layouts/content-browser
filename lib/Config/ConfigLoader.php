@@ -25,48 +25,54 @@ class ConfigLoader implements ConfigLoaderInterface
     }
 
     /**
-     * Loads the configuration by its name.
+     * Loads the configuration for provided item type.
      *
+     * @param string $itemType
      * @param string $configName
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
      *
      * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    public function loadConfig($configName)
+    public function loadConfig($itemType, $configName)
     {
+        $config = $this->loadDefaultConfig($itemType);
+
         foreach ($this->configProcessors as $configProcessor) {
+            if ($configProcessor->getItemType() !== $itemType) {
+                continue;
+            }
+
             if (!$configProcessor->supports($configName)) {
                 continue;
             }
 
-            $config = $this->loadDefaultConfig($configProcessor->getItemType());
-            $configProcessor->processConfig($configName, $config);
+            $configProcessor->processConfig($itemType, $config);
 
-            return $config;
+            break;
         }
 
-        return $this->loadDefaultConfig($configName);
+        return $config;
     }
 
     /**
-     * Loads the default configuration by its name.
+     * Loads the default configuration for provided item type.
      *
-     * @param string $configName
+     * @param string $itemType
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
      *
      * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected function loadDefaultConfig($configName)
+    protected function loadDefaultConfig($itemType)
     {
-        $service = 'netgen_content_browser.config.' . $configName;
+        $service = 'netgen_content_browser.config.' . $itemType;
 
         if (!$this->container->has($service)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" item type does not exist.',
-                    $configName
+                    $itemType
                 )
             );
         }

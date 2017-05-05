@@ -48,7 +48,9 @@ class SetCurrentConfigListener implements EventSubscriberInterface
             return;
         }
 
-        $attributes = $event->getRequest()->attributes;
+        $request = $event->getRequest();
+        $attributes = $request->attributes;
+
         if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
@@ -57,7 +59,11 @@ class SetCurrentConfigListener implements EventSubscriberInterface
             return;
         }
 
-        $config = $this->configLoader->loadConfig($attributes->get('itemType'));
+        $itemType = $attributes->get('itemType');
+        $configName = $request->query->get('configName', $itemType);
+
+        $config = $this->configLoader->loadConfig($itemType, $configName);
+
         $this->container->set('netgen_content_browser.current_config', $config);
     }
 }
