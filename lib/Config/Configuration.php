@@ -24,11 +24,13 @@ class Configuration implements ConfigurationInterface
      *
      * @param string $itemType
      * @param array $config
+     * @param array $parameters
      */
-    public function __construct($itemType, array $config = array())
+    public function __construct($itemType, array $config = array(), array $parameters = array())
     {
         $this->itemType = $itemType;
         $this->config = $config;
+        $this->parameters = $parameters;
     }
 
     /**

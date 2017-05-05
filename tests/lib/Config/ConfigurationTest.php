@@ -32,7 +32,11 @@ class ConfigurationTest extends TestCase
             'default_columns' => array('column1', 'column2'),
         );
 
-        $this->config = new Configuration('value', $configArray);
+        $parameters = array(
+            'default' => 'param',
+        );
+
+        $this->config = new Configuration('value', $configArray, $parameters);
     }
 
     /**
@@ -93,6 +97,14 @@ class ConfigurationTest extends TestCase
     {
         $this->config->setMaxSelected(3);
         $this->assertEquals(3, $this->config->getMaxSelected());
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Config\Configuration::getParameters
+     */
+    public function testGetParameters()
+    {
+        $this->assertEquals(array('default' => 'param'), $this->config->getParameters());
     }
 
     /**
@@ -162,6 +174,7 @@ class ConfigurationTest extends TestCase
             array(
                 'param' => 'value',
                 'param2' => 'value2',
+                'default' => 'param',
             ),
             $this->config->getParameters()
         );
