@@ -43,7 +43,6 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('parameters')
                         ->defaultValue(array())
-                        ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->useAttributeAsKey('parameter')
                         ->prototype('variable')
