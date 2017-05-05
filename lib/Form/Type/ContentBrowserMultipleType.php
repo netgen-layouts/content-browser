@@ -3,7 +3,7 @@
 namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -15,18 +15,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentBrowserMultipleType extends AbstractType
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $itemRepository;
+    protected $backendRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
      */
-    public function __construct(ItemRepositoryInterface $itemRepository)
+    public function __construct(BackendRegistryInterface $backendRegistry)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backendRegistry = $backendRegistry;
     }
 
     /**
@@ -128,11 +128,8 @@ class ContentBrowserMultipleType extends AbstractType
 
         foreach ((array) $itemIds as $itemId) {
             try {
-                $item = $this->itemRepository->loadItem(
-                    $itemId,
-                    $itemType
-                );
-
+                $backend = $this->backendRegistry->getBackend($itemType);
+                $item = $backend->loadItem($itemId);
                 $itemNames[$item->getValue()] = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing

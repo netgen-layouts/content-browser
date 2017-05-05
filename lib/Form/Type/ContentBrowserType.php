@@ -3,7 +3,7 @@
 namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
@@ -13,18 +13,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentBrowserType extends AbstractType
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $itemRepository;
+    protected $backendRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
      */
-    public function __construct(ItemRepositoryInterface $itemRepository)
+    public function __construct(BackendRegistryInterface $backendRegistry)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backendRegistry = $backendRegistry;
     }
 
     /**
@@ -52,11 +52,8 @@ class ContentBrowserType extends AbstractType
         $itemName = null;
         if ($form->getData() !== null) {
             try {
-                $item = $this->itemRepository->loadItem(
-                    $form->getData(),
-                    $options['item_type']
-                );
-
+                $backend = $this->backendRegistry->getBackend($options['item_type']);
+                $item = $backend->loadItem($form->getData());
                 $itemName = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing

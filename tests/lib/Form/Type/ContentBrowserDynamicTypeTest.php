@@ -2,9 +2,10 @@
 
 namespace Netgen\ContentBrowser\Tests\Form\Type;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,17 +14,21 @@ class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @return \Symfony\Component\Form\FormTypeInterface
      */
     public function getMainType()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
+
+        $backendRegistry = new BackendRegistry();
+        $backendRegistry->addBackend('value1', $this->backendMock);
+        $backendRegistry->addBackend('value2', $this->backendMock);
 
         return new ContentBrowserDynamicType(
-            $this->itemRepositoryMock,
+            $backendRegistry,
             array('value1' => 'Value 1', 'value2' => 'Value 2')
         );
     }
@@ -74,10 +79,10 @@ class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testBuildView()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42), $this->equalTo('value1'))
+            ->with($this->equalTo(42))
             ->will($this->returnValue(new Item(42)));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
@@ -97,10 +102,10 @@ class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testBuildViewWithNonExistingItem()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42), $this->equalTo('value1'))
+            ->with($this->equalTo(42))
             ->will($this->throwException(new NotFoundException()));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
@@ -120,7 +125,7 @@ class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testBuildViewWithEmptyData()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadItem');
 

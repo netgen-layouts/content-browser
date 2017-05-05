@@ -3,7 +3,7 @@
 namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -15,9 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentBrowserDynamicType extends AbstractType
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $itemRepository;
+    protected $backendRegistry;
 
     /**
      * @var array
@@ -27,12 +27,12 @@ class ContentBrowserDynamicType extends AbstractType
     /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
      * @param array $availableItemTypes
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, array $availableItemTypes)
+    public function __construct(BackendRegistryInterface $backendRegistry, array $availableItemTypes)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backendRegistry = $backendRegistry;
         $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
@@ -108,8 +108,8 @@ class ContentBrowserDynamicType extends AbstractType
 
         if (!empty($itemId) && !empty($itemType)) {
             try {
-                $item = $this->itemRepository->loadItem($itemId, $itemType);
-
+                $backend = $this->backendRegistry->getBackend($itemType);
+                $item = $backend->loadItem($itemId);
                 $itemName = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing

@@ -117,14 +117,14 @@ services:
     netgen_content_browser.form.type.content_browser:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserType
         arguments:
-            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.registry.backend"
         tags:
             - { name: form.type }
 
     netgen_content_browser.form.type.content_browser_dynamic:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType
         arguments:
-            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.registry.backend"
             - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
@@ -132,7 +132,7 @@ services:
     netgen_content_browser.form.type.content_browser_multiple:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType
         arguments:
-            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.registry.backend"
         tags:
             - { name: form.type }
 

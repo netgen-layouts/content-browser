@@ -2,9 +2,10 @@
 
 namespace Netgen\ContentBrowser\Tests\Form\Type;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserType;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,16 +15,19 @@ class ContentBrowserTypeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @return \Symfony\Component\Form\FormTypeInterface
      */
     public function getMainType()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
-        return new ContentBrowserType($this->itemRepositoryMock);
+        $backendRegistry = new BackendRegistry();
+        $backendRegistry->addBackend('value', $this->backendMock);
+
+        return new ContentBrowserType($backendRegistry);
     }
 
     public function testSubmitValidData()
@@ -48,10 +52,10 @@ class ContentBrowserTypeTest extends TestCase
      */
     public function testBuildView()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42), $this->equalTo('value'))
+            ->with($this->equalTo(42))
             ->will($this->returnValue(new Item(42)));
 
         $form = $this->factory->create(
@@ -78,10 +82,10 @@ class ContentBrowserTypeTest extends TestCase
      */
     public function testBuildViewWithNonExistingItem()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42), $this->equalTo('value'))
+            ->with($this->equalTo(42))
             ->will($this->throwException(new NotFoundException()));
 
         $form = $this->factory->create(
@@ -108,7 +112,7 @@ class ContentBrowserTypeTest extends TestCase
      */
     public function testBuildViewWithEmptyData()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadItem');
 
