@@ -53,12 +53,11 @@ class SetCurrentBackendListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$attributes->has('config')) {
+        if (!$attributes->has('itemType')) {
             return;
         }
 
-        $backend = $this->backendRegistry->getBackend($attributes->get('config'));
-
+        $backend = $this->backendRegistry->getBackend($attributes->get('itemType'));
         $this->container->set('netgen_content_browser.current_backend', $backend);
     }
 }

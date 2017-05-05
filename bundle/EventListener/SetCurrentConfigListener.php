@@ -53,13 +53,11 @@ class SetCurrentConfigListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$attributes->has('config')) {
+        if (!$attributes->has('itemType')) {
             return;
         }
 
-        $config = $this->configLoader->loadConfig($attributes->get('config'));
-
+        $config = $this->configLoader->loadConfig($attributes->get('itemType'));
         $this->container->set('netgen_content_browser.current_config', $config);
-        $attributes->set('itemType', $config->getItemType());
     }
 }

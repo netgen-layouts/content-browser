@@ -59,7 +59,7 @@ class SetCurrentConfigListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
-        $request->attributes->set('config', 'config_name');
+        $request->attributes->set('itemType', 'item_type');
 
         $event = new GetResponseEvent(
             $kernelMock,
@@ -72,7 +72,7 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->configLoaderMock
             ->expects($this->at(0))
             ->method('loadConfig')
-            ->with($this->equalTo('config_name'))
+            ->with($this->equalTo('item_type'))
             ->will($this->returnValue($config));
 
         $this->containerMock
@@ -84,8 +84,6 @@ class SetCurrentConfigListenerTest extends TestCase
             );
 
         $this->eventListener->onKernelRequest($event);
-
-        $this->assertEquals('value', $request->attributes->get('itemType'));
     }
 
     /**
@@ -96,7 +94,7 @@ class SetCurrentConfigListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
-        $request->attributes->set('config', 'config_name');
+        $request->attributes->set('itemType', 'item_type');
 
         $event = new GetResponseEvent(
             $kernelMock,
@@ -112,15 +110,13 @@ class SetCurrentConfigListenerTest extends TestCase
             ->expects($this->never())
             ->method('set');
 
-        $this->assertFalse($request->attributes->has('itemType'));
-
         $this->eventListener->onKernelRequest($event);
     }
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoConfig()
+    public function testOnKernelRequestWithNoItemType()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -139,8 +135,6 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->containerMock
             ->expects($this->never())
             ->method('set');
-
-        $this->assertFalse($request->attributes->has('itemType'));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -167,8 +161,6 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->containerMock
             ->expects($this->never())
             ->method('set');
-
-        $this->assertFalse($request->attributes->has('itemType'));
 
         $this->eventListener->onKernelRequest($event);
     }
