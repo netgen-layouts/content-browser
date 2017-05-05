@@ -111,7 +111,7 @@ abstract class Controller extends BaseController
             try {
                 $location = $this->itemRepository->loadLocation(
                     $location->getParentId(),
-                    $location->getType()
+                    $this->config->getItemType()
                 );
             } catch (NotFoundException $e) {
                 break;
