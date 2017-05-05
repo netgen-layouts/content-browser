@@ -102,8 +102,6 @@ class ContentBrowserDynamicType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $itemName = null;
         $itemId = $form->get('item_id')->getData();
         $itemType = $form->get('item_type')->getData();
