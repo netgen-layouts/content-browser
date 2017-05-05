@@ -3,6 +3,7 @@
 namespace Netgen\ContentBrowser\Tests\Stubs;
 
 use Netgen\ContentBrowser\Config\ConfigProcessorInterface;
+use Netgen\ContentBrowser\Config\ConfigurationInterface;
 
 class ConfigProcessor implements ConfigProcessorInterface
 {
@@ -51,7 +52,7 @@ class ConfigProcessor implements ConfigProcessorInterface
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
      */
-    public function processConfig($configName, $config)
+    public function processConfig($configName, ConfigurationInterface $config)
     {
         $config->setParameter('one', 'config');
         $config->setParameter('two', 'config');

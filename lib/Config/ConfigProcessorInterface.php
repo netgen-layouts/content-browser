@@ -28,5 +28,5 @@ interface ConfigProcessorInterface
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
      */
-    public function processConfig($configName, $config);
+    public function processConfig($configName, ConfigurationInterface $config);
 }
