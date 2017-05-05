@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -16,14 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class Controller extends BaseController
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $itemRepository;
-
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    protected $itemSerializer;
+    protected $backend;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
@@ -31,20 +26,25 @@ abstract class Controller extends BaseController
     protected $config;
 
     /**
+     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
+     */
+    protected $itemSerializer;
+
+    /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
-     * @param \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface $itemSerializer
+     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
+     * @param \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface $itemSerializer
      */
     public function __construct(
-        ItemRepositoryInterface $itemRepository,
-        ItemSerializerInterface $itemSerializer,
-        ConfigurationInterface $config
+        BackendInterface $backend,
+        ConfigurationInterface $config,
+        ItemSerializerInterface $itemSerializer
     ) {
-        $this->itemRepository = $itemRepository;
-        $this->itemSerializer = $itemSerializer;
+        $this->backend = $backend;
         $this->config = $config;
+        $this->itemSerializer = $itemSerializer;
     }
 
     /**
@@ -109,10 +109,7 @@ abstract class Controller extends BaseController
             }
 
             try {
-                $location = $this->itemRepository->loadLocation(
-                    $location->getParentId(),
-                    $this->config->getItemType()
-                );
+                $location = $this->backend->loadLocation($location->getParentId());
             } catch (NotFoundException $e) {
                 break;
             }

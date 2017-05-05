@@ -21,7 +21,7 @@ class BrowseController extends Controller
     {
         $data = array(
             'children' => $this->itemSerializer->serializeLocations(
-                $this->itemRepository->getSubLocations($location)
+                $this->backend->getSubLocations($location)
             ),
         );
 
@@ -40,7 +40,7 @@ class BrowseController extends Controller
     {
         $pager = $this->buildPager(
             new SubItemsAdapter(
-                $this->itemRepository,
+                $this->backend,
                 $location
             ),
             $request

@@ -2,16 +2,16 @@
 
 namespace Netgen\ContentBrowser\Pagerfanta;
 
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class SubItemsAdapter implements AdapterInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $itemRepository;
+    protected $backend;
 
     /**
      * @var \Netgen\ContentBrowser\Item\LocationInterface
@@ -21,12 +21,12 @@ class SubItemsAdapter implements AdapterInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, LocationInterface $location)
+    public function __construct(BackendInterface $backend, LocationInterface $location)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backend = $backend;
         $this->location = $location;
     }
 
@@ -37,9 +37,7 @@ class SubItemsAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->itemRepository->getSubItemsCount(
-            $this->location
-        );
+        return $this->backend->getSubItemsCount($this->location);
     }
 
     /**
@@ -52,7 +50,7 @@ class SubItemsAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return $this->itemRepository->getSubItems(
+        return $this->backend->getSubItems(
             $this->location,
             $offset,
             $length

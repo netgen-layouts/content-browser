@@ -2,7 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Pagerfanta;
 
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +11,7 @@ class ItemSearchAdapterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @var \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter
@@ -20,9 +20,9 @@ class ItemSearchAdapterTest extends TestCase
 
     public function setUp()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $this->adapter = new ItemSearchAdapter($this->itemRepositoryMock, 'text', 'value');
+        $this->adapter = new ItemSearchAdapter($this->backendMock, 'text');
     }
 
     /**
@@ -31,10 +31,10 @@ class ItemSearchAdapterTest extends TestCase
      */
     public function testGetNbResults()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('searchCount')
-            ->with($this->equalTo('text'), $this->equalTo('value'))
+            ->with($this->equalTo('text'))
             ->will($this->returnValue(3));
 
         $this->assertEquals(3, $this->adapter->getNbResults());
@@ -45,12 +45,11 @@ class ItemSearchAdapterTest extends TestCase
      */
     public function testGetSlice()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('search')
             ->with(
                 $this->equalTo('text'),
-                $this->equalTo('value'),
                 $this->equalTo(5),
                 $this->equalTo(10)
             )

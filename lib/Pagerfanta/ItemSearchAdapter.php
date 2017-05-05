@@ -2,15 +2,15 @@
 
 namespace Netgen\ContentBrowser\Pagerfanta;
 
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class ItemSearchAdapter implements AdapterInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $itemRepository;
+    protected $backend;
 
     /**
      * @var string
@@ -18,22 +18,15 @@ class ItemSearchAdapter implements AdapterInterface
     protected $searchText;
 
     /**
-     * @var string
-     */
-    protected $itemType;
-
-    /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      * @param string $searchText
-     * @param string $itemType
      */
-    public function __construct(ItemRepositoryInterface $itemRepository, $searchText, $itemType)
+    public function __construct(BackendInterface $backend, $searchText)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backend = $backend;
         $this->searchText = $searchText;
-        $this->itemType = $itemType;
     }
 
     /**
@@ -43,10 +36,7 @@ class ItemSearchAdapter implements AdapterInterface
      */
     public function getNbResults()
     {
-        return $this->itemRepository->searchCount(
-            $this->searchText,
-            $this->itemType
-        );
+        return $this->backend->searchCount($this->searchText);
     }
 
     /**
@@ -59,9 +49,8 @@ class ItemSearchAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length)
     {
-        return $this->itemRepository->search(
+        return $this->backend->search(
             $this->searchText,
-            $this->itemType,
             $offset,
             $length
         );

@@ -8,10 +8,10 @@ use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\EzContent\Item;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class ItemSerializerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -45,7 +45,7 @@ class ItemSerializerTest extends TestCase
 
     public function setUp()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
         $this->columnProviderMock = $this->createMock(ColumnProviderInterface::class);
         $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
 
@@ -60,10 +60,10 @@ class ItemSerializerTest extends TestCase
         );
 
         $this->serializer = new ItemSerializer(
-            $this->itemRepositoryMock,
+            $this->backendMock,
+            $this->config,
             $this->columnProviderMock,
-            $this->itemRendererMock,
-            $this->config
+            $this->itemRendererMock
         );
     }
 
@@ -73,7 +73,7 @@ class ItemSerializerTest extends TestCase
      */
     public function testSerializeItem()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
@@ -119,7 +119,7 @@ class ItemSerializerTest extends TestCase
      */
     public function testSerializeItems()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
@@ -166,13 +166,13 @@ class ItemSerializerTest extends TestCase
      */
     public function testSerializeLocation()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->at(0))
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
             ->will($this->returnValue(3));
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->at(1))
             ->method('getSubLocationsCount')
             ->with($this->equalTo($this->getItem()))
@@ -202,13 +202,13 @@ class ItemSerializerTest extends TestCase
      */
     public function testSerializeLocations()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->at(0))
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
             ->will($this->returnValue(3));
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->at(1))
             ->method('getSubLocationsCount')
             ->with($this->equalTo($this->getItem()))

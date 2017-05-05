@@ -2,19 +2,24 @@
 
 namespace Netgen\ContentBrowser\Item\Serializer;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 
 class ItemSerializer implements ItemSerializerInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $itemRepository;
+    protected $backend;
+
+    /**
+     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     */
+    protected $config;
 
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface
@@ -27,28 +32,23 @@ class ItemSerializer implements ItemSerializerInterface
     protected $itemRenderer;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
-     */
-    protected $config;
-
-    /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
+     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
      * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface $columnProvider
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
-     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
      */
     public function __construct(
-        ItemRepositoryInterface $itemRepository,
+        BackendInterface $backend,
+        ConfigurationInterface $config,
         ColumnProviderInterface $columnProvider,
-        ItemRendererInterface $itemRenderer,
-        ConfigurationInterface $config
+        ItemRendererInterface $itemRenderer
     ) {
-        $this->itemRepository = $itemRepository;
+        $this->backend = $backend;
+        $this->config = $config;
         $this->columnProvider = $columnProvider;
         $this->itemRenderer = $itemRenderer;
-        $this->config = $config;
     }
 
     /**
@@ -73,7 +73,7 @@ class ItemSerializer implements ItemSerializerInterface
 
         if ($item instanceof LocationInterface) {
             $data['location_id'] = $item->getLocationId();
-            $data['has_sub_items'] = $this->itemRepository->getSubItemsCount($item) > 0;
+            $data['has_sub_items'] = $this->backend->getSubItemsCount($item) > 0;
         }
 
         if ($this->config->hasPreview()) {
@@ -96,8 +96,8 @@ class ItemSerializer implements ItemSerializerInterface
             'id' => $location->getLocationId(),
             'parent_id' => $location->getParentId(),
             'name' => $location->getName(),
-            'has_sub_items' => $this->itemRepository->getSubItemsCount($location) > 0,
-            'has_sub_locations' => $this->itemRepository->getSubLocationsCount($location) > 0,
+            'has_sub_items' => $this->backend->getSubItemsCount($location) > 0,
+            'has_sub_locations' => $this->backend->getSubLocationsCount($location) > 0,
             // Used exclusively to display columns for parent location
             'columns' => array(
                 'name' => $location->getName(),

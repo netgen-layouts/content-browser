@@ -2,7 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Pagerfanta;
 
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,7 @@ class SubItemsAdapterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @var \Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter
@@ -21,9 +21,9 @@ class SubItemsAdapterTest extends TestCase
 
     public function setUp()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $this->adapter = new SubItemsAdapter($this->itemRepositoryMock, new Location(42));
+        $this->adapter = new SubItemsAdapter($this->backendMock, new Location(42));
     }
 
     /**
@@ -32,7 +32,7 @@ class SubItemsAdapterTest extends TestCase
      */
     public function testGetNbResults()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
             ->with($this->equalTo(new Location(42)))
@@ -46,7 +46,7 @@ class SubItemsAdapterTest extends TestCase
      */
     public function testGetSlice()
     {
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('getSubItems')
             ->with(

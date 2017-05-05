@@ -16,9 +16,9 @@ services:
     netgen_content_browser.controller.base:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
         arguments:
-            - "@netgen_content_browser.item_repository"
-            - "@netgen_content_browser.item_serializer"
+            - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.current_config"
+            - "@netgen_content_browser.item_serializer"
         calls:
             - [initialize, ["@service_container"]]
 
@@ -54,6 +54,15 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_content_browser.event_listener.set_current_backend:
+        class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
+        arguments:
+            - "@netgen_content_browser.registry.backend"
+        calls:
+            - [setContainer, ["@service_container"]]
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_content_browser.event_listener.exception_conversion:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
         tags:
@@ -73,6 +82,9 @@ services:
 
     # Main services
 
+    netgen_content_browser.current_backend:
+        synthetic: true
+
     netgen_content_browser.item_repository:
         class: Netgen\ContentBrowser\Item\ItemRepository
         arguments:
@@ -81,10 +93,10 @@ services:
     netgen_content_browser.item_serializer:
         class: Netgen\ContentBrowser\Item\Serializer\ItemSerializer
         arguments:
-            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.column_provider"
             - "@netgen_content_browser.item_renderer"
-            - "@netgen_content_browser.current_config"
             - []
 
     netgen_content_browser.item_renderer:

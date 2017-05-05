@@ -27,9 +27,8 @@ class SearchController extends Controller
 
         $pager = $this->buildPager(
             new ItemSearchAdapter(
-                $this->itemRepository,
-                $searchText,
-                $this->config->getItemType()
+                $this->backend,
+                $searchText
             ),
             $request
         );

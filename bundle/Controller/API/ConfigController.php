@@ -62,16 +62,13 @@ class ConfigController extends Controller
     protected function getSections()
     {
         if (empty($this->config->getSections())) {
-            return $this->itemRepository->getDefaultSections($this->config->getItemType());
+            return $this->backend->getDefaultSections();
         }
 
         $sections = array();
         foreach ($this->config->getSections() as $sectionId) {
             try {
-                $sections[] = $this->itemRepository->loadLocation(
-                    $sectionId,
-                    $this->config->getItemType()
-                );
+                $sections[] = $this->backend->loadLocation($sectionId);
             } catch (NotFoundException $e) {
                 // Do nothing
             }
