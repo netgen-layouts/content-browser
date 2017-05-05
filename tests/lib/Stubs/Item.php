@@ -29,16 +29,6 @@ class Item implements ItemInterface
     }
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType()
-    {
-        return 'value';
-    }
-
-    /**
      * Returns the item value.
      *
      * @return mixed

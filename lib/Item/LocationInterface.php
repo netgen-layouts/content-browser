@@ -12,13 +12,6 @@ interface LocationInterface
     public function getLocationId();
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType();
-
-    /**
      * Returns the name.
      *
      * @return string

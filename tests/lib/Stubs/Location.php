@@ -39,16 +39,6 @@ class Location implements LocationInterface
     }
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType()
-    {
-        return 'value';
-    }
-
-    /**
      * Returns the item name.
      *
      * @return string

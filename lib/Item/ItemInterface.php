@@ -5,13 +5,6 @@ namespace Netgen\ContentBrowser\Item;
 interface ItemInterface
 {
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType();
-
-    /**
      * Returns the value.
      *
      * @return mixed
