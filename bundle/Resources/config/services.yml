@@ -85,11 +85,6 @@ services:
     netgen_content_browser.current_backend:
         synthetic: true
 
-    netgen_content_browser.item_repository:
-        class: Netgen\ContentBrowser\Item\ItemRepository
-        arguments:
-            - "@netgen_content_browser.registry.backend"
-
     netgen_content_browser.item_serializer:
         class: Netgen\ContentBrowser\Item\Serializer\ItemSerializer
         arguments:
@@ -141,7 +136,7 @@ services:
     netgen_content_browser.param_converter.location:
         class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
         arguments:
-            - "@netgen_content_browser.item_repository"
+            - "@netgen_content_browser.registry.backend"
         tags:
             - { name: request.param_converter, priority: 0 }
 

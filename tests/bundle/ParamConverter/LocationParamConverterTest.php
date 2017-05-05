@@ -1,11 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter;
+namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter\Page;
 
 use Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -16,7 +17,7 @@ class LocationParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRepositoryMock;
+    protected $backendMock;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
@@ -25,9 +26,12 @@ class LocationParamConverterTest extends TestCase
 
     public function setUp()
     {
-        $this->itemRepositoryMock = $this->createMock(ItemRepositoryInterface::class);
+        $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $this->paramConverter = new LocationParamConverter($this->itemRepositoryMock);
+        $backendRegistry = new BackendRegistry();
+        $backendRegistry->addBackend('value', $this->backendMock);
+
+        $this->paramConverter = new LocationParamConverter($backendRegistry);
     }
 
     /**
@@ -46,10 +50,10 @@ class LocationParamConverterTest extends TestCase
         $request->attributes->set('locationId', 42);
         $request->attributes->set('itemType', 'value');
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->once())
             ->method('loadLocation')
-            ->with($this->equalTo(42), $this->equalTo('value'))
+            ->with($this->equalTo(42))
             ->will($this->returnValue(new Location(42)));
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
@@ -71,7 +75,7 @@ class LocationParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('itemType', 'value');
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadLocation');
 
@@ -94,7 +98,7 @@ class LocationParamConverterTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('locationId', 42);
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadLocation');
 
@@ -119,7 +123,7 @@ class LocationParamConverterTest extends TestCase
         $request->attributes->set('locationId', null);
         $request->attributes->set('itemType', 'value');
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadLocation');
 
@@ -145,7 +149,7 @@ class LocationParamConverterTest extends TestCase
         $request->attributes->set('locationId', null);
         $request->attributes->set('itemType', 'value');
 
-        $this->itemRepositoryMock
+        $this->backendMock
             ->expects($this->never())
             ->method('loadLocation');
 

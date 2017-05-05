@@ -3,8 +3,8 @@
 namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,18 +12,18 @@ use Symfony\Component\HttpFoundation\Request;
 class LocationParamConverter implements ParamConverterInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\ItemRepositoryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $itemRepository;
+    protected $backendRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\ContentBrowser\Item\ItemRepositoryInterface $itemRepository
+     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
      */
-    public function __construct(ItemRepositoryInterface $itemRepository)
+    public function __construct(BackendRegistryInterface $backendRegistry)
     {
-        $this->itemRepository = $itemRepository;
+        $this->backendRegistry = $backendRegistry;
     }
 
     /**
@@ -50,13 +50,8 @@ class LocationParamConverter implements ParamConverterInterface
             throw new InvalidArgumentException('Required request attribute "locationId" is empty');
         }
 
-        $request->attributes->set(
-            'location',
-            $this->itemRepository->loadLocation(
-                $locationId,
-                $request->attributes->get('itemType')
-            )
-        );
+        $backend = $this->backendRegistry->getBackend($request->attributes->get('itemType'));
+        $request->attributes->set('location', $backend->loadLocation($locationId));
 
         return true;
     }
