@@ -34,8 +34,6 @@ class ContentBrowserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::configureOptions($resolver);
-
         $resolver->setRequired(array('item_type'));
         $resolver->setAllowedTypes('item_type', 'string');
     }

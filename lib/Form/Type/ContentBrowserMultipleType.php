@@ -36,8 +36,6 @@ class ContentBrowserMultipleType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::configureOptions($resolver);
-
         $resolver->setDefaults(
             array(
                 'entry_type' => HiddenType::class,

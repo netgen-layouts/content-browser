@@ -43,8 +43,6 @@ class ContentBrowserDynamicType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        parent::configureOptions($resolver);
-
         $resolver->setRequired(array('item_types'));
         $resolver->setAllowedTypes('item_types', array('array'));
         $resolver->setDefault('item_types', array());
