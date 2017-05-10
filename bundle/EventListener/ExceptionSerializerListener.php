@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ExceptionSerializerListener implements EventSubscriberInterface
@@ -61,7 +61,7 @@ class ExceptionSerializerListener implements EventSubscriberInterface
             'message' => $exception->getMessage(),
         );
 
-        if ($exception instanceof HttpException) {
+        if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
             if (isset(Response::$statusTexts[$statusCode])) {
                 $data['status_code'] = $statusCode;
