@@ -2,8 +2,10 @@
 
 namespace Netgen\ContentBrowser\Registry;
 
+use ArrayIterator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 
 class BackendRegistry implements BackendRegistryInterface
 {
@@ -63,5 +65,70 @@ class BackendRegistry implements BackendRegistryInterface
     public function getBackends()
     {
         return $this->backends;
+    }
+
+    /**
+     * Retrieve an external iterator.
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->backends);
+    }
+
+    /**
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->backends);
+    }
+
+    /**
+     * Whether a offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return $this->hasBackend($offset);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->getBackend($offset);
+    }
+
+    /**
+     * Offset to set.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new RuntimeException('Method call not supported.');
+    }
+
+    /**
+     * Offset to unset.
+     *
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        throw new RuntimeException('Method call not supported.');
     }
 }

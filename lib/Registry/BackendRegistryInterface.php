@@ -2,9 +2,12 @@
 
 namespace Netgen\ContentBrowser\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 
-interface BackendRegistryInterface
+interface BackendRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a backend to registry.
