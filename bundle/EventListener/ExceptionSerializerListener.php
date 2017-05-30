@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Exception;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,6 +75,8 @@ class ExceptionSerializerListener implements EventSubscriberInterface
             if ($exception->getPrevious() instanceof Exception) {
                 $debugException = $exception->getPrevious();
             }
+
+            $debugException = FlattenException::create($debugException);
 
             $data['debug'] = array(
                 'file' => $debugException->getFile(),
