@@ -4,6 +4,8 @@ namespace Netgen\ContentBrowser\Item\Renderer;
 
 use Exception;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Twig_Environment;
 
 class ItemRenderer implements ItemRendererInterface
@@ -14,13 +16,20 @@ class ItemRenderer implements ItemRendererInterface
     protected $twig;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param \Twig_Environment $twig
+     * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(Twig_Environment $twig)
+    public function __construct(Twig_Environment $twig, LoggerInterface $logger = null)
     {
         $this->twig = $twig;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -41,6 +50,14 @@ class ItemRenderer implements ItemRendererInterface
                 )
             );
         } catch (Exception $e) {
+            $this->logger->error(
+                sprintf(
+                    'An error occurred while rendering an item with "%s" value: %s',
+                    $item->getValue(),
+                    $e->getMessage()
+                )
+            );
+
             return '';
         }
     }

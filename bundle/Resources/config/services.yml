@@ -89,13 +89,14 @@ services:
             - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.column_provider"
             - "@netgen_content_browser.item_renderer"
-            - []
 
     netgen_content_browser.item_renderer:
         class: Netgen\ContentBrowser\Item\Renderer\ItemRenderer
         arguments:
             - "@twig"
-            - []
+            - "@logger"
+        tags:
+            - { name: monolog.logger, channel: ngcb }
 
     netgen_content_browser.column_provider:
         class: Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider
