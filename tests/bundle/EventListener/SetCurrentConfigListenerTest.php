@@ -35,8 +35,10 @@ class SetCurrentConfigListenerTest extends TestCase
         $this->configLoaderMock = $this->createMock(ConfigLoaderInterface::class);
         $this->containerMock = $this->createMock(ContainerInterface::class);
 
-        $this->eventListener = new SetCurrentConfigListener($this->configLoaderMock);
-        $this->eventListener->setContainer($this->containerMock);
+        $this->eventListener = new SetCurrentConfigListener(
+            $this->containerMock,
+            $this->configLoaderMock
+        );
     }
 
     /**

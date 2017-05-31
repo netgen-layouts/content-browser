@@ -37,6 +37,6 @@ class ConfigLoaderPass implements CompilerPassInterface
             $configProcessorReferences[] = new Reference($configProcessor);
         }
 
-        $configLoader->replaceArgument(0, $configProcessorReferences);
+        $configLoader->replaceArgument(1, $configProcessorReferences);
     }
 }

@@ -3,11 +3,14 @@
 namespace Netgen\ContentBrowser\Config;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigLoader implements ConfigLoaderInterface
 {
-    use ContainerAwareTrait;
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigProcessorInterface[]
@@ -17,10 +20,12 @@ class ConfigLoader implements ConfigLoaderInterface
     /**
      * Constructor.
      *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param \Netgen\ContentBrowser\Config\ConfigProcessorInterface[] $configProcessors
      */
-    public function __construct(array $configProcessors = array())
+    public function __construct(ContainerInterface $container, array $configProcessors = array())
     {
+        $this->container = $container;
         $this->configProcessors = $configProcessors;
     }
 

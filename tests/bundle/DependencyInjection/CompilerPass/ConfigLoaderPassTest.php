@@ -41,7 +41,7 @@ class ConfigLoaderPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.config_loader',
-            0,
+            1,
             array(
                 new Reference('netgen_content_browser.config_processor.loader3'),
                 new Reference('netgen_content_browser.config_processor.loader1'),

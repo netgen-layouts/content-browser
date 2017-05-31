@@ -6,9 +6,8 @@ services:
 
     netgen_content_browser.config_loader:
         class: Netgen\ContentBrowser\Config\ConfigLoader
-        calls:
-            - [setContainer, ["@service_container"]]
         arguments:
+            - "@service_container"
             - []
 
     # API controllers
@@ -48,18 +47,16 @@ services:
     netgen_content_browser.event_listener.set_current_config:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
         arguments:
+            - "@service_container"
             - "@netgen_content_browser.config_loader"
-        calls:
-            - [setContainer, ["@service_container"]]
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.set_current_backend:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
         arguments:
+            - "@service_container"
             - "@netgen_content_browser.registry.backend"
-        calls:
-            - [setContainer, ["@service_container"]]
         tags:
             - { name: kernel.event_subscriber }
 

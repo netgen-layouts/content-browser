@@ -17,13 +17,6 @@ class ConfigLoaderTest extends TestCase
      */
     public function testLoadConfig()
     {
-        $configLoader = new ConfigLoader(
-            array(
-                new ConfigProcessor(false),
-                new ConfigProcessor(true),
-            )
-        );
-
         $configuration = new Configuration('test');
         $configuration->setParameter('one', 'default');
         $configuration->setParameter('three', 'default');
@@ -34,7 +27,13 @@ class ConfigLoaderTest extends TestCase
             $configuration
         );
 
-        $configLoader->setContainer($container);
+        $configLoader = new ConfigLoader(
+            $container,
+            array(
+                new ConfigProcessor(false),
+                new ConfigProcessor(true),
+            )
+        );
 
         $config = $configLoader->loadConfig('test', 'test');
 
@@ -54,8 +53,6 @@ class ConfigLoaderTest extends TestCase
      */
     public function testLoadConfigWithNoConfigProcessors()
     {
-        $configLoader = new ConfigLoader();
-
         $configuration = new Configuration('test');
         $configuration->setParameter('one', 'default');
         $configuration->setParameter('three', 'default');
@@ -66,7 +63,7 @@ class ConfigLoaderTest extends TestCase
             $configuration
         );
 
-        $configLoader->setContainer($container);
+        $configLoader = new ConfigLoader($container);
 
         $config = $configLoader->loadConfig('test', 'test');
 
@@ -83,12 +80,6 @@ class ConfigLoaderTest extends TestCase
      */
     public function testLoadConfigWithNoSupportedConfigProcessors()
     {
-        $configLoader = new ConfigLoader(
-            array(
-                new ConfigProcessor(false),
-            )
-        );
-
         $configuration = new Configuration('test');
         $configuration->setParameter('one', 'default');
         $configuration->setParameter('three', 'default');
@@ -99,7 +90,12 @@ class ConfigLoaderTest extends TestCase
             $configuration
         );
 
-        $configLoader->setContainer($container);
+        $configLoader = new ConfigLoader(
+            $container,
+            array(
+                new ConfigProcessor(false),
+            )
+        );
 
         $config = $configLoader->loadConfig('test', 'test');
 
@@ -118,15 +114,13 @@ class ConfigLoaderTest extends TestCase
      */
     public function testLoadConfigThrowsInvalidArgumentException()
     {
-        $configLoader = new ConfigLoader();
-
         $container = new Container();
         $container->set(
             'netgen_content_browser.config.test',
             new Configuration('test')
         );
 
-        $configLoader->setContainer($container);
+        $configLoader = new ConfigLoader($container);
 
         $configLoader->loadConfig('non_existing', 'non_existing');
     }
