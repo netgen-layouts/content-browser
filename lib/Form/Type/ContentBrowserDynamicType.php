@@ -73,22 +73,10 @@ class ContentBrowserDynamicType extends AbstractType
                 'choices' => $this->getEnabledItemTypes($options['item_types']),
                 'choices_as_values' => true,
                 'choice_translation_domain' => 'ngcb',
-                'label' => false,
-                'attr' => array(
-                    'class' => 'js-config-name',
-                ),
             )
         );
 
-        $builder->add(
-            'item_id',
-            HiddenType::class,
-            array(
-                'attr' => array(
-                    'class' => 'js-value',
-                ),
-            )
-        );
+        $builder->add('item_id', HiddenType::class);
     }
 
     /**

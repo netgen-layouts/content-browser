@@ -25,8 +25,8 @@
 
 {%- block ng_content_browser_dynamic_widget -%}
     <div class="js-input-browse {% if form.item_id.vars.value is empty %}item-empty{% endif %}" data-min_selected="1" data-max_selected="1">
-        {{ form_row(form.item_type) }}
-        {{ form_row(form.item_id) }}
+        {{ form_row(form.item_type, {label: false, attr: {class: 'js-config-name'}}) }}
+        {{ form_row(form.item_id, {attr: {class: 'js-value'}}) }}
 
         <div class="input-browse">
             {% if not required %}
