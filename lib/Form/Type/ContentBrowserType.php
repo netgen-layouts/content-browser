@@ -34,8 +34,12 @@ class ContentBrowserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array('item_type'));
+        $resolver->setRequired(array('item_type', 'start_location'));
+
         $resolver->setAllowedTypes('item_type', 'string');
+        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
+
+        $resolver->setDefault('start_location', null);
     }
 
     /**
@@ -60,6 +64,7 @@ class ContentBrowserType extends AbstractType
 
         $view->vars['item_type'] = $options['item_type'];
         $view->vars['item_name'] = $itemName;
+        $view->vars['start_location'] = $options['start_location'];
     }
 
     /**

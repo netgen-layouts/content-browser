@@ -45,14 +45,16 @@ class ContentBrowserMultipleType extends AbstractType
             )
         );
 
-        $resolver->setRequired(array('item_type', 'min', 'max'));
+        $resolver->setRequired(array('item_type', 'min', 'max', 'start_location'));
 
         $resolver->setAllowedTypes('item_type', 'string');
         $resolver->setAllowedTypes('min', array('int', 'null'));
         $resolver->setAllowedTypes('max', array('int', 'null'));
+        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
 
         $resolver->setDefault('min', null);
         $resolver->setDefault('max', null);
+        $resolver->setDefault('start_location', null);
 
         $resolver->setNormalizer(
             'max',
@@ -89,6 +91,7 @@ class ContentBrowserMultipleType extends AbstractType
 
         $view->vars['min'] = $options['min'];
         $view->vars['max'] = $options['max'];
+        $view->vars['start_location'] = $options['start_location'];
     }
 
     /**

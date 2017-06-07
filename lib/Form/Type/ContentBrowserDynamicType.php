@@ -43,9 +43,13 @@ class ContentBrowserDynamicType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array('item_types'));
+        $resolver->setRequired(array('item_types', 'start_location'));
+
         $resolver->setAllowedTypes('item_types', array('array'));
+        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
+
         $resolver->setDefault('item_types', array());
+        $resolver->setDefault('start_location', null);
 
         $resolver->setAllowedValues('item_types', function ($values) {
             foreach ($values as $value) {
@@ -103,6 +107,7 @@ class ContentBrowserDynamicType extends AbstractType
         }
 
         $view->vars['item_name'] = $itemName;
+        $view->vars['start_location'] = $options['start_location'];
     }
 
     /**
