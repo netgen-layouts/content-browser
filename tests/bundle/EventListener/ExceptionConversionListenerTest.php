@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Exception;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
@@ -55,6 +56,7 @@ class ExceptionConversionListenerTest extends TestCase
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -86,6 +88,7 @@ class ExceptionConversionListenerTest extends TestCase
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new Exception('Some error');
 
         $event = new GetResponseForExceptionEvent(
@@ -107,12 +110,34 @@ class ExceptionConversionListenerTest extends TestCase
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new NotFoundException('Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
+            $exception
+        );
+
+        $this->eventListener->onException($event);
+
+        $this->assertEquals($exception, $event->getException());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionInNonAPIRequest()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new NotFoundException('Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
             $exception
         );
 
