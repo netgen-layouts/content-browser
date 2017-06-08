@@ -7,6 +7,7 @@
 <div class="js-input-browse {% if item_name is empty %}item-empty{% endif %}"
     {% if min is defined %}data-min_selected="{{ min }}"{% endif %}
     {% if max is defined %}data-max_selected="{{ max }}"{% endif %}
+    {% if start_location is defined %}data-start_location="{{ start_location }}"{% endif %}
     {% if show_tree is defined %}data-has_tree="{{ show_tree ? '1' : '0' }}"{% endif %}
     {% if show_search is defined %}data-has_search="{{ show_search ? '1' : '0' }}"{% endif %}
     {% if show_preview is defined %}data-has_preview="{{ show_preview ? '1' : '0' }}"{% endif %}
