@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
-use Netgen\ContentBrowser\Config\ConfigLoaderInterface;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -16,20 +16,13 @@ class SetCurrentConfigListener implements EventSubscriberInterface
     protected $container;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigLoaderInterface
-     */
-    protected $configLoader;
-
-    /**
      * Constructor.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \Netgen\ContentBrowser\Config\ConfigLoaderInterface $configLoader
      */
-    public function __construct(ContainerInterface $container, ConfigLoaderInterface $configLoader)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->configLoader = $configLoader;
     }
 
     /**
@@ -55,7 +48,6 @@ class SetCurrentConfigListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $attributes = $request->attributes;
-
         if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
             return;
         }
@@ -64,11 +56,36 @@ class SetCurrentConfigListener implements EventSubscriberInterface
             return;
         }
 
-        $itemType = $attributes->get('itemType');
-        $configName = $request->query->get('configName', $itemType);
+        $config = $this->loadConfig($attributes->get('itemType'));
 
-        $config = $this->configLoader->loadConfig($itemType, $configName);
+        $customParams = (array) $request->query->get('customParams', array());
+        $config->addParameters($customParams);
 
         $this->container->set('netgen_content_browser.current_config', $config);
+    }
+
+    /**
+     * Loads the configuration for provided item type from the container.
+     *
+     * @param string $itemType
+     *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
+     *
+     * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
+     */
+    protected function loadConfig($itemType)
+    {
+        $service = 'netgen_content_browser.config.' . $itemType;
+
+        if (!$this->container->has($service)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Configuration for "%s" item type does not exist.',
+                    $itemType
+                )
+            );
+        }
+
+        return $this->container->get($service);
     }
 }

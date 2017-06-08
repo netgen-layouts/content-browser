@@ -104,6 +104,15 @@ interface ConfigurationInterface
     public function setParameter($name, $value);
 
     /**
+     * Adds the provided parameters to the config.
+     *
+     * Provided parameters will override any existing parameters.
+     *
+     * @param array $parameters
+     */
+    public function addParameters(array $parameters);
+
+    /**
      * Returns if config has the specified parameter.
      *
      * @param string $name

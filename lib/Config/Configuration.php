@@ -183,6 +183,18 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * Adds the provided parameters to the config.
+     *
+     * Provided parameters will override any existing parameters.
+     *
+     * @param array $parameters
+     */
+    public function addParameters(array $parameters)
+    {
+        $this->parameters = $parameters + $this->parameters;
+    }
+
+    /**
      * Returns if config has the specified parameter.
      *
      * @param string $name

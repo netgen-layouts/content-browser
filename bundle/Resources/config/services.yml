@@ -4,12 +4,6 @@ services:
     netgen_content_browser.current_config:
         synthetic: true
 
-    netgen_content_browser.config_loader:
-        class: Netgen\ContentBrowser\Config\ConfigLoader
-        arguments:
-            - "@service_container"
-            - []
-
     # API controllers
 
     netgen_content_browser.controller.base:
@@ -48,7 +42,6 @@ services:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
         arguments:
             - "@service_container"
-            - "@netgen_content_browser.config_loader"
         tags:
             - { name: kernel.event_subscriber }
 

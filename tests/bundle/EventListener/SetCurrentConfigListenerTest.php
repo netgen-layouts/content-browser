@@ -4,10 +4,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
-use Netgen\ContentBrowser\Config\ConfigLoaderInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -16,14 +15,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetCurrentConfigListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigLoaderInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $configLoaderMock;
-
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $containerMock;
+    protected $container;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
@@ -32,13 +26,9 @@ class SetCurrentConfigListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->configLoaderMock = $this->createMock(ConfigLoaderInterface::class);
-        $this->containerMock = $this->createMock(ContainerInterface::class);
+        $this->container = new Container();
 
-        $this->eventListener = new SetCurrentConfigListener(
-            $this->containerMock,
-            $this->configLoaderMock
-        );
+        $this->eventListener = new SetCurrentConfigListener($this->container);
     }
 
     /**
@@ -55,6 +45,7 @@ class SetCurrentConfigListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      */
     public function testOnKernelRequest()
     {
@@ -70,22 +61,52 @@ class SetCurrentConfigListenerTest extends TestCase
         );
 
         $config = new Configuration('value');
-
-        $this->configLoaderMock
-            ->expects($this->at(0))
-            ->method('loadConfig')
-            ->with($this->equalTo('item_type'))
-            ->will($this->returnValue($config));
-
-        $this->containerMock
-            ->expects($this->at(0))
-            ->method('set')
-            ->with(
-                $this->equalTo('netgen_content_browser.current_config'),
-                $this->equalTo($config)
-            );
+        $this->container->set('netgen_content_browser.config.item_type', $config);
 
         $this->eventListener->onKernelRequest($event);
+
+        $this->assertTrue($this->container->has('netgen_content_browser.current_config'));
+        $this->assertEquals($config, $this->container->get('netgen_content_browser.current_config'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     */
+    public function testOnKernelRequestWithCustomParams()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set('itemType', 'item_type');
+        $request->query->set('customParams', array('custom' => 'value', 'two' => 'override'));
+
+        $event = new GetResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
+        $config = new Configuration('value');
+        $config->setParameter('one', 'default');
+        $config->setParameter('two', 'default');
+
+        $this->container->set('netgen_content_browser.config.item_type', $config);
+
+        $this->eventListener->onKernelRequest($event);
+
+        $this->assertTrue($config->hasParameter('one'));
+        $this->assertEquals('default', $config->getParameter('one'));
+
+        $this->assertTrue($config->hasParameter('two'));
+        $this->assertEquals('override', $config->getParameter('two'));
+
+        $this->assertTrue($config->hasParameter('custom'));
+        $this->assertEquals('value', $config->getParameter('custom'));
+
+        $this->assertTrue($this->container->has('netgen_content_browser.current_config'));
+        $this->assertEquals($config, $this->container->get('netgen_content_browser.current_config'));
     }
 
     /**
@@ -104,15 +125,9 @@ class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::SUB_REQUEST
         );
 
-        $this->configLoaderMock
-            ->expects($this->never())
-            ->method('loadConfig');
-
-        $this->containerMock
-            ->expects($this->never())
-            ->method('set');
-
         $this->eventListener->onKernelRequest($event);
+
+        $this->assertFalse($this->container->has('netgen_content_browser.current_config'));
     }
 
     /**
@@ -130,15 +145,9 @@ class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $this->configLoaderMock
-            ->expects($this->never())
-            ->method('loadConfig');
-
-        $this->containerMock
-            ->expects($this->never())
-            ->method('set');
-
         $this->eventListener->onKernelRequest($event);
+
+        $this->assertFalse($this->container->has('netgen_content_browser.current_config'));
     }
 
     /**
@@ -156,13 +165,32 @@ class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $this->configLoaderMock
-            ->expects($this->never())
-            ->method('loadConfig');
+        $this->eventListener->onKernelRequest($event);
 
-        $this->containerMock
-            ->expects($this->never())
-            ->method('set');
+        $this->assertFalse($this->container->has('netgen_content_browser.current_config'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Configuration for "unknown" item type does not exist.
+     */
+    public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set('itemType', 'unknown');
+
+        $event = new GetResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
+        $config = new Configuration('value');
+        $this->container->set('netgen_content_browser.config.item_type', $config);
 
         $this->eventListener->onKernelRequest($event);
     }
