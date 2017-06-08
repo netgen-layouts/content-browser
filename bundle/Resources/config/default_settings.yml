@@ -11,3 +11,4 @@ parameters:
     netgen_content_browser.eztags.default_item_template: 'NetgenContentBrowserBundle:eztags:item.html.twig'
 
     netgen_content_browser.sylius_product.default_item_template: 'NetgenContentBrowserBundle:sylius:product_item.html.twig'
+    netgen_content_browser.sylius_taxon.default_item_template: 'NetgenContentBrowserBundle:sylius:taxon_item.html.twig'
