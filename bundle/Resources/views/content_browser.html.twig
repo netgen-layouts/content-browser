@@ -11,6 +11,12 @@
     {% if show_tree is defined %}data-has_tree="{{ show_tree ? '1' : '0' }}"{% endif %}
     {% if show_search is defined %}data-has_search="{{ show_search ? '1' : '0' }}"{% endif %}
     {% if show_preview is defined %}data-has_preview="{{ show_preview ? '1' : '0' }}"{% endif %}
+
+    {% if custom_params is defined and custom_params is iterable %}
+        {% for key, value in custom_params %}
+            data-custom-{{ key }}="{{ value }}"
+        {% endfor %}
+    {% endif %}
 >
 
     <div class="input-browse">
