@@ -19,13 +19,6 @@ interface ItemInterface
     public function getName();
 
     /**
-     * Returns the parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId();
-
-    /**
      * Returns if the item is visible.
      *
      * @return bool

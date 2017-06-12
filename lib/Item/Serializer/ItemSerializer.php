@@ -63,7 +63,6 @@ class ItemSerializer implements ItemSerializerInterface
         $data = array(
             'location_id' => null,
             'value' => $item->getValue(),
-            'parent_location_id' => $item->getParentId(),
             'name' => $item->getName(),
             'visible' => $item->isVisible(),
             'selectable' => $item->isSelectable(),

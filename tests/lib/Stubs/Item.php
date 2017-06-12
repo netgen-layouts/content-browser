@@ -12,20 +12,13 @@ class Item implements ItemInterface
     protected $value;
 
     /**
-     * @var int
-     */
-    protected $parentId;
-
-    /**
      * Constructor.
      *
      * @param mixed $value
-     * @param int $parentId
      */
-    public function __construct($value = null, $parentId = null)
+    public function __construct($value = null)
     {
         $this->value = $value;
-        $this->parentId = $parentId;
     }
 
     /**
@@ -52,16 +45,6 @@ class Item implements ItemInterface
         }
 
         return $name;
-    }
-
-    /**
-     * Returns the item parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
     }
 
     /**

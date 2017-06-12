@@ -99,7 +99,6 @@ class ItemSerializerTest extends TestCase
             array(
                 'location_id' => 42,
                 'value' => 84,
-                'parent_location_id' => 24,
                 'name' => 'Some name',
                 'visible' => true,
                 'selectable' => true,
@@ -146,7 +145,6 @@ class ItemSerializerTest extends TestCase
                 array(
                     'location_id' => 42,
                     'value' => 84,
-                    'parent_location_id' => 24,
                     'name' => 'Some name',
                     'visible' => true,
                     'selectable' => true,
