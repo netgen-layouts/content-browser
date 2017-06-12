@@ -14,7 +14,7 @@
 
     {% if custom_params is defined and custom_params is iterable %}
         {% for key, value in custom_params %}
-            data-custom-{{ key }}="{{ value }}"
+            data-custom-{{ key }}="{% if value is iterable %}{{ value|join(',') }}{% else %}{{ value }}{% endif %}"
         {% endfor %}
     {% endif %}
 >
