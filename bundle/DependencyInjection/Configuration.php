@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->end()
                     ->end()
                     ->integerNode('min_selected')
-                        ->treatNullLike(0)
+                        ->treatNullLike(1)
                         ->defaultValue(1)
                         ->min(0)
                     ->end()
