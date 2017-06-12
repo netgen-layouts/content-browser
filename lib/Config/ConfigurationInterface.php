@@ -12,20 +12,6 @@ interface ConfigurationInterface
     public function getItemType();
 
     /**
-     * Returns the sections.
-     *
-     * @return array
-     */
-    public function getSections();
-
-    /**
-     * Sets the sections.
-     *
-     * @param array $sections
-     */
-    public function setSections(array $sections);
-
-    /**
      * Returns the minimum number of items allowed to be selected.
      *
      * @return int

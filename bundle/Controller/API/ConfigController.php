@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ConfigController extends Controller
@@ -17,7 +16,7 @@ class ConfigController extends Controller
         $data = array(
             'item_type' => $this->config->getItemType(),
             'sections' => $this->itemSerializer->serializeLocations(
-                $this->getSections()
+                $this->backend->getDefaultSections()
             ),
             'min_selected' => $this->config->getMinSelected(),
             'max_selected' => $this->config->getMaxSelected(),
@@ -52,28 +51,5 @@ class ConfigController extends Controller
         }
 
         return $availableColumns;
-    }
-
-    /**
-     * Returns the sections specified in config, or default ones if config list is empty.
-     *
-     * @return \Netgen\ContentBrowser\Item\LocationInterface[]
-     */
-    protected function getSections()
-    {
-        if (empty($this->config->getSections())) {
-            return $this->backend->getDefaultSections();
-        }
-
-        $sections = array();
-        foreach ($this->config->getSections() as $sectionId) {
-            try {
-                $sections[] = $this->backend->loadLocation($sectionId);
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
-        return $sections;
     }
 }

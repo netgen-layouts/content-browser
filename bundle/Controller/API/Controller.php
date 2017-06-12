@@ -100,10 +100,6 @@ abstract class Controller extends BaseController
                 'name' => $location->getName(),
             );
 
-            if (in_array($location->getLocationId(), $this->config->getSections(), true)) {
-                break;
-            }
-
             if ($location->getParentId() === null) {
                 break;
             }

@@ -44,26 +44,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Returns the sections.
-     *
-     * @return array
-     */
-    public function getSections()
-    {
-        return $this->config['sections'];
-    }
-
-    /**
-     * Sets the sections.
-     *
-     * @param array $sections
-     */
-    public function setSections(array $sections)
-    {
-        $this->config['sections'] = $sections;
-    }
-
-    /**
      * Returns the minimum number of items allowed to be selected.
      *
      * @return int

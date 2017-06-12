@@ -15,7 +15,6 @@ class ConfigurationTest extends TestCase
     public function setUp()
     {
         $configArray = array(
-            'sections' => array(2, 5),
             'min_selected' => 1,
             'max_selected' => 3,
             'tree' => array(
@@ -46,23 +45,6 @@ class ConfigurationTest extends TestCase
     public function testGetItemType()
     {
         $this->assertEquals('value', $this->config->getItemType());
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Config\Configuration::getSections
-     */
-    public function testGetSections()
-    {
-        $this->assertEquals(array(2, 5), $this->config->getSections());
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Config\Configuration::setSections
-     */
-    public function testSetSections()
-    {
-        $this->config->setSections(array(3, 6));
-        $this->assertEquals(array(3, 6), $this->config->getSections());
     }
 
     /**
