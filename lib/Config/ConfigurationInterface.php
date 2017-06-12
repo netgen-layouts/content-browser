@@ -33,25 +33,11 @@ interface ConfigurationInterface
     public function getMinSelected();
 
     /**
-     * Sets the minimum number of items allowed to be selected.
-     *
-     * @param int $minSelected
-     */
-    public function setMinSelected($minSelected);
-
-    /**
      * Returns the maximum number of items allowed to be selected.
      *
      * @return int
      */
     public function getMaxSelected();
-
-    /**
-     * Sets the maximum number of items allowed to be selected.
-     *
-     * @param int $maxSelected
-     */
-    public function setMaxSelected($maxSelected);
 
     /**
      * Returns if the tree is activated in the config.

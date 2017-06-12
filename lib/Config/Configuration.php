@@ -74,16 +74,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Sets the minimum number of items allowed to be selected.
-     *
-     * @param int $minSelected
-     */
-    public function setMinSelected($minSelected)
-    {
-        $this->config['min_selected'] = $minSelected;
-    }
-
-    /**
      * Returns the maximum number of items allowed to be selected.
      *
      * @return int
@@ -91,16 +81,6 @@ class Configuration implements ConfigurationInterface
     public function getMaxSelected()
     {
         return $this->config['max_selected'];
-    }
-
-    /**
-     * Sets the maximum number of items allowed to be selected.
-     *
-     * @param int $maxSelected
-     */
-    public function setMaxSelected($maxSelected)
-    {
-        $this->config['max_selected'] = $maxSelected;
     }
 
     /**

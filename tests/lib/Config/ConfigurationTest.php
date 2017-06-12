@@ -74,28 +74,10 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Config\Configuration::setMinSelected
-     */
-    public function testSetMinSelected()
-    {
-        $this->config->setMinSelected(5);
-        $this->assertEquals(5, $this->config->getMinSelected());
-    }
-
-    /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getMaxSelected
      */
     public function testGetMaxSelected()
     {
-        $this->assertEquals(3, $this->config->getMaxSelected());
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Config\Configuration::setMaxSelected
-     */
-    public function testSetMaxSelected()
-    {
-        $this->config->setMaxSelected(3);
         $this->assertEquals(3, $this->config->getMaxSelected());
     }
 
