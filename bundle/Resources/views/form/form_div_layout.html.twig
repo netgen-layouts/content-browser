@@ -15,7 +15,7 @@
             <a class="js-trigger" href="#">
                 <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
                     {% if value is not empty %}
-                        {{ item_name|default('form.messages.invalid_item'|trans) }}
+                        {{ item_name ?? 'form.messages.invalid_item'|trans }}
                     {% else %}
                         {{ 'form.messages.no_item_selected'|trans }}
                     {% endif %}
@@ -46,7 +46,7 @@
             <a class="js-trigger" href="#">
                 <span class="js-name" data-empty-note="{{ 'form.messages.no_item_selected'|trans }}">
                     {% if form.item_id.vars.value is not empty %}
-                        {{ item_name|default('form.messages.invalid_item'|trans) }}
+                        {{ item_name ?? 'form.messages.invalid_item'|trans }}
                     {% else %}
                         {{ 'form.messages.no_item_selected'|trans }}
                     {% endif %}
@@ -62,7 +62,7 @@
             <a href="#" class="js-remove"><i class="material-icons">close</i></a>
             <span class="name">
                 {% if form.vars.data is not empty %}
-                    {{ item_names[form.vars.data]|default('form.messages.invalid_item'|trans) }}
+                    {{ item_names[form.vars.data] ?? 'form.messages.invalid_item'|trans }}
                 {% endif %}
             </span>
 
