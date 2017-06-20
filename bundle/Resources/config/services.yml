@@ -90,7 +90,7 @@ services:
         class: Netgen\ContentBrowser\Item\Renderer\ItemRenderer
         arguments:
             - "@twig"
-            - "@logger"
+            - "@?logger"
         tags:
             - { name: monolog.logger, channel: ngcb }
 
