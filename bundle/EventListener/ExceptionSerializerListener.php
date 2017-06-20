@@ -3,6 +3,8 @@
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Exception;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,9 +16,24 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ExceptionSerializerListener implements EventSubscriberInterface
 {
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @var bool
      */
     protected $outputDebugInfo = false;
+
+    /**
+     * Constructor.
+     *
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger ?: new NullLogger();
+    }
 
     /**
      * Sets if the output should contain debugging information.
@@ -57,6 +74,8 @@ class ExceptionSerializerListener implements EventSubscriberInterface
 
         $exception = $event->getException();
 
+        $this->logException($exception);
+
         $data = array(
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
@@ -86,6 +105,28 @@ class ExceptionSerializerListener implements EventSubscriberInterface
         }
 
         $event->setResponse(new JsonResponse($data));
-        $event->stopPropagation();
+    }
+
+    /**
+     * Logs all critical errors.
+     *
+     * @param \Exception $exception
+     */
+    protected function logException(Exception $exception)
+    {
+        if ($exception instanceof HttpExceptionInterface && $exception->getStatusCode() < 500) {
+            return;
+        }
+
+        $this->logger->critical(
+            sprintf(
+                'Uncaught PHP Exception %s: "%s" at %s line %s',
+                get_class($exception),
+                $exception->getMessage(),
+                $exception->getFile(),
+                $exception->getLine()
+            ),
+            array('exception' => $exception)
+        );
     }
 }

@@ -60,10 +60,13 @@ services:
 
     netgen_content_browser.event_listener.exception_serializer:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
+        arguments:
+            - "@?logger"
         calls:
             - [setOutputDebugInfo, ["%kernel.debug%"]]
         tags:
             - { name: kernel.event_subscriber }
+            - { name: monolog.logger, channel: ngcb }
 
     # Registries
 
