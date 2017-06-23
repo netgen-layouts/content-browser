@@ -6,6 +6,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
 class ColumnProviderPassTest extends AbstractCompilerPassTestCase
@@ -52,11 +53,12 @@ class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     * @doesNotPerformAssertions
      */
     public function testProcessWithEmptyContainer()
     {
         $this->compile();
+
+        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     /**

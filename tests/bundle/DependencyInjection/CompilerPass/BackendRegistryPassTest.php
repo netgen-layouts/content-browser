@@ -6,6 +6,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
 class BackendRegistryPassTest extends AbstractCompilerPassTestCase
@@ -48,11 +49,12 @@ class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
-     * @doesNotPerformAssertions
      */
     public function testProcessWithEmptyContainer()
     {
         $this->compile();
+
+        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     /**
