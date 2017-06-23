@@ -98,6 +98,8 @@ interface ConfigurationInterface
      *
      * @param string $name
      *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException if parameter does not exist
+     *
      * @return mixed
      */
     public function getParameter($name);

@@ -2,6 +2,8 @@
 
 namespace Netgen\ContentBrowser\Config;
 
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -171,10 +173,21 @@ class Configuration implements ConfigurationInterface
      *
      * @param string $name
      *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException if parameter does not exist
+     *
      * @return mixed
      */
     public function getParameter($name)
     {
+        if (!$this->hasParameter($name)) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Parameter "%s" does not exist in configuration.',
+                    $name
+                )
+            );
+        }
+
         return $this->parameters[$name];
     }
 
