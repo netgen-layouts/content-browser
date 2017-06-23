@@ -5,7 +5,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +23,20 @@ class ExceptionSerializerListenerTest extends TestCase
      */
     protected $eventListener;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $loggerMock;
+
     public function setUp()
     {
-        $this->eventListener = new ExceptionSerializerListener();
+        $this->loggerMock = $this->createMock(LoggerInterface::class);
+
+        $this->eventListener = new ExceptionSerializerListener($this->loggerMock);
     }
 
     /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
@@ -39,6 +49,7 @@ class ExceptionSerializerListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      */
     public function testOnException()
     {
@@ -75,7 +86,47 @@ class ExceptionSerializerListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
+     */
+    public function testOnExceptionLogsCriticalError()
+    {
+        $exception = new RuntimeException('Some message');
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
+
+        $this->loggerMock
+            ->expects($this->once())
+            ->method('critical');
+
+        $this->eventListener->onException($event);
+
+        $this->assertInstanceOf(
+            JsonResponse::class,
+            $event->getResponse()
+        );
+
+        $this->assertEquals(
+            array(
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage(),
+            ),
+            json_decode($event->getResponse()->getContent(), true)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::setOutputDebugInfo
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      */
     public function testOnExceptionWithDebugging()
     {

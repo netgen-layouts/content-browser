@@ -2,6 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Registry;
 
+use ArrayIterator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use PHPUnit\Framework\TestCase;
@@ -67,5 +68,58 @@ class BackendRegistryTest extends TestCase
     public function testHasBackendWithNoBackend()
     {
         $this->assertFalse($this->registry->hasBackend('other_value'));
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('value', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->backendMock, $this->registry['value']);
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetSet
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['value'] = $this->backendMock;
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetUnset
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['value']);
     }
 }

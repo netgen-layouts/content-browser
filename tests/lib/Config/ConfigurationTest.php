@@ -120,6 +120,20 @@ class ConfigurationTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\ContentBrowser\Config\Configuration::addParameters
+     */
+    public function testAddParameters()
+    {
+        $this->config->addParameters(array('param' => 'value', 'default' => 'override'));
+        $this->assertEquals('value', $this->config->getParameter('param'));
+        $this->assertEquals('override', $this->config->getParameter('default'));
+
+        $this->assertTrue($this->config->hasParameter('param'));
+        $this->assertTrue($this->config->hasParameter('default'));
+        $this->assertFalse($this->config->hasParameter('other'));
+    }
+
+    /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::setParameter
      * @covers \Netgen\ContentBrowser\Config\Configuration::getParameter
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasParameter
@@ -142,5 +156,15 @@ class ConfigurationTest extends TestCase
             ),
             $this->config->getParameters()
         );
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Config\Configuration::getParameter
+     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Parameter "unknown" does not exist in configuration.
+     */
+    public function testGetParameterThrowsInvalidArgumentException()
+    {
+        $this->config->getParameter('unknown');
     }
 }
