@@ -52,7 +52,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getMinSelected()
     {
-        return $this->config['min_selected'];
+        return isset($this->config['min_selected']) ?
+            $this->config['min_selected'] :
+            1;
     }
 
     /**
@@ -62,7 +64,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getMaxSelected()
     {
-        return $this->config['max_selected'];
+        return isset($this->config['max_selected']) ?
+            $this->config['max_selected'] :
+            0;
     }
 
     /**
@@ -120,7 +124,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getColumns()
     {
-        return $this->config['columns'];
+        return isset($this->config['columns']) ?
+            $this->config['columns'] :
+            array();
     }
 
     /**
@@ -130,7 +136,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getDefaultColumns()
     {
-        return $this->config['default_columns'];
+        return isset($this->config['default_columns']) ?
+            $this->config['default_columns'] :
+            array();
     }
 
     /**
