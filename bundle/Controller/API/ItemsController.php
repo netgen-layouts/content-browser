@@ -19,8 +19,10 @@ class ItemsController extends Controller
      */
     public function getByValues(Request $request)
     {
-        $values = explode(',', $request->query->get('values'));
-        if (!is_array($values) || empty($values)) {
+        $queryValues = trim($request->query->get('values', ''));
+        $values = array_map('trim', explode(',', $queryValues));
+
+        if (empty($queryValues) || empty($values)) {
             throw new InvalidArgumentException('List of values is invalid.');
         }
 
@@ -30,7 +32,9 @@ class ItemsController extends Controller
         }
 
         return new JsonResponse(
-            $this->itemSerializer->serializeItems($items)
+            array(
+                'items' => $this->itemSerializer->serializeItems($items),
+            )
         );
     }
 }

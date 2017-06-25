@@ -1,0 +1,26 @@
+{
+    "items": [
+        {
+            "location_id": null,
+            "value": 42,
+            "name": "Item 42",
+            "visible": true,
+            "selectable": true,
+            "has_sub_items": false,
+            "columns": {
+                "name": "Item 42"
+            }
+        },
+        {
+            "location_id": null,
+            "value": 43,
+            "name": "Item 43",
+            "visible": true,
+            "selectable": true,
+            "has_sub_items": false,
+            "columns": {
+                "name": "Item 43"
+            }
+        }
+    ]
+}

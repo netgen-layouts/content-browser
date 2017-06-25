@@ -22,7 +22,7 @@ class SearchController extends Controller
     {
         $searchText = $request->query->get('searchText');
         if (empty($searchText)) {
-            throw new InvalidArgumentException('Search text cannot be empty');
+            throw new InvalidArgumentException('Search text cannot be empty.');
         }
 
         $pager = $this->buildPager(

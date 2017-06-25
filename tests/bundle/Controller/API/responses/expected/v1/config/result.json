@@ -1,0 +1,40 @@
+{
+    "item_type": "test",
+    "sections": [
+        {
+            "id": 42,
+            "parent_id": null,
+            "name": "Location 42",
+            "has_sub_items": false,
+            "has_sub_locations": false,
+            "columns": {
+                "name": "Location 42"
+            }
+        },
+        {
+            "id": 42,
+            "parent_id": null,
+            "name": "Location 42",
+            "has_sub_items": false,
+            "has_sub_locations": false,
+            "columns": {
+                "name": "Location 42"
+            }
+        }
+    ],
+    "min_selected": 1,
+    "max_selected": 0,
+    "has_tree": false,
+    "has_search": false,
+    "has_preview": false,
+    "default_limit": 25,
+    "default_columns": [
+        "name"
+    ],
+    "available_columns": [
+        {
+            "id": "name",
+            "name": "Name"
+        }
+    ]
+}

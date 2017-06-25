@@ -1,0 +1,24 @@
+{
+    "children": [
+        {
+            "id": 42,
+            "parent_id": null,
+            "name": "Location 42",
+            "has_sub_items": false,
+            "has_sub_locations": false,
+            "columns": {
+                "name": "Location 42"
+            }
+        },
+        {
+            "id": 43,
+            "parent_id": null,
+            "name": "Location 43",
+            "has_sub_items": false,
+            "has_sub_locations": false,
+            "columns": {
+                "name": "Location 43"
+            }
+        }
+    ]
+}

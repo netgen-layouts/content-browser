@@ -1,0 +1,44 @@
+{
+    "path": [
+        {
+            "id": 41,
+            "name": "Item 41"
+        }
+    ],
+    "parent": {
+        "location_id": 41,
+        "value": 41,
+        "name": "Item 41",
+        "visible": true,
+        "selectable": true,
+        "has_sub_items": true,
+        "columns": {
+            "name": "Item 41"
+        }
+    },
+    "children_count": 2,
+    "children": [
+        {
+            "location_id": null,
+            "value": 42,
+            "name": "Item 42",
+            "visible": true,
+            "selectable": true,
+            "has_sub_items": false,
+            "columns": {
+                "name": "Item 42"
+            }
+        },
+        {
+            "location_id": null,
+            "value": 43,
+            "name": "Item 43",
+            "visible": true,
+            "selectable": true,
+            "has_sub_items": false,
+            "columns": {
+                "name": "Item 43"
+            }
+        }
+    ]
+}
