@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Lakion\ApiTestCase\MediaTypes;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,7 +117,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         }
 
         $this->assertResponseCode($response, $statusCode);
-        $this->assertHeader($response, MediaTypes::JSON);
+        $this->assertHeader($response, 'application/json');
         $this->assertExceptionResponse($response, $statusCode, $message);
     }
 
