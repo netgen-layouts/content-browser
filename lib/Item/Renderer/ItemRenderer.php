@@ -6,12 +6,12 @@ use Exception;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Twig_Environment;
+use Twig\Environment;
 
 class ItemRenderer implements ItemRendererInterface
 {
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     protected $twig;
 
@@ -23,10 +23,10 @@ class ItemRenderer implements ItemRendererInterface
     /**
      * Constructor.
      *
-     * @param \Twig_Environment $twig
+     * @param \Twig\Environment $twig
      * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(Twig_Environment $twig, LoggerInterface $logger = null)
+    public function __construct(Environment $twig, LoggerInterface $logger = null)
     {
         $this->twig = $twig;
         $this->logger = $logger ?: new NullLogger();

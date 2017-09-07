@@ -6,7 +6,7 @@ use Exception;
 use Netgen\ContentBrowser\Item\Renderer\ItemRenderer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
-use Twig_Environment;
+use Twig\Environment;
 
 class ItemRendererTest extends TestCase
 {
@@ -22,7 +22,7 @@ class ItemRendererTest extends TestCase
 
     public function setUp()
     {
-        $this->twigMock = $this->createMock(Twig_Environment::class);
+        $this->twigMock = $this->createMock(Environment::class);
 
         $this->itemRenderer = new ItemRenderer($this->twigMock);
     }
