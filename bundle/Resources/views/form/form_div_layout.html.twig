@@ -7,6 +7,7 @@
         {% if start_location is not null %} data-start_location="{{ start_location }}" {% endif %}
         data-min_selected="1"
         data-max_selected="1"
+        data-input
     >
         <div class="input-browse">
             {% if not required %}
@@ -36,6 +37,7 @@
         {% if start_location is not null %} data-start_location="{{ start_location }}" {% endif %}
         data-min_selected="1"
         data-max_selected="1"
+        data-input
     >
         {{ form_row(form.item_type, {label: false, attr: {class: 'js-config-name'}}) }}
         {{ form_row(form.item_id, {attr: {class: 'js-value'}}) }}
@@ -81,6 +83,7 @@
         {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
         {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
         data-browser-prototype="{{ self.prototype(form.vars.prototype, item_names)|e }}"
+        data-input
     >
         <div class="items">
             {% for child in form %}
