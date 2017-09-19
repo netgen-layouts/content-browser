@@ -18,36 +18,17 @@ class SubItemsAdapter implements AdapterInterface
      */
     protected $location;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     */
     public function __construct(BackendInterface $backend, LocationInterface $location)
     {
         $this->backend = $backend;
         $this->location = $location;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int
-     */
     public function getNbResults()
     {
         return $this->backend->getSubItemsCount($this->location);
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset The offset
-     * @param int $length The length
-     *
-     * @return array
-     */
     public function getSlice($offset, $length)
     {
         return $this->backend->getSubItems(

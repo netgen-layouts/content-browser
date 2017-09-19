@@ -29,24 +29,11 @@ class ItemSearchAdapter implements AdapterInterface
         $this->searchText = $searchText;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int
-     */
     public function getNbResults()
     {
         return $this->backend->searchCount($this->searchText);
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset The offset
-     * @param int $length The length
-     *
-     * @return array
-     */
     public function getSlice($offset, $length)
     {
         return $this->backend->search(

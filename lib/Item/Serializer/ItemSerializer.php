@@ -31,14 +31,6 @@ class ItemSerializer implements ItemSerializerInterface
      */
     protected $itemRenderer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
-     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
-     * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface $columnProvider
-     * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
-     */
     public function __construct(
         BackendInterface $backend,
         ConfigurationInterface $config,
@@ -51,13 +43,6 @@ class ItemSerializer implements ItemSerializerInterface
         $this->itemRenderer = $itemRenderer;
     }
 
-    /**
-     * Serializes the item to array.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return array
-     */
     public function serializeItem(ItemInterface $item)
     {
         $data = array(
@@ -82,13 +67,6 @@ class ItemSerializer implements ItemSerializerInterface
         return $data;
     }
 
-    /**
-     * Serializes the location to array.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return array
-     */
     public function serializeLocation(LocationInterface $location)
     {
         return array(
@@ -104,13 +82,6 @@ class ItemSerializer implements ItemSerializerInterface
         );
     }
 
-    /**
-     * Serializes the list of items to the array.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface[] $items
-     *
-     * @return array
-     */
     public function serializeItems(array $items)
     {
         return array_map(
@@ -121,13 +92,6 @@ class ItemSerializer implements ItemSerializerInterface
         );
     }
 
-    /**
-     * Serializes the list of items to the array.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface[] $locations
-     *
-     * @return array
-     */
     public function serializeLocations(array $locations)
     {
         return array_map(

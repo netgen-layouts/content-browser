@@ -8,11 +8,6 @@ use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * Generates the configuration tree builder.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
-     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();

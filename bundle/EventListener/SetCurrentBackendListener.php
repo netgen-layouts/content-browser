@@ -20,23 +20,12 @@ class SetCurrentBackendListener implements EventSubscriberInterface
      */
     protected $backendRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
-     */
     public function __construct(ContainerInterface $container, BackendRegistryInterface $backendRegistry)
     {
         $this->container = $container;
         $this->backendRegistry = $backendRegistry;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::REQUEST => 'onKernelRequest');

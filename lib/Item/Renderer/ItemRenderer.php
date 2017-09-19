@@ -20,26 +20,12 @@ class ItemRenderer implements ItemRendererInterface
      */
     protected $logger;
 
-    /**
-     * Constructor.
-     *
-     * @param \Twig\Environment $twig
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(Environment $twig, LoggerInterface $logger = null)
     {
         $this->twig = $twig;
         $this->logger = $logger ?: new NullLogger();
     }
 
-    /**
-     * Renders the item. In case the rendering error is occurred, an empty string is returned.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     * @param string $template
-     *
-     * @return string
-     */
     public function renderItem(ItemInterface $item, $template)
     {
         try {

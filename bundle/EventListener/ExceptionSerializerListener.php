@@ -25,11 +25,6 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      */
     protected $outputDebugInfo = false;
 
-    /**
-     * Constructor.
-     *
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger ?: new NullLogger();
@@ -45,11 +40,6 @@ class ExceptionSerializerListener implements EventSubscriberInterface
         $this->outputDebugInfo = (bool) $outputDebugInfo;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         // Must happen BEFORE Symfony Security component ExceptionListener

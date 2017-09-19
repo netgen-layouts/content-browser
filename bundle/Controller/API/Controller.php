@@ -30,13 +30,6 @@ abstract class Controller extends BaseController
      */
     protected $itemSerializer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
-     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
-     * @param \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface $itemSerializer
-     */
     public function __construct(
         BackendInterface $backend,
         ConfigurationInterface $config,

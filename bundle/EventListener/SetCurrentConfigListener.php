@@ -15,21 +15,11 @@ class SetCurrentConfigListener implements EventSubscriberInterface
      */
     protected $container;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::REQUEST => 'onKernelRequest');

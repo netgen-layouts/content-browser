@@ -16,24 +16,11 @@ class LocationParamConverter implements ParamConverterInterface
      */
     protected $backendRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
-     */
     public function __construct(BackendRegistryInterface $backendRegistry)
     {
         $this->backendRegistry = $backendRegistry;
     }
 
-    /**
-     * Stores the object in the request.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration Contains the name, class and options of the object
-     *
-     * @return bool True if the object has been successfully set, else false
-     */
     public function apply(Request $request, ParamConverter $configuration)
     {
         if (!$request->attributes->has('locationId') || !$request->attributes->has('itemType')) {
@@ -56,13 +43,6 @@ class LocationParamConverter implements ParamConverterInterface
         return true;
     }
 
-    /**
-     * Checks if the object is supported.
-     *
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration Should be an instance of ParamConverter
-     *
-     * @return bool True if the object is supported, else false
-     */
     public function supports(ParamConverter $configuration)
     {
         return is_a($configuration->getClass(), LocationInterface::class, true);
