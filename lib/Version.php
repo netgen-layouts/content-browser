@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\ContentBrowser\Version;
+namespace Netgen\ContentBrowser;
 
 abstract class Version
 {
