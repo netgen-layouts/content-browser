@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter\Page;
+namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter;
 use Netgen\ContentBrowser\Backend\BackendInterface;
