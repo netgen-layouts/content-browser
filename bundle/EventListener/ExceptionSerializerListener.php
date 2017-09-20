@@ -18,12 +18,12 @@ class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var bool
      */
-    protected $outputDebugInfo = false;
+    private $outputDebugInfo = false;
 
     public function __construct(LoggerInterface $logger = null)
     {
@@ -102,7 +102,7 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      *
      * @param \Exception $exception
      */
-    protected function logException(Exception $exception)
+    private function logException(Exception $exception)
     {
         if ($exception instanceof HttpExceptionInterface && $exception->getStatusCode() < 500) {
             return;

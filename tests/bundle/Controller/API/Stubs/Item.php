@@ -9,12 +9,12 @@ class Item implements ItemInterface
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * Constructor.

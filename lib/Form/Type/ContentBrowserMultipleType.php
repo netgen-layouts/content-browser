@@ -17,7 +17,7 @@ class ContentBrowserMultipleType extends AbstractType
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    private $backendRegistry;
 
     public function __construct(BackendRegistryInterface $backendRegistry)
     {
@@ -95,7 +95,7 @@ class ContentBrowserMultipleType extends AbstractType
      *
      * @return array
      */
-    protected function getItemNames($itemIds, $itemType)
+    private function getItemNames($itemIds, $itemType)
     {
         $itemNames = array();
 

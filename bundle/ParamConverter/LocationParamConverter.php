@@ -14,7 +14,7 @@ class LocationParamConverter implements ParamConverterInterface
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    private $backendRegistry;
 
     public function __construct(BackendRegistryInterface $backendRegistry)
     {

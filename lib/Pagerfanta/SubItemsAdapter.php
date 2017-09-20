@@ -11,12 +11,12 @@ class SubItemsAdapter implements AdapterInterface
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $backend;
+    private $backend;
 
     /**
      * @var \Netgen\ContentBrowser\Item\LocationInterface
      */
-    protected $location;
+    private $location;
 
     public function __construct(BackendInterface $backend, LocationInterface $location)
     {

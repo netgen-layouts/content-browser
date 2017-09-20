@@ -12,17 +12,17 @@ class ColumnProvider implements ColumnProviderInterface
     /**
      * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
      */
-    protected $itemRenderer;
+    private $itemRenderer;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[]
      */
-    protected $columnValueProviders = array();
+    private $columnValueProviders = array();
 
     /**
      * Constructor.
@@ -75,7 +75,7 @@ class ColumnProvider implements ColumnProviderInterface
      *
      * @return string
      */
-    protected function provideColumn(ItemInterface $item, array $columnConfig)
+    private function provideColumn(ItemInterface $item, array $columnConfig)
     {
         if (isset($columnConfig['template'])) {
             return $this->itemRenderer->renderItem(

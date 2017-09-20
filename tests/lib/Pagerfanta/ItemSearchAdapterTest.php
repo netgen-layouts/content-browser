@@ -11,12 +11,12 @@ class ItemSearchAdapterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $backendMock;
+    private $backendMock;
 
     /**
      * @var \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter
      */
-    protected $adapter;
+    private $adapter;
 
     public function setUp()
     {

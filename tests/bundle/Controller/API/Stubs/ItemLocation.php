@@ -10,17 +10,17 @@ class ItemLocation implements ItemInterface, LocationInterface
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var mixed
      */
-    protected $parentId;
+    private $parentId;
 
     /**
      * Constructor.

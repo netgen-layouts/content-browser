@@ -17,12 +17,12 @@ class SetCurrentConfigListenerTest extends TestCase
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
      */
-    protected $eventListener;
+    private $eventListener;
 
     public function setUp()
     {

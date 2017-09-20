@@ -21,12 +21,12 @@ class ExceptionSerializerListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
      */
-    protected $eventListener;
+    private $eventListener;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $loggerMock;
+    private $loggerMock;
 
     public function setUp()
     {

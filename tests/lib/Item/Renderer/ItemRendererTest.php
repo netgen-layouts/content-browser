@@ -13,12 +13,12 @@ class ItemRendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $twigMock;
+    private $twigMock;
 
     /**
      * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
      */
-    protected $itemRenderer;
+    private $itemRenderer;
 
     public function setUp()
     {

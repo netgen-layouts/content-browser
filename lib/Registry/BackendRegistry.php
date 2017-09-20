@@ -12,7 +12,7 @@ class BackendRegistry implements BackendRegistryInterface
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface[]
      */
-    protected $backends = array();
+    private $backends = array();
 
     public function addBackend($itemType, BackendInterface $backend)
     {

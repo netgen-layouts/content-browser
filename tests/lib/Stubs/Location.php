@@ -9,12 +9,12 @@ class Location implements LocationInterface
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      */
-    protected $parentId;
+    private $parentId;
 
     /**
      * Constructor.

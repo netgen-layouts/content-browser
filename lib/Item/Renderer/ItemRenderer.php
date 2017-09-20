@@ -13,12 +13,12 @@ class ItemRenderer implements ItemRendererInterface
     /**
      * @var \Twig\Environment
      */
-    protected $twig;
+    private $twig;
 
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     public function __construct(Environment $twig, LoggerInterface $logger = null)
     {

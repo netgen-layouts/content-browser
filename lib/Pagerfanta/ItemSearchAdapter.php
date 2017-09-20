@@ -10,12 +10,12 @@ class ItemSearchAdapter implements AdapterInterface
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $backend;
+    private $backend;
 
     /**
      * @var string
      */
-    protected $searchText;
+    private $searchText;
 
     /**
      * Constructor.

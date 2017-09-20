@@ -25,7 +25,7 @@ class ExceptionConversionListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
      */
-    protected $eventListener;
+    private $eventListener;
 
     public function setUp()
     {

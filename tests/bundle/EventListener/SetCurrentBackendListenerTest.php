@@ -18,17 +18,17 @@ class SetCurrentBackendListenerTest extends TestCase
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    private $backendRegistry;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
      */
-    protected $eventListener;
+    private $eventListener;
 
     public function setUp()
     {

@@ -9,17 +9,17 @@ class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    protected $itemType;
+    private $itemType;
 
     /**
      * @var array
      */
-    protected $config = array();
+    private $config = array();
 
     /**
      * @var array
      */
-    protected $parameters = array();
+    private $parameters = array();
 
     /**
      * Constructor.

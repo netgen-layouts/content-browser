@@ -17,12 +17,12 @@ class LocationParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $backendMock;
+    private $backendMock;
 
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
      */
-    protected $paramConverter;
+    private $paramConverter;
 
     public function setUp()
     {

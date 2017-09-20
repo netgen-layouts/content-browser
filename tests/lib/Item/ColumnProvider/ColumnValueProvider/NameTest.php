@@ -11,7 +11,7 @@ class NameTest extends TestCase
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name
      */
-    protected $provider;
+    private $provider;
 
     public function setUp()
     {

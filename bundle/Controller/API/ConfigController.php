@@ -36,7 +36,7 @@ class ConfigController extends Controller
      *
      * @return array
      */
-    protected function getAvailableColumns()
+    private function getAvailableColumns()
     {
         /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
         $translator = $this->get('translator');

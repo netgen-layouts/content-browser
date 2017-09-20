@@ -14,22 +14,22 @@ class ItemSerializer implements ItemSerializerInterface
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    protected $backend;
+    private $backend;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface
      */
-    protected $columnProvider;
+    private $columnProvider;
 
     /**
      * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
      */
-    protected $itemRenderer;
+    private $itemRenderer;
 
     public function __construct(
         BackendInterface $backend,

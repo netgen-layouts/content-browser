@@ -14,17 +14,17 @@ class ColumnProviderTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRendererMock;
+    private $itemRendererMock;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider
      */
-    protected $columnProvider;
+    private $columnProvider;
 
     public function setUp()
     {

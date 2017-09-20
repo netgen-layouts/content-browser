@@ -12,12 +12,12 @@ class BackendRegistryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $backendMock;
+    private $backendMock;
 
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

@@ -17,12 +17,12 @@ class ContentBrowserDynamicType extends AbstractType
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    private $backendRegistry;
 
     /**
      * @var array
      */
-    protected $availableItemTypes;
+    private $availableItemTypes;
 
     /**
      * Constructor.
@@ -104,7 +104,7 @@ class ContentBrowserDynamicType extends AbstractType
      *
      * @return array
      */
-    protected function getEnabledItemTypes(array $itemTypes)
+    private function getEnabledItemTypes(array $itemTypes)
     {
         if (empty($itemTypes)) {
             return $this->availableItemTypes;

@@ -21,27 +21,27 @@ class ItemSerializerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $backendMock;
+    private $backendMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $columnProviderMock;
+    private $columnProviderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemRendererMock;
+    private $itemRendererMock;
 
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
      */
-    protected $serializer;
+    private $serializer;
 
     public function setUp()
     {
@@ -236,7 +236,7 @@ class ItemSerializerTest extends TestCase
     /**
      * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
-    protected function getItem()
+    private function getItem()
     {
         $modificationDate = new DateTime();
         $modificationDate->setTimestamp(0);

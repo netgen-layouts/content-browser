@@ -9,17 +9,17 @@ class Location implements LocationInterface
     /**
      * @var mixed
      */
-    protected $locationId;
+    private $locationId;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var mixed
      */
-    protected $parentId;
+    private $parentId;
 
     /**
      * Constructor.

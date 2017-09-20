@@ -40,30 +40,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->client->setServerParameter('PHP_AUTH_PW', getenv('EZ_PASSWORD'));
     }
 
-    protected function mockBackend()
-    {
-        $this->backendMock = $this->createMock(BackendInterface::class);
-
-        $backendRegistry = $this->clientContainer->get('netgen_content_browser.registry.backend');
-        $backendRegistry->addBackend('test', $this->backendMock);
-
-        $this->clientContainer->set(
-            'netgen_content_browser.config.test',
-            new Configuration(
-                'test',
-                array(
-                    'columns' => array(
-                        'name' => array(
-                            'name' => 'columns.name',
-                            'value_provider' => 'name',
-                        ),
-                    ),
-                    'default_columns' => array('name'),
-                )
-            )
-        );
-    }
-
     /**
      * Asserts that response has JSON content.
      * If filename is set, asserts that response content matches the one in given file.
@@ -154,5 +130,29 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function jsonEncode(array $content)
     {
         return json_encode($content, JSON_PRETTY_PRINT);
+    }
+
+    private function mockBackend()
+    {
+        $this->backendMock = $this->createMock(BackendInterface::class);
+
+        $backendRegistry = $this->clientContainer->get('netgen_content_browser.registry.backend');
+        $backendRegistry->addBackend('test', $this->backendMock);
+
+        $this->clientContainer->set(
+            'netgen_content_browser.config.test',
+            new Configuration(
+                'test',
+                array(
+                    'columns' => array(
+                        'name' => array(
+                            'name' => 'columns.name',
+                            'value_provider' => 'name',
+                        ),
+                    ),
+                    'default_columns' => array('name'),
+                )
+            )
+        );
     }
 }

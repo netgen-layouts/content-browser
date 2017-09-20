@@ -13,7 +13,7 @@ class SetCurrentConfigListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     public function __construct(ContainerInterface $container)
     {
@@ -63,7 +63,7 @@ class SetCurrentConfigListener implements EventSubscriberInterface
      *
      * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected function loadConfig($itemType)
+    private function loadConfig($itemType)
     {
         $service = 'netgen_content_browser.config.' . $itemType;
 

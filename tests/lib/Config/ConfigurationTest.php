@@ -10,7 +10,7 @@ class ConfigurationTest extends TestCase
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    protected $config;
+    private $config;
 
     public function setUp()
     {

@@ -15,7 +15,7 @@ class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $backendMock;
+    private $backendMock;
 
     /**
      * @return \Symfony\Component\Form\FormTypeInterface

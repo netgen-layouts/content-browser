@@ -13,12 +13,12 @@ class SetCurrentBackendListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
-    protected $backendRegistry;
+    private $backendRegistry;
 
     public function __construct(ContainerInterface $container, BackendRegistryInterface $backendRegistry)
     {
