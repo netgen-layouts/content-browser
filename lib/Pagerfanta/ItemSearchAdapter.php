@@ -5,7 +5,7 @@ namespace Netgen\ContentBrowser\Pagerfanta;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class ItemSearchAdapter implements AdapterInterface
+final class ItemSearchAdapter implements AdapterInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface

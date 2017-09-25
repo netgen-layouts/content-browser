@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class ExceptionSerializerListener implements EventSubscriberInterface
+final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     /**
      * @var \Psr\Log\LoggerInterface

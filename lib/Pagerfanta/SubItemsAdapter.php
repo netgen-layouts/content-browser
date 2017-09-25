@@ -6,7 +6,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class SubItemsAdapter implements AdapterInterface
+final class SubItemsAdapter implements AdapterInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface

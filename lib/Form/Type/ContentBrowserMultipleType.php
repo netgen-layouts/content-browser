@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserMultipleType extends AbstractType
+final class ContentBrowserMultipleType extends AbstractType
 {
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface

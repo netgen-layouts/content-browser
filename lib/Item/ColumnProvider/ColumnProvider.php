@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 
-class ColumnProvider implements ColumnProviderInterface
+final class ColumnProvider implements ColumnProviderInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface

@@ -8,7 +8,7 @@ use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class BrowseController extends Controller
+final class BrowseController extends Controller
 {
     /**
      * Returns all locations below specified location.

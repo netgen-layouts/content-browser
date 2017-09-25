@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Twig\Environment;
 
-class ItemRenderer implements ItemRendererInterface
+final class ItemRenderer implements ItemRendererInterface
 {
     /**
      * @var \Twig\Environment

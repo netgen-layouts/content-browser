@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 
-class BackendRegistry implements BackendRegistryInterface
+final class BackendRegistry implements BackendRegistryInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface[]

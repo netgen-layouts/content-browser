@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetCurrentBackendListener implements EventSubscriberInterface
+final class SetCurrentBackendListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface

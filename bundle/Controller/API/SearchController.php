@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class SearchController extends Controller
+final class SearchController extends Controller
 {
     /**
      * Performs the search for values by using the specified text.

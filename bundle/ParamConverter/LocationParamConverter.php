@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class LocationParamConverter implements ParamConverterInterface
+final class LocationParamConverter implements ParamConverterInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface

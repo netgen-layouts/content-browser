@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ColumnProviderPass implements CompilerPassInterface
+final class ColumnProviderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_content_browser.column_provider';
     const TAG_NAME = 'netgen_content_browser.column_value_provider';

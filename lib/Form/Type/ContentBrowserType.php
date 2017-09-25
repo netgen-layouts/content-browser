@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserType extends AbstractType
+final class ContentBrowserType extends AbstractType
 {
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface

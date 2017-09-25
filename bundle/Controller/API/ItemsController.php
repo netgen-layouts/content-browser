@@ -6,7 +6,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class ItemsController extends Controller
+final class ItemsController extends Controller
 {
     /**
      * Returns all items with specified values.

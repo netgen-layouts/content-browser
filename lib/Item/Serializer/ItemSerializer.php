@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 
-class ItemSerializer implements ItemSerializerInterface
+final class ItemSerializer implements ItemSerializerInterface
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface

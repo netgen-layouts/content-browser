@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BackendRegistryPass implements CompilerPassInterface
+final class BackendRegistryPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_content_browser.registry.backend';
     const TAG_NAME = 'netgen_content_browser.backend';

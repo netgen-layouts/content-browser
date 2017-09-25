@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ConfigController extends Controller
+final class ConfigController extends Controller
 {
     /**
      * Returns the configuration for content browser.
