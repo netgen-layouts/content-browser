@@ -54,6 +54,7 @@ class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
+        $exceptionClass = null;
         foreach ($this->exceptionMap as $sourceException => $targetException) {
             if (is_a($exception, $sourceException, true)) {
                 $exceptionClass = $targetException;
@@ -61,7 +62,7 @@ class ExceptionConversionListener implements EventSubscriberInterface
             }
         }
 
-        if (isset($exceptionClass)) {
+        if ($exceptionClass !== null) {
             $convertedException = new $exceptionClass(
                 $exception->getMessage(),
                 $exception,
