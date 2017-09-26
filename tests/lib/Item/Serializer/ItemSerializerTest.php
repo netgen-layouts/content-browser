@@ -277,6 +277,6 @@ class ItemSerializerTest extends TestCase
             )
         );
 
-        return new Item($location, $content, 'Some name');
+        return new Item($location, $content, 84, 'Some name');
     }
 }
