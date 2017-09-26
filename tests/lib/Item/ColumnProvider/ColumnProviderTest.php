@@ -6,6 +6,7 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Tests\Stubs\ColumnValueProvider;
+use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -34,8 +35,11 @@ class ColumnProviderTest extends TestCase
             'value',
             array(
                 'columns' => array(
-                    'column' => array(
+                    'column1' => array(
                         'value_provider' => 'provider',
+                    ),
+                    'column2' => array(
+                        'value_provider' => 'invalid',
                     ),
                 ),
             )
@@ -44,7 +48,10 @@ class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            array('provider' => new ColumnValueProvider())
+            array(
+                'provider' => new ColumnValueProvider(),
+                'invalid' => new InvalidColumnValueProvider(),
+            )
         );
     }
 
@@ -69,7 +76,7 @@ class ColumnProviderTest extends TestCase
     public function testProvideColumns()
     {
         $this->assertEquals(
-            array('column' => 'some_value'),
+            array('column1' => 'some_value', 'column2' => ''),
             $this->columnProvider->provideColumns(new Item())
         );
     }
