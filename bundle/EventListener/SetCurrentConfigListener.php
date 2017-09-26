@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
+use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -76,6 +77,16 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
             );
         }
 
-        return $this->container->get($service);
+        $config = $this->container->get($service);
+        if (!$config instanceof ConfigurationInterface) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Configuration for "%s" item type is invalid.',
+                    $itemType
+                )
+            );
+        }
+
+        return $config;
     }
 }

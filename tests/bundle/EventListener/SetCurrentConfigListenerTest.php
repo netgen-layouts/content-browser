@@ -6,6 +6,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -107,6 +108,31 @@ class SetCurrentConfigListenerTest extends TestCase
 
         $this->assertTrue($this->container->has('netgen_content_browser.current_config'));
         $this->assertEquals($config, $this->container->get('netgen_content_browser.current_config'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Configuration for "item_type" item type is invalid.
+     */
+    public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set('itemType', 'item_type');
+
+        $event = new GetResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
+        $config = new stdClass();
+        $this->container->set('netgen_content_browser.config.item_type', $config);
+
+        $this->eventListener->onKernelRequest($event);
     }
 
     /**
