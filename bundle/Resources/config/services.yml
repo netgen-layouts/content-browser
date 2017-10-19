@@ -3,11 +3,13 @@ services:
 
     netgen_content_browser.current_config:
         synthetic: true
+        public: true
 
     # API controllers
 
     netgen_content_browser.controller.base:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
+        public: true
         abstract: true
         arguments:
             - "@netgen_content_browser.current_backend"
@@ -19,28 +21,34 @@ services:
     netgen_content_browser.controller.api.config:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
         parent: netgen_content_browser.controller.base
+        public: true
 
     netgen_content_browser.controller.api.browse:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
         parent: netgen_content_browser.controller.base
+        public: true
 
     netgen_content_browser.controller.api.search:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
         parent: netgen_content_browser.controller.base
+        public: true
 
     netgen_content_browser.controller.api.items:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController
         parent: netgen_content_browser.controller.base
+        public: true
 
     # Event listeners
 
     netgen_content_browser.event_listener.set_is_api_request:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.set_current_config:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
+        # public: false
         arguments:
             - "@service_container"
         tags:
@@ -48,6 +56,7 @@ services:
 
     netgen_content_browser.event_listener.set_current_backend:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
+        # public: false
         arguments:
             - "@service_container"
             - "@netgen_content_browser.registry.backend"
@@ -56,11 +65,13 @@ services:
 
     netgen_content_browser.event_listener.exception_conversion:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_content_browser.event_listener.exception_serializer:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
+        # public: false
         arguments:
             - "@?logger"
         calls:
@@ -73,11 +84,13 @@ services:
 
     netgen_content_browser.registry.backend:
         class: Netgen\ContentBrowser\Registry\BackendRegistry
+        public: true
 
     # Main services
 
     netgen_content_browser.current_backend:
         synthetic: true
+        public: true
 
     netgen_content_browser.item_serializer:
         class: Netgen\ContentBrowser\Item\Serializer\ItemSerializer
@@ -109,6 +122,7 @@ services:
 
     netgen_content_browser.form.type.content_browser:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserType
+        # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
         tags:
@@ -116,6 +130,7 @@ services:
 
     netgen_content_browser.form.type.content_browser_dynamic:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType
+        # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
             - "%netgen_content_browser.item_types%"
@@ -124,6 +139,7 @@ services:
 
     netgen_content_browser.form.type.content_browser_multiple:
         class: Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType
+        # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
         tags:
