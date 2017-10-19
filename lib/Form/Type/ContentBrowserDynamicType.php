@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
@@ -64,9 +66,8 @@ final class ContentBrowserDynamicType extends AbstractType
             ChoiceType::class,
             array(
                 'choices' => $this->getEnabledItemTypes($options['item_types']),
-                'choices_as_values' => true,
                 'choice_translation_domain' => 'ngcb',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add('item_id', HiddenType::class);

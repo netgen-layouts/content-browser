@@ -36,8 +36,6 @@ class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
-     *
-     * @group legacy
      */
     public function testSubmitValidDataWithNoItemTypeLimit()
     {
@@ -56,8 +54,6 @@ class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
-     *
-     * @group legacy
      */
     public function testSubmitValidDataWithItemTypeLimit()
     {
@@ -80,8 +76,6 @@ class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::__construct
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     *
-     * @group legacy
      */
     public function testBuildView()
     {
@@ -105,8 +99,6 @@ class ContentBrowserDynamicTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     *
-     * @group legacy
      */
     public function testBuildViewWithNonExistingItem()
     {
@@ -130,8 +122,6 @@ class ContentBrowserDynamicTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     *
-     * @group legacy
      */
     public function testBuildViewWithEmptyData()
     {
