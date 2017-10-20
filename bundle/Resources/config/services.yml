@@ -9,7 +9,7 @@ services:
 
     netgen_content_browser.controller.base:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
-        public: true
+        public: false
         abstract: true
         arguments:
             - "@netgen_content_browser.current_backend"
