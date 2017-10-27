@@ -50,10 +50,10 @@ class SearchControllerTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
 
-        $this->assertException(
+        $this->assertResponse(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'Search text cannot be empty.'
+            'v1/search/empty_result',
+            Response::HTTP_OK
         );
     }
 
@@ -64,10 +64,10 @@ class SearchControllerTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search');
 
-        $this->assertException(
+        $this->assertResponse(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'Search text cannot be empty.'
+            'v1/search/empty_result',
+            Response::HTTP_OK
         );
     }
 }
