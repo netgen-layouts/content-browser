@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,25 +19,26 @@ final class SearchController extends Controller
      */
     public function search(Request $request)
     {
-        $searchText = $request->query->get('searchText');
-        if (empty($searchText)) {
-            throw new InvalidArgumentException('Search text cannot be empty.');
-        }
-
-        $pager = $this->buildPager(
-            new ItemSearchAdapter(
-                $this->backend,
-                $searchText
-            ),
-            $request
-        );
-
         $data = array(
-            'children_count' => $pager->getNbResults(),
-            'children' => $this->itemSerializer->serializeItems(
-                $pager->getCurrentPageResults()
-            ),
+            'children_count' => 0,
+            'children' => array(),
         );
+
+        $searchText = trim($request->query->get('searchText'));
+        if (!empty($searchText)) {
+            $pager = $this->buildPager(
+                new ItemSearchAdapter(
+                    $this->backend,
+                    $searchText
+                ),
+                $request
+            );
+
+            $data['children_count'] = $pager->getNbResults();
+            $data['children'] = $this->itemSerializer->serializeItems(
+                $pager->getCurrentPageResults()
+            );
+        }
 
         return new JsonResponse($data);
     }
