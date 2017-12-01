@@ -24,7 +24,7 @@ class ExceptionSerializerListenerTest extends TestCase
     private $eventListener;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $loggerMock;
 

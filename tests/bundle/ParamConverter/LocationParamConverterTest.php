@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class LocationParamConverterTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $backendMock;
 
