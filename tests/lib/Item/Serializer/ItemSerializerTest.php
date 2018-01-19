@@ -50,7 +50,7 @@ class ItemSerializerTest extends TestCase
         $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
 
         $this->config = new Configuration(
-            'ezcontent',
+            'item_type',
             array(
                 'preview' => array(
                     'enabled' => true,
