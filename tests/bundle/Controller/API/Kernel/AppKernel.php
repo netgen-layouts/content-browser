@@ -31,12 +31,12 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return sys_get_temp_dir() . '/sfcache';
+        return sys_get_temp_dir() . '/ngcb/cache';
     }
 
     public function getLogDir()
     {
-        return sys_get_temp_dir() . '/sflogs';
+        return sys_get_temp_dir() . '/ngcb/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
