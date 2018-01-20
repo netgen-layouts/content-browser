@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Symfony\Component\HttpFoundation\Response;
 
-class ItemsControllerTest extends JsonApiTestCase
+final class ItemsControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController::getByValues

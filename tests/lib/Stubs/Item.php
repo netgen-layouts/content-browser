@@ -4,7 +4,7 @@ namespace Netgen\ContentBrowser\Tests\Stubs;
 
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class Item implements ItemInterface
+final class Item implements ItemInterface
 {
     /**
      * @var mixed

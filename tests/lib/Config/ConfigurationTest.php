@@ -5,7 +5,7 @@ namespace Netgen\ContentBrowser\Tests\Config;
 use Netgen\ContentBrowser\Config\Configuration;
 use PHPUnit\Framework\TestCase;
 
-class ConfigurationTest extends TestCase
+final class ConfigurationTest extends TestCase
 {
     /**
      * @var \Netgen\ContentBrowser\Config\ConfigurationInterface

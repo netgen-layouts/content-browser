@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ColumnProviderPassTest extends AbstractCompilerPassTestCase
+final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process

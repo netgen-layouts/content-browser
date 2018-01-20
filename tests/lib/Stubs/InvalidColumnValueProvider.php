@@ -5,7 +5,7 @@ namespace Netgen\ContentBrowser\Tests\Stubs;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class InvalidColumnValueProvider implements ColumnValueProviderInterface
+final class InvalidColumnValueProvider implements ColumnValueProviderInterface
 {
     /**
      * Provides the column value.

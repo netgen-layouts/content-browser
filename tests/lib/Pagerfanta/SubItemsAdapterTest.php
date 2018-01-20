@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
 
-class SubItemsAdapterTest extends TestCase
+final class SubItemsAdapterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

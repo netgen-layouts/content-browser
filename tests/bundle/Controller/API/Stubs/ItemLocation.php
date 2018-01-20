@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
-class ItemLocation implements ItemInterface, LocationInterface
+final class ItemLocation implements ItemInterface, LocationInterface
 {
     /**
      * @var mixed

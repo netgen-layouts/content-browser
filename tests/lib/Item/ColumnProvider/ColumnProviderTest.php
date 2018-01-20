@@ -10,7 +10,7 @@ use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
 
-class ColumnProviderTest extends TestCase
+final class ColumnProviderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

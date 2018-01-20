@@ -8,7 +8,7 @@ use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
-class ItemRendererTest extends TestCase
+final class ItemRendererTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

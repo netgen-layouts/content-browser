@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs;
 
 use Netgen\ContentBrowser\Item\LocationInterface;
 
-class Location implements LocationInterface
+final class Location implements LocationInterface
 {
     /**
      * @var mixed

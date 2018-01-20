@@ -5,7 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Symfony\Component\HttpFoundation\Response;
 
-class ConfigControllerTest extends JsonApiTestCase
+final class ConfigControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getConfig

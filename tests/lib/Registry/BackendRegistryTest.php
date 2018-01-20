@@ -7,7 +7,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use PHPUnit\Framework\TestCase;
 
-class BackendRegistryTest extends TestCase
+final class BackendRegistryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
-class LocationParamConverterTest extends TestCase
+final class LocationParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

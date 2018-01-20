@@ -6,7 +6,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use PHPUnit\Framework\TestCase;
 
-class ItemSearchAdapterTest extends TestCase
+final class ItemSearchAdapterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

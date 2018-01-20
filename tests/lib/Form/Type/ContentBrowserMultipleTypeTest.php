@@ -10,7 +10,7 @@ use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserMultipleTypeTest extends TestCase
+final class ContentBrowserMultipleTypeTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

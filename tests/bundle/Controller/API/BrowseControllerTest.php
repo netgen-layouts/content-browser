@@ -8,7 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
-class BrowseControllerTest extends JsonApiTestCase
+final class BrowseControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubLocations

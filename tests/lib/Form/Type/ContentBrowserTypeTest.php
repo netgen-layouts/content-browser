@@ -10,7 +10,7 @@ use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserTypeTest extends TestCase
+final class ContentBrowserTypeTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BackendRegistryPassTest extends AbstractCompilerPassTestCase
+final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process

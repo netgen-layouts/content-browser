@@ -6,7 +6,7 @@ use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
 
-class NameTest extends TestCase
+final class NameTest extends TestCase
 {
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name

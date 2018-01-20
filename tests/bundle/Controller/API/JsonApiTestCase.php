@@ -93,19 +93,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         }
     }
 
-    /**
-     * Pretty encodes the provided array.
-     *
-     * @param array $content
-     *
-     * @return string
-     */
-    protected function jsonEncode(array $content)
-    {
-        return json_encode($content, JSON_PRETTY_PRINT);
-    }
-
-    private function mockBackend()
+    protected function mockBackend()
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 

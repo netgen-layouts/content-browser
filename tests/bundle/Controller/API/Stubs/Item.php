@@ -4,7 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs;
 
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class Item implements ItemInterface
+final class Item implements ItemInterface
 {
     /**
      * @var mixed

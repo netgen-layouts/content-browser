@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class ExceptionSerializerListenerTest extends TestCase
+final class ExceptionSerializerListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener

@@ -16,7 +16,7 @@ use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use PHPUnit\Framework\TestCase;
 
-class ItemSerializerTest extends TestCase
+final class ItemSerializerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

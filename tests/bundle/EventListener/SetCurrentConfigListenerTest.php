@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetCurrentConfigListenerTest extends TestCase
+final class SetCurrentConfigListenerTest extends TestCase
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface

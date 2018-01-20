@@ -4,7 +4,7 @@ namespace Netgen\ContentBrowser\Tests\Stubs;
 
 use Netgen\ContentBrowser\Item\LocationInterface;
 
-class Location implements LocationInterface
+final class Location implements LocationInterface
 {
     /**
      * @var int

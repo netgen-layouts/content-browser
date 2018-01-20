@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentBrowserDynamicTypeTest extends TestCase
+final class ContentBrowserDynamicTypeTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
