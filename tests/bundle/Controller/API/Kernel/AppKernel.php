@@ -25,6 +25,11 @@ class AppKernel extends Kernel
         );
     }
 
+    public function getProjectDir()
+    {
+        return __DIR__;
+    }
+
     public function getCacheDir()
     {
         return sys_get_temp_dir() . '/ngcb/cache';
@@ -45,11 +50,12 @@ class AppKernel extends Kernel
         return '\\' . MockerContainer::class;
     }
 
-    protected function prepareContainer(ContainerBuilder $container)
+    protected function build(ContainerBuilder $container)
     {
-        parent::prepareContainer($container);
-
-        // @deprecated For compatibility with Symfony 2.8
-        $container->setParameter('kernel.project_dir', __DIR__);
+        if (Kernel::VERSION_ID < 30200) {
+            // @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
+            // so we need to set the parameter to the container manually
+            $container->setParameter('kernel.project_dir', __DIR__);
+        }
     }
 }
