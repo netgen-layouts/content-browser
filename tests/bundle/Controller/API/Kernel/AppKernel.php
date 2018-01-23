@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel;
 
-use Netgen\ContentBrowser\Tests\MockerContainer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
