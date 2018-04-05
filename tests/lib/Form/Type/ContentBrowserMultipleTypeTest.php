@@ -204,6 +204,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "item_type" is missing.
      */
     public function testConfigureOptionsWithMissingItemType()
     {
@@ -217,6 +218,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidItemType()
     {
@@ -230,6 +232,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "min" with value "min" is expected to be of type "int" or "null", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidMin()
     {
@@ -243,6 +246,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "max" with value "max" is expected to be of type "int" or "null", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidMax()
     {

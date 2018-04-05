@@ -156,6 +156,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "item_type" is missing.
      */
     public function testConfigureOptionsWithMissingItemType()
     {
@@ -169,6 +170,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidItemType()
     {
