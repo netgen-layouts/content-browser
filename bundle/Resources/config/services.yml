@@ -15,6 +15,7 @@ services:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.item_serializer"
+            - "@netgen_content_browser.item_renderer"
         calls:
             - [initialize, ["@service_container"]]
 
@@ -33,8 +34,8 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
 
-    netgen_content_browser.controller.api.items:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController
+    netgen_content_browser.controller.api.item:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController
         parent: netgen_content_browser.controller.base
         public: true
 
@@ -103,7 +104,7 @@ services:
 
     netgen_content_browser.item_renderer:
         class: Netgen\ContentBrowser\Item\Renderer\ItemRenderer
-        public: false
+        public: true
         arguments:
             - "@twig"
             - "@?logger"
@@ -146,6 +147,14 @@ services:
             - { name: form.type }
 
     # Param converters
+
+    netgen_content_browser.param_converter.item:
+        class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter
+        public: false
+        arguments:
+            - "@netgen_content_browser.registry.backend"
+        tags:
+            - { name: request.param_converter, priority: 0 }
 
     netgen_content_browser.param_converter.location:
         class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter

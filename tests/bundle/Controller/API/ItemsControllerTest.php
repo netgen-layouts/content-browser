@@ -3,12 +3,53 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
+use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ItemsControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController::getByValues
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::renderItem
+     */
+    public function testRenderItem()
+    {
+        $this->backendMock
+            ->expects($this->at(0))
+            ->method('loadItem')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue(new Item(42, 'Item 42')));
+
+        $this->client->request('GET', '/cb/api/v1/test/render/42');
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_OK);
+        $this->assertHeader($response, 'text/html');
+        $this->assertEquals('rendered item', $response->getContent());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
+     */
+    public function testRenderItemWithNonExistingItem()
+    {
+        $this->backendMock
+            ->expects($this->at(0))
+            ->method('loadItem')
+            ->with($this->equalTo(42))
+            ->will($this->throwException(new NotFoundException('Item does not exist.')));
+
+        $this->client->request('GET', '/cb/api/v1/test/render/42');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Item does not exist.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
      */
     public function testGetByValues()
     {
@@ -32,7 +73,7 @@ final class ItemsControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController::getByValues
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
      */
     public function testGetByValuesWithInvalidValuesList()
     {
@@ -46,7 +87,7 @@ final class ItemsControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemsController::getByValues
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
      */
     public function testGetByValuesWithMissingValuesList()
     {

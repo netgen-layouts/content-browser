@@ -6,6 +6,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\LocationInterface;
+use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
@@ -30,14 +31,21 @@ abstract class Controller extends BaseController
      */
     protected $itemSerializer;
 
+    /**
+     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
+     */
+    protected $itemRenderer;
+
     public function __construct(
         BackendInterface $backend,
         ConfigurationInterface $config,
-        ItemSerializerInterface $itemSerializer
+        ItemSerializerInterface $itemSerializer,
+        ItemRendererInterface $itemRenderer
     ) {
         $this->backend = $backend;
         $this->config = $config;
         $this->itemSerializer = $itemSerializer;
+        $this->itemRenderer = $itemRenderer;
     }
 
     /**

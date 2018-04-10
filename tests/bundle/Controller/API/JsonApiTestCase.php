@@ -5,6 +5,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
@@ -25,6 +26,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->setUpClient();
         $this->mockBackend();
+        $this->mockItemRenderer();
 
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
@@ -123,5 +125,18 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
                 )
             )
         );
+    }
+
+    protected function mockItemRenderer()
+    {
+        /** @var \Mockery\MockInterface $itemRendererMock */
+        $itemRendererMock = $this->clientContainer->mock(
+            'netgen_content_browser.item_renderer',
+            ItemRendererInterface::class
+        );
+
+        $itemRendererMock
+            ->shouldReceive('renderItem')
+            ->andReturn('rendered item');
     }
 }

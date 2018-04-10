@@ -3,11 +3,30 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-final class ItemsController extends Controller
+final class ItemController extends Controller
 {
+    /**
+     * Renders the provided item.
+     *
+     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderItem(ItemInterface $item)
+    {
+        $renderedItem = $this->itemRenderer->renderItem(
+            $item,
+            $this->config->getTemplate()
+        );
+
+        return new Response($renderedItem);
+    }
+
     /**
      * Returns all items with specified values.
      *
