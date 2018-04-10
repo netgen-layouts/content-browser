@@ -122,6 +122,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
                         ),
                     ),
                     'default_columns' => array('name'),
+                    'preview' => array(
+                        'enabled' => true,
+                    ),
                 )
             )
         );

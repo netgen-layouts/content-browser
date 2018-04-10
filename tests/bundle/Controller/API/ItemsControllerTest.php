@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,6 +27,45 @@ final class ItemsControllerTest extends JsonApiTestCase
         $this->assertResponseCode($response, Response::HTTP_OK);
         $this->assertHeader($response, 'text/html');
         $this->assertEquals('rendered item', $response->getContent());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::renderItem
+     */
+    public function testRenderItemWithDisabledPreview()
+    {
+        $this->backendMock
+            ->expects($this->at(0))
+            ->method('loadItem')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue(new Item(42, 'Item 42')));
+
+        $this->clientContainer->set(
+            'netgen_content_browser.config.test',
+            new Configuration(
+                'test',
+                array(
+                    'columns' => array(
+                        'name' => array(
+                            'name' => 'columns.name',
+                            'value_provider' => 'name',
+                        ),
+                    ),
+                    'default_columns' => array('name'),
+                    'preview' => array(
+                        'enabled' => false,
+                    ),
+                )
+            )
+        );
+
+        $this->client->request('GET', '/cb/api/v1/test/render/42');
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_OK);
+        $this->assertHeader($response, 'text/html');
+        $this->assertEquals('', $response->getContent());
     }
 
     /**

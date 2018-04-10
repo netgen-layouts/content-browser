@@ -16,6 +16,7 @@
         "visible": true,
         "selectable": true,
         "has_sub_items": true,
+        "html": "rendered item",
         "columns": {
             "name": "Item 41"
         }
@@ -29,6 +30,7 @@
             "visible": true,
             "selectable": true,
             "has_sub_items": false,
+            "html": "rendered item",
             "columns": {
                 "name": "Item 42"
             }
@@ -40,6 +42,7 @@
             "visible": true,
             "selectable": true,
             "has_sub_items": false,
+            "html": "rendered item",
             "columns": {
                 "name": "Item 43"
             }
