@@ -19,10 +19,10 @@ final class ItemController extends Controller
      */
     public function renderItem(ItemInterface $item)
     {
-        $renderedItem = $this->itemRenderer->renderItem(
-            $item,
-            $this->config->getTemplate()
-        );
+        $renderedItem = '';
+        if ($this->config->hasPreview()) {
+            $renderedItem = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
+        }
 
         return new Response($renderedItem);
     }
