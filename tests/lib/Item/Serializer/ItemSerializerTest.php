@@ -9,10 +9,8 @@ use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\EzPublish\Item;
-use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use PHPUnit\Framework\TestCase;
 
@@ -29,16 +27,6 @@ final class ItemSerializerTest extends TestCase
     private $columnProviderMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $itemRendererMock;
-
-    /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
-     */
-    private $config;
-
-    /**
      * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
      */
     private $serializer;
@@ -47,23 +35,10 @@ final class ItemSerializerTest extends TestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
         $this->columnProviderMock = $this->createMock(ColumnProviderInterface::class);
-        $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
-
-        $this->config = new Configuration(
-            'item_type',
-            array(
-                'preview' => array(
-                    'enabled' => true,
-                    'template' => 'template.html.twig',
-                ),
-            )
-        );
 
         $this->serializer = new ItemSerializer(
             $this->backendMock,
-            $this->config,
-            $this->columnProviderMock,
-            $this->itemRendererMock
+            $this->columnProviderMock
         );
     }
 
@@ -78,12 +53,6 @@ final class ItemSerializerTest extends TestCase
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
             ->will($this->returnValue(3));
-
-        $this->itemRendererMock
-            ->expects($this->once())
-            ->method('renderItem')
-            ->with($this->equalTo($this->getItem()), $this->equalTo('template.html.twig'))
-            ->will($this->returnValue('rendered item'));
 
         $this->columnProviderMock
             ->expects($this->once())
@@ -106,7 +75,6 @@ final class ItemSerializerTest extends TestCase
                 'columns' => array(
                     'column' => 'value',
                 ),
-                'html' => 'rendered item',
             ),
             $data
         );
@@ -123,12 +91,6 @@ final class ItemSerializerTest extends TestCase
             ->method('getSubItemsCount')
             ->with($this->equalTo($this->getItem()))
             ->will($this->returnValue(3));
-
-        $this->itemRendererMock
-            ->expects($this->once())
-            ->method('renderItem')
-            ->with($this->equalTo($this->getItem()), $this->equalTo('template.html.twig'))
-            ->will($this->returnValue('rendered item'));
 
         $this->columnProviderMock
             ->expects($this->once())
@@ -152,7 +114,6 @@ final class ItemSerializerTest extends TestCase
                     'columns' => array(
                         'column' => 'value',
                     ),
-                    'html' => 'rendered item',
                 ),
             ),
             $data

@@ -98,9 +98,7 @@ services:
         public: false
         arguments:
             - "@netgen_content_browser.current_backend"
-            - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.column_provider"
-            - "@netgen_content_browser.item_renderer"
 
     netgen_content_browser.item_renderer:
         class: Netgen\ContentBrowser\Item\Renderer\ItemRenderer

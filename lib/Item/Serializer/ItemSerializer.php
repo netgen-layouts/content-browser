@@ -3,11 +3,9 @@
 namespace Netgen\ContentBrowser\Item\Serializer;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
-use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 
 final class ItemSerializer implements ItemSerializerInterface
 {
@@ -17,30 +15,16 @@ final class ItemSerializer implements ItemSerializerInterface
     private $backend;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
-     */
-    private $config;
-
-    /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface
      */
     private $columnProvider;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
-     */
-    private $itemRenderer;
-
     public function __construct(
         BackendInterface $backend,
-        ConfigurationInterface $config,
-        ColumnProviderInterface $columnProvider,
-        ItemRendererInterface $itemRenderer
+        ColumnProviderInterface $columnProvider
     ) {
         $this->backend = $backend;
-        $this->config = $config;
         $this->columnProvider = $columnProvider;
-        $this->itemRenderer = $itemRenderer;
     }
 
     public function serializeItem(ItemInterface $item)
@@ -58,10 +42,6 @@ final class ItemSerializer implements ItemSerializerInterface
         if ($item instanceof LocationInterface) {
             $data['location_id'] = $item->getLocationId();
             $data['has_sub_items'] = $this->backend->getSubItemsCount($item) > 0;
-        }
-
-        if ($this->config->hasPreview()) {
-            $data['html'] = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
         }
 
         return $data;
