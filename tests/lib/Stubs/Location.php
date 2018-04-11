@@ -17,8 +17,6 @@ final class Location implements LocationInterface
     private $parentId;
 
     /**
-     * Constructor.
-     *
      * @param int $id
      * @param int $parentId
      */
@@ -28,31 +26,16 @@ final class Location implements LocationInterface
         $this->parentId = $parentId;
     }
 
-    /**
-     * Returns the location ID.
-     *
-     * @return int|string
-     */
     public function getLocationId()
     {
         return $this->id;
     }
 
-    /**
-     * Returns the item name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return 'This is a name';
     }
 
-    /**
-     * Returns the item parent ID.
-     *
-     * @return int|string
-     */
     public function getParentId()
     {
         return $this->parentId;

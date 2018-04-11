@@ -22,8 +22,6 @@ final class Location implements LocationInterface
     private $parentId;
 
     /**
-     * Constructor.
-     *
      * @param mixed $locationId
      * @param string $name
      * @param mixed $parentId
@@ -35,31 +33,16 @@ final class Location implements LocationInterface
         $this->parentId = $parentId;
     }
 
-    /**
-     * Returns the location ID.
-     *
-     * @return int|string
-     */
     public function getLocationId()
     {
         return $this->locationId;
     }
 
-    /**
-     * Returns the name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Returns the parent ID.
-     *
-     * @return int|string
-     */
     public function getParentId()
     {
         return $this->parentId;

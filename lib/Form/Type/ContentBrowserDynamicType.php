@@ -27,8 +27,6 @@ final class ContentBrowserDynamicType extends AbstractType
     private $availableItemTypes;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
      * @param array $availableItemTypes
      */

@@ -23,8 +23,6 @@ final class ItemLocation implements ItemInterface, LocationInterface
     private $parentId;
 
     /**
-     * Constructor.
-     *
      * @param mixed $value
      * @param string $name
      * @param mixed $parentId
@@ -36,61 +34,31 @@ final class ItemLocation implements ItemInterface, LocationInterface
         $this->parentId = $parentId;
     }
 
-    /**
-     * Returns the value.
-     *
-     * @return mixed
-     */
     public function getValue()
     {
         return $this->value;
     }
 
-    /**
-     * Returns the name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Returns if the item is visible.
-     *
-     * @return bool
-     */
     public function isVisible()
     {
         return true;
     }
 
-    /**
-     * Returns if the item is selectable.
-     *
-     * @return bool
-     */
     public function isSelectable()
     {
         return true;
     }
 
-    /**
-     * Returns the location ID.
-     *
-     * @return int|string
-     */
     public function getLocationId()
     {
         return $this->value;
     }
 
-    /**
-     * Returns the parent ID.
-     *
-     * @return int|string
-     */
     public function getParentId()
     {
         return $this->parentId;

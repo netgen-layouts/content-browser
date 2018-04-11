@@ -18,8 +18,6 @@ final class ItemSearchAdapter implements AdapterInterface
     private $searchText;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      * @param string $searchText
      */

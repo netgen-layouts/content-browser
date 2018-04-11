@@ -22,8 +22,6 @@ final class Configuration implements ConfigurationInterface
     private $parameters = array();
 
     /**
-     * Constructor.
-     *
      * @param string $itemType
      * @param array $config
      * @param array $parameters

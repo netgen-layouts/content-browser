@@ -17,8 +17,6 @@ final class Item implements ItemInterface
     private $name;
 
     /**
-     * Constructor.
-     *
      * @param mixed $value
      * @param string $name
      */
@@ -28,41 +26,21 @@ final class Item implements ItemInterface
         $this->name = $name;
     }
 
-    /**
-     * Returns the value.
-     *
-     * @return mixed
-     */
     public function getValue()
     {
         return $this->value;
     }
 
-    /**
-     * Returns the name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Returns if the item is visible.
-     *
-     * @return bool
-     */
     public function isVisible()
     {
         return true;
     }
 
-    /**
-     * Returns if the item is selectable.
-     *
-     * @return bool
-     */
     public function isSelectable()
     {
         return true;
