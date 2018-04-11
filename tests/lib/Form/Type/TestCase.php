@@ -37,9 +37,6 @@ abstract class TestCase extends BaseTestCase
      */
     protected $factory;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         parent::setUp();
