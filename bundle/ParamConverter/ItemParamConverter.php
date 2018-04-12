@@ -28,7 +28,6 @@ final class ItemParamConverter implements ParamConverterInterface
         }
 
         $itemId = $request->attributes->get('itemId');
-        // 0 is a valid location ID
         if (empty($itemId)) {
             if ($configuration->isOptional()) {
                 return false;
