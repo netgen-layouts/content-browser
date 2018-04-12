@@ -25,7 +25,7 @@ final class ItemsControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_OK);
-        $this->assertHeader($response, 'text/html');
+        $this->assertContains('text/html', $response->headers->get('Content-Type'));
         $this->assertEquals('rendered item', $response->getContent());
     }
 
@@ -64,7 +64,7 @@ final class ItemsControllerTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_OK);
-        $this->assertHeader($response, 'text/html');
+        $this->assertContains('text/html', $response->headers->get('Content-Type'));
         $this->assertEquals('', $response->getContent());
     }
 
