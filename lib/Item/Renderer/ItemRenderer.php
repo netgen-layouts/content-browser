@@ -6,6 +6,7 @@ use Exception;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Throwable;
 use Twig\Environment;
 
 final class ItemRenderer implements ItemRendererInterface
@@ -28,23 +29,33 @@ final class ItemRenderer implements ItemRendererInterface
 
     public function renderItem(ItemInterface $item, $template)
     {
+        $renderedItem = '';
+
         try {
-            return $this->twig->render(
+            $renderedItem = $this->twig->render(
                 $template,
                 array(
                     'item' => $item,
                 )
             );
+        } catch (Throwable $t) {
+            $this->logger->critical(
+                sprintf(
+                    'An error occurred while rendering an item with "%s" value: %s',
+                    $item->getValue(),
+                    $t->getMessage()
+                )
+            );
         } catch (Exception $e) {
-            $this->logger->error(
+            $this->logger->critical(
                 sprintf(
                     'An error occurred while rendering an item with "%s" value: %s',
                     $item->getValue(),
                     $e->getMessage()
                 )
             );
-
-            return '';
         }
+
+        return $renderedItem;
     }
 }
