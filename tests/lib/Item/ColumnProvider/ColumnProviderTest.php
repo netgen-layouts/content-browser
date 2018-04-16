@@ -70,8 +70,8 @@ final class ColumnProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
     public function testProvideColumns()
     {
@@ -82,8 +82,8 @@ final class ColumnProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
     public function testProvideColumnsWithTemplate()
     {

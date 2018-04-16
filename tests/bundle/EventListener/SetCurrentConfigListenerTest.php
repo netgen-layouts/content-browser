@@ -45,8 +45,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
     public function testOnKernelRequest()
     {
@@ -71,8 +71,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithCustomParams()
     {
@@ -111,8 +111,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Configuration for "item_type" item type is invalid.
      */
@@ -197,8 +197,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Configuration for "unknown" item type does not exist.
      */

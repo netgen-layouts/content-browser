@@ -81,7 +81,7 @@ final class Configuration implements ConfigurationInterface
                                 ->always(function ($v) {
                                     $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
 
-                                    if (isset($v['template']) && isset($v['value_provider'])) {
+                                    if (isset($v['template'], $v['value_provider'])) {
                                         throw $exception;
                                     }
 

@@ -48,8 +48,8 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
     public function testOnException()
     {
@@ -85,8 +85,8 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
     public function testOnExceptionLogsCriticalError()
     {
@@ -124,9 +124,9 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::setOutputDebugInfo
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      */
     public function testOnExceptionWithDebugging()
     {

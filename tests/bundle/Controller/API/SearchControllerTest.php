@@ -9,9 +9,9 @@ final class SearchControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::initialize
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController::search
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
      */
     public function testSearch()
     {

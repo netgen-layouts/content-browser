@@ -44,9 +44,9 @@ final class BrowseControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      */
     public function testGetSubItems()
     {
@@ -91,9 +91,9 @@ final class BrowseControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      */
     public function testGetSubItemsWithItemAsLocation()
     {
@@ -138,9 +138,9 @@ final class BrowseControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
      */
     public function testGetSubItemsWithMissingParent()
     {

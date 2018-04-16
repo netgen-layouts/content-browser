@@ -206,10 +206,10 @@ final class ConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Config\Configuration::setParameter
      * @covers \Netgen\ContentBrowser\Config\Configuration::getParameter
-     * @covers \Netgen\ContentBrowser\Config\Configuration::hasParameter
      * @covers \Netgen\ContentBrowser\Config\Configuration::getParameters
+     * @covers \Netgen\ContentBrowser\Config\Configuration::hasParameter
+     * @covers \Netgen\ContentBrowser\Config\Configuration::setParameter
      */
     public function testParameters()
     {

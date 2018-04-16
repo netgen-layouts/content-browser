@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 final class ConfigControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getAvailableColumns
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getConfig
      */
     public function testGetConfig()
     {
