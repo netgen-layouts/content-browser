@@ -9,6 +9,5 @@ final class InvalidColumnValueProvider implements ColumnValueProviderInterface
 {
     public function getValue(ItemInterface $item)
     {
-        return null;
     }
 }

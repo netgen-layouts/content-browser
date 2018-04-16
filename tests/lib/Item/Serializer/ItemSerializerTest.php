@@ -2,7 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Item\Serializer;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Repository\Values\Content\Content;
@@ -199,13 +199,13 @@ final class ItemSerializerTest extends TestCase
      */
     private function getItem()
     {
-        $modificationDate = new DateTime();
-        $modificationDate->setTimestamp(0);
-        $modificationDate->setTimezone(new DateTimeZone('UTC'));
+        $modificationDate = new DateTimeImmutable();
+        $modificationDate = $modificationDate->setTimestamp(0);
+        $modificationDate = $modificationDate->setTimezone(new DateTimeZone('UTC'));
 
-        $publishedDate = new DateTime();
-        $publishedDate->setTimestamp(10);
-        $publishedDate->setTimezone(new DateTimeZone('UTC'));
+        $publishedDate = new DateTimeImmutable();
+        $publishedDate = $publishedDate->setTimestamp(10);
+        $publishedDate = $publishedDate->setTimezone(new DateTimeZone('UTC'));
 
         $contentInfo = new ContentInfo(
             array(
