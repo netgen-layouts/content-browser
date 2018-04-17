@@ -34,9 +34,9 @@ final class ItemRenderer implements ItemRendererInterface
         try {
             $renderedItem = $this->twig->render(
                 $template,
-                array(
+                [
                     'item' => $item,
-                )
+                ]
             );
         } catch (Throwable $t) {
             $this->logger->critical(

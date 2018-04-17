@@ -39,7 +39,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::REQUEST => 'onKernelRequest'),
+            [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->eventListener->getSubscribedEvents()
         );
     }
@@ -81,7 +81,7 @@ final class SetCurrentConfigListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
-        $request->query->set('customParams', array('custom' => 'value', 'two' => 'override'));
+        $request->query->set('customParams', ['custom' => 'value', 'two' => 'override']);
 
         $event = new GetResponseEvent(
             $kernelMock,

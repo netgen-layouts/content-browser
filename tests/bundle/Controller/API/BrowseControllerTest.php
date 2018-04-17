@@ -27,10 +27,10 @@ final class BrowseControllerTest extends JsonApiTestCase
             ->with($this->equalTo(new Location(41, 'Location 41')))
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Location(42, 'Location 42'),
                         new Location(43, 'Location 43'),
-                    )
+                    ]
                 )
             );
 
@@ -74,10 +74,10 @@ final class BrowseControllerTest extends JsonApiTestCase
             ->with($this->equalTo(new Location(41, 'Location 41', 40)))
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
-                    )
+                    ]
                 )
             );
 
@@ -121,10 +121,10 @@ final class BrowseControllerTest extends JsonApiTestCase
             ->with($this->equalTo(new ItemLocation(41, 'Item 41', 40)))
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
-                    )
+                    ]
                 )
             );
 
@@ -168,10 +168,10 @@ final class BrowseControllerTest extends JsonApiTestCase
             ->with($this->equalTo(new ItemLocation(41, 'Item 41', 40)))
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
-                    )
+                    ]
                 )
             );
 

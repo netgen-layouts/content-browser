@@ -42,7 +42,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::EXCEPTION => array('onException', 5)),
+            [KernelEvents::EXCEPTION => ['onException', 5]],
             $this->eventListener->getSubscribedEvents()
         );
     }
@@ -74,12 +74,12 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
 
         $this->assertEquals(
-            array(
+            [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
-            ),
+            ],
             json_decode($event->getResponse()->getContent(), true)
         );
     }
@@ -115,10 +115,10 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
 
         $this->assertEquals(
-            array(
+            [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
-            ),
+            ],
             json_decode($event->getResponse()->getContent(), true)
         );
     }

@@ -27,20 +27,20 @@ final class ContentBrowserMultipleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'entry_type' => HiddenType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
-            )
+            ]
         );
 
-        $resolver->setRequired(array('item_type', 'min', 'max', 'start_location'));
+        $resolver->setRequired(['item_type', 'min', 'max', 'start_location']);
 
         $resolver->setAllowedTypes('item_type', 'string');
-        $resolver->setAllowedTypes('min', array('int', 'null'));
-        $resolver->setAllowedTypes('max', array('int', 'null'));
-        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
+        $resolver->setAllowedTypes('min', ['int', 'null']);
+        $resolver->setAllowedTypes('max', ['int', 'null']);
+        $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
 
         $resolver->setDefault('min', null);
         $resolver->setDefault('max', null);
@@ -64,7 +64,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $itemNames = array();
+        $itemNames = [];
         if ($form->getData() !== null) {
             $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
         }
@@ -97,7 +97,7 @@ final class ContentBrowserMultipleType extends AbstractType
      */
     private function getItemNames($itemIds, $itemType)
     {
-        $itemNames = array();
+        $itemNames = [];
 
         foreach ((array) $itemIds as $itemId) {
             try {

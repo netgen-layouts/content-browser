@@ -20,10 +20,10 @@ final class SearchControllerTest extends JsonApiTestCase
             ->method('search')
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
-                    )
+                    ]
                 )
             );
 

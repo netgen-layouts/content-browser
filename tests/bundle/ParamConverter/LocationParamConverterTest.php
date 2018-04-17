@@ -41,9 +41,9 @@ final class LocationParamConverterTest extends TestCase
     public function testApply()
     {
         $configuration = new ParamConverter(
-            array(
+            [
                 'class' => LocationInterface::class,
-            )
+            ]
         );
 
         $request = Request::create('/');
@@ -67,9 +67,9 @@ final class LocationParamConverterTest extends TestCase
     public function testApplyWithMissingLocationId()
     {
         $configuration = new ParamConverter(
-            array(
+            [
                 'class' => LocationInterface::class,
-            )
+            ]
         );
 
         $request = Request::create('/');
@@ -90,9 +90,9 @@ final class LocationParamConverterTest extends TestCase
     public function testApplyWithMissingItemType()
     {
         $configuration = new ParamConverter(
-            array(
+            [
                 'class' => LocationInterface::class,
-            )
+            ]
         );
 
         $request = Request::create('/');
@@ -113,10 +113,10 @@ final class LocationParamConverterTest extends TestCase
     public function testApplyWithEmptyOptionalLocationId()
     {
         $configuration = new ParamConverter(
-            array(
+            [
                 'class' => LocationInterface::class,
                 'isOptional' => true,
-            )
+            ]
         );
 
         $request = Request::create('/');
@@ -140,9 +140,9 @@ final class LocationParamConverterTest extends TestCase
     public function testApplyWithEmptyRequiredLocationId()
     {
         $configuration = new ParamConverter(
-            array(
+            [
                 'class' => LocationInterface::class,
-            )
+            ]
         );
 
         $request = Request::create('/');
@@ -161,7 +161,7 @@ final class LocationParamConverterTest extends TestCase
      */
     public function testSupports()
     {
-        $this->assertTrue($this->paramConverter->supports(new ParamConverter(array('class' => LocationInterface::class))));
-        $this->assertFalse($this->paramConverter->supports(new ParamConverter(array('class' => ItemInterface::class))));
+        $this->assertTrue($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));
+        $this->assertFalse($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
     }
 }

@@ -19,11 +19,11 @@ final class BrowseController extends Controller
      */
     public function getSubLocations(LocationInterface $location)
     {
-        $data = array(
+        $data = [
             'children' => $this->itemSerializer->serializeLocations(
                 $this->backend->getSubLocations($location)
             ),
-        );
+        ];
 
         return new JsonResponse($data);
     }
@@ -46,7 +46,7 @@ final class BrowseController extends Controller
             $request
         );
 
-        $data = array(
+        $data = [
             'path' => $this->buildPath($location),
             'parent' => $location instanceof ItemInterface ?
                 $this->itemSerializer->serializeItem($location) :
@@ -55,7 +55,7 @@ final class BrowseController extends Controller
             'children' => $this->itemSerializer->serializeItems(
                 $pager->getCurrentPageResults()
             ),
-        );
+        ];
 
         return new JsonResponse($data);
     }

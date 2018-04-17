@@ -43,7 +43,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         // Must happen BEFORE Symfony Security component ExceptionListener
-        return array(KernelEvents::EXCEPTION => array('onException', 5));
+        return [KernelEvents::EXCEPTION => ['onException', 5]];
     }
 
     /**
@@ -66,10 +66,10 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
         $this->logException($exception);
 
-        $data = array(
+        $data = [
             'code' => $exception->getCode(),
             'message' => $exception->getMessage(),
-        );
+        ];
 
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
@@ -87,11 +87,11 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
             $debugException = FlattenException::create($debugException);
 
-            $data['debug'] = array(
+            $data['debug'] = [
                 'file' => $debugException->getFile(),
                 'line' => $debugException->getLine(),
                 'trace' => $debugException->getTrace(),
-            );
+            ];
         }
 
         $event->setResponse(new JsonResponse($data));
@@ -116,7 +116,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
                 $exception->getFile(),
                 $exception->getLine()
             ),
-            array('exception' => $exception)
+            ['exception' => $exception]
         );
     }
 }

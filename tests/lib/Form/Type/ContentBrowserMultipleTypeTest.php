@@ -35,15 +35,15 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
-        $form->submit(array(42, 24));
+        $form->submit([42, 24]);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(array(42, 24), $form->getData());
+        $this->assertEquals([42, 24], $form->getData());
     }
 
     /**
@@ -68,14 +68,14 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 5,
-            )
+            ]
         );
 
-        $form->submit(array(42, 24));
+        $form->submit([42, 24]);
 
         $view = $form->createView();
 
@@ -86,10 +86,10 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->assertEquals('value', $view->vars['item_type']);
         $this->assertEquals(
-            array(
+            [
                 42 => 'This is a name (42)',
                 24 => 'This is a name (24)',
-            ),
+            ],
             $view->vars['item_names']
         );
 
@@ -112,12 +112,12 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
-        $form->submit(array(42));
+        $form->submit([42]);
 
         $view = $form->createView();
 
@@ -125,7 +125,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->assertArrayHasKey('item_names', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals(array(), $view->vars['item_names']);
+        $this->assertEquals([], $view->vars['item_names']);
     }
 
     /**
@@ -141,9 +141,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $form->submit(null);
@@ -154,7 +154,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->assertArrayHasKey('item_names', $view->vars);
 
         $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals(array(), $view->vars['item_names']);
+        $this->assertEquals([], $view->vars['item_names']);
     }
 
     /**
@@ -167,11 +167,11 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 5,
-            )
+            ]
         );
 
         $this->assertEquals($options['item_type'], 'value');
@@ -189,11 +189,11 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 2,
-            )
+            ]
         );
 
         $this->assertEquals($options['item_type'], 'value');
@@ -212,7 +212,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array());
+        $optionsResolver->resolve([]);
     }
 
     /**
@@ -226,7 +226,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_type' => 42));
+        $optionsResolver->resolve(['item_type' => 42]);
     }
 
     /**
@@ -240,7 +240,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_type' => 'value', 'min' => 'min'));
+        $optionsResolver->resolve(['item_type' => 'value', 'min' => 'min']);
     }
 
     /**
@@ -254,7 +254,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_type' => 'value', 'max' => 'max'));
+        $optionsResolver->resolve(['item_type' => 'value', 'max' => 'max']);
     }
 
     /**

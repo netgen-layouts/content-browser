@@ -58,24 +58,24 @@ final class ItemSerializerTest extends TestCase
             ->expects($this->once())
             ->method('provideColumns')
             ->with($this->equalTo($this->getItem()))
-            ->will($this->returnValue(array('column' => 'value')));
+            ->will($this->returnValue(['column' => 'value']));
 
         $item = $this->getItem();
 
         $data = $this->serializer->serializeItem($item);
 
         $this->assertEquals(
-            array(
+            [
                 'location_id' => 42,
                 'value' => 84,
                 'name' => 'Some name',
                 'visible' => true,
                 'selectable' => true,
                 'has_sub_items' => true,
-                'columns' => array(
+                'columns' => [
                     'column' => 'value',
-                ),
-            ),
+                ],
+            ],
             $data
         );
     }
@@ -96,26 +96,26 @@ final class ItemSerializerTest extends TestCase
             ->expects($this->once())
             ->method('provideColumns')
             ->with($this->equalTo($this->getItem()))
-            ->will($this->returnValue(array('column' => 'value')));
+            ->will($this->returnValue(['column' => 'value']));
 
         $item = $this->getItem();
 
-        $data = $this->serializer->serializeItems(array($item));
+        $data = $this->serializer->serializeItems([$item]);
 
         $this->assertEquals(
-            array(
-                array(
+            [
+                [
                     'location_id' => 42,
                     'value' => 84,
                     'name' => 'Some name',
                     'visible' => true,
                     'selectable' => true,
                     'has_sub_items' => true,
-                    'columns' => array(
+                    'columns' => [
                         'column' => 'value',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             $data
         );
     }
@@ -142,16 +142,16 @@ final class ItemSerializerTest extends TestCase
         $data = $this->serializer->serializeLocation($item);
 
         $this->assertEquals(
-            array(
+            [
                 'id' => 42,
                 'parent_id' => 24,
                 'name' => 'Some name',
                 'has_sub_items' => true,
                 'has_sub_locations' => true,
-                'columns' => array(
+                'columns' => [
                     'name' => 'Some name',
-                ),
-            ),
+                ],
+            ],
             $data
         );
     }
@@ -175,21 +175,21 @@ final class ItemSerializerTest extends TestCase
 
         $item = $this->getItem();
 
-        $data = $this->serializer->serializeLocations(array($item));
+        $data = $this->serializer->serializeLocations([$item]);
 
         $this->assertEquals(
-            array(
-                array(
+            [
+                [
                     'id' => 42,
                     'parent_id' => 24,
                     'name' => 'Some name',
                     'has_sub_items' => true,
                     'has_sub_locations' => true,
-                    'columns' => array(
+                    'columns' => [
                         'name' => 'Some name',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             $data
         );
     }
@@ -208,34 +208,34 @@ final class ItemSerializerTest extends TestCase
         $publishedDate = $publishedDate->setTimezone(new DateTimeZone('UTC'));
 
         $contentInfo = new ContentInfo(
-            array(
+            [
                 'id' => 84,
                 'contentTypeId' => 85,
                 'ownerId' => 14,
                 'sectionId' => 2,
                 'modificationDate' => $modificationDate,
                 'publishedDate' => $publishedDate,
-            )
+            ]
         );
 
         $content = new Content(
-            array(
+            [
                 'versionInfo' => new VersionInfo(
-                    array(
+                    [
                         'contentInfo' => $contentInfo,
-                    )
+                    ]
                 ),
-            )
+            ]
         );
 
         $location = new Location(
-            array(
+            [
                 'id' => 42,
                 'parentLocationId' => 24,
                 'invisible' => false,
                 'priority' => 3,
                 'contentInfo' => $contentInfo,
-            )
+            ]
         );
 
         return new Item($location, $content, 84, 'Some name');

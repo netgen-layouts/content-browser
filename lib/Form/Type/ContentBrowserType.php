@@ -24,10 +24,10 @@ final class ContentBrowserType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array('item_type', 'start_location'));
+        $resolver->setRequired(['item_type', 'start_location']);
 
         $resolver->setAllowedTypes('item_type', 'string');
-        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
+        $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
 
         $resolver->setDefault('start_location', null);
     }

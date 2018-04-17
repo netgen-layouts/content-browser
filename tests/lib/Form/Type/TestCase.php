@@ -69,6 +69,6 @@ abstract class TestCase extends BaseTestCase
      */
     public function getTypes()
     {
-        return array();
+        return [];
     }
 }

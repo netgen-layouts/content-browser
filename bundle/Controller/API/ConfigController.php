@@ -13,7 +13,7 @@ final class ConfigController extends Controller
      */
     public function getConfig()
     {
-        $data = array(
+        $data = [
             'item_type' => $this->config->getItemType(),
             'sections' => $this->itemSerializer->serializeLocations(
                 $this->backend->getDefaultSections()
@@ -26,7 +26,7 @@ final class ConfigController extends Controller
             'default_limit' => $this->getParameter('netgen_content_browser.browser.default_limit'),
             'default_columns' => $this->config->getDefaultColumns(),
             'available_columns' => $this->getAvailableColumns(),
-        );
+        ];
 
         return new JsonResponse($data);
     }
@@ -41,13 +41,13 @@ final class ConfigController extends Controller
         /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
         $translator = $this->get('translator');
 
-        $availableColumns = array();
+        $availableColumns = [];
 
         foreach ($this->config->getColumns() as $identifier => $columnData) {
-            $availableColumns[] = array(
+            $availableColumns[] = [
                 'id' => $identifier,
-                'name' => $translator->trans($columnData['name'], array(), 'ngcb'),
-            );
+                'name' => $translator->trans($columnData['name'], [], 'ngcb'),
+            ];
         }
 
         return $availableColumns;

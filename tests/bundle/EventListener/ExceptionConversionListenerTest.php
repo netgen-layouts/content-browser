@@ -38,7 +38,7 @@ final class ExceptionConversionListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::EXCEPTION => array('onException', 10)),
+            [KernelEvents::EXCEPTION => ['onException', 10]],
             $this->eventListener->getSubscribedEvents()
         );
     }
@@ -148,37 +148,37 @@ final class ExceptionConversionListenerTest extends TestCase
 
     public function onExceptionDataProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 new NotFoundException('Some error'),
                 NotFoundHttpException::class,
                 Response::HTTP_NOT_FOUND,
                 true,
-            ),
-            array(
+            ],
+            [
                 new InvalidArgumentException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,
-            ),
-            array(
+            ],
+            [
                 new OutOfBoundsException('Some error'),
                 UnprocessableEntityHttpException::class,
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 true,
-            ),
-            array(
+            ],
+            [
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
                 true,
-            ),
-            array(
+            ],
+            [
                 new AccessDeniedHttpException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
                 false,
-            ),
-        );
+            ],
+        ];
     }
 }

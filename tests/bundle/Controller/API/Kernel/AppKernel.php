@@ -10,7 +10,7 @@ final class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             // Symfony
 
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -21,7 +21,7 @@ final class AppKernel extends Kernel
             // Netgen Content Browser
 
             new \Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle(),
-        );
+        ];
     }
 
     public function getProjectDir()

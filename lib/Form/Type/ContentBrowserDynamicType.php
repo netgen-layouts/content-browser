@@ -38,12 +38,12 @@ final class ContentBrowserDynamicType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(array('item_types', 'start_location'));
+        $resolver->setRequired(['item_types', 'start_location']);
 
-        $resolver->setAllowedTypes('item_types', array('array'));
-        $resolver->setAllowedTypes('start_location', array('int', 'string', 'null'));
+        $resolver->setAllowedTypes('item_types', ['array']);
+        $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
 
-        $resolver->setDefault('item_types', array());
+        $resolver->setDefault('item_types', []);
         $resolver->setDefault('start_location', null);
 
         $resolver->setAllowedValues('item_types', function ($values) {
@@ -62,10 +62,10 @@ final class ContentBrowserDynamicType extends AbstractType
         $builder->add(
             'item_type',
             ChoiceType::class,
-            array(
+            [
                 'choices' => $this->getEnabledItemTypes($options['item_types']),
                 'choice_translation_domain' => 'ngcb',
-            ) + $this->getChoicesAsValuesOption()
+            ] + $this->getChoicesAsValuesOption()
         );
 
         $builder->add('item_id', HiddenType::class);

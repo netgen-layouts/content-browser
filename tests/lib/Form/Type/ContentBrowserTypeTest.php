@@ -35,9 +35,9 @@ final class ContentBrowserTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $form->submit('42');
@@ -61,9 +61,9 @@ final class ContentBrowserTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $form->submit('42');
@@ -91,9 +91,9 @@ final class ContentBrowserTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $form->submit('42');
@@ -119,9 +119,9 @@ final class ContentBrowserTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserType::class,
             null,
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $form->submit(null);
@@ -145,9 +145,9 @@ final class ContentBrowserTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
+            [
                 'item_type' => 'value',
-            )
+            ]
         );
 
         $this->assertEquals($options['item_type'], 'value');
@@ -164,7 +164,7 @@ final class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array());
+        $optionsResolver->resolve([]);
     }
 
     /**
@@ -178,7 +178,7 @@ final class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_type' => 42));
+        $optionsResolver->resolve(['item_type' => 42]);
     }
 
     /**

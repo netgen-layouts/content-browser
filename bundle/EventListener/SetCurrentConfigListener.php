@@ -23,7 +23,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::REQUEST => 'onKernelRequest');
+        return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
     /**
@@ -49,7 +49,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
 
         $config = $this->loadConfig($attributes->get('itemType'));
 
-        $customParams = (array) $request->query->get('customParams', array());
+        $customParams = (array) $request->query->get('customParams', []);
         $config->addParameters($customParams);
 
         $this->container->set('netgen_content_browser.current_config', $config);

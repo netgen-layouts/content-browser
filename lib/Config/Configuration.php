@@ -14,19 +14,19 @@ final class Configuration implements ConfigurationInterface
     /**
      * @var array
      */
-    private $config = array();
+    private $config = [];
 
     /**
      * @var array
      */
-    private $parameters = array();
+    private $parameters = [];
 
     /**
      * @param string $itemType
      * @param array $config
      * @param array $parameters
      */
-    public function __construct($itemType, array $config = array(), array $parameters = array())
+    public function __construct($itemType, array $config = [], array $parameters = [])
     {
         $this->itemType = $itemType;
         $this->config = $config;
@@ -84,14 +84,14 @@ final class Configuration implements ConfigurationInterface
     {
         return isset($this->config['columns']) ?
             $this->config['columns'] :
-            array();
+            [];
     }
 
     public function getDefaultColumns()
     {
         return isset($this->config['default_columns']) ?
             $this->config['default_columns'] :
-            array();
+            [];
     }
 
     public function setParameter($name, $value)

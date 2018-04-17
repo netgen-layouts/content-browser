@@ -22,7 +22,7 @@ final class ColumnProvider implements ColumnProviderInterface
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[]
      */
-    private $columnValueProviders = array();
+    private $columnValueProviders = [];
 
     /**
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
@@ -34,7 +34,7 @@ final class ColumnProvider implements ColumnProviderInterface
     public function __construct(
         ItemRendererInterface $itemRenderer,
         ConfigurationInterface $config,
-        array $columnValueProviders = array()
+        array $columnValueProviders = []
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
@@ -56,7 +56,7 @@ final class ColumnProvider implements ColumnProviderInterface
 
     public function provideColumns(ItemInterface $item)
     {
-        $columns = array();
+        $columns = [];
 
         foreach ($this->config->getColumns() as $columnIdentifier => $columnConfig) {
             $columns[$columnIdentifier] = $this->provideColumn($item, $columnConfig);

@@ -33,7 +33,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetBackends()
     {
-        $this->assertEquals(array('value' => $this->backendMock), $this->registry->getBackends());
+        $this->assertEquals(['value' => $this->backendMock], $this->registry->getBackends());
     }
 
     /**
@@ -77,7 +77,7 @@ final class BackendRegistryTest extends TestCase
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
-        $backends = array();
+        $backends = [];
         foreach ($this->registry as $identifier => $backend) {
             $backends[$identifier] = $backend;
         }

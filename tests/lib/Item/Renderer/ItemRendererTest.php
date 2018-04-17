@@ -38,7 +38,7 @@ final class ItemRendererTest extends TestCase
             ->method('render')
             ->with(
                 $this->equalTo('template.html.twig'),
-                $this->equalTo(array('item' => new Item()))
+                $this->equalTo(['item' => new Item()])
             )
             ->will($this->returnValue('rendered item'));
 
@@ -58,7 +58,7 @@ final class ItemRendererTest extends TestCase
             ->method('render')
             ->with(
                 $this->equalTo('template.html.twig'),
-                $this->equalTo(array('item' => new Item()))
+                $this->equalTo(['item' => new Item()])
             )
             ->will($this->throwException(new Exception()));
 

@@ -20,17 +20,17 @@ final class ExceptionConversionListener implements EventSubscriberInterface
     /**
      * @var array
      */
-    private $exceptionMap = array(
+    private $exceptionMap = [
         NotFoundException::class => NotFoundHttpException::class,
         OutOfBoundsException::class => UnprocessableEntityHttpException::class,
         InvalidArgumentException::class => BadRequestHttpException::class,
         // Various other useful exceptions
         AccessDeniedException::class => AccessDeniedHttpException::class,
-    );
+    ];
 
     public static function getSubscribedEvents()
     {
-        return array(KernelEvents::EXCEPTION => array('onException', 10));
+        return [KernelEvents::EXCEPTION => ['onException', 10]];
     }
 
     /**

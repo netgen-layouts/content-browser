@@ -29,7 +29,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         return new ContentBrowserDynamicType(
             $backendRegistry,
-            array('value1' => 'Value 1', 'value2' => 'Value 2')
+            ['value1' => 'Value 1', 'value2' => 'Value 2']
         );
     }
 
@@ -43,7 +43,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ContentBrowserDynamicType::class
         );
 
-        $data = array('item_id' => '42', 'item_type' => 'value2');
+        $data = ['item_id' => '42', 'item_type' => 'value2'];
 
         $form->submit($data);
 
@@ -60,12 +60,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $form = $this->factory->create(
             ContentBrowserDynamicType::class,
             null,
-            array(
-                'item_types' => array('value1'),
-            )
+            [
+                'item_types' => ['value1'],
+            ]
         );
 
-        $data = array('item_id' => '42', 'item_type' => 'value1');
+        $data = ['item_id' => '42', 'item_type' => 'value1'];
 
         $form->submit($data);
 
@@ -87,7 +87,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
-        $data = array('item_id' => 42, 'item_type' => 'value1');
+        $data = ['item_id' => 42, 'item_type' => 'value1'];
 
         $form->submit($data);
 
@@ -110,7 +110,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
-        $data = array('item_id' => 42, 'item_type' => 'value1');
+        $data = ['item_id' => 42, 'item_type' => 'value1'];
 
         $form->submit($data);
 
@@ -149,12 +149,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = $optionsResolver->resolve(
-            array(
-                'item_types' => array('value1'),
-            )
+            [
+                'item_types' => ['value1'],
+            ]
         );
 
-        $this->assertEquals($options['item_types'], array('value1'));
+        $this->assertEquals($options['item_types'], ['value1']);
     }
 
     /**
@@ -168,7 +168,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $options = $optionsResolver->resolve();
 
-        $this->assertEquals($options['item_types'], array());
+        $this->assertEquals($options['item_types'], []);
     }
 
     /**
@@ -182,7 +182,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_types' => 42));
+        $optionsResolver->resolve(['item_types' => 42]);
     }
 
     /**
@@ -196,7 +196,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve(array('item_types' => array(42)));
+        $optionsResolver->resolve(['item_types' => [42]]);
     }
 
     /**

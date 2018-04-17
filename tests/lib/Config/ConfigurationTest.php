@@ -14,26 +14,26 @@ final class ConfigurationTest extends TestCase
 
     public function setUp()
     {
-        $configArray = array(
+        $configArray = [
             'min_selected' => 1,
             'max_selected' => 3,
-            'tree' => array(
+            'tree' => [
                 'enabled' => true,
-            ),
-            'search' => array(
+            ],
+            'search' => [
                 'enabled' => true,
-            ),
-            'preview' => array(
+            ],
+            'preview' => [
                 'enabled' => true,
                 'template' => 'template.html.twig',
-            ),
-            'columns' => array('columns'),
-            'default_columns' => array('column1', 'column2'),
-        );
+            ],
+            'columns' => ['columns'],
+            'default_columns' => ['column1', 'column2'],
+        ];
 
-        $parameters = array(
+        $parameters = [
             'default' => 'param',
-        );
+        ];
 
         $this->config = new Configuration('value', $configArray, $parameters);
     }
@@ -86,7 +86,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetParameters()
     {
-        $this->assertEquals(array('default' => 'param'), $this->config->getParameters());
+        $this->assertEquals(['default' => 'param'], $this->config->getParameters());
     }
 
     /**
@@ -162,7 +162,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetColumns()
     {
-        $this->assertEquals(array('columns'), $this->config->getColumns());
+        $this->assertEquals(['columns'], $this->config->getColumns());
     }
 
     /**
@@ -171,7 +171,7 @@ final class ConfigurationTest extends TestCase
     public function testGetColumnsWithEmptyConfig()
     {
         $this->config = new Configuration('value');
-        $this->assertEquals(array(), $this->config->getColumns());
+        $this->assertEquals([], $this->config->getColumns());
     }
 
     /**
@@ -179,7 +179,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetDefaultColumns()
     {
-        $this->assertEquals(array('column1', 'column2'), $this->config->getDefaultColumns());
+        $this->assertEquals(['column1', 'column2'], $this->config->getDefaultColumns());
     }
 
     /**
@@ -188,7 +188,7 @@ final class ConfigurationTest extends TestCase
     public function testGetDefaultColumnsWithEmptyConfig()
     {
         $this->config = new Configuration('value');
-        $this->assertEquals(array(), $this->config->getDefaultColumns());
+        $this->assertEquals([], $this->config->getDefaultColumns());
     }
 
     /**
@@ -196,7 +196,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testAddParameters()
     {
-        $this->config->addParameters(array('param' => 'value', 'default' => 'override'));
+        $this->config->addParameters(['param' => 'value', 'default' => 'override']);
         $this->assertEquals('value', $this->config->getParameter('param'));
         $this->assertEquals('override', $this->config->getParameter('default'));
 
@@ -221,11 +221,11 @@ final class ConfigurationTest extends TestCase
         $this->assertFalse($this->config->hasParameter('other'));
 
         $this->assertEquals(
-            array(
+            [
                 'param' => 'value',
                 'param2' => 'value2',
                 'default' => 'param',
-            ),
+            ],
             $this->config->getParameters()
         );
     }

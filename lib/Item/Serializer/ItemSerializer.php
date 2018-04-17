@@ -29,7 +29,7 @@ final class ItemSerializer implements ItemSerializerInterface
 
     public function serializeItem(ItemInterface $item)
     {
-        $data = array(
+        $data = [
             'location_id' => null,
             'value' => $item->getValue(),
             'name' => $item->getName(),
@@ -37,7 +37,7 @@ final class ItemSerializer implements ItemSerializerInterface
             'selectable' => $item->isSelectable(),
             'has_sub_items' => false,
             'columns' => $this->columnProvider->provideColumns($item),
-        );
+        ];
 
         if ($item instanceof LocationInterface) {
             $data['location_id'] = $item->getLocationId();
@@ -49,17 +49,17 @@ final class ItemSerializer implements ItemSerializerInterface
 
     public function serializeLocation(LocationInterface $location)
     {
-        return array(
+        return [
             'id' => $location->getLocationId(),
             'parent_id' => $location->getParentId(),
             'name' => $location->getName(),
             'has_sub_items' => $this->backend->getSubItemsCount($location) > 0,
             'has_sub_locations' => $this->backend->getSubLocationsCount($location) > 0,
             // Used exclusively to display columns for parent location
-            'columns' => array(
+            'columns' => [
                 'name' => $location->getName(),
-            ),
-        );
+            ],
+        ];
     }
 
     public function serializeItems(array $items)

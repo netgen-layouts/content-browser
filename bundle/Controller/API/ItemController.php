@@ -45,15 +45,15 @@ final class ItemController extends Controller
             throw new InvalidArgumentException('List of values is invalid.');
         }
 
-        $items = array();
+        $items = [];
         foreach ($values as $value) {
             $items[] = $this->backend->loadItem($value);
         }
 
         return new JsonResponse(
-            array(
+            [
                 'items' => $this->itemSerializer->serializeItems($items),
-            )
+            ]
         );
     }
 }

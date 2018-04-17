@@ -17,11 +17,11 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     public function testProcess()
     {
         $columnProvider = new Definition();
-        $columnProvider->setArguments(array(null, null, null));
+        $columnProvider->setArguments([null, null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
         $columnValueProvider = new Definition();
-        $columnValueProvider->addTag('netgen_content_browser.column_value_provider', array('identifier' => 'test'));
+        $columnValueProvider->addTag('netgen_content_browser.column_value_provider', ['identifier' => 'test']);
         $this->setDefinition('netgen_content_browser.column_value_provider.test', $columnValueProvider);
 
         $this->compile();
@@ -29,7 +29,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.column_provider',
             2,
-            array('test' => new Reference('netgen_content_browser.column_value_provider.test'))
+            ['test' => new Reference('netgen_content_browser.column_value_provider.test')]
         );
     }
 
@@ -41,7 +41,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier()
     {
         $columnProvider = new Definition();
-        $columnProvider->setArguments(array(null, null, null));
+        $columnProvider->setArguments([null, null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
         $columnValueProvider = new Definition();

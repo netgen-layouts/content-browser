@@ -18,10 +18,10 @@ final class ConfigControllerTest extends JsonApiTestCase
             ->method('getDefaultSections')
             ->will(
                 $this->returnValue(
-                    array(
+                    [
                         new Location(42, 'Location 42'),
                         new Location(42, 'Location 42'),
-                    )
+                    ]
                 )
             );
 

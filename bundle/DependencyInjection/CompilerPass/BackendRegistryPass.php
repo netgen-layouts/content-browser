@@ -31,7 +31,7 @@ final class BackendRegistryPass implements CompilerPassInterface
 
                 $backendRegistry->addMethodCall(
                     'addBackend',
-                    array($tag['item_type'], new Reference($backend))
+                    [$tag['item_type'], new Reference($backend)]
                 );
             }
         }

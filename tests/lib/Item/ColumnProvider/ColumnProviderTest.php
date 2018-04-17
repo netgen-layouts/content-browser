@@ -33,25 +33,25 @@ final class ColumnProviderTest extends TestCase
 
         $this->config = new Configuration(
             'value',
-            array(
-                'columns' => array(
-                    'column1' => array(
+            [
+                'columns' => [
+                    'column1' => [
                         'value_provider' => 'provider',
-                    ),
-                    'column2' => array(
+                    ],
+                    'column2' => [
                         'value_provider' => 'invalid',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            array(
+            [
                 'provider' => new ColumnValueProvider(),
                 'invalid' => new InvalidColumnValueProvider(),
-            )
+            ]
         );
     }
 
@@ -65,7 +65,7 @@ final class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            array('other' => new ColumnValueProvider())
+            ['other' => new ColumnValueProvider()]
         );
     }
 
@@ -76,7 +76,7 @@ final class ColumnProviderTest extends TestCase
     public function testProvideColumns()
     {
         $this->assertEquals(
-            array('column1' => 'some_value', 'column2' => ''),
+            ['column1' => 'some_value', 'column2' => ''],
             $this->columnProvider->provideColumns(new Item())
         );
     }
@@ -89,19 +89,19 @@ final class ColumnProviderTest extends TestCase
     {
         $this->config = new Configuration(
             'value',
-            array(
-                'columns' => array(
-                    'column' => array(
+            [
+                'columns' => [
+                    'column' => [
                         'template' => 'template.html.twig',
-                    ),
-                ),
-            )
+                    ],
+                ],
+            ]
         );
 
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            array()
+            []
         );
 
         $this->itemRendererMock
@@ -111,7 +111,7 @@ final class ColumnProviderTest extends TestCase
             ->will($this->returnValue('rendered column'));
 
         $this->assertEquals(
-            array('column' => 'rendered column'),
+            ['column' => 'rendered column'],
             $this->columnProvider->provideColumns(new Item())
         );
     }

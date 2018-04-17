@@ -19,10 +19,10 @@ final class SearchController extends Controller
      */
     public function search(Request $request)
     {
-        $data = array(
+        $data = [
             'children_count' => 0,
-            'children' => array(),
-        );
+            'children' => [],
+        ];
 
         $searchText = trim($request->query->get('searchText'));
         if (!empty($searchText)) {

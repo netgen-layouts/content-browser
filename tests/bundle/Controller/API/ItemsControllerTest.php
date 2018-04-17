@@ -44,18 +44,18 @@ final class ItemsControllerTest extends JsonApiTestCase
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
-                array(
-                    'columns' => array(
-                        'name' => array(
+                [
+                    'columns' => [
+                        'name' => [
                             'name' => 'columns.name',
                             'value_provider' => 'name',
-                        ),
-                    ),
-                    'default_columns' => array('name'),
-                    'preview' => array(
+                        ],
+                    ],
+                    'default_columns' => ['name'],
+                    'preview' => [
                         'enabled' => false,
-                    ),
-                )
+                    ],
+                ]
             )
         );
 

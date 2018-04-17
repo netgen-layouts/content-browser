@@ -33,7 +33,7 @@ final class Configuration implements ConfigurationInterface
                         ->min(0)
                     ->end()
                     ->arrayNode('parameters')
-                        ->defaultValue(array())
+                        ->defaultValue([])
                         ->requiresAtLeastOneElement()
                         ->useAttributeAsKey('parameter')
                         ->prototype('variable')

@@ -21,7 +21,7 @@ final class ColumnProviderPass implements CompilerPassInterface
         $columnProvider = $container->findDefinition(self::$serviceName);
         $valueProviderServices = $container->findTaggedServiceIds(self::$tagName);
 
-        $valueProviders = array();
+        $valueProviders = [];
         foreach ($valueProviderServices as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['identifier'])) {

@@ -93,13 +93,13 @@ abstract class Controller extends BaseController
      */
     protected function buildPath(LocationInterface $location)
     {
-        $path = array();
+        $path = [];
 
         while (true) {
-            $path[] = array(
+            $path[] = [
                 'id' => $location->getLocationId(),
                 'name' => $location->getName(),
-            );
+            ];
 
             if ($location->getParentId() === null) {
                 break;

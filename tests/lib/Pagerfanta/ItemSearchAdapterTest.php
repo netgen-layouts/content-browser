@@ -53,8 +53,8 @@ final class ItemSearchAdapterTest extends TestCase
                 $this->equalTo(5),
                 $this->equalTo(10)
             )
-            ->will($this->returnValue(array(1, 2, 3)));
+            ->will($this->returnValue([1, 2, 3]));
 
-        $this->assertEquals(array(1, 2, 3), $this->adapter->getSlice(5, 10));
+        $this->assertEquals([1, 2, 3], $this->adapter->getSlice(5, 10));
     }
 }
