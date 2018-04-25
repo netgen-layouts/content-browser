@@ -49,7 +49,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('preview')
                         ->validate()
-                            ->always(function ($v) {
+                            ->always(function (array $v) {
                                 if ($v['enabled'] && !isset($v['template'])) {
                                     throw new InvalidConfigurationException('When preview is enabled, template needs to be specified');
                                 }
@@ -67,7 +67,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('columns')
                         ->validate()
-                            ->always(function ($v) {
+                            ->always(function (array $v) {
                                 if (!isset($v['name'])) {
                                     throw new InvalidConfigurationException('Column with "name" identifier is required');
                                 }
@@ -78,7 +78,7 @@ final class Configuration implements ConfigurationInterface
                         ->performNoDeepMerging()
                         ->prototype('array')
                             ->validate()
-                                ->always(function ($v) {
+                                ->always(function (array $v) {
                                     $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
 
                                     if (isset($v['template'], $v['value_provider'])) {
