@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -72,9 +73,12 @@ final class ExceptionConversionListenerTest extends TestCase
             $event->getException()
         );
 
-        $this->assertEquals($statusCode, $event->getException()->getStatusCode());
         $this->assertEquals($exception->getMessage(), $event->getException()->getMessage());
         $this->assertEquals($exception->getCode(), $event->getException()->getCode());
+
+        if ($event->getException() instanceof HttpExceptionInterface) {
+            $this->assertEquals($statusCode, $event->getException()->getStatusCode());
+        }
 
         $converted ?
             $this->assertEquals($exception, $event->getException()->getPrevious()) :

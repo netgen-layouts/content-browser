@@ -56,7 +56,7 @@ abstract class TestCase extends BaseTestCase
             ->getFormFactory();
 
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
+        $this->builder = new FormBuilder('name', null, $this->dispatcher, $this->factory);
     }
 
     /**

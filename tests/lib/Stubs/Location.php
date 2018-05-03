@@ -12,13 +12,13 @@ final class Location implements LocationInterface
     private $id;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $parentId;
 
     /**
      * @param int $id
-     * @param int $parentId
+     * @param int|null $parentId
      */
     public function __construct($id, $parentId = null)
     {

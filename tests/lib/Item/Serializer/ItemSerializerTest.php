@@ -17,12 +17,12 @@ use PHPUnit\Framework\TestCase;
 final class ItemSerializerTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $backendMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $columnProviderMock;
 
@@ -194,9 +194,6 @@ final class ItemSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\ContentBrowser\Item\ItemInterface
-     */
     private function getItem()
     {
         $modificationDate = new DateTimeImmutable();

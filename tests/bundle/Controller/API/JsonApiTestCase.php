@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     * @var \Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel\MockerContainer
      */
     protected $clientContainer;
 
@@ -43,7 +43,11 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         // We're using the container from kernel to bypass injection of
         // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
-        $this->clientContainer = static::$kernel->getContainer();
+
+        /** @var \Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel\MockerContainer $clientContainer */
+        $clientContainer = static::$kernel->getContainer();
+
+        $this->clientContainer = $clientContainer;
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
         $this->client->setServerParameter('PHP_AUTH_USER', getenv('SF_USERNAME'));
@@ -107,6 +111,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
+        /** @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry */
         $backendRegistry = $this->clientContainer->get('netgen_content_browser.registry.backend');
         $backendRegistry->addBackend('test', $this->backendMock);
 
