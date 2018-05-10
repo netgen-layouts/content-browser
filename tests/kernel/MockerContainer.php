@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel;
+namespace Netgen\ContentBrowser\Tests\Kernel;
 
 use Mockery;
 use Symfony\Component\DependencyInjection\Container;
