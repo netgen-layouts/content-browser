@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel\MockerContainer
+     * @var \Netgen\ContentBrowser\Tests\Kernel\MockerContainer
      */
     protected $clientContainer;
 
@@ -44,7 +44,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         // We're using the container from kernel to bypass injection of
         // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
 
-        /** @var \Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Kernel\MockerContainer $clientContainer */
+        /** @var \Netgen\ContentBrowser\Tests\Kernel\MockerContainer $clientContainer */
         $clientContainer = static::$kernel->getContainer();
 
         $this->clientContainer = $clientContainer;
