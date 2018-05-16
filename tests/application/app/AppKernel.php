@@ -2,6 +2,7 @@
 
 namespace Netgen\ContentBrowser\Tests\Kernel;
 
+use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -10,19 +11,29 @@ final class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return [
+        $bundles = [
             // Symfony
 
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
+
+            // Other dependencies
+
             new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             // Netgen Content Browser
 
             new \Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle(),
+            new \Netgen\Bundle\ContentBrowserUIBundle\NetgenContentBrowserUIBundle(),
         ];
+
+        if (class_exists(WebServerBundle::class)) {
+            $bundles[] = new WebServerBundle();
+        }
+
+        return $bundles;
     }
 
     public function getProjectDir()
