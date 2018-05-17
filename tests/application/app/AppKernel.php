@@ -38,7 +38,7 @@ final class AppKernel extends Kernel
 
     public function getProjectDir()
     {
-        return __DIR__;
+        return dirname(__DIR__);
     }
 
     public function getCacheDir()
@@ -68,7 +68,7 @@ final class AppKernel extends Kernel
         if (Kernel::VERSION_ID < 30200) {
             // @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
             // so we need to set the parameter to the container manually
-            $container->setParameter('kernel.project_dir', __DIR__);
+            $container->setParameter('kernel.project_dir', $this->getProjectDir());
         }
     }
 }
