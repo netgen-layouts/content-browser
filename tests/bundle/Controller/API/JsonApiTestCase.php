@@ -137,14 +137,14 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockItemRenderer()
     {
-        /** @var \Mockery\MockInterface $itemRendererMock */
         $itemRendererMock = $this->clientContainer->mock(
             'netgen_content_browser.item_renderer',
-            ItemRendererInterface::class
+            $this->createMock(ItemRendererInterface::class)
         );
 
         $itemRendererMock
-            ->shouldReceive('renderItem')
-            ->andReturn('rendered item');
+            ->expects($this->any())
+            ->method('renderItem')
+            ->will($this->returnValue('rendered item'));
     }
 }
