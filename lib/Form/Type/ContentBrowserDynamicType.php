@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicType extends AbstractType
@@ -26,10 +27,6 @@ final class ContentBrowserDynamicType extends AbstractType
      */
     private $availableItemTypes;
 
-    /**
-     * @param \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry
-     * @param array $availableItemTypes
-     */
     public function __construct(BackendRegistryInterface $backendRegistry, array $availableItemTypes)
     {
         $this->backendRegistry = $backendRegistry;
@@ -46,15 +43,20 @@ final class ContentBrowserDynamicType extends AbstractType
         $resolver->setDefault('item_types', []);
         $resolver->setDefault('start_location', null);
 
-        $resolver->setAllowedValues('item_types', function ($values) {
-            foreach ($values as $value) {
-                if (!in_array($value, $this->availableItemTypes, true)) {
-                    return false;
-                }
-            }
+        $resolver->setNormalizer(
+            'item_types',
+            function (Options $options, $values) {
+                $validValues = [];
 
-            return true;
-        });
+                foreach ($values as $value) {
+                    if (in_array($value, $this->availableItemTypes, true)) {
+                        $validValues[] = $value;
+                    }
+                }
+
+                return $validValues;
+            }
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

@@ -124,6 +124,7 @@ services:
         # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
+            - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
 
@@ -141,6 +142,7 @@ services:
         # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
+            - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
 

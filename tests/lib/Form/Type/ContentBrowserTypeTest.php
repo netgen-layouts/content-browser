@@ -27,7 +27,7 @@ final class ContentBrowserTypeTest extends TestCase
         $backendRegistry = new BackendRegistry();
         $backendRegistry->addBackend('value', $this->backendMock);
 
-        return new ContentBrowserType($backendRegistry);
+        return new ContentBrowserType($backendRegistry, ['value' => 'Value']);
     }
 
     public function testSubmitValidData()
@@ -179,6 +179,20 @@ final class ContentBrowserTypeTest extends TestCase
         $this->formType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(['item_type' => 42]);
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "item_type" with value "non_existing" is invalid.
+     */
+    public function testConfigureOptionsWithNonExistingItemType()
+    {
+        $optionsResolver = new OptionsResolver();
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(['item_type' => 'non_existing']);
     }
 
     /**

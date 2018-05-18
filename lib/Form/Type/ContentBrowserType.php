@@ -17,9 +17,15 @@ final class ContentBrowserType extends AbstractType
      */
     private $backendRegistry;
 
-    public function __construct(BackendRegistryInterface $backendRegistry)
+    /**
+     * @var array
+     */
+    private $availableItemTypes;
+
+    public function __construct(BackendRegistryInterface $backendRegistry, array $availableItemTypes)
     {
         $this->backendRegistry = $backendRegistry;
+        $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -28,6 +34,13 @@ final class ContentBrowserType extends AbstractType
 
         $resolver->setAllowedTypes('item_type', 'string');
         $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
+
+        $resolver->setAllowedValues(
+            'item_type',
+            function ($itemType) {
+                return in_array($itemType, $this->availableItemTypes, true);
+            }
+        );
 
         $resolver->setDefault('start_location', null);
     }
