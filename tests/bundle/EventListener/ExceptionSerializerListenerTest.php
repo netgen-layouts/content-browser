@@ -32,7 +32,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->eventListener = new ExceptionSerializerListener($this->loggerMock);
+        $this->eventListener = new ExceptionSerializerListener(false, $this->loggerMock);
     }
 
     /**
@@ -143,7 +143,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $exception
         );
 
-        $this->eventListener->setOutputDebugInfo(true);
+        $this->eventListener = new ExceptionSerializerListener(true, $this->loggerMock);
         $this->eventListener->onException($event);
 
         $this->assertInstanceOf(

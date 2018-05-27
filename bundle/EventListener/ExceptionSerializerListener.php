@@ -16,28 +16,19 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @var bool
      */
     private $outputDebugInfo = false;
 
-    public function __construct(LoggerInterface $logger = null)
-    {
-        $this->logger = $logger ?: new NullLogger();
-    }
-
     /**
-     * Sets if the output should contain debugging information.
-     *
-     * @param bool $outputDebugInfo
+     * @var \Psr\Log\LoggerInterface
      */
-    public function setOutputDebugInfo($outputDebugInfo = false)
+    private $logger;
+
+    public function __construct($outputDebugInfo = false, LoggerInterface $logger = null)
     {
         $this->outputDebugInfo = (bool) $outputDebugInfo;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     public static function getSubscribedEvents()

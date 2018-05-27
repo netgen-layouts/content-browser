@@ -74,9 +74,8 @@ services:
         class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
         # public: false
         arguments:
+            - "%kernel.debug%"
             - "@?logger"
-        calls:
-            - [setOutputDebugInfo, ["%kernel.debug%"]]
         tags:
             - { name: kernel.event_subscriber }
             - { name: monolog.logger, channel: ngcb }
