@@ -5,13 +5,14 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ConfigControllerTest extends JsonApiTestCase
+final class LoadConfigTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getAvailableColumns
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController::getConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::__invoke
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::getAvailableColumns
      */
-    public function testGetConfig()
+    public function testLoadConfig()
     {
         $this->backendMock
             ->expects($this->any())

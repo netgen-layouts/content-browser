@@ -2,12 +2,30 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SearchController extends Controller
+final class SearchItems extends Controller
 {
+    /**
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
+     */
+    private $backend;
+
+    /**
+     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
+     */
+    private $itemSerializer;
+
+    public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
+    {
+        $this->backend = $backend;
+        $this->itemSerializer = $itemSerializer;
+    }
+
     /**
      * Performs the search for values by using the specified text.
      *
@@ -17,7 +35,7 @@ final class SearchController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function search(Request $request)
+    public function __invoke(Request $request)
     {
         $data = [
             'children_count' => 0,

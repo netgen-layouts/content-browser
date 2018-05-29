@@ -8,47 +8,15 @@ use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
-final class BrowseControllerTest extends JsonApiTestCase
+final class LoadSubItemsTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubLocations
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testGetSubLocations()
-    {
-        $this->backendMock
-            ->expects($this->at(0))
-            ->method('loadLocation')
-            ->with($this->equalTo(41))
-            ->will($this->returnValue(new Location(41, 'Location 41')));
-
-        $this->backendMock
-            ->expects($this->at(1))
-            ->method('getSubLocations')
-            ->with($this->equalTo(new Location(41, 'Location 41')))
-            ->will(
-                $this->returnValue(
-                    [
-                        new Location(42, 'Location 42'),
-                        new Location(43, 'Location 43'),
-                    ]
-                )
-            );
-
-        $this->client->request('GET', '/cb/api/v1/test/browse/41/locations');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/browse/locations',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
-     */
-    public function testGetSubItems()
+    public function testLoadSubItems()
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -91,11 +59,11 @@ final class BrowseControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testGetSubItemsWithItemAsLocation()
+    public function testLoadSubItemsWithItemAsLocation()
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -138,11 +106,11 @@ final class BrowseControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPager
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::buildPath
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController::getSubItems
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testGetSubItemsWithMissingParent()
+    public function testLoadSubItemsWithMissingParent()
     {
         $this->backendMock
             ->expects($this->at(0))

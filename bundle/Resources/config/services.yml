@@ -11,33 +11,58 @@ services:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
         public: false
         abstract: true
+        calls:
+            - [initialize, ["@service_container"]]
+
+    netgen_content_browser.controller.api.load_config:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig
+        parent: netgen_content_browser.controller.base
+        public: true
         arguments:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.item_serializer"
+            - "@translator"
+
+    netgen_content_browser.controller.api.load_sub_locations:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations
+        parent: netgen_content_browser.controller.base
+        public: true
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.item_serializer"
+
+    netgen_content_browser.controller.api.load_sub_items:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems
+        parent: netgen_content_browser.controller.base
+        public: true
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.item_serializer"
+
+    netgen_content_browser.controller.api.search_items:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems
+        parent: netgen_content_browser.controller.base
+        public: true
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.item_serializer"
+
+    netgen_content_browser.controller.api.render_item:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem
+        parent: netgen_content_browser.controller.base
+        public: true
+        arguments:
+            - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.item_renderer"
-        calls:
-            - [initialize, ["@service_container"]]
 
-    netgen_content_browser.controller.api.config:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ConfigController
+    netgen_content_browser.controller.api.load_items_by_value:
+        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue
         parent: netgen_content_browser.controller.base
         public: true
-
-    netgen_content_browser.controller.api.browse:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\BrowseController
-        parent: netgen_content_browser.controller.base
-        public: true
-
-    netgen_content_browser.controller.api.search:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController
-        parent: netgen_content_browser.controller.base
-        public: true
-
-    netgen_content_browser.controller.api.item:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController
-        parent: netgen_content_browser.controller.base
-        public: true
+        arguments:
+            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.item_serializer"
 
     # Event listeners
 

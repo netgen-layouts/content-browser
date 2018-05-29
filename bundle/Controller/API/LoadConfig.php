@@ -2,16 +2,52 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Translation\TranslatorInterface;
 
-final class ConfigController extends Controller
+final class LoadConfig extends Controller
 {
+    /**
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
+     */
+    private $backend;
+
+    /**
+     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     */
+    private $config;
+
+    /**
+     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
+     */
+    private $itemSerializer;
+
+    /**
+     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
+     */
+    private $translator;
+
+    public function __construct(
+        BackendInterface $backend,
+        ConfigurationInterface $config,
+        ItemSerializerInterface $itemSerializer,
+        TranslatorInterface $translator
+    ) {
+        $this->backend = $backend;
+        $this->config = $config;
+        $this->itemSerializer = $itemSerializer;
+        $this->translator = $translator;
+    }
+
     /**
      * Returns the configuration for content browser.
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getConfig()
+    public function __invoke()
     {
         $data = [
             'item_type' => $this->config->getItemType(),
@@ -38,15 +74,12 @@ final class ConfigController extends Controller
      */
     private function getAvailableColumns()
     {
-        /** @var \Symfony\Component\Translation\TranslatorInterface $translator */
-        $translator = $this->get('translator');
-
         $availableColumns = [];
 
         foreach ($this->config->getColumns() as $identifier => $columnData) {
             $availableColumns[] = [
                 'id' => $identifier,
-                'name' => $translator->trans($columnData['name'], [], 'ngcb'),
+                'name' => $this->translator->trans($columnData['name'], [], 'ngcb'),
             ];
         }
 

@@ -2,29 +2,28 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-final class ItemController extends Controller
+final class LoadItemsByValue extends Controller
 {
     /**
-     * Renders the provided item.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @var \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    public function renderItem(ItemInterface $item)
-    {
-        $renderedItem = '';
-        if ($this->config->hasPreview()) {
-            $renderedItem = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
-        }
+    private $backend;
 
-        return new Response($renderedItem);
+    /**
+     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
+     */
+    private $itemSerializer;
+
+    public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
+    {
+        $this->backend = $backend;
+        $this->itemSerializer = $itemSerializer;
     }
 
     /**
@@ -36,7 +35,7 @@ final class ItemController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getByValues(Request $request)
+    public function __invoke(Request $request)
     {
         $queryValues = trim($request->query->get('values', ''));
         $values = array_map('trim', explode(',', $queryValues));

@@ -7,10 +7,11 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ItemsControllerTest extends JsonApiTestCase
+final class RenderItemTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::renderItem
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
      */
     public function testRenderItem()
     {
@@ -30,7 +31,7 @@ final class ItemsControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::renderItem
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
      */
     public function testRenderItemWithDisabledPreview()
     {
@@ -69,7 +70,7 @@ final class ItemsControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
      */
     public function testRenderItemWithNonExistingItem()
     {
@@ -85,58 +86,6 @@ final class ItemsControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Item does not exist.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
-     */
-    public function testGetByValues()
-    {
-        $this->backendMock
-            ->expects($this->at(0))
-            ->method('loadItem')
-            ->will($this->returnValue(new Item(42, 'Item 42')));
-
-        $this->backendMock
-            ->expects($this->at(1))
-            ->method('loadItem')
-            ->will($this->returnValue(new Item(43, 'Item 43')));
-
-        $this->client->request('GET', '/cb/api/v1/test/values?values=42,43');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/items/result',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
-     */
-    public function testGetByValuesWithInvalidValuesList()
-    {
-        $this->client->request('GET', '/cb/api/v1/test/values?values=');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\ItemController::getByValues
-     */
-    public function testGetByValuesWithMissingValuesList()
-    {
-        $this->client->request('GET', '/cb/api/v1/test/values');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.'
         );
     }
 }

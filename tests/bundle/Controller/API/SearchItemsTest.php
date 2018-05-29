@@ -5,15 +5,15 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SearchControllerTest extends JsonApiTestCase
+final class SearchItemsTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::buildPager
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::initialize
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController::search
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearch()
+    public function testSearchItems()
     {
         $this->backendMock
             ->expects($this->any())
@@ -44,9 +44,9 @@ final class SearchControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController::search
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearchWithEmptySearchText()
+    public function testSearchItemsWithEmptySearchText()
     {
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
 
@@ -58,9 +58,9 @@ final class SearchControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchController::search
+     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearchWithMissingSearchText()
+    public function testSearchItemsWithMissingSearchText()
     {
         $this->client->request('GET', '/cb/api/v1/test/search');
 

@@ -2,12 +2,6 @@
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
-use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\LocationInterface;
-use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
-use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
@@ -16,38 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class Controller extends BaseController
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    protected $backend;
-
-    /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
-     */
-    protected $config;
-
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    protected $itemSerializer;
-
-    /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
-     */
-    protected $itemRenderer;
-
-    public function __construct(
-        BackendInterface $backend,
-        ConfigurationInterface $config,
-        ItemSerializerInterface $itemSerializer,
-        ItemRendererInterface $itemRenderer
-    ) {
-        $this->backend = $backend;
-        $this->config = $config;
-        $this->itemSerializer = $itemSerializer;
-        $this->itemRenderer = $itemRenderer;
-    }
-
     /**
      * Initializes the controller by setting the container and performing basic access checks.
      *
@@ -82,36 +44,5 @@ abstract class Controller extends BaseController
         $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
 
         return $pager;
-    }
-
-    /**
-     * Builds the path array for specified item.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return array
-     */
-    protected function buildPath(LocationInterface $location)
-    {
-        $path = [];
-
-        while (true) {
-            $path[] = [
-                'id' => $location->getLocationId(),
-                'name' => $location->getName(),
-            ];
-
-            if ($location->getParentId() === null) {
-                break;
-            }
-
-            try {
-                $location = $this->backend->loadLocation($location->getParentId());
-            } catch (NotFoundException $e) {
-                break;
-            }
-        }
-
-        return array_reverse($path);
     }
 }
