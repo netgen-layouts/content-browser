@@ -7,6 +7,7 @@ use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
+use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +24,19 @@ final class LoadSubItems extends Controller
      */
     private $itemSerializer;
 
-    public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
-    {
+    /**
+     * @var \Netgen\ContentBrowser\Pager\PagerFactoryInterface
+     */
+    private $pagerFactory;
+
+    public function __construct(
+        BackendInterface $backend,
+        ItemSerializerInterface $itemSerializer,
+        PagerFactoryInterface $pagerFactory
+    ) {
         $this->backend = $backend;
         $this->itemSerializer = $itemSerializer;
+        $this->pagerFactory = $pagerFactory;
     }
 
     /**
@@ -39,12 +49,15 @@ final class LoadSubItems extends Controller
      */
     public function __invoke(LocationInterface $location, Request $request)
     {
-        $pager = $this->buildPager(
+        $limit = $request->query->get('limit');
+
+        $pager = $this->pagerFactory->buildPager(
             new SubItemsAdapter(
                 $this->backend,
                 $location
             ),
-            $request
+            $request->query->getInt('page', 1),
+            $limit !== null ? (int) $limit : null
         );
 
         $data = [

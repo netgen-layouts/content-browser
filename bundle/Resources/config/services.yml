@@ -23,6 +23,7 @@ services:
             - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.item_serializer"
             - "@translator"
+            - "%netgen_content_browser.browser.default_limit%"
 
     netgen_content_browser.controller.api.load_sub_locations:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations
@@ -39,6 +40,7 @@ services:
         arguments:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.item_serializer"
+            - "@netgen_content_browser.pager.factory"
 
     netgen_content_browser.controller.api.search_items:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems
@@ -47,6 +49,7 @@ services:
         arguments:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.item_serializer"
+            - "@netgen_content_browser.pager.factory"
 
     netgen_content_browser.controller.api.render_item:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem
@@ -195,3 +198,12 @@ services:
         public: false
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: name }
+
+    # Pager
+
+    netgen_content_browser.pager.factory:
+        class: Netgen\ContentBrowser\Pager\PagerFactory
+        public: false
+        arguments:
+            - "%netgen_content_browser.browser.default_limit%"
+            - "%netgen_content_browser.browser.max_limit%"

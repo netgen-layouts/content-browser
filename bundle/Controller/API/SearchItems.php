@@ -4,6 +4,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
+use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,19 @@ final class SearchItems extends Controller
      */
     private $itemSerializer;
 
-    public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
-    {
+    /**
+     * @var \Netgen\ContentBrowser\Pager\PagerFactoryInterface
+     */
+    private $pagerFactory;
+
+    public function __construct(
+        BackendInterface $backend,
+        ItemSerializerInterface $itemSerializer,
+        PagerFactoryInterface $pagerFactory
+    ) {
         $this->backend = $backend;
         $this->itemSerializer = $itemSerializer;
+        $this->pagerFactory = $pagerFactory;
     }
 
     /**
@@ -44,12 +54,15 @@ final class SearchItems extends Controller
 
         $searchText = trim($request->query->get('searchText'));
         if (!empty($searchText)) {
-            $pager = $this->buildPager(
+            $limit = $request->query->get('limit');
+
+            $pager = $this->pagerFactory->buildPager(
                 new ItemSearchAdapter(
                     $this->backend,
                     $searchText
                 ),
-                $request
+                $request->query->getInt('page', 1),
+                $limit !== null ? (int) $limit : null
             );
 
             $data['children_count'] = $pager->getNbResults();
