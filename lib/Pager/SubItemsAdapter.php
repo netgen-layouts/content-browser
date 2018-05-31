@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\ContentBrowser\Pagerfanta;
+namespace Netgen\ContentBrowser\Pager;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\ContentBrowser\Tests\Pagerfanta;
+namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter;
+use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use PHPUnit\Framework\TestCase;
 
 final class ItemSearchAdapterTest extends TestCase
@@ -14,7 +14,7 @@ final class ItemSearchAdapterTest extends TestCase
     private $backendMock;
 
     /**
-     * @var \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter
+     * @var \Netgen\ContentBrowser\Pager\ItemSearchAdapter
      */
     private $adapter;
 
@@ -26,8 +26,8 @@ final class ItemSearchAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter::__construct
-     * @covers \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter::getNbResults
+     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::__construct
+     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getNbResults
      */
     public function testGetNbResults()
     {
@@ -41,7 +41,7 @@ final class ItemSearchAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Pagerfanta\ItemSearchAdapter::getSlice
+     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getSlice
      */
     public function testGetSlice()
     {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\ContentBrowser\Tests\Pagerfanta;
+namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter;
+use Netgen\ContentBrowser\Pager\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ final class SubItemsAdapterTest extends TestCase
     private $backendMock;
 
     /**
-     * @var \Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter
+     * @var \Netgen\ContentBrowser\Pager\SubItemsAdapter
      */
     private $adapter;
 
@@ -27,8 +27,8 @@ final class SubItemsAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter::__construct
-     * @covers \Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter::getNbResults
+     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::__construct
+     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getNbResults
      */
     public function testGetNbResults()
     {
@@ -42,7 +42,7 @@ final class SubItemsAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Pagerfanta\SubItemsAdapter::getSlice
+     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getSlice
      */
     public function testGetSlice()
     {
