@@ -34,8 +34,8 @@ abstract class Controller extends BaseController
         $maxLimit = $this->getParameter('netgen_content_browser.browser.max_limit');
         $defaultLimit = $this->getParameter('netgen_content_browser.browser.default_limit');
 
-        $currentPage = (int) $request->query->get('page', 1);
-        $limit = (int) $request->query->get('limit', $defaultLimit);
+        $currentPage = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', $defaultLimit);
 
         $pager = new Pagerfanta($adapter);
 
