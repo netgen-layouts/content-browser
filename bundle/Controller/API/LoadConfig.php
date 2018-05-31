@@ -26,7 +26,7 @@ final class LoadConfig extends Controller
     private $itemSerializer;
 
     /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     private $translator;
 

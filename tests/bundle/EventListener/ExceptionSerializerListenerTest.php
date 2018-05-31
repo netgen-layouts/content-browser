@@ -24,7 +24,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     private $eventListener;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
      */
     private $loggerMock;
 
