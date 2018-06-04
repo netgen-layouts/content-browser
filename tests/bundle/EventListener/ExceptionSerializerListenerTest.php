@@ -189,7 +189,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 
     /**
@@ -210,6 +210,6 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        $this->assertNull($event->getResponse());
+        $this->assertFalse($event->hasResponse());
     }
 }
