@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;

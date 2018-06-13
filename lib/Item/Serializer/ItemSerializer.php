@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Item\Serializer;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;

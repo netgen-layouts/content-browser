@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Netgen\ContentBrowser\Tests\Kernel\AppKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;

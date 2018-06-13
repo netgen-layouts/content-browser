@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Form\Type;
 
 use Symfony\Component\HttpKernel\Kernel;

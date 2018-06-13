@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Pager;
 
 use Pagerfanta\Adapter\AdapterInterface;

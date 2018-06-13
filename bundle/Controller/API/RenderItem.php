@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Config\ConfigurationInterface;

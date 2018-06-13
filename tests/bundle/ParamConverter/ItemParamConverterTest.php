@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter;

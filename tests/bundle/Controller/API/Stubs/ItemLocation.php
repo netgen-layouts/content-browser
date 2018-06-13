@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs;
 
 use Netgen\ContentBrowser\Item\ItemInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 
 use Netgen\ContentBrowser\Exceptions\RuntimeException;

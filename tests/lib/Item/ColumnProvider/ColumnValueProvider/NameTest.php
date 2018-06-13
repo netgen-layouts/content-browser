@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Tests\Item\ColumnProvider\ColumnValueProvider;
 
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name;

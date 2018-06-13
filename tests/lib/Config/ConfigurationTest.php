@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Tests\Config;
 
 use Netgen\ContentBrowser\Config\Configuration;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;

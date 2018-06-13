@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Tests\Item\ColumnProvider;
 
 use Netgen\ContentBrowser\Config\Configuration;

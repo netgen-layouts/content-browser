@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\ContentBrowser\Tests\Stubs;
 
 use Netgen\ContentBrowser\Item\LocationInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
