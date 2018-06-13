@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Item\Renderer;
 
-use Exception;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -46,14 +45,6 @@ final class ItemRenderer implements ItemRendererInterface
                     'An error occurred while rendering an item with "%s" value: %s',
                     $item->getValue(),
                     $t->getMessage()
-                )
-            );
-        } catch (Exception $e) {
-            $this->logger->critical(
-                sprintf(
-                    'An error occurred while rendering an item with "%s" value: %s',
-                    $item->getValue(),
-                    $e->getMessage()
                 )
             );
         }
