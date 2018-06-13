@@ -25,6 +25,7 @@ final class RenderItemTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertResponseCode($response, Response::HTTP_OK);
         $this->assertContains('text/html', $response->headers->get('Content-Type'));
         $this->assertEquals('rendered item', $response->getContent());
@@ -64,6 +65,7 @@ final class RenderItemTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertResponseCode($response, Response::HTTP_OK);
         $this->assertContains('text/html', $response->headers->get('Content-Type'));
         $this->assertEquals('', $response->getContent());
