@@ -29,7 +29,7 @@ final class ItemSerializer implements ItemSerializerInterface
         $this->columnProvider = $columnProvider;
     }
 
-    public function serializeItem(ItemInterface $item)
+    public function serializeItem(ItemInterface $item): array
     {
         $data = [
             'location_id' => null,
@@ -49,7 +49,7 @@ final class ItemSerializer implements ItemSerializerInterface
         return $data;
     }
 
-    public function serializeLocation(LocationInterface $location)
+    public function serializeLocation(LocationInterface $location): array
     {
         return [
             'id' => $location->getLocationId(),
@@ -64,20 +64,20 @@ final class ItemSerializer implements ItemSerializerInterface
         ];
     }
 
-    public function serializeItems(array $items)
+    public function serializeItems(array $items): array
     {
         return array_map(
-            function (ItemInterface $item) {
+            function (ItemInterface $item): array {
                 return $this->serializeItem($item);
             },
             $items
         );
     }
 
-    public function serializeLocations(array $locations)
+    public function serializeLocations(array $locations): array
     {
         return array_map(
-            function (LocationInterface $location) {
+            function (LocationInterface $location): array {
                 return $this->serializeLocation($location);
             },
             $locations

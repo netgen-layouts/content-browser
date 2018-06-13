@@ -14,7 +14,7 @@ final class ColumnProviderPass implements CompilerPassInterface
     private static $serviceName = 'netgen_content_browser.column_provider';
     private static $tagName = 'netgen_content_browser.column_value_provider';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

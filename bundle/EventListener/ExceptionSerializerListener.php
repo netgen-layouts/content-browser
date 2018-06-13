@@ -33,7 +33,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         // Must happen BEFORE Symfony Security component ExceptionListener
         return [KernelEvents::EXCEPTION => ['onException', 5]];
@@ -44,7 +44,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -95,7 +95,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      *
      * @param \Exception $exception
      */
-    private function logException(Exception $exception)
+    private function logException(Exception $exception): void
     {
         if ($exception instanceof HttpExceptionInterface && $exception->getStatusCode() < 500) {
             return;

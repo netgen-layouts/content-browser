@@ -14,7 +14,7 @@ final class SearchItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearchItems()
+    public function testSearchItems(): void
     {
         $this->backendMock
             ->expects($this->any())
@@ -47,7 +47,7 @@ final class SearchItemsTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearchItemsWithEmptySearchText()
+    public function testSearchItemsWithEmptySearchText(): void
     {
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
 
@@ -61,7 +61,7 @@ final class SearchItemsTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */
-    public function testSearchItemsWithMissingSearchText()
+    public function testSearchItemsWithMissingSearchText(): void
     {
         $this->client->request('GET', '/cb/api/v1/test/search');
 

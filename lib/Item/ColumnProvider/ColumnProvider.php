@@ -56,7 +56,7 @@ final class ColumnProvider implements ColumnProviderInterface
         }
     }
 
-    public function provideColumns(ItemInterface $item)
+    public function provideColumns(ItemInterface $item): array
     {
         $columns = [];
 
@@ -75,7 +75,7 @@ final class ColumnProvider implements ColumnProviderInterface
      *
      * @return string
      */
-    private function provideColumn(ItemInterface $item, array $columnConfig)
+    private function provideColumn(ItemInterface $item, array $columnConfig): string
     {
         if (isset($columnConfig['template'])) {
             return $this->itemRenderer->renderItem(

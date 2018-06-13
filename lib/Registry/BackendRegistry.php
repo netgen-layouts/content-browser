@@ -16,17 +16,17 @@ final class BackendRegistry implements BackendRegistryInterface
      */
     private $backends = [];
 
-    public function addBackend($itemType, BackendInterface $backend)
+    public function addBackend(string $itemType, BackendInterface $backend): void
     {
         $this->backends[$itemType] = $backend;
     }
 
-    public function hasBackend($itemType)
+    public function hasBackend(string $itemType): bool
     {
         return isset($this->backends[$itemType]);
     }
 
-    public function getBackend($itemType)
+    public function getBackend(string $itemType): BackendInterface
     {
         if (!$this->hasBackend($itemType)) {
             throw new InvalidArgumentException(
@@ -37,7 +37,7 @@ final class BackendRegistry implements BackendRegistryInterface
         return $this->backends[$itemType];
     }
 
-    public function getBackends()
+    public function getBackends(): array
     {
         return $this->backends;
     }

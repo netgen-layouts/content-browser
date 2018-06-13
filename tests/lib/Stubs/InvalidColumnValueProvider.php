@@ -9,7 +9,8 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class InvalidColumnValueProvider implements ColumnValueProviderInterface
 {
-    public function getValue(ItemInterface $item)
+    public function getValue(ItemInterface $item): ?string
     {
+        return null;
     }
 }

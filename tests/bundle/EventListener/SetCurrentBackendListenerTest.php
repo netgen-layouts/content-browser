@@ -32,7 +32,7 @@ final class SetCurrentBackendListenerTest extends TestCase
      */
     private $eventListener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = new Container();
         $this->backendRegistry = new BackendRegistry();
@@ -47,7 +47,7 @@ final class SetCurrentBackendListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -58,7 +58,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -83,7 +83,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -104,7 +104,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoItemType()
+    public function testOnKernelRequestWithNoItemType(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -124,7 +124,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoContentBrowserRequest()
+    public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

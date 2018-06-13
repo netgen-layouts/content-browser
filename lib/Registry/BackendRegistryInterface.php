@@ -13,36 +13,25 @@ interface BackendRegistryInterface extends IteratorAggregate, Countable, ArrayAc
 {
     /**
      * Adds a backend to registry.
-     *
-     * @param string $itemType
-     * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      */
-    public function addBackend($itemType, BackendInterface $backend);
+    public function addBackend(string $itemType, BackendInterface $backend): void;
 
     /**
      * Returns if registry has a backend.
-     *
-     * @param string $itemType
-     *
-     * @return bool
      */
-    public function hasBackend($itemType);
+    public function hasBackend(string $itemType): bool;
 
     /**
      * Returns a backend for provided item type.
      *
-     * @param string $itemType
-     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If backend does not exist
-     *
-     * @return \Netgen\ContentBrowser\Backend\BackendInterface
      */
-    public function getBackend($itemType);
+    public function getBackend(string $itemType): BackendInterface;
 
     /**
      * Returns all backends.
      *
      * @return \Netgen\ContentBrowser\Backend\BackendInterface[]
      */
-    public function getBackends();
+    public function getBackends(): array;
 }

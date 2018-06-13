@@ -28,7 +28,7 @@ final class ItemRenderer implements ItemRendererInterface
         $this->logger = $logger ?: new NullLogger();
     }
 
-    public function renderItem(ItemInterface $item, $template)
+    public function renderItem(ItemInterface $item, string $template): string
     {
         $renderedItem = '';
 

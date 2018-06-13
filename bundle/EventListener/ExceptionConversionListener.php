@@ -30,7 +30,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
         AccessDeniedException::class => AccessDeniedHttpException::class,
     ];
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::EXCEPTION => ['onException', 10]];
     }
@@ -40,7 +40,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

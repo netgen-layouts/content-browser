@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class LoadItemsByValue extends Controller
 {
@@ -37,7 +38,7 @@ final class LoadItemsByValue extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $queryValues = trim($request->query->get('values', ''));
         $values = array_map('trim', explode(',', $queryValues));

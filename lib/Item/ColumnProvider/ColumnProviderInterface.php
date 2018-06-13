@@ -10,10 +10,6 @@ interface ColumnProviderInterface
 {
     /**
      * Provides the columns for selected item.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return array
      */
-    public function provideColumns(ItemInterface $item);
+    public function provideColumns(ItemInterface $item): array;
 }

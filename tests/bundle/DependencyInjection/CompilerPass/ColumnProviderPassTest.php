@@ -16,7 +16,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
      */
-    public function testProcess()
+    public function testProcess(): void
     {
         $columnProvider = new Definition();
         $columnProvider->setArguments([null, null, null]);
@@ -40,7 +40,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
      * @expectedExceptionMessage Column value provider definition must have a 'identifier' attribute in its' tag.
      */
-    public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier()
+    public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier(): void
     {
         $columnProvider = new Definition();
         $columnProvider->setArguments([null, null, null]);
@@ -56,19 +56,14 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
      */
-    public function testProcessWithEmptyContainer()
+    public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
 
         $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
-    /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new ColumnProviderPass());
     }

@@ -13,7 +13,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
     const API_FLAG_NAME = 'ngcb_is_api_request';
     private static $apiRoutePrefix = 'ngcb_api_';
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => ['onKernelRequest', 30]];
     }
@@ -23,7 +23,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

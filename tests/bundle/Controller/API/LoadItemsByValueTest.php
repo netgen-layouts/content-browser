@@ -13,7 +13,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue::__invoke
      */
-    public function testLoadItemsByValue()
+    public function testLoadItemsByValue(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -37,7 +37,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue::__invoke
      */
-    public function testLoadItemsByValueWithInvalidValuesList()
+    public function testLoadItemsByValueWithInvalidValuesList(): void
     {
         $this->client->request('GET', '/cb/api/v1/test/values?values=');
 
@@ -51,7 +51,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue::__invoke
      */
-    public function testLoadItemsByValueWithMissingValuesList()
+    public function testLoadItemsByValueWithMissingValuesList(): void
     {
         $this->client->request('GET', '/cb/api/v1/test/values');
 

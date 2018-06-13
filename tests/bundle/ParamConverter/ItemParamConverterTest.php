@@ -26,7 +26,7 @@ final class ItemParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -40,7 +40,7 @@ final class ItemParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::apply
      */
-    public function testApply()
+    public function testApply(): void
     {
         $configuration = new ParamConverter(
             [
@@ -66,7 +66,7 @@ final class ItemParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::apply
      */
-    public function testApplyWithMissingItemId()
+    public function testApplyWithMissingItemId(): void
     {
         $configuration = new ParamConverter(
             [
@@ -89,7 +89,7 @@ final class ItemParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::apply
      */
-    public function testApplyWithMissingItemType()
+    public function testApplyWithMissingItemType(): void
     {
         $configuration = new ParamConverter(
             [
@@ -112,7 +112,7 @@ final class ItemParamConverterTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::apply
      */
-    public function testApplyWithEmptyOptionalItemId()
+    public function testApplyWithEmptyOptionalItemId(): void
     {
         $configuration = new ParamConverter(
             [
@@ -139,7 +139,7 @@ final class ItemParamConverterTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Required request attribute "itemId" is empty
      */
-    public function testApplyWithEmptyRequiredItemId()
+    public function testApplyWithEmptyRequiredItemId(): void
     {
         $configuration = new ParamConverter(
             [
@@ -161,7 +161,7 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::supports
      */
-    public function testSupports()
+    public function testSupports(): void
     {
         $this->assertTrue($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
         $this->assertFalse($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));

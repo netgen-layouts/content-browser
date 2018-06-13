@@ -13,6 +13,7 @@ use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Netgen\ContentBrowser\Pager\SubItemsAdapter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class LoadSubItems extends Controller
 {
@@ -49,7 +50,7 @@ final class LoadSubItems extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke(LocationInterface $location, Request $request)
+    public function __invoke(LocationInterface $location, Request $request): Response
     {
         $limit = $request->query->get('limit');
 
@@ -83,7 +84,7 @@ final class LoadSubItems extends Controller
      *
      * @return array
      */
-    private function buildPath(LocationInterface $location)
+    private function buildPath(LocationInterface $location): array
     {
         $path = [];
 

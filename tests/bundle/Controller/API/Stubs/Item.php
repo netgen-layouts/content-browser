@@ -22,7 +22,7 @@ final class Item implements ItemInterface
      * @param mixed $value
      * @param string $name
      */
-    public function __construct($value, $name)
+    public function __construct($value, string $name)
     {
         $this->value = $value;
         $this->name = $name;
@@ -33,17 +33,17 @@ final class Item implements ItemInterface
         return $this->value;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }
 
-    public function isSelectable()
+    public function isSelectable(): bool
     {
         return true;
     }

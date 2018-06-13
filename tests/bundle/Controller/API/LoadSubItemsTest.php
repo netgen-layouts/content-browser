@@ -17,7 +17,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testLoadSubItems()
+    public function testLoadSubItems(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -63,7 +63,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testLoadSubItemsWithItemAsLocation()
+    public function testLoadSubItemsWithItemAsLocation(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -109,7 +109,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
      */
-    public function testLoadSubItemsWithMissingParent()
+    public function testLoadSubItemsWithMissingParent(): void
     {
         $this->backendMock
             ->expects($this->at(0))

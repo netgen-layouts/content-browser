@@ -26,7 +26,7 @@ final class Item implements ItemInterface
         return $this->value;
     }
 
-    public function getName()
+    public function getName(): string
     {
         $name = 'This is a name';
 
@@ -37,12 +37,12 @@ final class Item implements ItemInterface
         return $name;
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }
 
-    public function isSelectable()
+    public function isSelectable(): bool
     {
         return true;
     }

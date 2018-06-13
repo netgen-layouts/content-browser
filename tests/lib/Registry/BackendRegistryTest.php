@@ -21,7 +21,7 @@ final class BackendRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = new BackendRegistry();
 
@@ -33,7 +33,7 @@ final class BackendRegistryTest extends TestCase
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::addBackend
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getBackends
      */
-    public function testGetBackends()
+    public function testGetBackends(): void
     {
         $this->assertEquals(['value' => $this->backendMock], $this->registry->getBackends());
     }
@@ -41,7 +41,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getBackend
      */
-    public function testGetBackend()
+    public function testGetBackend(): void
     {
         $this->assertEquals($this->backendMock, $this->registry->getBackend('value'));
     }
@@ -51,7 +51,7 @@ final class BackendRegistryTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Backend for "other_value" item type does not exist.
      */
-    public function testGetBackendThrowsInvalidArgumentException()
+    public function testGetBackendThrowsInvalidArgumentException(): void
     {
         $this->registry->getBackend('other_value');
     }
@@ -59,7 +59,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::hasBackend
      */
-    public function testHasBackend()
+    public function testHasBackend(): void
     {
         $this->assertTrue($this->registry->hasBackend('value'));
     }
@@ -67,7 +67,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::hasBackend
      */
-    public function testHasBackendWithNoBackend()
+    public function testHasBackendWithNoBackend(): void
     {
         $this->assertFalse($this->registry->hasBackend('other_value'));
     }
@@ -75,7 +75,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getIterator
      */
-    public function testGetIterator()
+    public function testGetIterator(): void
     {
         $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
@@ -90,7 +90,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::count
      */
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertCount(1, $this->registry);
     }
@@ -98,7 +98,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetExists
      */
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $this->assertArrayHasKey('value', $this->registry);
         $this->assertArrayNotHasKey('other', $this->registry);
@@ -107,7 +107,7 @@ final class BackendRegistryTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetGet
      */
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $this->assertEquals($this->backendMock, $this->registry['value']);
     }
@@ -117,7 +117,7 @@ final class BackendRegistryTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $this->registry['value'] = $this->backendMock;
     }
@@ -127,7 +127,7 @@ final class BackendRegistryTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
      * @expectedExceptionMessage Method call not supported.
      */
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         unset($this->registry['value']);
     }

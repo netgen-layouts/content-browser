@@ -8,6 +8,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class LoadSubLocations extends Controller
 {
@@ -34,7 +35,7 @@ final class LoadSubLocations extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke(LocationInterface $location)
+    public function __invoke(LocationInterface $location): Response
     {
         $data = [
             'children' => $this->itemSerializer->serializeLocations(

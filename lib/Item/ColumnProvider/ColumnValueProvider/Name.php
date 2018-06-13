@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class Name implements ColumnValueProviderInterface
 {
-    public function getValue(ItemInterface $item)
+    public function getValue(ItemInterface $item): ?string
     {
         return $item->getName();
     }

@@ -23,7 +23,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
         $this->container = $container;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
@@ -33,7 +33,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -66,7 +66,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
      *
      * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
-    private function loadConfig($itemType)
+    private function loadConfig(string $itemType): ConfigurationInterface
     {
         $service = 'netgen_content_browser.config.' . $itemType;
 

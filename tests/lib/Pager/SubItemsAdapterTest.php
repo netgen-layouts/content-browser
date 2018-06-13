@@ -21,7 +21,7 @@ final class SubItemsAdapterTest extends TestCase
      */
     private $adapter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -32,7 +32,7 @@ final class SubItemsAdapterTest extends TestCase
      * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::__construct
      * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getNbResults
      */
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -46,7 +46,7 @@ final class SubItemsAdapterTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getSlice
      */
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $this->backendMock
             ->expects($this->once())

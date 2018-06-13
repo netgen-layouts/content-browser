@@ -35,7 +35,7 @@ final class ContentBrowserDynamicType extends AbstractType
         $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['item_types', 'start_location']);
 
@@ -47,7 +47,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         $resolver->setNormalizer(
             'item_types',
-            function (Options $options, $values) {
+            function (Options $options, array $values): array {
                 $validValues = [];
 
                 foreach ($values as $value) {
@@ -61,7 +61,7 @@ final class ContentBrowserDynamicType extends AbstractType
         );
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
             'item_type',
@@ -75,7 +75,7 @@ final class ContentBrowserDynamicType extends AbstractType
         $builder->add('item_id', HiddenType::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $itemName = null;
         $itemId = $form->get('item_id')->getData();
@@ -95,19 +95,15 @@ final class ContentBrowserDynamicType extends AbstractType
         $view->vars['start_location'] = $options['start_location'];
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ng_content_browser_dynamic';
     }
 
     /**
      * Returns the enabled item types based on provided list.
-     *
-     * @param array $itemTypes
-     *
-     * @return array
      */
-    private function getEnabledItemTypes(array $itemTypes)
+    private function getEnabledItemTypes(array $itemTypes): array
     {
         if (empty($itemTypes)) {
             return $this->availableItemTypes;
@@ -115,7 +111,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         return array_filter(
             $this->availableItemTypes,
-            function ($itemType) use ($itemTypes) {
+            function (string $itemType) use ($itemTypes): bool {
                 return in_array($itemType, $itemTypes, true);
             }
         );

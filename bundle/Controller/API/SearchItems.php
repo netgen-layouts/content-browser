@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class SearchItems extends Controller
 {
@@ -47,7 +48,7 @@ final class SearchItems extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $data = [
             'children_count' => 0,

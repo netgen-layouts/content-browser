@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicTypeTest extends TestCase
@@ -18,10 +19,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      */
     private $backendMock;
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -39,7 +37,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
      */
-    public function testSubmitValidDataWithNoItemTypeLimit()
+    public function testSubmitValidDataWithNoItemTypeLimit(): void
     {
         $form = $this->factory->create(
             ContentBrowserDynamicType::class
@@ -57,7 +55,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
      */
-    public function testSubmitValidDataWithItemTypeLimit()
+    public function testSubmitValidDataWithItemTypeLimit(): void
     {
         $form = $this->factory->create(
             ContentBrowserDynamicType::class,
@@ -79,7 +77,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::__construct
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -102,7 +100,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
      */
-    public function testBuildViewWithNonExistingItem()
+    public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -125,7 +123,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
      */
-    public function testBuildViewWithEmptyData()
+    public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
             ->expects($this->never())
@@ -144,7 +142,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -162,7 +160,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
      */
-    public function testConfigureOptionsWithMissingItemTypes()
+    public function testConfigureOptionsWithMissingItemTypes(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -176,7 +174,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
      */
-    public function testConfigureOptionsWithInvalidItemTypesItem()
+    public function testConfigureOptionsWithInvalidItemTypesItem(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -192,7 +190,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "item_types" with value 42 is expected to be of type "array", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidItemTypes()
+    public function testConfigureOptionsWithInvalidItemTypes(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -204,7 +202,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ng_content_browser_dynamic', $this->formType->getBlockPrefix());
     }

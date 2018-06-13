@@ -21,7 +21,7 @@ final class PagerFactoryTest extends TestCase
      */
     private $pagerFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->adapterMock = $this->createMock(AdapterInterface::class);
 
@@ -37,14 +37,9 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\ContentBrowser\Pager\PagerFactory::__construct
      * @covers \Netgen\ContentBrowser\Pager\PagerFactory::buildPager
      *
-     * @param int $page
-     * @param int|null $limit
-     * @param int $currentPage
-     * @param int $maxPerPage
-     *
      * @dataProvider buildPagerProvider
      */
-    public function testBuildPager($page, $limit, $currentPage, $maxPerPage)
+    public function testBuildPager(int $page, ?int $limit, int $currentPage, int $maxPerPage): void
     {
         $pager = $this->pagerFactory->buildPager(
             $this->adapterMock,
@@ -58,7 +53,7 @@ final class PagerFactoryTest extends TestCase
         $this->assertEquals($currentPage, $pager->getCurrentPage());
     }
 
-    public function buildPagerProvider()
+    public function buildPagerProvider(): array
     {
         return [
             [5, 20, 5, 20],

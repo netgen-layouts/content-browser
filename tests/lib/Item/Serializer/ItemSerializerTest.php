@@ -33,7 +33,7 @@ final class ItemSerializerTest extends TestCase
      */
     private $serializer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
         $this->columnProviderMock = $this->createMock(ColumnProviderInterface::class);
@@ -48,7 +48,7 @@ final class ItemSerializerTest extends TestCase
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItem
      */
-    public function testSerializeItem()
+    public function testSerializeItem(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -86,7 +86,7 @@ final class ItemSerializerTest extends TestCase
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItems
      */
-    public function testSerializeItems()
+    public function testSerializeItems(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -125,7 +125,7 @@ final class ItemSerializerTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeLocation
      */
-    public function testSerializeLocation()
+    public function testSerializeLocation(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -161,7 +161,7 @@ final class ItemSerializerTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeLocations
      */
-    public function testSerializeLocations()
+    public function testSerializeLocations(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -196,7 +196,7 @@ final class ItemSerializerTest extends TestCase
         );
     }
 
-    private function getItem()
+    private function getItem(): Item
     {
         $modificationDate = new DateTimeImmutable();
         $modificationDate = $modificationDate->setTimestamp(0);

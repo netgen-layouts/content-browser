@@ -27,7 +27,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      */
     private $eventListener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->container = new Container();
 
@@ -38,7 +38,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
@@ -50,7 +50,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -76,7 +76,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestWithCustomParams()
+    public function testOnKernelRequestWithCustomParams(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
@@ -118,7 +118,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Configuration for "item_type" item type is invalid.
      */
-    public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService()
+    public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -140,7 +140,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -161,7 +161,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoItemType()
+    public function testOnKernelRequestWithNoItemType(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -181,7 +181,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoContentBrowserRequest()
+    public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -204,7 +204,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Configuration for "unknown" item type does not exist.
      */
-    public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException()
+    public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

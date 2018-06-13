@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Form\Type\ContentBrowserType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserTypeTest extends TestCase
@@ -19,10 +20,7 @@ final class ContentBrowserTypeTest extends TestCase
      */
     private $backendMock;
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -32,7 +30,7 @@ final class ContentBrowserTypeTest extends TestCase
         return new ContentBrowserType($backendRegistry, ['value' => 'Value']);
     }
 
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
             ContentBrowserType::class,
@@ -52,7 +50,7 @@ final class ContentBrowserTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::__construct
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -82,7 +80,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
      */
-    public function testBuildViewWithNonExistingItem()
+    public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -112,7 +110,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
      */
-    public function testBuildViewWithEmptyData()
+    public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
             ->expects($this->never())
@@ -140,7 +138,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -160,7 +158,7 @@ final class ContentBrowserTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "item_type" is missing.
      */
-    public function testConfigureOptionsWithMissingItemType()
+    public function testConfigureOptionsWithMissingItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -174,7 +172,7 @@ final class ContentBrowserTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidItemType()
+    public function testConfigureOptionsWithInvalidItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -188,7 +186,7 @@ final class ContentBrowserTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "item_type" with value "non_existing" is invalid.
      */
-    public function testConfigureOptionsWithNonExistingItemType()
+    public function testConfigureOptionsWithNonExistingItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -200,7 +198,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::getParent
      */
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $this->assertEquals(TextType::class, $this->formType->getParent());
     }
@@ -208,7 +206,7 @@ final class ContentBrowserTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ng_content_browser', $this->formType->getBlockPrefix());
     }

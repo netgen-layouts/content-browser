@@ -29,7 +29,7 @@ final class ColumnProviderTest extends TestCase
      */
     private $columnProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
 
@@ -62,7 +62,7 @@ final class ColumnProviderTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Column value provider "provider" does not exist
      */
-    public function testConstructorThrowsInvalidArgumentException()
+    public function testConstructorThrowsInvalidArgumentException(): void
     {
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
@@ -75,7 +75,7 @@ final class ColumnProviderTest extends TestCase
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
-    public function testProvideColumns()
+    public function testProvideColumns(): void
     {
         $this->assertEquals(
             ['column1' => 'some_value', 'column2' => ''],
@@ -87,7 +87,7 @@ final class ColumnProviderTest extends TestCase
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
-    public function testProvideColumnsWithTemplate()
+    public function testProvideColumnsWithTemplate(): void
     {
         $this->config = new Configuration(
             'value',

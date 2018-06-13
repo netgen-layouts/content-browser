@@ -28,74 +28,74 @@ final class Configuration implements ConfigurationInterface
      * @param array $config
      * @param array $parameters
      */
-    public function __construct($itemType, array $config = [], array $parameters = [])
+    public function __construct(string $itemType, array $config = [], array $parameters = [])
     {
         $this->itemType = $itemType;
         $this->config = $config;
         $this->parameters = $parameters;
     }
 
-    public function getItemType()
+    public function getItemType(): string
     {
         return $this->itemType;
     }
 
-    public function getMinSelected()
+    public function getMinSelected(): int
     {
         return $this->config['min_selected'] ?? 1;
     }
 
-    public function getMaxSelected()
+    public function getMaxSelected(): int
     {
         return $this->config['max_selected'] ?? 0;
     }
 
-    public function hasTree()
+    public function hasTree(): bool
     {
         return $this->config['tree']['enabled'] ?? false;
     }
 
-    public function hasSearch()
+    public function hasSearch(): bool
     {
         return $this->config['search']['enabled'] ?? false;
     }
 
-    public function hasPreview()
+    public function hasPreview(): bool
     {
         return $this->config['preview']['enabled'] ?? false;
     }
 
-    public function getTemplate()
+    public function getTemplate(): ?string
     {
         return $this->config['preview']['template'] ?? null;
     }
 
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->config['columns'] ?? [];
     }
 
-    public function getDefaultColumns()
+    public function getDefaultColumns(): array
     {
         return $this->config['default_columns'] ?? [];
     }
 
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value): void
     {
         $this->parameters[$name] = $value;
     }
 
-    public function addParameters(array $parameters)
+    public function addParameters(array $parameters): void
     {
         $this->parameters = $parameters + $this->parameters;
     }
 
-    public function hasParameter($name)
+    public function hasParameter(string $name): bool
     {
         return isset($this->parameters[$name]);
     }
 
-    public function getParameter($name)
+    public function getParameter(string $name)
     {
         if (!$this->hasParameter($name)) {
             throw new InvalidArgumentException(
@@ -109,7 +109,7 @@ final class Configuration implements ConfigurationInterface
         return $this->parameters[$name];
     }
 
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }

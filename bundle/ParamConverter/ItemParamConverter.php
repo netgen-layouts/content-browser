@@ -23,7 +23,7 @@ final class ItemParamConverter implements ParamConverterInterface
         $this->backendRegistry = $backendRegistry;
     }
 
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         if (!$request->attributes->has('itemId') || !$request->attributes->has('itemType')) {
             return false;
@@ -44,7 +44,7 @@ final class ItemParamConverter implements ParamConverterInterface
         return true;
     }
 
-    public function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration): bool
     {
         return is_a($configuration->getClass(), ItemInterface::class, true);
     }

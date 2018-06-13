@@ -22,7 +22,7 @@ final class ItemRendererTest extends TestCase
      */
     private $itemRenderer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 
@@ -33,7 +33,7 @@ final class ItemRendererTest extends TestCase
      * @covers \Netgen\ContentBrowser\Item\Renderer\ItemRenderer::__construct
      * @covers \Netgen\ContentBrowser\Item\Renderer\ItemRenderer::renderItem
      */
-    public function testRenderItem()
+    public function testRenderItem(): void
     {
         $this->twigMock
             ->expects($this->once())
@@ -53,7 +53,7 @@ final class ItemRendererTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Item\Renderer\ItemRenderer::renderItem
      */
-    public function testRenderItemWithException()
+    public function testRenderItemWithException(): void
     {
         $this->twigMock
             ->expects($this->once())

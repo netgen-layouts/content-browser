@@ -34,10 +34,10 @@ final class RenderItem extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function __invoke(ItemInterface $item)
+    public function __invoke(ItemInterface $item): Response
     {
         $renderedItem = '';
-        if ($this->config->hasPreview()) {
+        if ($this->config->hasPreview() && is_string($this->config->getTemplate())) {
             $renderedItem = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
         }
 

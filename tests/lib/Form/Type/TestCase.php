@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -39,7 +40,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -61,15 +62,12 @@ abstract class TestCase extends BaseTestCase
         $this->builder = new FormBuilder('name', null, $this->dispatcher, $this->factory);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    abstract public function getMainType();
+    abstract public function getMainType(): FormTypeInterface;
 
     /**
      * @return \Symfony\Component\Form\FormTypeInterface[]
      */
-    public function getTypes()
+    public function getTypes(): array
     {
         return [];
     }

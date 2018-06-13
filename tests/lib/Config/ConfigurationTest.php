@@ -14,7 +14,7 @@ final class ConfigurationTest extends TestCase
      */
     private $config;
 
-    public function setUp()
+    public function setUp(): void
     {
         $configArray = [
             'min_selected' => 1,
@@ -44,7 +44,7 @@ final class ConfigurationTest extends TestCase
      * @covers \Netgen\ContentBrowser\Config\Configuration::__construct
      * @covers \Netgen\ContentBrowser\Config\Configuration::getItemType
      */
-    public function testGetItemType()
+    public function testGetItemType(): void
     {
         $this->assertEquals('value', $this->config->getItemType());
     }
@@ -52,7 +52,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getMinSelected
      */
-    public function testGetMinSelected()
+    public function testGetMinSelected(): void
     {
         $this->assertEquals(1, $this->config->getMinSelected());
     }
@@ -60,7 +60,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getMinSelected
      */
-    public function testGetMinSelectedWithEmptyConfig()
+    public function testGetMinSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertEquals(1, $this->config->getMinSelected());
@@ -69,7 +69,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getMaxSelected
      */
-    public function testGetMaxSelected()
+    public function testGetMaxSelected(): void
     {
         $this->assertEquals(3, $this->config->getMaxSelected());
     }
@@ -77,7 +77,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getMaxSelected
      */
-    public function testGetMaxSelectedWithEmptyConfig()
+    public function testGetMaxSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertEquals(0, $this->config->getMaxSelected());
@@ -86,7 +86,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getParameters
      */
-    public function testGetParameters()
+    public function testGetParameters(): void
     {
         $this->assertEquals(['default' => 'param'], $this->config->getParameters());
     }
@@ -94,7 +94,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasTree
      */
-    public function testHasTree()
+    public function testHasTree(): void
     {
         $this->assertTrue($this->config->hasTree());
     }
@@ -102,7 +102,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasTree
      */
-    public function testHasTreeWithEmptyConfig()
+    public function testHasTreeWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertFalse($this->config->hasTree());
@@ -111,7 +111,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasSearch
      */
-    public function testHasSearch()
+    public function testHasSearch(): void
     {
         $this->assertTrue($this->config->hasSearch());
     }
@@ -119,7 +119,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasSearch
      */
-    public function testHasSearchWithEmptyConfig()
+    public function testHasSearchWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertFalse($this->config->hasSearch());
@@ -128,7 +128,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasPreview
      */
-    public function testHasPreview()
+    public function testHasPreview(): void
     {
         $this->assertTrue($this->config->hasPreview());
     }
@@ -136,7 +136,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasPreview
      */
-    public function testHasPreviewWithEmptyConfig()
+    public function testHasPreviewWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertFalse($this->config->hasPreview());
@@ -145,7 +145,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getTemplate
      */
-    public function testGetTemplate()
+    public function testGetTemplate(): void
     {
         $this->assertEquals('template.html.twig', $this->config->getTemplate());
     }
@@ -153,7 +153,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getTemplate
      */
-    public function testGetTemplateWithEmptyConfig()
+    public function testGetTemplateWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertNull($this->config->getTemplate());
@@ -162,7 +162,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getColumns
      */
-    public function testGetColumns()
+    public function testGetColumns(): void
     {
         $this->assertEquals(['columns'], $this->config->getColumns());
     }
@@ -170,7 +170,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getColumns
      */
-    public function testGetColumnsWithEmptyConfig()
+    public function testGetColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertEquals([], $this->config->getColumns());
@@ -179,7 +179,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getDefaultColumns
      */
-    public function testGetDefaultColumns()
+    public function testGetDefaultColumns(): void
     {
         $this->assertEquals(['column1', 'column2'], $this->config->getDefaultColumns());
     }
@@ -187,7 +187,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getDefaultColumns
      */
-    public function testGetDefaultColumnsWithEmptyConfig()
+    public function testGetDefaultColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
         $this->assertEquals([], $this->config->getDefaultColumns());
@@ -196,7 +196,7 @@ final class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::addParameters
      */
-    public function testAddParameters()
+    public function testAddParameters(): void
     {
         $this->config->addParameters(['param' => 'value', 'default' => 'override']);
         $this->assertEquals('value', $this->config->getParameter('param'));
@@ -213,7 +213,7 @@ final class ConfigurationTest extends TestCase
      * @covers \Netgen\ContentBrowser\Config\Configuration::hasParameter
      * @covers \Netgen\ContentBrowser\Config\Configuration::setParameter
      */
-    public function testParameters()
+    public function testParameters(): void
     {
         $this->config->setParameter('param', 'value');
         $this->config->setParameter('param2', 'value2');
@@ -237,7 +237,7 @@ final class ConfigurationTest extends TestCase
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Parameter "unknown" does not exist in configuration.
      */
-    public function testGetParameterThrowsInvalidArgumentException()
+    public function testGetParameterThrowsInvalidArgumentException(): void
     {
         $this->config->getParameter('unknown');
     }

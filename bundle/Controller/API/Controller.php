@@ -14,7 +14,7 @@ abstract class Controller extends BaseController
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    public function initialize(ContainerInterface $container)
+    public function initialize(ContainerInterface $container): void
     {
         $this->setContainer($container);
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');

@@ -13,7 +13,7 @@ interface ColumnValueProviderInterface
      *
      * @param \Netgen\ContentBrowser\Item\ItemInterface $item
      *
-     * @return mixed
+     * @return string|null
      */
     public function getValue(ItemInterface $item);
 }

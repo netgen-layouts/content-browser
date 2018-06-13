@@ -26,7 +26,7 @@ final class SubItemsAdapter implements AdapterInterface
         $this->location = $location;
     }
 
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->backend->getSubItemsCount($this->location);
     }

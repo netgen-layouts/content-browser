@@ -28,7 +28,7 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
         $this->backendRegistry = $backendRegistry;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
@@ -38,7 +38,7 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

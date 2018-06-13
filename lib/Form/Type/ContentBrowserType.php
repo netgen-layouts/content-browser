@@ -30,7 +30,7 @@ final class ContentBrowserType extends AbstractType
         $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['item_type', 'start_location']);
 
@@ -39,7 +39,7 @@ final class ContentBrowserType extends AbstractType
 
         $resolver->setAllowedValues(
             'item_type',
-            function ($itemType) {
+            function (string $itemType): bool {
                 return in_array($itemType, $this->availableItemTypes, true);
             }
         );
@@ -47,7 +47,7 @@ final class ContentBrowserType extends AbstractType
         $resolver->setDefault('start_location', null);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $itemName = null;
         if ($form->getData() !== null) {
@@ -65,12 +65,12 @@ final class ContentBrowserType extends AbstractType
         $view->vars['start_location'] = $options['start_location'];
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return TextType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ng_content_browser';
     }

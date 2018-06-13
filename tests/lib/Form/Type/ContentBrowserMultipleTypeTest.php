@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserMultipleTypeTest extends TestCase
@@ -19,10 +20,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     private $backendMock;
 
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface
-     */
-    public function getMainType()
+    public function getMainType(): FormTypeInterface
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -32,7 +30,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         return new ContentBrowserMultipleType($backendRegistry, ['value' => 'Value']);
     }
 
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
@@ -53,7 +51,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItemNames
      */
-    public function testBuildView()
+    public function testBuildView(): void
     {
         $this->backendMock
             ->expects($this->at(0))
@@ -103,7 +101,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItemNames
      */
-    public function testBuildViewWithNonExistingItem()
+    public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -134,7 +132,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItemNames
      */
-    public function testBuildViewWithEmptyData()
+    public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
             ->expects($this->never())
@@ -162,7 +160,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      */
-    public function testConfigureOptions()
+    public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -184,7 +182,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
      */
-    public function testConfigureOptionsWithNormalizedMax()
+    public function testConfigureOptionsWithNormalizedMax(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -208,7 +206,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @expectedExceptionMessage The required option "item_type" is missing.
      */
-    public function testConfigureOptionsWithMissingItemType()
+    public function testConfigureOptionsWithMissingItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -222,7 +220,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".
      */
-    public function testConfigureOptionsWithInvalidItemType()
+    public function testConfigureOptionsWithInvalidItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -236,7 +234,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "item_type" with value "non_existing" is invalid.
      */
-    public function testConfigureOptionsWithNonExistingItemType()
+    public function testConfigureOptionsWithNonExistingItemType(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -250,7 +248,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "min" with value "min" is expected to be of type "int" or "null", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidMin()
+    public function testConfigureOptionsWithInvalidMin(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -264,7 +262,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @expectedExceptionMessage The option "max" with value "max" is expected to be of type "int" or "null", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidMax()
+    public function testConfigureOptionsWithInvalidMax(): void
     {
         $optionsResolver = new OptionsResolver();
 
@@ -276,7 +274,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getParent
      */
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $this->assertEquals(CollectionType::class, $this->formType->getParent());
     }
@@ -284,7 +282,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getBlockPrefix
      */
-    public function testGetBlockPrefix()
+    public function testGetBlockPrefix(): void
     {
         $this->assertEquals('ng_content_browser_multiple', $this->formType->getBlockPrefix());
     }

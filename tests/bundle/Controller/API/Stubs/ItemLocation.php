@@ -29,7 +29,7 @@ final class ItemLocation implements ItemInterface, LocationInterface
      * @param string $name
      * @param mixed $parentId
      */
-    public function __construct($value, $name, $parentId = null)
+    public function __construct($value, string $name, $parentId = null)
     {
         $this->value = $value;
         $this->name = $name;
@@ -41,17 +41,17 @@ final class ItemLocation implements ItemInterface, LocationInterface
         return $this->value;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function isVisible()
+    public function isVisible(): bool
     {
         return true;
     }
 
-    public function isSelectable()
+    public function isSelectable(): bool
     {
         return true;
     }

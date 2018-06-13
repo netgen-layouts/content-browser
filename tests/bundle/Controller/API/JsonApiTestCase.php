@@ -22,7 +22,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected $backendMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,13 +33,13 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         // We need an empty method to disable tearing down since it is
         // not compatible with Symfony 4.1
     }
 
-    public function setUpClient()
+    public function setUpClient(): void
     {
         parent::setUpClient();
 
@@ -58,10 +58,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     /**
      * Asserts that response is empty and has No Content status code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function assertEmptyResponse(Response $response)
+    protected function assertEmptyResponse(Response $response): void
     {
         $this->assertEmpty($response->getContent());
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -70,12 +68,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Asserts that response has a proper JSON exception content.
      * If statusCode is set, asserts that response has given status code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param int $statusCode
-     * @param string $message
      */
-    protected function assertException(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
+    protected function assertException(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
     {
         if (($_SERVER['OPEN_ERROR_IN_BROWSER'] ?? false) === true) {
             $this->showErrorInBrowserIfOccurred($response);
@@ -88,12 +82,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     /**
      * Asserts that exception response has a correct response status text and code.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param int $statusCode
-     * @param string $message
      */
-    protected function assertExceptionResponse(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
+    protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
         $this->assertInternalType('array', $responseContent);
@@ -109,7 +99,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         }
     }
 
-    protected function mockBackend()
+    protected function mockBackend(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -137,7 +127,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         );
     }
 
-    protected function mockItemRenderer()
+    protected function mockItemRenderer(): void
     {
         $itemRendererMock = $this->clientContainer->mock(
             'netgen_content_browser.item_renderer',

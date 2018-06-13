@@ -32,7 +32,7 @@ final class ContentBrowserMultipleType extends AbstractType
         $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
@@ -52,7 +52,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setAllowedValues(
             'item_type',
-            function ($itemType) {
+            function (string $itemType): bool {
                 return in_array($itemType, $this->availableItemTypes, true);
             }
         );
@@ -63,7 +63,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setNormalizer(
             'max',
-            function (Options $options, $value) {
+            function (Options $options, ?int $value): ?int {
                 if ($value === null || $options['min'] === null) {
                     return $value;
                 }
@@ -77,7 +77,7 @@ final class ContentBrowserMultipleType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $itemNames = [];
         if ($form->getData() !== null) {
@@ -92,12 +92,12 @@ final class ContentBrowserMultipleType extends AbstractType
         $view->vars['start_location'] = $options['start_location'];
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return CollectionType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ng_content_browser_multiple';
     }
@@ -110,7 +110,7 @@ final class ContentBrowserMultipleType extends AbstractType
      *
      * @return array
      */
-    private function getItemNames($itemIds, $itemType)
+    private function getItemNames($itemIds, string $itemType): array
     {
         $itemNames = [];
 

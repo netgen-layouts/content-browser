@@ -10,7 +10,7 @@ use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 final class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('netgen_content_browser');
@@ -51,7 +51,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('preview')
                         ->validate()
-                            ->always(function (array $v) {
+                            ->always(function (array $v): array {
                                 if ($v['enabled'] && !isset($v['template'])) {
                                     throw new InvalidConfigurationException('When preview is enabled, template needs to be specified');
                                 }
@@ -69,7 +69,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('columns')
                         ->validate()
-                            ->always(function (array $v) {
+                            ->always(function (array $v): array {
                                 if (!isset($v['name'])) {
                                     throw new InvalidConfigurationException('Column with "name" identifier is required');
                                 }
@@ -80,7 +80,7 @@ final class Configuration implements ConfigurationInterface
                         ->performNoDeepMerging()
                         ->prototype('array')
                             ->validate()
-                                ->always(function (array $v) {
+                                ->always(function (array $v): array {
                                     $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
 
                                     if (isset($v['template'], $v['value_provider'])) {

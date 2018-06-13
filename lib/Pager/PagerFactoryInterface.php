@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Pager;
 
 use Pagerfanta\Adapter\AdapterInterface;
+use Pagerfanta\Pagerfanta;
 
 interface PagerFactoryInterface
 {
     /**
      * Builds the pager from provided adapter.
-     *
-     * @param \Pagerfanta\Adapter\AdapterInterface $adapter
-     * @param int $page
-     * @param int $limit
-     *
-     * @return \Pagerfanta\Pagerfanta
      */
-    public function buildPager(AdapterInterface $adapter, $page, $limit = null);
+    public function buildPager(AdapterInterface $adapter, int $page, int $limit = null): Pagerfanta;
 }

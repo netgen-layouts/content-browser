@@ -14,7 +14,7 @@ final class BackendRegistryPass implements CompilerPassInterface
     private static $serviceName = 'netgen_content_browser.registry.backend';
     private static $tagName = 'netgen_content_browser.backend';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(self::$serviceName)) {
             return;

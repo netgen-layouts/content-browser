@@ -14,7 +14,7 @@ final class LoadConfigTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::__invoke
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::getAvailableColumns
      */
-    public function testLoadConfig()
+    public function testLoadConfig(): void
     {
         $this->backendMock
             ->expects($this->any())

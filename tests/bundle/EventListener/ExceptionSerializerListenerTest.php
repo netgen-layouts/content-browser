@@ -30,7 +30,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     private $loggerMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
@@ -41,7 +41,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 5]],
@@ -53,7 +53,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnException()
+    public function testOnException(): void
     {
         $exception = new NotFoundHttpException('Some message');
 
@@ -90,7 +90,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionLogsCriticalError()
+    public function testOnExceptionLogsCriticalError(): void
     {
         $exception = new RuntimeException('Some message');
 
@@ -129,7 +129,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionWithDebugging()
+    public function testOnExceptionWithDebugging(): void
     {
         $exception = new NotFoundHttpException('Some message', new Exception('Previous exception'));
 
@@ -176,7 +176,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionInSubRequest()
+    public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -197,7 +197,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
      */
-    public function testOnExceptionWithNoContentBrowserRequest()
+    public function testOnExceptionWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

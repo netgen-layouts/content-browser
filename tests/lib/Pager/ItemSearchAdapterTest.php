@@ -20,7 +20,7 @@ final class ItemSearchAdapterTest extends TestCase
      */
     private $adapter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
@@ -31,7 +31,7 @@ final class ItemSearchAdapterTest extends TestCase
      * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::__construct
      * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getNbResults
      */
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->backendMock
             ->expects($this->once())
@@ -45,7 +45,7 @@ final class ItemSearchAdapterTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getSlice
      */
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $this->backendMock
             ->expects($this->once())

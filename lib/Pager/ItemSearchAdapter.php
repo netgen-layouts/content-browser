@@ -23,13 +23,13 @@ final class ItemSearchAdapter implements AdapterInterface
      * @param \Netgen\ContentBrowser\Backend\BackendInterface $backend
      * @param string $searchText
      */
-    public function __construct(BackendInterface $backend, $searchText)
+    public function __construct(BackendInterface $backend, string $searchText)
     {
         $this->backend = $backend;
         $this->searchText = $searchText;
     }
 
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->backend->searchCount($this->searchText);
     }

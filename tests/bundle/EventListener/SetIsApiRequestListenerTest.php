@@ -16,7 +16,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
      */
-    public function testGetSubscribedEvents()
+    public function testGetSubscribedEvents(): void
     {
         $eventListener = new SetIsApiRequestListener();
 
@@ -29,7 +29,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
-    public function testOnKernelRequest()
+    public function testOnKernelRequest(): void
     {
         $eventListener = new SetIsApiRequestListener();
 
@@ -46,7 +46,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestWithInvalidRoute()
+    public function testOnKernelRequestWithInvalidRoute(): void
     {
         $eventListener = new SetIsApiRequestListener();
 
@@ -63,7 +63,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
-    public function testOnKernelRequestInSubRequest()
+    public function testOnKernelRequestInSubRequest(): void
     {
         $eventListener = new SetIsApiRequestListener();
 

@@ -8,6 +8,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
 final class LoadConfig extends Controller
@@ -56,7 +57,7 @@ final class LoadConfig extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         $data = [
             'item_type' => $this->config->getItemType(),
@@ -81,7 +82,7 @@ final class LoadConfig extends Controller
      *
      * @return array
      */
-    private function getAvailableColumns()
+    private function getAvailableColumns(): array
     {
         $availableColumns = [];
 

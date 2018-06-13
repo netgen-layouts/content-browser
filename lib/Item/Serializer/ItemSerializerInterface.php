@@ -11,21 +11,13 @@ interface ItemSerializerInterface
 {
     /**
      * Serializes the item to array.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return array
      */
-    public function serializeItem(ItemInterface $item);
+    public function serializeItem(ItemInterface $item): array;
 
     /**
      * Serializes the location to array.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return array
      */
-    public function serializeLocation(LocationInterface $location);
+    public function serializeLocation(LocationInterface $location): array;
 
     /**
      * Serializes the list of items to the array.
@@ -34,7 +26,7 @@ interface ItemSerializerInterface
      *
      * @return array
      */
-    public function serializeItems(array $items);
+    public function serializeItems(array $items): array;
 
     /**
      * Serializes the list of items to the array.
@@ -43,5 +35,5 @@ interface ItemSerializerInterface
      *
      * @return array
      */
-    public function serializeLocations(array $locations);
+    public function serializeLocations(array $locations): array;
 }

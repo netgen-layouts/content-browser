@@ -13,7 +13,7 @@ final class LoadSubLocationsTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations::__invoke
      */
-    public function testLoadSubLocations()
+    public function testLoadSubLocations(): void
     {
         $this->backendMock
             ->expects($this->at(0))

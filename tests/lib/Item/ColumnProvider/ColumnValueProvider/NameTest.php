@@ -15,7 +15,7 @@ final class NameTest extends TestCase
      */
     private $provider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->provider = new Name();
     }
@@ -23,7 +23,7 @@ final class NameTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $this->assertEquals(
             'This is a name',

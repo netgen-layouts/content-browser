@@ -8,66 +8,48 @@ interface ConfigurationInterface
 {
     /**
      * Returns the item type.
-     *
-     * @return string
      */
-    public function getItemType();
+    public function getItemType(): string;
 
     /**
      * Returns the minimum number of items allowed to be selected.
-     *
-     * @return int
      */
-    public function getMinSelected();
+    public function getMinSelected(): int;
 
     /**
      * Returns the maximum number of items allowed to be selected.
-     *
-     * @return int
      */
-    public function getMaxSelected();
+    public function getMaxSelected(): int;
 
     /**
      * Returns if the tree is activated in the config.
-     *
-     * @return bool
      */
-    public function hasTree();
+    public function hasTree(): bool;
 
     /**
      * Returns if the search is activated in the config.
-     *
-     * @return bool
      */
-    public function hasSearch();
+    public function hasSearch(): bool;
 
     /**
      * Returns if the preview is activated in the config.
-     *
-     * @return bool
      */
-    public function hasPreview();
+    public function hasPreview(): bool;
 
     /**
-     * Returns the template used to render the item.
-     *
-     * @return string
+     * Returns the template used to render the item or null if the preview is disabled.
      */
-    public function getTemplate();
+    public function getTemplate(): ?string;
 
     /**
      * Returns the list of columns.
-     *
-     * @return array
      */
-    public function getColumns();
+    public function getColumns(): array;
 
     /**
      * Returns the list of default columns.
-     *
-     * @return array
      */
-    public function getDefaultColumns();
+    public function getDefaultColumns(): array;
 
     /**
      * Sets the parameter with specified name to specified value.
@@ -75,25 +57,19 @@ interface ConfigurationInterface
      * @param string $name
      * @param mixed $value
      */
-    public function setParameter($name, $value);
+    public function setParameter(string $name, $value): void;
 
     /**
      * Adds the provided parameters to the config.
      *
      * Provided parameters will override any existing parameters.
-     *
-     * @param array $parameters
      */
-    public function addParameters(array $parameters);
+    public function addParameters(array $parameters): void;
 
     /**
      * Returns if config has the specified parameter.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    public function hasParameter($name);
+    public function hasParameter(string $name): bool;
 
     /**
      * Returns the parameter with specified name.
@@ -104,12 +80,10 @@ interface ConfigurationInterface
      *
      * @return mixed
      */
-    public function getParameter($name);
+    public function getParameter(string $name);
 
     /**
      * Returns all parameters.
-     *
-     * @return array
      */
-    public function getParameters();
+    public function getParameters(): array;
 }
