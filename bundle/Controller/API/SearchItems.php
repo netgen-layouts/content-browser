@@ -54,7 +54,7 @@ final class SearchItems extends Controller
             'children' => [],
         ];
 
-        $searchText = trim($request->query->get('searchText'));
+        $searchText = trim($request->query->get('searchText', ''));
         if (!empty($searchText)) {
             $limit = $request->query->get('limit');
 

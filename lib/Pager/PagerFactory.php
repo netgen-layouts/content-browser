@@ -32,7 +32,7 @@ final class PagerFactory implements PagerFactoryInterface
     public function buildPager(AdapterInterface $adapter, $page, $limit = null)
     {
         $page = (int) $page;
-        $limit = $limit !== null ? (int) $limit : $this->defaultLimit;
+        $limit = (int) ($limit ?? $this->defaultLimit);
 
         $pager = new Pagerfanta($adapter);
 

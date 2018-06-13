@@ -42,58 +42,42 @@ final class Configuration implements ConfigurationInterface
 
     public function getMinSelected()
     {
-        return isset($this->config['min_selected']) ?
-            $this->config['min_selected'] :
-            1;
+        return $this->config['min_selected'] ?? 1;
     }
 
     public function getMaxSelected()
     {
-        return isset($this->config['max_selected']) ?
-            $this->config['max_selected'] :
-            0;
+        return $this->config['max_selected'] ?? 0;
     }
 
     public function hasTree()
     {
-        return isset($this->config['tree']['enabled']) ?
-            $this->config['tree']['enabled'] :
-            false;
+        return $this->config['tree']['enabled'] ?? false;
     }
 
     public function hasSearch()
     {
-        return isset($this->config['search']['enabled']) ?
-            $this->config['search']['enabled'] :
-            false;
+        return $this->config['search']['enabled'] ?? false;
     }
 
     public function hasPreview()
     {
-        return isset($this->config['preview']['enabled']) ?
-            $this->config['preview']['enabled'] :
-            false;
+        return $this->config['preview']['enabled'] ?? false;
     }
 
     public function getTemplate()
     {
-        return isset($this->config['preview']['template']) ?
-            $this->config['preview']['template'] :
-            null;
+        return $this->config['preview']['template'] ?? null;
     }
 
     public function getColumns()
     {
-        return isset($this->config['columns']) ?
-            $this->config['columns'] :
-            [];
+        return $this->config['columns'] ?? [];
     }
 
     public function getDefaultColumns()
     {
-        return isset($this->config['default_columns']) ?
-            $this->config['default_columns'] :
-            [];
+        return $this->config['default_columns'] ?? [];
     }
 
     public function setParameter($name, $value)

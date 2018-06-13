@@ -88,6 +88,6 @@ final class ColumnProvider implements ColumnProviderInterface
             ->columnValueProviders[$columnConfig['value_provider']]
             ->getValue($item);
 
-        return $columnValue !== null ? $columnValue : '';
+        return $columnValue ?? '';
     }
 }
