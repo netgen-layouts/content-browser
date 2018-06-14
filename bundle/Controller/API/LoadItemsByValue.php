@@ -54,7 +54,9 @@ final class LoadItemsByValue extends Controller
 
         return new JsonResponse(
             [
-                'items' => $this->itemSerializer->serializeItems($items),
+                'items' => iterator_to_array(
+                    $this->itemSerializer->serializeItems($items)
+                ),
             ]
         );
     }

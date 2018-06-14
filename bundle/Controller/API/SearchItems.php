@@ -69,8 +69,10 @@ final class SearchItems extends Controller
             );
 
             $data['children_count'] = $pager->getNbResults();
-            $data['children'] = $this->itemSerializer->serializeItems(
-                $pager->getCurrentPageResults()
+            $data['children'] = iterator_to_array(
+                $this->itemSerializer->serializeItems(
+                    $pager->getCurrentPageResults()
+                )
             );
         }
 

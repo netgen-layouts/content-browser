@@ -61,8 +61,10 @@ final class LoadConfig extends Controller
     {
         $data = [
             'item_type' => $this->config->getItemType(),
-            'sections' => $this->itemSerializer->serializeLocations(
-                $this->backend->getDefaultSections()
+            'sections' => iterator_to_array(
+                $this->itemSerializer->serializeLocations(
+                    $this->backend->getDefaultSections()
+                )
             ),
             'min_selected' => $this->config->getMinSelected(),
             'max_selected' => $this->config->getMaxSelected(),

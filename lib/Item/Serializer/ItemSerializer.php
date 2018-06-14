@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Item\Serializer;
 
+use Generator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
@@ -64,23 +65,17 @@ final class ItemSerializer implements ItemSerializerInterface
         ];
     }
 
-    public function serializeItems(array $items): array
+    public function serializeItems(iterable $items): Generator
     {
-        return array_map(
-            function (ItemInterface $item): array {
-                return $this->serializeItem($item);
-            },
-            $items
-        );
+        foreach ($items as $item) {
+            yield $this->serializeItem($item);
+        }
     }
 
-    public function serializeLocations(array $locations): array
+    public function serializeLocations(iterable $locations): Generator
     {
-        return array_map(
-            function (LocationInterface $location): array {
-                return $this->serializeLocation($location);
-            },
-            $locations
-        );
+        foreach ($locations as $location) {
+            yield $this->serializeLocation($location);
+        }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Item\Serializer;
 
+use Generator;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
@@ -20,20 +21,20 @@ interface ItemSerializerInterface
     public function serializeLocation(LocationInterface $location): array;
 
     /**
-     * Serializes the list of items to the array.
+     * Serializes the list of items.
      *
      * @param \Netgen\ContentBrowser\Item\ItemInterface[] $items
      *
-     * @return array
+     * @return \Generator
      */
-    public function serializeItems(array $items): array;
+    public function serializeItems(iterable $items): Generator;
 
     /**
-     * Serializes the list of items to the array.
+     * Serializes the list of items.
      *
      * @param \Netgen\ContentBrowser\Item\LocationInterface[] $locations
      *
-     * @return array
+     * @return \Generator
      */
-    public function serializeLocations(array $locations): array;
+    public function serializeLocations(iterable $locations): Generator;
 }

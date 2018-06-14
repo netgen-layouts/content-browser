@@ -118,7 +118,7 @@ final class ItemSerializerTest extends TestCase
                     ],
                 ],
             ],
-            $data
+            iterator_to_array($data)
         );
     }
 
@@ -192,7 +192,7 @@ final class ItemSerializerTest extends TestCase
                     ],
                 ],
             ],
-            $data
+            iterator_to_array($data)
         );
     }
 
