@@ -43,13 +43,13 @@ final class LoadConfig extends Controller
         ConfigurationInterface $config,
         ItemSerializerInterface $itemSerializer,
         TranslatorInterface $translator,
-        $defaultLimit
+        int $defaultLimit
     ) {
         $this->backend = $backend;
         $this->config = $config;
         $this->itemSerializer = $itemSerializer;
         $this->translator = $translator;
-        $this->defaultLimit = (int) $defaultLimit;
+        $this->defaultLimit = $defaultLimit;
     }
 
     /**
