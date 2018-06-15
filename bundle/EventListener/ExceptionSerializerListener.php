@@ -27,9 +27,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      */
     private $logger;
 
-    public function __construct($outputDebugInfo = false, LoggerInterface $logger = null)
+    public function __construct(bool $outputDebugInfo = false, LoggerInterface $logger = null)
     {
-        $this->outputDebugInfo = (bool) $outputDebugInfo;
+        $this->outputDebugInfo = $outputDebugInfo;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -41,8 +41,6 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
     /**
      * Serializes the exception.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
     public function onException(GetResponseForExceptionEvent $event): void
     {
@@ -92,8 +90,6 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
     /**
      * Logs all critical errors.
-     *
-     * @param \Exception $exception
      */
     private function logException(Exception $exception): void
     {

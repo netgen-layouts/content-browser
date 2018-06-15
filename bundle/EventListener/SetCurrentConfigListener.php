@@ -30,8 +30,6 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
 
     /**
      * Injects the current config into container.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event): void
     {
@@ -60,11 +58,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
     /**
      * Loads the configuration for provided item type from the container.
      *
-     * @param string $itemType
-     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
-     *
-     * @return \Netgen\ContentBrowser\Config\ConfigurationInterface
      */
     private function loadConfig(string $itemType): ConfigurationInterface
     {

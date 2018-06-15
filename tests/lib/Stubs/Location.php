@@ -9,18 +9,18 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 final class Location implements LocationInterface
 {
     /**
-     * @var int
+     * @var int|string
      */
     private $id;
 
     /**
-     * @var int|null
+     * @var int|string|null
      */
     private $parentId;
 
     /**
-     * @param int $id
-     * @param int|null $parentId
+     * @param int|string $id
+     * @param int|string|null $parentId
      */
     public function __construct($id, $parentId = null)
     {

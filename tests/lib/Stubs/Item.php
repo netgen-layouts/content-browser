@@ -13,9 +13,6 @@ final class Item implements ItemInterface
      */
     private $value;
 
-    /**
-     * @param mixed $value
-     */
     public function __construct($value = null)
     {
         $this->value = $value;

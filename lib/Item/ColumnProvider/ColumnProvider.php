@@ -69,11 +69,6 @@ final class ColumnProvider implements ColumnProviderInterface
 
     /**
      * Provides the column with specified identifier for selected item.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     * @param array $columnConfig
-     *
-     * @return string
      */
     private function provideColumn(ItemInterface $item, array $columnConfig): string
     {

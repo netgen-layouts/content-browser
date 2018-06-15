@@ -74,8 +74,6 @@ interface ConfigurationInterface
     /**
      * Returns the parameter with specified name.
      *
-     * @param string $name
-     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException if parameter does not exist
      *
      * @return mixed

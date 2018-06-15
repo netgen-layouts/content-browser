@@ -49,11 +49,6 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
      * @dataProvider onExceptionDataProvider
-     *
-     * @param \Exception $exception
-     * @param string $convertedClass
-     * @param int $statusCode
-     * @param bool $converted
      */
     public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
     {

@@ -30,10 +30,6 @@ final class LoadSubLocations extends Controller
 
     /**
      * Returns all locations below specified location.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(LocationInterface $location): Response
     {

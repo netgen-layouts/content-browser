@@ -44,11 +44,6 @@ final class LoadSubItems extends Controller
 
     /**
      * Returns all items below specified location.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(LocationInterface $location, Request $request): Response
     {
@@ -81,10 +76,6 @@ final class LoadSubItems extends Controller
 
     /**
      * Builds the path array for specified item.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return array
      */
     private function buildPath(LocationInterface $location): array
     {

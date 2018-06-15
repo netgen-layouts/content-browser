@@ -11,8 +11,6 @@ abstract class Controller extends BaseController
 {
     /**
      * Initializes the controller by setting the container and performing basic access checks.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     public function initialize(ContainerInterface $container): void
     {

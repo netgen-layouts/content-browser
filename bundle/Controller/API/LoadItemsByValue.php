@@ -32,11 +32,7 @@ final class LoadItemsByValue extends Controller
     /**
      * Returns all items with specified values.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If values are missing or invalid
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(Request $request): Response
     {

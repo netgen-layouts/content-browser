@@ -23,11 +23,6 @@ final class Configuration implements ConfigurationInterface
      */
     private $parameters = [];
 
-    /**
-     * @param string $itemType
-     * @param array $config
-     * @param array $parameters
-     */
     public function __construct(string $itemType, array $config = [], array $parameters = [])
     {
         $this->itemType = $itemType;

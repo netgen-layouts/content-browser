@@ -29,10 +29,6 @@ final class RenderItem extends Controller
 
     /**
      * Renders the provided item.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(ItemInterface $item): Response
     {

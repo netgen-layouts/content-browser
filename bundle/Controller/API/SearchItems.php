@@ -42,11 +42,7 @@ final class SearchItems extends Controller
     /**
      * Performs the search for values by using the specified text.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If search text is empty
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(Request $request): Response
     {

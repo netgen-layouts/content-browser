@@ -19,10 +19,6 @@ final class PagerFactory implements PagerFactoryInterface
      */
     private $maxLimit;
 
-    /**
-     * @param int $defaultLimit
-     * @param int $maxLimit
-     */
     public function __construct(int $defaultLimit, int $maxLimit)
     {
         $this->defaultLimit = $defaultLimit;

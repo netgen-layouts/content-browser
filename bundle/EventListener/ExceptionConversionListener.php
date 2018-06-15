@@ -37,8 +37,6 @@ final class ExceptionConversionListener implements EventSubscriberInterface
 
     /**
      * Converts exceptions to Symfony HTTP exceptions.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
     public function onException(GetResponseForExceptionEvent $event): void
     {

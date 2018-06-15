@@ -54,8 +54,6 @@ final class LoadConfig extends Controller
 
     /**
      * Returns the configuration for content browser.
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function __invoke(): Response
     {
@@ -81,8 +79,6 @@ final class LoadConfig extends Controller
 
     /**
      * Returns the list of available columns from configuration.
-     *
-     * @return array
      */
     private function getAvailableColumns(): array
     {

@@ -21,8 +21,6 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
     /**
      * Sets the self::API_FLAG_NAME flag if this is a REST API request.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event): void
     {

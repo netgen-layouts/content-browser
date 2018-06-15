@@ -35,8 +35,6 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
 
     /**
      * Injects the current backend into container.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event): void
     {
