@@ -10,7 +10,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
-    const API_FLAG_NAME = 'ngcb_is_api_request';
+    public const API_FLAG_NAME = 'ngcb_is_api_request';
+
     private static $apiRoutePrefix = 'ngcb_api_';
 
     public static function getSubscribedEvents(): array
@@ -19,7 +20,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
     }
 
     /**
-     * Sets the {@link self::API_FLAG_NAME} flag if this is a REST API request.
+     * Sets the self::API_FLAG_NAME flag if this is a REST API request.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      */
