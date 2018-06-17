@@ -42,7 +42,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->eventListener->getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents()
         );
     }
 

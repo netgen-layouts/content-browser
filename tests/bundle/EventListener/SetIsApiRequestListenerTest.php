@@ -14,15 +14,23 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class SetIsApiRequestListenerTest extends TestCase
 {
     /**
+     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
+     */
+    private $eventListener;
+
+    public function setUp(): void
+    {
+        $this->eventListener = new SetIsApiRequestListener();
+    }
+
+    /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $this->assertEquals(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
-            $eventListener->getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents()
         );
     }
 
@@ -31,14 +39,12 @@ final class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequest(): void
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'ngcb_api_v1_config');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->eventListener->onKernelRequest($event);
 
         $this->assertTrue($event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME));
     }
@@ -48,14 +54,12 @@ final class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidRoute(): void
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->eventListener->onKernelRequest($event);
 
         $this->assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
@@ -65,13 +69,11 @@ final class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestInSubRequest(): void
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->eventListener->onKernelRequest($event);
 
         $this->assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }

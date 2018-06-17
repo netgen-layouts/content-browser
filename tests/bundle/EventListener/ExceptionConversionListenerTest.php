@@ -42,7 +42,7 @@ final class ExceptionConversionListenerTest extends TestCase
     {
         $this->assertEquals(
             [KernelEvents::EXCEPTION => ['onException', 10]],
-            $this->eventListener->getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents()
         );
     }
 
