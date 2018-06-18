@@ -49,8 +49,8 @@ final class PagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertEquals($maxPerPage, $pager->getMaxPerPage());
-        $this->assertEquals($currentPage, $pager->getCurrentPage());
+        $this->assertSame($maxPerPage, $pager->getMaxPerPage());
+        $this->assertSame($currentPage, $pager->getCurrentPage());
     }
 
     public function buildPagerProvider(): array

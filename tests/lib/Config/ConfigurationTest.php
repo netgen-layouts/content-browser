@@ -46,7 +46,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetItemType(): void
     {
-        $this->assertEquals('value', $this->config->getItemType());
+        $this->assertSame('value', $this->config->getItemType());
     }
 
     /**
@@ -54,7 +54,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMinSelected(): void
     {
-        $this->assertEquals(1, $this->config->getMinSelected());
+        $this->assertSame(1, $this->config->getMinSelected());
     }
 
     /**
@@ -63,7 +63,7 @@ final class ConfigurationTest extends TestCase
     public function testGetMinSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
-        $this->assertEquals(1, $this->config->getMinSelected());
+        $this->assertSame(1, $this->config->getMinSelected());
     }
 
     /**
@@ -71,7 +71,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMaxSelected(): void
     {
-        $this->assertEquals(3, $this->config->getMaxSelected());
+        $this->assertSame(3, $this->config->getMaxSelected());
     }
 
     /**
@@ -80,7 +80,7 @@ final class ConfigurationTest extends TestCase
     public function testGetMaxSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
-        $this->assertEquals(0, $this->config->getMaxSelected());
+        $this->assertSame(0, $this->config->getMaxSelected());
     }
 
     /**
@@ -88,7 +88,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetParameters(): void
     {
-        $this->assertEquals(['default' => 'param'], $this->config->getParameters());
+        $this->assertSame(['default' => 'param'], $this->config->getParameters());
     }
 
     /**
@@ -147,7 +147,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetTemplate(): void
     {
-        $this->assertEquals('template.html.twig', $this->config->getTemplate());
+        $this->assertSame('template.html.twig', $this->config->getTemplate());
     }
 
     /**
@@ -164,7 +164,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetColumns(): void
     {
-        $this->assertEquals(['columns'], $this->config->getColumns());
+        $this->assertSame(['columns'], $this->config->getColumns());
     }
 
     /**
@@ -173,7 +173,7 @@ final class ConfigurationTest extends TestCase
     public function testGetColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
-        $this->assertEquals([], $this->config->getColumns());
+        $this->assertSame([], $this->config->getColumns());
     }
 
     /**
@@ -181,7 +181,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetDefaultColumns(): void
     {
-        $this->assertEquals(['column1', 'column2'], $this->config->getDefaultColumns());
+        $this->assertSame(['column1', 'column2'], $this->config->getDefaultColumns());
     }
 
     /**
@@ -190,7 +190,7 @@ final class ConfigurationTest extends TestCase
     public function testGetDefaultColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value');
-        $this->assertEquals([], $this->config->getDefaultColumns());
+        $this->assertSame([], $this->config->getDefaultColumns());
     }
 
     /**
@@ -199,8 +199,8 @@ final class ConfigurationTest extends TestCase
     public function testAddParameters(): void
     {
         $this->config->addParameters(['param' => 'value', 'default' => 'override']);
-        $this->assertEquals('value', $this->config->getParameter('param'));
-        $this->assertEquals('override', $this->config->getParameter('default'));
+        $this->assertSame('value', $this->config->getParameter('param'));
+        $this->assertSame('override', $this->config->getParameter('default'));
 
         $this->assertTrue($this->config->hasParameter('param'));
         $this->assertTrue($this->config->hasParameter('default'));
@@ -217,16 +217,16 @@ final class ConfigurationTest extends TestCase
     {
         $this->config->setParameter('param', 'value');
         $this->config->setParameter('param2', 'value2');
-        $this->assertEquals('value', $this->config->getParameter('param'));
+        $this->assertSame('value', $this->config->getParameter('param'));
 
         $this->assertTrue($this->config->hasParameter('param'));
         $this->assertFalse($this->config->hasParameter('other'));
 
-        $this->assertEquals(
+        $this->assertSame(
             [
+                'default' => 'param',
                 'param' => 'value',
                 'param2' => 'value2',
-                'default' => 'param',
             ],
             $this->config->getParameters()
         );

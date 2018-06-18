@@ -49,7 +49,7 @@ final class SetCurrentBackendListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->eventListener::getSubscribedEvents()
         );
@@ -72,12 +72,12 @@ final class SetCurrentBackendListenerTest extends TestCase
         );
 
         $backendMock = $this->createMock(BackendInterface::class);
-        $this->backendRegistry->addBackend('item_type', $this->createMock(BackendInterface::class));
+        $this->backendRegistry->addBackend('item_type', $backendMock);
 
         $this->eventListener->onKernelRequest($event);
 
         $this->assertTrue($this->container->has('netgen_content_browser.current_backend'));
-        $this->assertEquals($backendMock, $this->container->get('netgen_content_browser.current_backend'));
+        $this->assertSame($backendMock, $this->container->get('netgen_content_browser.current_backend'));
     }
 
     /**

@@ -43,12 +43,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ContentBrowserDynamicType::class
         );
 
-        $data = ['item_id' => '42', 'item_type' => 'value2'];
+        $data = ['item_type' => 'value2', 'item_id' => '42'];
 
         $form->submit($data);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($data, $form->getData());
+        $this->assertSame($data, $form->getData());
     }
 
     /**
@@ -65,12 +65,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ]
         );
 
-        $data = ['item_id' => '42', 'item_type' => 'value1'];
+        $data = ['item_type' => 'value1', 'item_id' => '42'];
 
         $form->submit($data);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($data, $form->getData());
+        $this->assertSame($data, $form->getData());
     }
 
     /**
@@ -94,7 +94,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $view = $form->createView();
 
         $this->assertArrayHasKey('item_name', $view->vars);
-        $this->assertEquals('This is a name (42)', $view->vars['item_name']);
+        $this->assertSame('This is a name (42)', $view->vars['item_name']);
     }
 
     /**
@@ -154,7 +154,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ]
         );
 
-        $this->assertEquals($options['item_types'], ['value1']);
+        $this->assertSame($options['item_types'], ['value1']);
     }
 
     /**
@@ -168,7 +168,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $options = $optionsResolver->resolve();
 
-        $this->assertEquals($options['item_types'], []);
+        $this->assertSame($options['item_types'], []);
     }
 
     /**
@@ -182,7 +182,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $options = $optionsResolver->resolve(['item_types' => [42]]);
 
-        $this->assertEquals($options['item_types'], []);
+        $this->assertSame($options['item_types'], []);
     }
 
     /**
@@ -204,6 +204,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ng_content_browser_dynamic', $this->formType->getBlockPrefix());
+        $this->assertSame('ng_content_browser_dynamic', $this->formType->getBlockPrefix());
     }
 }

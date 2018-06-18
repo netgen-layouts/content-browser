@@ -77,7 +77,7 @@ final class ColumnProviderTest extends TestCase
      */
     public function testProvideColumns(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['column1' => 'some_value', 'column2' => ''],
             $this->columnProvider->provideColumns(new Item())
         );
@@ -112,7 +112,7 @@ final class ColumnProviderTest extends TestCase
             ->with($this->equalTo(new Item()), $this->equalTo('template.html.twig'))
             ->will($this->returnValue('rendered column'));
 
-        $this->assertEquals(
+        $this->assertSame(
             ['column' => 'rendered column'],
             $this->columnProvider->provideColumns(new Item())
         );

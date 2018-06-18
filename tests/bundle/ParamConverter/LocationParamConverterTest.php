@@ -52,14 +52,16 @@ final class LocationParamConverterTest extends TestCase
         $request->attributes->set('locationId', 42);
         $request->attributes->set('itemType', 'value');
 
+        $location = new Location(42);
+
         $this->backendMock
             ->expects($this->once())
             ->method('loadLocation')
             ->with($this->equalTo(42))
-            ->will($this->returnValue(new Location(42)));
+            ->will($this->returnValue($location));
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
-        $this->assertEquals(new Location(42), $request->attributes->get('location'));
+        $this->assertSame($location, $request->attributes->get('location'));
     }
 
     /**

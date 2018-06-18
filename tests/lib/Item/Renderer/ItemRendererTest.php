@@ -44,7 +44,7 @@ final class ItemRendererTest extends TestCase
             )
             ->will($this->returnValue('rendered item'));
 
-        $this->assertEquals(
+        $this->assertSame(
             'rendered item',
             $this->itemRenderer->renderItem(new Item(), 'template.html.twig')
         );
@@ -64,6 +64,6 @@ final class ItemRendererTest extends TestCase
             )
             ->will($this->throwException(new Exception()));
 
-        $this->assertEquals('', $this->itemRenderer->renderItem(new Item(), 'template.html.twig'));
+        $this->assertSame('', $this->itemRenderer->renderItem(new Item(), 'template.html.twig'));
     }
 }

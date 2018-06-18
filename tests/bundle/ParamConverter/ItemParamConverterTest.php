@@ -52,14 +52,16 @@ final class ItemParamConverterTest extends TestCase
         $request->attributes->set('itemId', 42);
         $request->attributes->set('itemType', 'value');
 
+        $item = new Item(42);
+
         $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
             ->with($this->equalTo(42))
-            ->will($this->returnValue(new Item(42)));
+            ->will($this->returnValue($item));
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));
-        $this->assertEquals(new Item(42), $request->attributes->get('item'));
+        $this->assertSame($item, $request->attributes->get('item'));
     }
 
     /**

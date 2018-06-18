@@ -40,7 +40,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->eventListener::getSubscribedEvents()
         );
@@ -69,7 +69,7 @@ final class SetCurrentConfigListenerTest extends TestCase
         $this->eventListener->onKernelRequest($event);
 
         $this->assertTrue($this->container->has('netgen_content_browser.current_config'));
-        $this->assertEquals($config, $this->container->get('netgen_content_browser.current_config'));
+        $this->assertSame($config, $this->container->get('netgen_content_browser.current_config'));
     }
 
     /**
@@ -100,16 +100,16 @@ final class SetCurrentConfigListenerTest extends TestCase
         $this->eventListener->onKernelRequest($event);
 
         $this->assertTrue($config->hasParameter('one'));
-        $this->assertEquals('default', $config->getParameter('one'));
+        $this->assertSame('default', $config->getParameter('one'));
 
         $this->assertTrue($config->hasParameter('two'));
-        $this->assertEquals('override', $config->getParameter('two'));
+        $this->assertSame('override', $config->getParameter('two'));
 
         $this->assertTrue($config->hasParameter('custom'));
-        $this->assertEquals('value', $config->getParameter('custom'));
+        $this->assertSame('value', $config->getParameter('custom'));
 
         $this->assertTrue($this->container->has('netgen_content_browser.current_config'));
-        $this->assertEquals($config, $this->container->get('netgen_content_browser.current_config'));
+        $this->assertSame($config, $this->container->get('netgen_content_browser.current_config'));
     }
 
     /**

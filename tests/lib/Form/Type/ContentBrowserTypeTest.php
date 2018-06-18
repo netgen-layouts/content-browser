@@ -43,7 +43,7 @@ final class ContentBrowserTypeTest extends TestCase
         $form->submit('42');
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(42, $form->getData());
+        $this->assertSame('42', $form->getData());
     }
 
     /**
@@ -73,8 +73,8 @@ final class ContentBrowserTypeTest extends TestCase
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals('This is a name (42)', $view->vars['item_name']);
+        $this->assertSame('value', $view->vars['item_type']);
+        $this->assertSame('This is a name (42)', $view->vars['item_name']);
     }
 
     /**
@@ -103,7 +103,7 @@ final class ContentBrowserTypeTest extends TestCase
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
+        $this->assertSame('value', $view->vars['item_type']);
         $this->assertNull($view->vars['item_name']);
     }
 
@@ -131,7 +131,7 @@ final class ContentBrowserTypeTest extends TestCase
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('item_name', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
+        $this->assertSame('value', $view->vars['item_type']);
         $this->assertNull($view->vars['item_name']);
     }
 
@@ -150,7 +150,7 @@ final class ContentBrowserTypeTest extends TestCase
             ]
         );
 
-        $this->assertEquals($options['item_type'], 'value');
+        $this->assertSame($options['item_type'], 'value');
     }
 
     /**
@@ -200,7 +200,7 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testGetParent(): void
     {
-        $this->assertEquals(TextType::class, $this->formType->getParent());
+        $this->assertSame(TextType::class, $this->formType->getParent());
     }
 
     /**
@@ -208,6 +208,6 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ng_content_browser', $this->formType->getBlockPrefix());
+        $this->assertSame('ng_content_browser', $this->formType->getBlockPrefix());
     }
 }

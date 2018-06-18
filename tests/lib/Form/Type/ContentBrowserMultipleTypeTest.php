@@ -43,7 +43,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $form->submit([42, 24]);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals([42, 24], $form->getData());
+        $this->assertSame(['42', '24'], $form->getData());
     }
 
     /**
@@ -84,8 +84,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->assertArrayHasKey('min', $view->vars);
         $this->assertArrayHasKey('max', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals(
+        $this->assertSame('value', $view->vars['item_type']);
+        $this->assertSame(
             [
                 42 => 'This is a name (42)',
                 24 => 'This is a name (24)',
@@ -93,8 +93,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             $view->vars['item_names']
         );
 
-        $this->assertEquals(3, $view->vars['min']);
-        $this->assertEquals(5, $view->vars['max']);
+        $this->assertSame(3, $view->vars['min']);
+        $this->assertSame(5, $view->vars['max']);
     }
 
     /**
@@ -124,8 +124,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('item_names', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals([], $view->vars['item_names']);
+        $this->assertSame('value', $view->vars['item_type']);
+        $this->assertSame([], $view->vars['item_names']);
     }
 
     /**
@@ -153,8 +153,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $this->assertArrayHasKey('item_type', $view->vars);
         $this->assertArrayHasKey('item_names', $view->vars);
 
-        $this->assertEquals('value', $view->vars['item_type']);
-        $this->assertEquals([], $view->vars['item_names']);
+        $this->assertSame('value', $view->vars['item_type']);
+        $this->assertSame([], $view->vars['item_names']);
     }
 
     /**
@@ -174,9 +174,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ]
         );
 
-        $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['min'], 3);
-        $this->assertEquals($options['max'], 5);
+        $this->assertSame($options['item_type'], 'value');
+        $this->assertSame($options['min'], 3);
+        $this->assertSame($options['max'], 5);
     }
 
     /**
@@ -196,9 +196,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ]
         );
 
-        $this->assertEquals($options['item_type'], 'value');
-        $this->assertEquals($options['min'], 3);
-        $this->assertEquals($options['max'], 3);
+        $this->assertSame($options['item_type'], 'value');
+        $this->assertSame($options['min'], 3);
+        $this->assertSame($options['max'], 3);
     }
 
     /**
@@ -276,7 +276,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     public function testGetParent(): void
     {
-        $this->assertEquals(CollectionType::class, $this->formType->getParent());
+        $this->assertSame(CollectionType::class, $this->formType->getParent());
     }
 
     /**
@@ -284,6 +284,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertEquals('ng_content_browser_multiple', $this->formType->getBlockPrefix());
+        $this->assertSame('ng_content_browser_multiple', $this->formType->getBlockPrefix());
     }
 }

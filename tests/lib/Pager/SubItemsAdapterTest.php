@@ -40,7 +40,7 @@ final class SubItemsAdapterTest extends TestCase
             ->with($this->equalTo(new Location(42)))
             ->will($this->returnValue(3));
 
-        $this->assertEquals(3, $this->adapter->getNbResults());
+        $this->assertSame(3, $this->adapter->getNbResults());
     }
 
     /**
@@ -58,6 +58,6 @@ final class SubItemsAdapterTest extends TestCase
             )
             ->will($this->returnValue([1, 2, 3]));
 
-        $this->assertEquals([1, 2, 3], $this->adapter->getSlice(5, 10));
+        $this->assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
     }
 }

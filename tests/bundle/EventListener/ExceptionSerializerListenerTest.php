@@ -43,7 +43,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             [KernelEvents::EXCEPTION => ['onException', 5]],
             $this->eventListener::getSubscribedEvents()
         );
@@ -75,7 +75,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $event->getResponse()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -116,7 +116,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $event->getResponse()
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -164,11 +164,11 @@ final class ExceptionSerializerListenerTest extends TestCase
         $this->assertArrayHasKey('file', $data['debug']);
         $this->assertArrayHasKey('trace', $data['debug']);
 
-        $this->assertEquals($exception->getCode(), $data['code']);
-        $this->assertEquals($exception->getMessage(), $data['message']);
-        $this->assertEquals($exception->getStatusCode(), $data['status_code']);
-        $this->assertEquals(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
-        $this->assertEquals(__FILE__, $data['debug']['file']);
+        $this->assertSame($exception->getCode(), $data['code']);
+        $this->assertSame($exception->getMessage(), $data['message']);
+        $this->assertSame($exception->getStatusCode(), $data['status_code']);
+        $this->assertSame(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
+        $this->assertSame(__FILE__, $data['debug']['file']);
         $this->assertGreaterThan(0, $data['debug']['line']);
         $this->assertNotEmpty($data['debug']['trace']);
     }

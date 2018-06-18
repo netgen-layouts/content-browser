@@ -35,7 +35,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetBackends(): void
     {
-        $this->assertEquals(['value' => $this->backendMock], $this->registry->getBackends());
+        $this->assertSame(['value' => $this->backendMock], $this->registry->getBackends());
     }
 
     /**
@@ -43,7 +43,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetBackend(): void
     {
-        $this->assertEquals($this->backendMock, $this->registry->getBackend('value'));
+        $this->assertSame($this->backendMock, $this->registry->getBackend('value'));
     }
 
     /**
@@ -84,7 +84,7 @@ final class BackendRegistryTest extends TestCase
             $backends[$identifier] = $backend;
         }
 
-        $this->assertEquals($this->registry->getBackends(), $backends);
+        $this->assertSame($this->registry->getBackends(), $backends);
     }
 
     /**
@@ -109,7 +109,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertEquals($this->backendMock, $this->registry['value']);
+        $this->assertSame($this->backendMock, $this->registry['value']);
     }
 
     /**
