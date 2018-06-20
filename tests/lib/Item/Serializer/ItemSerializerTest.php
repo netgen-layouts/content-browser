@@ -150,6 +150,7 @@ final class ItemSerializerTest extends TestCase
                 'name' => 'Some name',
                 'has_sub_items' => true,
                 'has_sub_locations' => true,
+                'visible' => true,
                 'columns' => [
                     'name' => 'Some name',
                 ],
@@ -187,6 +188,7 @@ final class ItemSerializerTest extends TestCase
                     'name' => 'Some name',
                     'has_sub_items' => true,
                     'has_sub_locations' => true,
+                    'visible' => true,
                     'columns' => [
                         'name' => 'Some name',
                     ],

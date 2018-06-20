@@ -59,6 +59,7 @@ final class ItemSerializer implements ItemSerializerInterface
             'has_sub_items' => $this->backend->getSubItemsCount($location) > 0,
             'has_sub_locations' => $this->backend->getSubLocationsCount($location) > 0,
             // Used exclusively to display columns for parent location
+            'visible' => true,
             'columns' => [
                 'name' => $location->getName(),
             ],
