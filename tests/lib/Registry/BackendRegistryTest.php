@@ -33,7 +33,7 @@ final class BackendRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::addBackend
+     * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::__construct
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getBackends
      */
     public function testGetBackends(): void
