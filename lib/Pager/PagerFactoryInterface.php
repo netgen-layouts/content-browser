@@ -12,5 +12,5 @@ interface PagerFactoryInterface
     /**
      * Builds the pager from provided adapter.
      */
-    public function buildPager(AdapterInterface $adapter, int $page, int $limit = null): Pagerfanta;
+    public function buildPager(AdapterInterface $adapter, int $page, ?int $limit = null): Pagerfanta;
 }

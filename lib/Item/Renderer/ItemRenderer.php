@@ -22,7 +22,7 @@ final class ItemRenderer implements ItemRendererInterface
      */
     private $logger;
 
-    public function __construct(Environment $twig, LoggerInterface $logger = null)
+    public function __construct(Environment $twig, ?LoggerInterface $logger = null)
     {
         $this->twig = $twig;
         $this->logger = $logger ?? new NullLogger();

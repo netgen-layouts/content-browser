@@ -25,7 +25,7 @@ final class PagerFactory implements PagerFactoryInterface
         $this->maxLimit = $maxLimit;
     }
 
-    public function buildPager(AdapterInterface $adapter, int $page, int $limit = null): Pagerfanta
+    public function buildPager(AdapterInterface $adapter, int $page, ?int $limit = null): Pagerfanta
     {
         $limit = $limit ?? $this->defaultLimit;
 
