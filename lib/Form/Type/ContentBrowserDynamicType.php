@@ -39,8 +39,21 @@ final class ContentBrowserDynamicType extends AbstractType
     {
         $resolver->setRequired(['item_types', 'start_location']);
 
-        $resolver->setAllowedTypes('item_types', ['array']);
+        $resolver->setAllowedTypes('item_types', 'array');
         $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
+
+        $resolver->setAllowedValues(
+            'item_types',
+            function (array $itemTypes): bool {
+                foreach ($itemTypes as $itemType) {
+                    if (!is_string($itemType)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
 
         $resolver->setDefault('item_types', []);
         $resolver->setDefault('start_location', null);

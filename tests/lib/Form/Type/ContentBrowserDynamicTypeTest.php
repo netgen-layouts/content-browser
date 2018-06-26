@@ -171,6 +171,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "item_types" with value array is invalid.
      */
     public function testConfigureOptionsWithInvalidItemTypesItem(): void
     {
@@ -178,9 +180,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $options = $optionsResolver->resolve(['item_types' => [42]]);
-
-        $this->assertSame($options['item_types'], []);
+        $optionsResolver->resolve(['item_types' => [42]]);
     }
 
     /**
