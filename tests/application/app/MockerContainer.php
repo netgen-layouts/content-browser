@@ -18,10 +18,14 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
-    public function mock(string $id, /* PHPUnit\Framework\MockObject\MockObject */ $mock)
+    /**
+     * @param string $id
+     * @param object $mock
+     *
+     * @return object
+     */
+    public function mock(string $id, $mock)
     {
-        // @deprecated Enable MockObject type hint when support PHPUnit 5 ends
-
         if (!array_key_exists($id, $this->mockedServices)) {
             $this->originalServices[$id] = $this->get($id);
             $this->mockedServices[$id] = $this->services[$id] = $mock;
