@@ -42,6 +42,7 @@ final class ContentBrowserDynamicType extends AbstractType
         $resolver->setAllowedTypes('item_types', 'array');
         $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
 
+        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
         $resolver->setAllowedValues(
             'item_types',
             function (array $itemTypes): bool {
