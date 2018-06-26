@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BackendRegistryPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_content_browser.registry.backend';
-    private static $tagName = 'netgen_content_browser.backend';
+    private const SERVICE_NAME = 'netgen_content_browser.registry.backend';
+    private const TAG_NAME = 'netgen_content_browser.backend';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $backendRegistry = $container->findDefinition(self::$serviceName);
-        $backends = $container->findTaggedServiceIds(self::$tagName);
+        $backendRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $backends = $container->findTaggedServiceIds(self::TAG_NAME);
 
         foreach ($backends as $backend => $tags) {
             foreach ($tags as $tag) {

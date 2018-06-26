@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ColumnProviderPass implements CompilerPassInterface
 {
-    private static $serviceName = 'netgen_content_browser.column_provider';
-    private static $tagName = 'netgen_content_browser.column_value_provider';
+    private const SERVICE_NAME = 'netgen_content_browser.column_provider';
+    private const TAG_NAME = 'netgen_content_browser.column_value_provider';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::$serviceName)) {
+        if (!$container->has(self::SERVICE_NAME)) {
             return;
         }
 
-        $columnProvider = $container->findDefinition(self::$serviceName);
-        $valueProviderServices = $container->findTaggedServiceIds(self::$tagName);
+        $columnProvider = $container->findDefinition(self::SERVICE_NAME);
+        $valueProviderServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $valueProviders = [];
         foreach ($valueProviderServices as $serviceName => $tags) {
