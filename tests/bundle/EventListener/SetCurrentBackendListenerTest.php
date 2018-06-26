@@ -18,6 +18,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class SetCurrentBackendListenerTest extends TestCase
 {
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $backendMock;
+
+    /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
     private $container;
@@ -34,8 +39,10 @@ final class SetCurrentBackendListenerTest extends TestCase
 
     public function setUp(): void
     {
+        $this->backendMock = $this->createMock(BackendInterface::class);
+
         $this->container = new Container();
-        $this->backendRegistry = new BackendRegistry();
+        $this->backendRegistry = new BackendRegistry(['item_type' => $this->backendMock]);
 
         $this->eventListener = new SetCurrentBackendListener(
             $this->container,
@@ -71,13 +78,10 @@ final class SetCurrentBackendListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $backendMock = $this->createMock(BackendInterface::class);
-        $this->backendRegistry->addBackend('item_type', $backendMock);
-
         $this->eventListener->onKernelRequest($event);
 
         $this->assertTrue($this->container->has('netgen_content_browser.current_backend'));
-        $this->assertSame($backendMock, $this->container->get('netgen_content_browser.current_backend'));
+        $this->assertSame($this->backendMock, $this->container->get('netgen_content_browser.current_backend'));
     }
 
     /**

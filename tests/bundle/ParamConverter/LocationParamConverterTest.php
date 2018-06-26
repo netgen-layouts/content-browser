@@ -30,8 +30,7 @@ final class LocationParamConverterTest extends TestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $backendRegistry = new BackendRegistry();
-        $backendRegistry->addBackend('value', $this->backendMock);
+        $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
 
         $this->paramConverter = new LocationParamConverter($backendRegistry);
     }

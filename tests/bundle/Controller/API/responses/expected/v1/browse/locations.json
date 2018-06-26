@@ -6,6 +6,7 @@
             "name": "Location 42",
             "has_sub_items": false,
             "has_sub_locations": false,
+            "visible": true,
             "columns": {
                 "name": "Location 42"
             }
@@ -16,6 +17,7 @@
             "name": "Location 43",
             "has_sub_items": false,
             "has_sub_locations": false,
+            "visible": true,
             "columns": {
                 "name": "Location 43"
             }

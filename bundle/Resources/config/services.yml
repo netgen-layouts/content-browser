@@ -113,6 +113,8 @@ services:
     netgen_content_browser.registry.backend:
         class: Netgen\ContentBrowser\Registry\BackendRegistry
         public: true
+        arguments:
+            - []
 
     # Main services
 

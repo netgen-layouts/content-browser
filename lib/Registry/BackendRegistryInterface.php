@@ -12,11 +12,6 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 interface BackendRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * Adds a backend to registry.
-     */
-    public function addBackend(string $itemType, BackendInterface $backend): void;
-
-    /**
      * Returns if registry has a backend.
      */
     public function hasBackend(string $itemType): bool;

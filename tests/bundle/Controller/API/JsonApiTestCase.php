@@ -8,6 +8,7 @@ use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
@@ -105,7 +106,14 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         /** @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry */
         $backendRegistry = $this->clientContainer->get('netgen_content_browser.registry.backend');
-        $backendRegistry->addBackend('test', $this->backendMock);
+
+        $backends = $backendRegistry->getBackends();
+        $backends['test'] = $this->backendMock;
+
+        $this->clientContainer->mock(
+            'netgen_content_browser.registry.backend',
+            new BackendRegistry($backends)
+        );
 
         $this->clientContainer->set(
             'netgen_content_browser.config.test',

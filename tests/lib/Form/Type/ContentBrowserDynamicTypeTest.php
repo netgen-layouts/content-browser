@@ -23,9 +23,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
-        $backendRegistry = new BackendRegistry();
-        $backendRegistry->addBackend('value1', $this->backendMock);
-        $backendRegistry->addBackend('value2', $this->backendMock);
+        $backendRegistry = new BackendRegistry(['value1' => $this->backendMock, 'value2' => $this->backendMock]);
 
         return new ContentBrowserDynamicType(
             $backendRegistry,

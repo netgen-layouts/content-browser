@@ -15,6 +15,7 @@
         "name": "Location 41",
         "has_sub_items": true,
         "has_sub_locations": false,
+        "visible": true,
         "columns": {
             "name": "Location 41"
         }

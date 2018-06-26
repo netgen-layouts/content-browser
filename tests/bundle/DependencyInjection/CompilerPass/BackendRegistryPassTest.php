@@ -18,7 +18,7 @@ final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_content_browser.registry.backend', new Definition());
+        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(null, [[]]));
 
         $backend = new Definition();
         $backend->addTag('netgen_content_browser.backend', ['item_type' => 'test']);
@@ -26,10 +26,10 @@ final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.backend',
-            'addBackend',
-            ['test', new Reference('netgen_content_browser.backend.test')]
+            0,
+            ['test' => new Reference('netgen_content_browser.backend.test')]
         );
     }
 

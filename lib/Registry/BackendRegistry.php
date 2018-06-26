@@ -16,9 +16,17 @@ final class BackendRegistry implements BackendRegistryInterface
      */
     private $backends = [];
 
-    public function addBackend(string $itemType, BackendInterface $backend): void
+    /**
+     * @param \Netgen\ContentBrowser\Backend\BackendInterface[] $backends
+     */
+    public function __construct(array $backends)
     {
-        $this->backends[$itemType] = $backend;
+        $this->backends = array_filter(
+            $backends,
+            function (BackendInterface $backend): bool {
+                return true;
+            }
+        );
     }
 
     public function hasBackend(string $itemType): bool

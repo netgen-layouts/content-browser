@@ -21,9 +21,11 @@ final class BackendRegistryPass implements CompilerPassInterface
         }
 
         $backendRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $backends = $container->findTaggedServiceIds(self::TAG_NAME);
+        $backendServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($backends as $backend => $tags) {
+        $backends = [];
+
+        foreach ($backendServices as $backend => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['item_type'])) {
                     throw new RuntimeException(
@@ -31,11 +33,10 @@ final class BackendRegistryPass implements CompilerPassInterface
                     );
                 }
 
-                $backendRegistry->addMethodCall(
-                    'addBackend',
-                    [$tag['item_type'], new Reference($backend)]
-                );
+                $backends[$tag['item_type']] = new Reference($backend);
             }
         }
+
+        $backendRegistry->replaceArgument(0, $backends);
     }
 }
