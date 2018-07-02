@@ -7,6 +7,8 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
 use Symfony\Component\HttpFoundation\Response;
 
 final class RenderItemTest extends JsonApiTestCase
@@ -17,13 +19,18 @@ final class RenderItemTest extends JsonApiTestCase
      */
     public function testRenderItem(): void
     {
+        $container = $this->client->getContainer();
+        if (!$container instanceof MockerContainer) {
+            throw new RuntimeException('Symfony kernel is not configured yet.');
+        }
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadItem')
             ->with($this->equalTo(42))
             ->will($this->returnValue(new Item(42, 'Item 42')));
 
-        $this->clientContainer->set(
+        $container->set(
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
@@ -58,13 +65,18 @@ final class RenderItemTest extends JsonApiTestCase
      */
     public function testRenderItemWithDisabledPreview(): void
     {
+        $container = $this->client->getContainer();
+        if (!$container instanceof MockerContainer) {
+            throw new RuntimeException('Symfony kernel is not configured yet.');
+        }
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadItem')
             ->with($this->equalTo(42))
             ->will($this->returnValue(new Item(42, 'Item 42')));
 
-        $this->clientContainer->set(
+        $container->set(
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',

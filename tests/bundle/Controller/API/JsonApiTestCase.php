@@ -7,17 +7,14 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
-    /**
-     * @var \Netgen\ContentBrowser\Tests\Kernel\MockerContainer
-     */
-    protected $clientContainer;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -28,8 +25,14 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         parent::setUp();
 
         $this->setUpClient();
-        $this->mockBackend();
-        $this->mockItemRenderer();
+
+        $clientContainer = $this->client->getContainer();
+        if (!$clientContainer instanceof MockerContainer) {
+            throw new RuntimeException('Symfony kernel is not configured yet.');
+        }
+
+        $this->mockBackend($clientContainer);
+        $this->mockItemRenderer($clientContainer);
 
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
@@ -43,14 +46,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     public function setUpClient(): void
     {
         parent::setUpClient();
-
-        // We're using the container from kernel to bypass injection of
-        // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
-
-        /** @var \Netgen\ContentBrowser\Tests\Kernel\MockerContainer $clientContainer */
-        $clientContainer = static::$kernel->getContainer();
-
-        $this->clientContainer = $clientContainer;
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
         $this->client->setServerParameter('PHP_AUTH_USER', (string) getenv('SF_USERNAME'));
@@ -100,22 +95,22 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         }
     }
 
-    protected function mockBackend(): void
+    protected function mockBackend(MockerContainer $container): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
         /** @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry */
-        $backendRegistry = $this->clientContainer->get('netgen_content_browser.registry.backend');
+        $backendRegistry = $container->get('netgen_content_browser.registry.backend');
 
         $backends = $backendRegistry->getBackends();
         $backends['test'] = $this->backendMock;
 
-        $this->clientContainer->mock(
+        $container->mock(
             'netgen_content_browser.registry.backend',
             new BackendRegistry($backends)
         );
 
-        $this->clientContainer->set(
+        $container->set(
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
@@ -135,9 +130,10 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         );
     }
 
-    protected function mockItemRenderer(): void
+    protected function mockItemRenderer(MockerContainer $container): void
     {
-        $itemRendererMock = $this->clientContainer->mock(
+        /** @var \PHPUnit\Framework\MockObject\MockObject $itemRendererMock */
+        $itemRendererMock = $container->mock(
             'netgen_content_browser.item_renderer',
             $this->createMock(ItemRendererInterface::class)
         );
