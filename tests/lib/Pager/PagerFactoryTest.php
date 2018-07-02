@@ -6,7 +6,6 @@ namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Pager\PagerFactory;
 use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
@@ -47,7 +46,6 @@ final class PagerFactoryTest extends TestCase
             $limit
         );
 
-        $this->assertInstanceOf(Pagerfanta::class, $pager);
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
         $this->assertSame($maxPerPage, $pager->getMaxPerPage());
         $this->assertSame($currentPage, $pager->getCurrentPage());

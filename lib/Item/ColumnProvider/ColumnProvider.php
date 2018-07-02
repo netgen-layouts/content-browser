@@ -43,15 +43,13 @@ final class ColumnProvider implements ColumnProviderInterface
         $this->columnValueProviders = $columnValueProviders;
 
         foreach ($this->config->getColumns() as $columnConfig) {
-            if (isset($columnConfig['value_provider'])) {
-                if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
-                    throw new InvalidArgumentException(
-                        sprintf(
-                            'Column value provider "%s" does not exist',
-                            $columnConfig['value_provider']
-                        )
-                    );
-                }
+            if (isset($columnConfig['value_provider']) && !isset($this->columnValueProviders[$columnConfig['value_provider']])) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        'Column value provider "%s" does not exist',
+                        $columnConfig['value_provider']
+                    )
+                );
             }
         }
     }
