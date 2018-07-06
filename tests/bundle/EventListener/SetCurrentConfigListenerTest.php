@@ -115,6 +115,32 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
+     * @expectedExceptionMessage Invalid custom parameters specification for "item_type" item type.
+     */
+    public function testOnKernelRequestWithNonArrayCustomParams(): void
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+
+        $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
+        $request->attributes->set('itemType', 'item_type');
+        $request->query->set('customParams', 'custom');
+
+        $event = new GetResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
+        $this->container->set('netgen_content_browser.config.item_type', new Configuration('value'));
+
+        $this->eventListener->onKernelRequest($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Configuration for "item_type" item type is invalid.
      */

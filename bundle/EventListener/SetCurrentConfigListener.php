@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -49,7 +50,16 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
 
         $config = $this->loadConfig($attributes->get('itemType'));
 
-        $customParams = (array) $request->query->get('customParams', []);
+        $customParams = $request->query->get('customParams', []);
+        if (!is_array($customParams)) {
+            throw new RuntimeException(
+                sprintf(
+                    'Invalid custom parameters specification for "%s" item type.',
+                    $attributes->get('itemType')
+                )
+            );
+        }
+
         $config->addParameters($customParams);
 
         $this->container->set('netgen_content_browser.current_config', $config);

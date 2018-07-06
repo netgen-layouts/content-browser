@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Tests\Item\Serializer;
 
-use DateTimeImmutable;
-use DateTimeZone;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface;
-use Netgen\ContentBrowser\Item\EzPublish\Item;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
+use Netgen\ContentBrowser\Tests\Stubs\Item;
+use Netgen\ContentBrowser\Tests\Stubs\Location;
+use Netgen\ContentBrowser\Tests\Stubs\LocationItem;
 use PHPUnit\Framework\TestCase;
 
 final class ItemSerializerTest extends TestCase
@@ -50,19 +46,19 @@ final class ItemSerializerTest extends TestCase
      */
     public function testSerializeItem(): void
     {
+        $item = new LocationItem(84, 42);
+
         $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($item))
             ->will($this->returnValue(3));
 
         $this->columnProviderMock
             ->expects($this->once())
             ->method('provideColumns')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($item))
             ->will($this->returnValue(['column' => 'value']));
-
-        $item = $this->getItem();
 
         $data = $this->serializer->serializeItem($item);
 
@@ -70,10 +66,46 @@ final class ItemSerializerTest extends TestCase
             [
                 'location_id' => 42,
                 'value' => 84,
-                'name' => 'Some name',
+                'name' => 'This is a name (84)',
                 'visible' => true,
                 'selectable' => true,
                 'has_sub_items' => true,
+                'columns' => [
+                    'column' => 'value',
+                ],
+            ],
+            $data
+        );
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
+     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItem
+     */
+    public function testSerializeNonLocationItem(): void
+    {
+        $item = new Item(84);
+
+        $this->backendMock
+            ->expects($this->never())
+            ->method('getSubItemsCount');
+
+        $this->columnProviderMock
+            ->expects($this->once())
+            ->method('provideColumns')
+            ->with($this->equalTo($item))
+            ->will($this->returnValue(['column' => 'value']));
+
+        $data = $this->serializer->serializeItem($item);
+
+        $this->assertSame(
+            [
+                'location_id' => null,
+                'value' => 84,
+                'name' => 'This is a name (84)',
+                'visible' => true,
+                'selectable' => true,
+                'has_sub_items' => false,
                 'columns' => [
                     'column' => 'value',
                 ],
@@ -88,19 +120,19 @@ final class ItemSerializerTest extends TestCase
      */
     public function testSerializeItems(): void
     {
+        $item = new LocationItem(84, 42);
+
         $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($item))
             ->will($this->returnValue(3));
 
         $this->columnProviderMock
             ->expects($this->once())
             ->method('provideColumns')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($item))
             ->will($this->returnValue(['column' => 'value']));
-
-        $item = $this->getItem();
 
         $data = $this->serializer->serializeItems([$item]);
 
@@ -109,7 +141,7 @@ final class ItemSerializerTest extends TestCase
                 [
                     'location_id' => 42,
                     'value' => 84,
-                    'name' => 'Some name',
+                    'name' => 'This is a name (84)',
                     'visible' => true,
                     'selectable' => true,
                     'has_sub_items' => true,
@@ -127,32 +159,32 @@ final class ItemSerializerTest extends TestCase
      */
     public function testSerializeLocation(): void
     {
+        $location = new Location(42, 24);
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('getSubItemsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($location))
             ->will($this->returnValue(3));
 
         $this->backendMock
             ->expects($this->at(1))
             ->method('getSubLocationsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($location))
             ->will($this->returnValue(4));
 
-        $item = $this->getItem();
-
-        $data = $this->serializer->serializeLocation($item);
+        $data = $this->serializer->serializeLocation($location);
 
         $this->assertSame(
             [
                 'id' => 42,
                 'parent_id' => 24,
-                'name' => 'Some name',
+                'name' => 'This is a name',
                 'has_sub_items' => true,
                 'has_sub_locations' => true,
                 'visible' => true,
                 'columns' => [
-                    'name' => 'Some name',
+                    'name' => 'This is a name',
                 ],
             ],
             $data
@@ -164,81 +196,37 @@ final class ItemSerializerTest extends TestCase
      */
     public function testSerializeLocations(): void
     {
+        $location = new Location(42, 24);
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('getSubItemsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($location))
             ->will($this->returnValue(3));
 
         $this->backendMock
             ->expects($this->at(1))
             ->method('getSubLocationsCount')
-            ->with($this->equalTo($this->getItem()))
+            ->with($this->equalTo($location))
             ->will($this->returnValue(4));
 
-        $item = $this->getItem();
-
-        $data = $this->serializer->serializeLocations([$item]);
+        $data = $this->serializer->serializeLocations([$location]);
 
         $this->assertSame(
             [
                 [
                     'id' => 42,
                     'parent_id' => 24,
-                    'name' => 'Some name',
+                    'name' => 'This is a name',
                     'has_sub_items' => true,
                     'has_sub_locations' => true,
                     'visible' => true,
                     'columns' => [
-                        'name' => 'Some name',
+                        'name' => 'This is a name',
                     ],
                 ],
             ],
             iterator_to_array($data)
         );
-    }
-
-    private function getItem(): Item
-    {
-        $modificationDate = new DateTimeImmutable();
-        $modificationDate = $modificationDate->setTimestamp(0);
-        $modificationDate = $modificationDate->setTimezone(new DateTimeZone('UTC'));
-
-        $publishedDate = new DateTimeImmutable();
-        $publishedDate = $publishedDate->setTimestamp(10);
-        $publishedDate = $publishedDate->setTimezone(new DateTimeZone('UTC'));
-
-        $contentInfo = new ContentInfo(
-            [
-                'id' => 84,
-                'contentTypeId' => 85,
-                'ownerId' => 14,
-                'sectionId' => 2,
-                'modificationDate' => $modificationDate,
-                'publishedDate' => $publishedDate,
-            ]
-        );
-
-        $content = new Content(
-            [
-                'versionInfo' => new VersionInfo(
-                    [
-                        'contentInfo' => $contentInfo,
-                    ]
-                ),
-            ]
-        );
-
-        $location = new Location(
-            [
-                'id' => 42,
-                'parentLocationId' => 24,
-                'invisible' => false,
-                'priority' => 3,
-                'contentInfo' => $contentInfo,
-            ]
-        );
-
-        return new Item($location, $content, 84, 'Some name');
     }
 }
