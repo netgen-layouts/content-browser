@@ -56,7 +56,7 @@ final class LocationParamConverterTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('loadLocation')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($location));
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));

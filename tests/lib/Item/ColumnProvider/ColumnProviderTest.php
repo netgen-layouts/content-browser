@@ -106,15 +106,17 @@ final class ColumnProviderTest extends TestCase
             []
         );
 
+        $item = new Item();
+
         $this->itemRendererMock
             ->expects($this->once())
             ->method('renderItem')
-            ->with($this->equalTo(new Item()), $this->equalTo('template.html.twig'))
+            ->with($this->identicalTo($item), $this->identicalTo('template.html.twig'))
             ->will($this->returnValue('rendered column'));
 
         $this->assertSame(
             ['column' => 'rendered column'],
-            $this->columnProvider->provideColumns(new Item())
+            $this->columnProvider->provideColumns($item)
         );
     }
 }

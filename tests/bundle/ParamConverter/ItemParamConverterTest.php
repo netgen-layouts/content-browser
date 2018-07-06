@@ -56,7 +56,7 @@ final class ItemParamConverterTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue($item));
 
         $this->assertTrue($this->paramConverter->apply($request, $configuration));

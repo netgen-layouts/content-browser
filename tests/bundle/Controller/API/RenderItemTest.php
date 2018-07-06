@@ -27,7 +27,7 @@ final class RenderItemTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue(new Item(42, 'Item 42')));
 
         $container->set(
@@ -73,7 +73,7 @@ final class RenderItemTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->returnValue(new Item(42, 'Item 42')));
 
         $container->set(
@@ -113,7 +113,7 @@ final class RenderItemTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo(42))
             ->will($this->throwException(new NotFoundException('Item does not exist.')));
 
         $this->client->request('GET', '/cb/api/v1/test/render/42');

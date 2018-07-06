@@ -80,7 +80,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo('42'))
             ->will($this->returnValue(new Item(42)));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
@@ -103,7 +103,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
-            ->with($this->equalTo(42))
+            ->with($this->identicalTo('42'))
             ->will($this->throwException(new NotFoundException()));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);

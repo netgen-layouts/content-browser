@@ -21,11 +21,17 @@ final class SubItemsAdapterTest extends TestCase
      */
     private $adapter;
 
+    /**
+     * @var \Netgen\ContentBrowser\Item\LocationInterface
+     */
+    private $location;
+
     public function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->location = new Location(42);
 
-        $this->adapter = new SubItemsAdapter($this->backendMock, new Location(42));
+        $this->adapter = new SubItemsAdapter($this->backendMock, $this->location);
     }
 
     /**
@@ -37,7 +43,7 @@ final class SubItemsAdapterTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('getSubItemsCount')
-            ->with($this->equalTo(new Location(42)))
+            ->with($this->identicalTo($this->location))
             ->will($this->returnValue(3));
 
         $this->assertSame(3, $this->adapter->getNbResults());
@@ -52,9 +58,9 @@ final class SubItemsAdapterTest extends TestCase
             ->expects($this->once())
             ->method('getSubItems')
             ->with(
-                $this->equalTo(new Location(42)),
-                $this->equalTo(5),
-                $this->equalTo(10)
+                $this->identicalTo($this->location),
+                $this->identicalTo(5),
+                $this->identicalTo(10)
             )
             ->will($this->returnValue([1, 2, 3]));
 

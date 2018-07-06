@@ -36,7 +36,7 @@ final class ItemSearchAdapterTest extends TestCase
         $this->backendMock
             ->expects($this->once())
             ->method('searchCount')
-            ->with($this->equalTo('text'))
+            ->with($this->identicalTo('text'))
             ->will($this->returnValue(3));
 
         $this->assertSame(3, $this->adapter->getNbResults());
@@ -51,9 +51,9 @@ final class ItemSearchAdapterTest extends TestCase
             ->expects($this->once())
             ->method('search')
             ->with(
-                $this->equalTo('text'),
-                $this->equalTo(5),
-                $this->equalTo(10)
+                $this->identicalTo('text'),
+                $this->identicalTo(5),
+                $this->identicalTo(10)
             )
             ->will($this->returnValue([1, 2, 3]));
 
