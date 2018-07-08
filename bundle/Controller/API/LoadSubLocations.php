@@ -33,15 +33,11 @@ final class LoadSubLocations extends Controller
      */
     public function __invoke(LocationInterface $location): Response
     {
-        $data = [
-            'children' => array_map(
-                function (LocationInterface $subLocation): array {
-                    return $this->itemSerializer->serializeLocation($subLocation);
-                },
-                $this->backend->getSubLocations($location)
-            ),
-        ];
+        $children = [];
+        foreach ($this->backend->getSubLocations($location) as $subLocation) {
+            $children[] = $this->itemSerializer->serializeLocation($subLocation);
+        }
 
-        return new JsonResponse($data);
+        return new JsonResponse(['children' => $children]);
     }
 }

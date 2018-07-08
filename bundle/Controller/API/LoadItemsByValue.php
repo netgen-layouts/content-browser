@@ -6,7 +6,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,18 +45,11 @@ final class LoadItemsByValue extends Controller
 
         $items = [];
         foreach ($values as $value) {
-            $items[] = $this->backend->loadItem($value);
+            $items[] = $this->itemSerializer->serializeItem(
+                $this->backend->loadItem($value)
+            );
         }
 
-        return new JsonResponse(
-            [
-                'items' => array_map(
-                    function (ItemInterface $item): array {
-                        return $this->itemSerializer->serializeItem($item);
-                    },
-                    $items
-                ),
-            ]
-        );
+        return new JsonResponse(['items' => $items]);
     }
 }

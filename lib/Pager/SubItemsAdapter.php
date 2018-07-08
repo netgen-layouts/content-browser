@@ -33,10 +33,6 @@ final class SubItemsAdapter implements AdapterInterface
 
     public function getSlice($offset, $length)
     {
-        return $this->backend->getSubItems(
-            $this->location,
-            $offset,
-            $length
-        );
+        return $this->backend->getSubItems($this->location, $offset, $length);
     }
 }

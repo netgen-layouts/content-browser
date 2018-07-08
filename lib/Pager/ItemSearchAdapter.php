@@ -32,10 +32,6 @@ final class ItemSearchAdapter implements AdapterInterface
 
     public function getSlice($offset, $length)
     {
-        return $this->backend->search(
-            $this->searchText,
-            $offset,
-            $length
-        );
+        return $this->backend->search($this->searchText, $offset, $length);
     }
 }
