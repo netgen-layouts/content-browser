@@ -40,7 +40,12 @@ final class ColumnProvider implements ColumnProviderInterface
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
-        $this->columnValueProviders = $columnValueProviders;
+        $this->columnValueProviders = array_filter(
+            $columnValueProviders,
+            function (ColumnValueProviderInterface $columnValueProvider): bool {
+                return true;
+            }
+        );
 
         foreach ($this->config->getColumns() as $columnConfig) {
             if (isset($columnConfig['value_provider']) && !isset($this->columnValueProviders[$columnConfig['value_provider']])) {
