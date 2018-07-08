@@ -115,46 +115,6 @@ final class ItemSerializerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItems
-     */
-    public function testSerializeItems(): void
-    {
-        $item = new LocationItem(84, 42);
-
-        $this->backendMock
-            ->expects($this->once())
-            ->method('getSubItemsCount')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue(3));
-
-        $this->columnProviderMock
-            ->expects($this->once())
-            ->method('provideColumns')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue(['column' => 'value']));
-
-        $data = $this->serializer->serializeItems([$item]);
-
-        $this->assertSame(
-            [
-                [
-                    'location_id' => 42,
-                    'value' => 84,
-                    'name' => 'This is a name (84)',
-                    'visible' => true,
-                    'selectable' => true,
-                    'has_sub_items' => true,
-                    'columns' => [
-                        'column' => 'value',
-                    ],
-                ],
-            ],
-            iterator_to_array($data)
-        );
-    }
-
-    /**
      * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeLocation
      */
     public function testSerializeLocation(): void
@@ -188,45 +148,6 @@ final class ItemSerializerTest extends TestCase
                 ],
             ],
             $data
-        );
-    }
-
-    /**
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeLocations
-     */
-    public function testSerializeLocations(): void
-    {
-        $location = new Location(42, 24);
-
-        $this->backendMock
-            ->expects($this->at(0))
-            ->method('getSubItemsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(3));
-
-        $this->backendMock
-            ->expects($this->at(1))
-            ->method('getSubLocationsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(4));
-
-        $data = $this->serializer->serializeLocations([$location]);
-
-        $this->assertSame(
-            [
-                [
-                    'id' => 42,
-                    'parent_id' => 24,
-                    'name' => 'This is a name',
-                    'has_sub_items' => true,
-                    'has_sub_locations' => true,
-                    'visible' => true,
-                    'columns' => [
-                        'name' => 'This is a name',
-                    ],
-                ],
-            ],
-            iterator_to_array($data)
         );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
@@ -65,10 +66,11 @@ final class SearchItems extends Controller
             );
 
             $data['children_count'] = $pager->getNbResults();
-            $data['children'] = iterator_to_array(
-                $this->itemSerializer->serializeItems(
-                    $pager->getCurrentPageResults()
-                )
+            $data['children'] = array_map(
+                function (ItemInterface $item): array {
+                    return $this->itemSerializer->serializeItem($item);
+                },
+                $pager->getCurrentPageResults()
             );
         }
 

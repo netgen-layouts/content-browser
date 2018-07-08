@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,10 +60,11 @@ final class LoadConfig extends Controller
     {
         $data = [
             'item_type' => $this->config->getItemType(),
-            'sections' => iterator_to_array(
-                $this->itemSerializer->serializeLocations(
-                    $this->backend->getDefaultSections()
-                )
+            'sections' => array_map(
+                function (LocationInterface $location): array {
+                    return $this->itemSerializer->serializeLocation($location);
+                },
+                $this->backend->getDefaultSections()
             ),
             'min_selected' => $this->config->getMinSelected(),
             'max_selected' => $this->config->getMaxSelected(),

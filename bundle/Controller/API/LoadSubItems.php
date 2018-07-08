@@ -64,10 +64,11 @@ final class LoadSubItems extends Controller
                 $this->itemSerializer->serializeItem($location) :
                 $this->itemSerializer->serializeLocation($location),
             'children_count' => $pager->getNbResults(),
-            'children' => iterator_to_array(
-                $this->itemSerializer->serializeItems(
-                    $pager->getCurrentPageResults()
-                )
+            'children' => array_map(
+                function (ItemInterface $item): array {
+                    return $this->itemSerializer->serializeItem($item);
+                },
+                $pager->getCurrentPageResults()
             ),
         ];
 
