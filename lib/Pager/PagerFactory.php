@@ -12,23 +12,15 @@ final class PagerFactory implements PagerFactoryInterface
     /**
      * @var int
      */
-    private $defaultLimit;
-
-    /**
-     * @var int
-     */
     private $maxLimit;
 
-    public function __construct(int $defaultLimit, int $maxLimit)
+    public function __construct(int $maxLimit)
     {
-        $this->defaultLimit = $defaultLimit;
         $this->maxLimit = $maxLimit;
     }
 
-    public function buildPager(AdapterInterface $adapter, int $page, ?int $limit = null): Pagerfanta
+    public function buildPager(AdapterInterface $adapter, int $page, int $limit): Pagerfanta
     {
-        $limit = $limit ?? $this->defaultLimit;
-
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);

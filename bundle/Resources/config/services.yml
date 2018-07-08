@@ -41,6 +41,7 @@ services:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.pager.factory"
+            - "%netgen_content_browser.browser.default_limit%"
 
     netgen_content_browser.controller.api.search_items:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems
@@ -50,6 +51,7 @@ services:
             - "@netgen_content_browser.current_backend"
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.pager.factory"
+            - "%netgen_content_browser.browser.default_limit%"
 
     netgen_content_browser.controller.api.render_item:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem
@@ -207,5 +209,4 @@ services:
         class: Netgen\ContentBrowser\Pager\PagerFactory
         public: false
         arguments:
-            - "%netgen_content_browser.browser.default_limit%"
             - "%netgen_content_browser.browser.max_limit%"

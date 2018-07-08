@@ -29,7 +29,7 @@ final class PagerFactoryTest extends TestCase
             ->method('getNbResults')
             ->will($this->returnValue(500));
 
-        $this->pagerFactory = new PagerFactory(25, 100);
+        $this->pagerFactory = new PagerFactory(100);
     }
 
     /**
@@ -38,7 +38,7 @@ final class PagerFactoryTest extends TestCase
      *
      * @dataProvider buildPagerProvider
      */
-    public function testBuildPager(int $page, ?int $limit, int $currentPage, int $maxPerPage): void
+    public function testBuildPager(int $page, int $limit, int $currentPage, int $maxPerPage): void
     {
         $pager = $this->pagerFactory->buildPager(
             $this->adapterMock,
@@ -61,7 +61,6 @@ final class PagerFactoryTest extends TestCase
             [-5, 20, 1, 20],
             [-2, 20, 1, 20],
             [-1, 20, 1, 20],
-            [5, null, 5, 25],
             [5, -2, 5, 100],
             [5, -1, 5, 100],
             [5, 0, 5, 100],

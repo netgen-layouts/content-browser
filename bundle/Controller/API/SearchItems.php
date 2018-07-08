@@ -29,14 +29,21 @@ final class SearchItems extends Controller
      */
     private $pagerFactory;
 
+    /**
+     * @var int
+     */
+    private $defaultLimit;
+
     public function __construct(
         BackendInterface $backend,
         ItemSerializerInterface $itemSerializer,
-        PagerFactoryInterface $pagerFactory
+        PagerFactoryInterface $pagerFactory,
+        int $defaultLimit
     ) {
         $this->backend = $backend;
         $this->itemSerializer = $itemSerializer;
         $this->pagerFactory = $pagerFactory;
+        $this->defaultLimit = $defaultLimit;
     }
 
     /**
@@ -51,12 +58,10 @@ final class SearchItems extends Controller
             return new JsonResponse(['children_count' => 0, 'children' => []]);
         }
 
-        $limit = $request->query->get('limit');
-
         $pager = $this->pagerFactory->buildPager(
             new ItemSearchAdapter($this->backend, $searchText),
             $request->query->getInt('page', 1),
-            $limit !== null ? (int) $limit : null
+            $request->query->getInt('limit', $this->defaultLimit)
         );
 
         $data = [

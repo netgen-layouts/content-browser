@@ -32,14 +32,21 @@ final class LoadSubItems extends Controller
      */
     private $pagerFactory;
 
+    /**
+     * @var int
+     */
+    private $defaultLimit;
+
     public function __construct(
         BackendInterface $backend,
         ItemSerializerInterface $itemSerializer,
-        PagerFactoryInterface $pagerFactory
+        PagerFactoryInterface $pagerFactory,
+        int $defaultLimit
     ) {
         $this->backend = $backend;
         $this->itemSerializer = $itemSerializer;
         $this->pagerFactory = $pagerFactory;
+        $this->defaultLimit = $defaultLimit;
     }
 
     /**
@@ -47,12 +54,10 @@ final class LoadSubItems extends Controller
      */
     public function __invoke(LocationInterface $location, Request $request): Response
     {
-        $limit = $request->query->get('limit');
-
         $pager = $this->pagerFactory->buildPager(
             new SubItemsAdapter($this->backend, $location),
             $request->query->getInt('page', 1),
-            $limit !== null ? (int) $limit : null
+            $request->query->getInt('limit', $this->defaultLimit)
         );
 
         $data = [
