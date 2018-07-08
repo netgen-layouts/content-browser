@@ -79,13 +79,12 @@ final class ContentBrowserMultipleType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $itemNames = [];
-        if ($form->getData() !== null) {
-            $itemNames = $this->getItemNames($form->getData(), $options['item_type']);
-        }
-
+        $view->vars['items'] = [];
         $view->vars['item_type'] = $options['item_type'];
-        $view->vars['item_names'] = $itemNames;
+
+        if ($form->getData() !== null) {
+            $view->vars['items'] = $this->getItems($form->getData(), $options['item_type']);
+        }
 
         $view->vars['min'] = $options['min'];
         $view->vars['max'] = $options['max'];
@@ -103,27 +102,27 @@ final class ContentBrowserMultipleType extends AbstractType
     }
 
     /**
-     * Returns the array of names for all provided item IDs.
+     * Returns the array of items for all provided item IDs.
      *
      * @param mixed $itemIds
      * @param string $itemType
      *
      * @return array
      */
-    private function getItemNames($itemIds, string $itemType): array
+    private function getItems($itemIds, string $itemType): array
     {
-        $itemNames = [];
+        $items = [];
 
         foreach ((array) $itemIds as $itemId) {
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
                 $item = $backend->loadItem($itemId);
-                $itemNames[$item->getValue()] = $item->getName();
+                $items[$item->getValue()] = $item;
             } catch (NotFoundException $e) {
                 // Do nothing
             }
         }
 
-        return $itemNames;
+        return $items;
     }
 }

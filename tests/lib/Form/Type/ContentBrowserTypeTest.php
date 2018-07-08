@@ -51,11 +51,13 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testBuildView(): void
     {
+        $item = new Item(42);
+
         $this->backendMock
             ->expects($this->once())
             ->method('loadItem')
             ->with($this->identicalTo('42'))
-            ->will($this->returnValue(new Item(42)));
+            ->will($this->returnValue($item));
 
         $form = $this->factory->create(
             ContentBrowserType::class,
@@ -69,11 +71,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
+        $this->assertArrayHasKey('item', $view->vars);
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('item_name', $view->vars);
 
+        $this->assertSame($item, $view->vars['item']);
         $this->assertSame('value', $view->vars['item_type']);
-        $this->assertSame('This is a name (42)', $view->vars['item_name']);
     }
 
     /**
@@ -99,11 +101,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
+        $this->assertArrayHasKey('item', $view->vars);
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('item_name', $view->vars);
 
+        $this->assertNull($view->vars['item']);
         $this->assertSame('value', $view->vars['item_type']);
-        $this->assertNull($view->vars['item_name']);
     }
 
     /**
@@ -127,11 +129,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
+        $this->assertArrayHasKey('item', $view->vars);
         $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('item_name', $view->vars);
 
+        $this->assertNull($view->vars['item']);
         $this->assertSame('value', $view->vars['item_type']);
-        $this->assertNull($view->vars['item_name']);
     }
 
     /**

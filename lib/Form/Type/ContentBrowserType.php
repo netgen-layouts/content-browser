@@ -49,19 +49,18 @@ final class ContentBrowserType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $itemName = null;
+        $item = null;
         if ($form->getData() !== null) {
             try {
                 $backend = $this->backendRegistry->getBackend($options['item_type']);
                 $item = $backend->loadItem($form->getData());
-                $itemName = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing
             }
         }
 
+        $view->vars['item'] = $item;
         $view->vars['item_type'] = $options['item_type'];
-        $view->vars['item_name'] = $itemName;
         $view->vars['start_location'] = $options['start_location'];
     }
 

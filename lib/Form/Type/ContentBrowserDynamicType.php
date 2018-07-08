@@ -91,7 +91,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $itemName = null;
+        $item = null;
         $itemId = $form->get('item_id')->getData();
         $itemType = $form->get('item_type')->getData();
 
@@ -99,13 +99,12 @@ final class ContentBrowserDynamicType extends AbstractType
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
                 $item = $backend->loadItem($itemId);
-                $itemName = $item->getName();
             } catch (NotFoundException $e) {
                 // Do nothing
             }
         }
 
-        $view->vars['item_name'] = $itemName;
+        $view->vars['item'] = $item;
         $view->vars['start_location'] = $options['start_location'];
     }
 
