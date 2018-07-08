@@ -20,7 +20,6 @@
             "name": "Item 41"
         }
     },
-    "children_count": 2,
     "children": [
         {
             "location_id": null,
@@ -44,5 +43,6 @@
                 "name": "Item 43"
             }
         }
-    ]
+    ],
+    "children_count": 2
 }

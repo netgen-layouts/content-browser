@@ -55,7 +55,7 @@ final class SearchItems extends Controller
     {
         $searchText = trim($request->query->get('searchText', ''));
         if (empty($searchText)) {
-            return new JsonResponse(['children_count' => 0, 'children' => []]);
+            return new JsonResponse(['children' => [], 'children_count' => 0]);
         }
 
         $pager = $this->pagerFactory->buildPager(
