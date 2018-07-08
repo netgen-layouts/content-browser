@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerPass;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass;
+use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
+final class BackendPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendPass::process
      */
     public function testProcess(): void
     {
@@ -34,7 +34,7 @@ final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendPass::process
      * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
      * @expectedExceptionMessage Backend definition must have a 'item_type' attribute in its' tag.
      */
@@ -50,7 +50,7 @@ final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendRegistryPass::process
+     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\BackendPass::process
      */
     public function testProcessWithEmptyContainer(): void
     {
@@ -61,6 +61,6 @@ final class BackendRegistryPassTest extends AbstractCompilerPassTestCase
 
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new BackendRegistryPass());
+        $container->addCompilerPass(new BackendPass());
     }
 }
