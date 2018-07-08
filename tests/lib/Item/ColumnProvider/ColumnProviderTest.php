@@ -58,20 +58,6 @@ final class ColumnProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::__construct
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Column value provider "provider" does not exist
-     */
-    public function testConstructorThrowsInvalidArgumentException(): void
-    {
-        $this->columnProvider = new ColumnProvider(
-            $this->itemRendererMock,
-            $this->config,
-            ['other' => new ColumnValueProvider()]
-        );
-    }
-
-    /**
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
@@ -118,5 +104,21 @@ final class ColumnProviderTest extends TestCase
             ['column' => 'rendered column'],
             $this->columnProvider->provideColumns($item)
         );
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::__construct
+     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
+     * @expectedExceptionMessage Column value provider "provider" does not exist
+     */
+    public function testProvideColumnsThrowsInvalidArgumentExceptionWithNoProvider(): void
+    {
+        $this->columnProvider = new ColumnProvider(
+            $this->itemRendererMock,
+            $this->config,
+            ['other' => new ColumnValueProvider()]
+        );
+
+        $this->columnProvider->provideColumns(new Item());
     }
 }

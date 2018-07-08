@@ -30,8 +30,6 @@ final class ColumnProvider implements ColumnProviderInterface
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
      * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
      * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
-     *
-     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If value provider for one of the columns does not exist
      */
     public function __construct(
         ItemRendererInterface $itemRenderer,
@@ -46,17 +44,6 @@ final class ColumnProvider implements ColumnProviderInterface
                 return true;
             }
         );
-
-        foreach ($this->config->getColumns() as $columnConfig) {
-            if (isset($columnConfig['value_provider']) && !isset($this->columnValueProviders[$columnConfig['value_provider']])) {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        'Column value provider "%s" does not exist',
-                        $columnConfig['value_provider']
-                    )
-                );
-            }
-        }
     }
 
     public function provideColumns(ItemInterface $item): array
@@ -72,6 +59,8 @@ final class ColumnProvider implements ColumnProviderInterface
 
     /**
      * Provides the column with specified identifier for selected item.
+     *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If value provider for the column does not exist
      */
     private function provideColumn(ItemInterface $item, array $columnConfig): string
     {
@@ -79,6 +68,15 @@ final class ColumnProvider implements ColumnProviderInterface
             return $this->itemRenderer->renderItem(
                 $item,
                 $columnConfig['template']
+            );
+        }
+
+        if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Column value provider "%s" does not exist',
+                    $columnConfig['value_provider']
+                )
             );
         }
 
