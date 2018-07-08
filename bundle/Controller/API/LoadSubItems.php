@@ -50,10 +50,7 @@ final class LoadSubItems extends Controller
         $limit = $request->query->get('limit');
 
         $pager = $this->pagerFactory->buildPager(
-            new SubItemsAdapter(
-                $this->backend,
-                $location
-            ),
+            new SubItemsAdapter($this->backend, $location),
             $request->query->getInt('page', 1),
             $limit !== null ? (int) $limit : null
         );
@@ -63,14 +60,13 @@ final class LoadSubItems extends Controller
             'parent' => $location instanceof ItemInterface ?
                 $this->itemSerializer->serializeItem($location) :
                 $this->itemSerializer->serializeLocation($location),
+            'children' => [],
             'children_count' => $pager->getNbResults(),
-            'children' => array_map(
-                function (ItemInterface $item): array {
-                    return $this->itemSerializer->serializeItem($item);
-                },
-                $pager->getCurrentPageResults()
-            ),
         ];
+
+        foreach ($pager->getCurrentPageResults() as $item) {
+            $data['children'][] = $this->itemSerializer->serializeItem($item);
+        }
 
         return new JsonResponse($data);
     }

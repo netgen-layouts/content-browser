@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
@@ -47,31 +46,26 @@ final class SearchItems extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $searchText = trim($request->query->get('searchText', ''));
+        if (empty($searchText)) {
+            return new JsonResponse(['children_count' => 0, 'children' => []]);
+        }
+
+        $limit = $request->query->get('limit');
+
+        $pager = $this->pagerFactory->buildPager(
+            new ItemSearchAdapter($this->backend, $searchText),
+            $request->query->getInt('page', 1),
+            $limit !== null ? (int) $limit : null
+        );
+
         $data = [
-            'children_count' => 0,
             'children' => [],
+            'children_count' => $pager->getNbResults(),
         ];
 
-        $searchText = trim($request->query->get('searchText', ''));
-        if (!empty($searchText)) {
-            $limit = $request->query->get('limit');
-
-            $pager = $this->pagerFactory->buildPager(
-                new ItemSearchAdapter(
-                    $this->backend,
-                    $searchText
-                ),
-                $request->query->getInt('page', 1),
-                $limit !== null ? (int) $limit : null
-            );
-
-            $data['children_count'] = $pager->getNbResults();
-            $data['children'] = array_map(
-                function (ItemInterface $item): array {
-                    return $this->itemSerializer->serializeItem($item);
-                },
-                $pager->getCurrentPageResults()
-            );
+        foreach ($pager->getCurrentPageResults() as $item) {
+            $data['children'][] = $this->itemSerializer->serializeItem($item);
         }
 
         return new JsonResponse($data);
