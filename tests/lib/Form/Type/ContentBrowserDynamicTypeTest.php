@@ -41,7 +41,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ContentBrowserDynamicType::class
         );
 
-        $data = ['item_type' => 'value2', 'item_id' => '42'];
+        $data = ['item_type' => 'value2', 'item_value' => '42'];
 
         $form->submit($data);
 
@@ -63,7 +63,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ]
         );
 
-        $data = ['item_type' => 'value1', 'item_id' => '42'];
+        $data = ['item_type' => 'value1', 'item_value' => '42'];
 
         $form->submit($data);
 
@@ -87,7 +87,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
-        $data = ['item_id' => 42, 'item_type' => 'value1'];
+        $data = ['item_value' => 42, 'item_type' => 'value1'];
 
         $form->submit($data);
 
@@ -110,7 +110,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
-        $data = ['item_id' => 42, 'item_type' => 'value1'];
+        $data = ['item_value' => 42, 'item_type' => 'value1'];
 
         $form->submit($data);
 

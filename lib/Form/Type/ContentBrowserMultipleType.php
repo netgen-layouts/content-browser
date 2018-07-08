@@ -102,21 +102,21 @@ final class ContentBrowserMultipleType extends AbstractType
     }
 
     /**
-     * Returns the array of items for all provided item IDs.
+     * Returns the array of items for all provided item values.
      *
-     * @param mixed $itemIds
+     * @param mixed $itemValues
      * @param string $itemType
      *
      * @return array
      */
-    private function getItems($itemIds, string $itemType): array
+    private function getItems($itemValues, string $itemType): array
     {
         $items = [];
 
-        foreach ((array) $itemIds as $itemId) {
+        foreach ((array) $itemValues as $itemValue) {
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
-                $item = $backend->loadItem($itemId);
+                $item = $backend->loadItem($itemValue);
                 $items[$item->getValue()] = $item;
             } catch (NotFoundException $e) {
                 // Do nothing

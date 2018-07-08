@@ -17,7 +17,7 @@ ngcb_api_v1_browse_items:
         _controller: "netgen_content_browser.controller.api.load_sub_items"
 
 ngcb_api_v1_item_render:
-    path: /{itemType}/render/{itemId}
+    path: /{itemType}/render/{itemValue}
     methods: [GET]
     defaults:
         _controller: "netgen_content_browser.controller.api.render_item"

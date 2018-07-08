@@ -27,15 +27,15 @@ interface BackendInterface
     public function loadLocation($id);
 
     /**
-     * Loads the item by its ID.
+     * Loads the item by its value.
      *
-     * @param int|string $id
+     * @param int|string $value
      *
      * @throws \Netgen\ContentBrowser\Exceptions\NotFoundException If item does not exist
      *
      * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
-    public function loadItem($id);
+    public function loadItem($value);
 
     /**
      * Returns the locations below provided location.

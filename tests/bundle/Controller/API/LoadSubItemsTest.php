@@ -19,11 +19,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
      */
     public function testLoadSubItems(): void
     {
+        $location = new Location(41, 'Location 41', 40);
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo(41))
-            ->will($this->returnValue(new Location(41, 'Location 41', 40)));
+            ->with($this->identicalTo('41'))
+            ->will($this->returnValue($location));
 
         $this->backendMock
             ->expects($this->at(1))
@@ -34,13 +36,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo(new Location(41, 'Location 41', 40)))
+            ->with($this->identicalTo($location))
             ->will($this->returnValue(2));
 
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItems')
-            ->with($this->identicalTo(new Location(41, 'Location 41', 40)))
+            ->with($this->identicalTo($location))
             ->will(
                 $this->returnValue(
                     [
@@ -65,11 +67,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
      */
     public function testLoadSubItemsWithItemAsLocation(): void
     {
+        $location = new ItemLocation(41, 'Item 41', 40);
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo(41))
-            ->will($this->returnValue(new ItemLocation(41, 'Item 41', 40)));
+            ->with($this->identicalTo('41'))
+            ->will($this->returnValue($location));
 
         $this->backendMock
             ->expects($this->at(1))
@@ -80,13 +84,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo(new ItemLocation(41, 'Item 41', 40)))
+            ->with($this->identicalTo($location))
             ->will($this->returnValue(2));
 
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItems')
-            ->with($this->identicalTo(new ItemLocation(41, 'Item 41', 40)))
+            ->with($this->identicalTo($location))
             ->will(
                 $this->returnValue(
                     [
@@ -111,11 +115,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
      */
     public function testLoadSubItemsWithMissingParent(): void
     {
+        $location = new ItemLocation(41, 'Item 41', 40);
+
         $this->backendMock
             ->expects($this->at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo(41))
-            ->will($this->returnValue(new ItemLocation(41, 'Item 41', 40)));
+            ->with($this->identicalTo('41'))
+            ->will($this->returnValue($location));
 
         $this->backendMock
             ->expects($this->at(1))
@@ -126,13 +132,13 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo(new ItemLocation(41, 'Item 41', 40)))
+            ->with($this->identicalTo($location))
             ->will($this->returnValue(2));
 
         $this->backendMock
             ->expects($this->any())
             ->method('getSubItems')
-            ->with($this->identicalTo(new ItemLocation(41, 'Item 41', 40)))
+            ->with($this->identicalTo($location))
             ->will(
                 $this->returnValue(
                     [

@@ -25,21 +25,21 @@ final class ItemParamConverter implements ParamConverterInterface
 
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        if (!$request->attributes->has('itemId') || !$request->attributes->has('itemType')) {
+        if (!$request->attributes->has('itemValue') || !$request->attributes->has('itemType')) {
             return false;
         }
 
-        $itemId = $request->attributes->get('itemId');
-        if (empty($itemId)) {
+        $itemValue = $request->attributes->get('itemValue');
+        if (empty($itemValue)) {
             if ($configuration->isOptional()) {
                 return false;
             }
 
-            throw new InvalidArgumentException('Required request attribute "itemId" is empty');
+            throw new InvalidArgumentException('Required request attribute "itemValue" is empty');
         }
 
         $backend = $this->backendRegistry->getBackend($request->attributes->get('itemType'));
-        $request->attributes->set('item', $backend->loadItem($itemId));
+        $request->attributes->set('item', $backend->loadItem($itemValue));
 
         return true;
     }

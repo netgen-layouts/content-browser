@@ -86,19 +86,19 @@ final class ContentBrowserDynamicType extends AbstractType
             ] + $this->getChoicesAsValuesOption()
         );
 
-        $builder->add('item_id', HiddenType::class);
+        $builder->add('item_value', HiddenType::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $item = null;
-        $itemId = $form->get('item_id')->getData();
+        $itemValue = $form->get('item_value')->getData();
         $itemType = $form->get('item_type')->getData();
 
-        if (!empty($itemId) && !empty($itemType)) {
+        if (!empty($itemValue) && !empty($itemType)) {
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
-                $item = $backend->loadItem($itemId);
+                $item = $backend->loadItem($itemValue);
             } catch (NotFoundException $e) {
                 // Do nothing
             }
