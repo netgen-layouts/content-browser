@@ -118,6 +118,12 @@ services:
         arguments:
             - []
 
+    netgen_content_browser.registry.config:
+        class: Netgen\ContentBrowser\Registry\ConfigRegistry
+        public: true
+        arguments:
+            - []
+
     # Main services
 
     netgen_content_browser.current_backend:
@@ -155,7 +161,6 @@ services:
         # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
-            - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
 
@@ -164,7 +169,7 @@ services:
         # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
-            - "%netgen_content_browser.item_types%"
+            - "@netgen_content_browser.registry.config"
         tags:
             - { name: form.type }
 
@@ -173,7 +178,6 @@ services:
         # public: false
         arguments:
             - "@netgen_content_browser.registry.backend"
-            - "%netgen_content_browser.item_types%"
         tags:
             - { name: form.type }
 

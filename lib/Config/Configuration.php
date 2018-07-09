@@ -14,6 +14,11 @@ final class Configuration implements ConfigurationInterface
     private $itemType;
 
     /**
+     * @var string
+     */
+    private $itemName;
+
+    /**
      * @var array
      */
     private $config = [];
@@ -23,9 +28,14 @@ final class Configuration implements ConfigurationInterface
      */
     private $parameters = [];
 
-    public function __construct(string $itemType, array $config = [], array $parameters = [])
-    {
+    public function __construct(
+        string $itemType,
+        string $itemName,
+        array $config = [],
+        array $parameters = []
+    ) {
         $this->itemType = $itemType;
+        $this->itemName = $itemName;
         $this->config = $config;
         $this->parameters = $parameters;
     }
@@ -33,6 +43,11 @@ final class Configuration implements ConfigurationInterface
     public function getItemType(): string
     {
         return $this->itemType;
+    }
+
+    public function getItemName(): string
+    {
+        return $this->itemName;
     }
 
     public function getMinSelected(): int

@@ -37,7 +37,7 @@ final class ConfigurationTest extends TestCase
             'default' => 'param',
         ];
 
-        $this->config = new Configuration('value', $configArray, $parameters);
+        $this->config = new Configuration('value', 'Value', $configArray, $parameters);
     }
 
     /**
@@ -47,6 +47,14 @@ final class ConfigurationTest extends TestCase
     public function testGetItemType(): void
     {
         $this->assertSame('value', $this->config->getItemType());
+    }
+
+    /**
+     * @covers \Netgen\ContentBrowser\Config\Configuration::getItemName
+     */
+    public function testGetName(): void
+    {
+        $this->assertSame('Value', $this->config->getItemName());
     }
 
     /**
@@ -62,7 +70,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMinSelectedWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertSame(1, $this->config->getMinSelected());
     }
 
@@ -79,7 +87,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMaxSelectedWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertSame(0, $this->config->getMaxSelected());
     }
 
@@ -104,7 +112,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasTreeWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertFalse($this->config->hasTree());
     }
 
@@ -121,7 +129,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasSearchWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertFalse($this->config->hasSearch());
     }
 
@@ -138,7 +146,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasPreviewWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertFalse($this->config->hasPreview());
     }
 
@@ -155,7 +163,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetTemplateWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertNull($this->config->getTemplate());
     }
 
@@ -172,7 +180,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetColumnsWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertSame([], $this->config->getColumns());
     }
 
@@ -189,7 +197,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetDefaultColumnsWithEmptyConfig(): void
     {
-        $this->config = new Configuration('value');
+        $this->config = new Configuration('value', 'Value');
         $this->assertSame([], $this->config->getDefaultColumns());
     }
 

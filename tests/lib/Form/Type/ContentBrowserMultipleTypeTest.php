@@ -26,7 +26,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
 
-        return new ContentBrowserMultipleType($backendRegistry, ['value' => 'Value']);
+        return new ContentBrowserMultipleType($backendRegistry);
     }
 
     public function testSubmitValidData(): void

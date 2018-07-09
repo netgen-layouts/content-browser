@@ -34,6 +34,7 @@ final class RenderItemTest extends JsonApiTestCase
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
+                'Test',
                 [
                     'columns' => [
                         'name' => [
@@ -80,6 +81,7 @@ final class RenderItemTest extends JsonApiTestCase
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
+                'Test',
                 [
                     'columns' => [
                         'name' => [

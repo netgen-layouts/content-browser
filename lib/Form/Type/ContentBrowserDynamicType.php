@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Form\Type;
 
+use Netgen\ContentBrowser\Config\ConfigurationInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
+use Netgen\ContentBrowser\Registry\ConfigRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -25,14 +27,16 @@ final class ContentBrowserDynamicType extends AbstractType
     private $backendRegistry;
 
     /**
-     * @var array
+     * @var \Netgen\ContentBrowser\Registry\ConfigRegistryInterface
      */
-    private $availableItemTypes;
+    private $configRegistry;
 
-    public function __construct(BackendRegistryInterface $backendRegistry, array $availableItemTypes)
-    {
+    public function __construct(
+        BackendRegistryInterface $backendRegistry,
+        ConfigRegistryInterface $configRegistry
+    ) {
         $this->backendRegistry = $backendRegistry;
-        $this->availableItemTypes = array_flip($availableItemTypes);
+        $this->configRegistry = $configRegistry;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -61,16 +65,16 @@ final class ContentBrowserDynamicType extends AbstractType
 
         $resolver->setNormalizer(
             'item_types',
-            function (Options $options, array $values): array {
-                $validValues = [];
+            function (Options $options, array $itemTypes): array {
+                $validItemTypes = [];
 
-                foreach ($values as $value) {
-                    if (in_array($value, $this->availableItemTypes, true)) {
-                        $validValues[] = $value;
+                foreach ($itemTypes as $itemType) {
+                    if ($this->backendRegistry->hasBackend($itemType)) {
+                        $validItemTypes[] = $itemType;
                     }
                 }
 
-                return $validValues;
+                return $validItemTypes;
             }
         );
     }
@@ -118,12 +122,21 @@ final class ContentBrowserDynamicType extends AbstractType
      */
     private function getEnabledItemTypes(array $itemTypes): array
     {
+        $allItemTypes = array_flip(
+            array_map(
+                function (ConfigurationInterface $config): string {
+                    return $config->getItemName();
+                },
+                $this->configRegistry->getConfigs()
+            )
+        );
+
         if (empty($itemTypes)) {
-            return $this->availableItemTypes;
+            return $allItemTypes;
         }
 
         return array_filter(
-            $this->availableItemTypes,
+            $allItemTypes,
             function (string $itemType) use ($itemTypes): bool {
                 return in_array($itemType, $itemTypes, true);
             }

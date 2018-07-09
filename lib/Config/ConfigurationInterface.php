@@ -12,6 +12,11 @@ interface ConfigurationInterface
     public function getItemType(): string;
 
     /**
+     * Returns the item name.
+     */
+    public function getItemName(): string;
+
+    /**
      * Returns the minimum number of items allowed to be selected.
      */
     public function getMinSelected(): int;

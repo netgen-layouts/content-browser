@@ -21,15 +21,9 @@ final class ContentBrowserMultipleType extends AbstractType
      */
     private $backendRegistry;
 
-    /**
-     * @var array
-     */
-    private $availableItemTypes;
-
-    public function __construct(BackendRegistryInterface $backendRegistry, array $availableItemTypes)
+    public function __construct(BackendRegistryInterface $backendRegistry)
     {
         $this->backendRegistry = $backendRegistry;
-        $this->availableItemTypes = array_flip($availableItemTypes);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -53,7 +47,7 @@ final class ContentBrowserMultipleType extends AbstractType
         $resolver->setAllowedValues(
             'item_type',
             function (string $itemType): bool {
-                return in_array($itemType, $this->availableItemTypes, true);
+                return $this->backendRegistry->hasBackend($itemType);
             }
         );
 

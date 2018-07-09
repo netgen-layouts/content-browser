@@ -35,6 +35,7 @@ final class ColumnProviderTest extends TestCase
 
         $this->config = new Configuration(
             'value',
+            'Value',
             [
                 'columns' => [
                     'column1' => [
@@ -58,6 +59,7 @@ final class ColumnProviderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::__construct
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      */
@@ -77,6 +79,7 @@ final class ColumnProviderTest extends TestCase
     {
         $this->config = new Configuration(
             'value',
+            'Value',
             [
                 'columns' => [
                     'column' => [
@@ -107,7 +110,8 @@ final class ColumnProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::__construct
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
+     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
      * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
      * @expectedExceptionMessage Column value provider "provider" does not exist
      */

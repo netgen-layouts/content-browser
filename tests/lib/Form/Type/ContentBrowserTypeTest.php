@@ -26,7 +26,7 @@ final class ContentBrowserTypeTest extends TestCase
 
         $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
 
-        return new ContentBrowserType($backendRegistry, ['value' => 'Value']);
+        return new ContentBrowserType($backendRegistry);
     }
 
     public function testSubmitValidData(): void

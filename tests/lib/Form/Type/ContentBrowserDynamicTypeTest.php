@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Tests\Form\Type;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,10 +27,14 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $backendRegistry = new BackendRegistry(['value1' => $this->backendMock, 'value2' => $this->backendMock]);
 
-        return new ContentBrowserDynamicType(
-            $backendRegistry,
-            ['value1' => 'Value 1', 'value2' => 'Value 2']
+        $configRegistry = new ConfigRegistry(
+            [
+                'value1' => new Configuration('value1', 'Value 1'),
+                'value2' => new Configuration('value2', 'Value 2'),
+            ]
         );
+
+        return new ContentBrowserDynamicType($backendRegistry, $configRegistry);
     }
 
     /**

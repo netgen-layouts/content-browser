@@ -114,6 +114,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
             'netgen_content_browser.config.test',
             new Configuration(
                 'test',
+                'Test',
                 [
                     'columns' => [
                         'name' => [
