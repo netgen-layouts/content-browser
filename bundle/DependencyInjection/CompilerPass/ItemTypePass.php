@@ -76,7 +76,7 @@ final class ItemTypePass implements CompilerPassInterface
                 }
             }
 
-            if ($foundBackend === null) {
+            if (!is_string($foundBackend)) {
                 throw new RuntimeException(
                     sprintf('No backend registered for "%s" item type.', $itemType)
                 );
