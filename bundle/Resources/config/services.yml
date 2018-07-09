@@ -139,7 +139,7 @@ services:
 
     netgen_content_browser.item_renderer:
         class: Netgen\ContentBrowser\Item\Renderer\ItemRenderer
-        public: true
+        public: false
         arguments:
             - "@twig"
             - "@?logger"
