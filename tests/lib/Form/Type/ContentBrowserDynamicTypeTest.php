@@ -210,6 +210,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ng_content_browser_dynamic', $this->formType->getBlockPrefix());
+        $this->assertSame('ngcb_dynamic', $this->formType->getBlockPrefix());
     }
 }

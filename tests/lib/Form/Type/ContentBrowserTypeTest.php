@@ -209,6 +209,6 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ng_content_browser', $this->formType->getBlockPrefix());
+        $this->assertSame('ngcb', $this->formType->getBlockPrefix());
     }
 }

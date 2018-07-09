@@ -65,6 +65,6 @@ final class ContentBrowserType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ng_content_browser';
+        return 'ngcb';
     }
 }

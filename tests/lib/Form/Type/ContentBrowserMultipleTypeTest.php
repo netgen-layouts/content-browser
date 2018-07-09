@@ -286,6 +286,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ng_content_browser_multiple', $this->formType->getBlockPrefix());
+        $this->assertSame('ngcb_multiple', $this->formType->getBlockPrefix());
     }
 }

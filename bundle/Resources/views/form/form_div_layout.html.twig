@@ -1,6 +1,6 @@
 {% trans_default_domain 'ngcb' %}
 
-{%- block ng_content_browser_widget -%}
+{%- block ngcb_widget -%}
     <div
         class="js-input-browse {% if value is empty %}item-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
@@ -30,7 +30,7 @@
     </div>
 {%- endblock -%}
 
-{%- block ng_content_browser_dynamic_widget -%}
+{%- block ngcb_dynamic_widget -%}
     <div
         class="js-input-browse {% if form.item_value.vars.value is empty %}item-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
@@ -60,7 +60,7 @@
     </div>
 {%- endblock -%}
 
-{%- block ng_content_browser_multiple_widget -%}
+{%- block ngcb_multiple_widget -%}
     {% macro prototype(form, items) %}
         <div class="item">
             <a href="#" class="js-remove"><i class="material-icons">close</i></a>

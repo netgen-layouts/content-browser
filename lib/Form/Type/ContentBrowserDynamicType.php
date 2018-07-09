@@ -114,7 +114,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ng_content_browser_dynamic';
+        return 'ngcb_dynamic';
     }
 
     /**

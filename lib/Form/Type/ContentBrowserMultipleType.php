@@ -92,7 +92,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ng_content_browser_multiple';
+        return 'ngcb_multiple';
     }
 
     /**
