@@ -33,23 +33,16 @@ final class LoadConfig extends Controller
      */
     private $translator;
 
-    /**
-     * @var int
-     */
-    private $defaultLimit;
-
     public function __construct(
         BackendInterface $backend,
         ConfigurationInterface $config,
         ItemSerializerInterface $itemSerializer,
-        TranslatorInterface $translator,
-        int $defaultLimit
+        TranslatorInterface $translator
     ) {
         $this->backend = $backend;
         $this->config = $config;
         $this->itemSerializer = $itemSerializer;
         $this->translator = $translator;
-        $this->defaultLimit = $defaultLimit;
     }
 
     /**
@@ -70,7 +63,6 @@ final class LoadConfig extends Controller
             'has_tree' => $this->config->hasTree(),
             'has_search' => $this->config->hasSearch(),
             'has_preview' => $this->config->hasPreview(),
-            'default_limit' => $this->defaultLimit,
             'default_columns' => $this->config->getDefaultColumns(),
             'available_columns' => $this->getAvailableColumns(),
         ];

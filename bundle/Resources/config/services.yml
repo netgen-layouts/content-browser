@@ -23,7 +23,6 @@ services:
             - "@netgen_content_browser.current_config"
             - "@netgen_content_browser.item_serializer"
             - "@translator"
-            - "%netgen_content_browser.browser.default_limit%"
 
     netgen_content_browser.controller.api.load_sub_locations:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations

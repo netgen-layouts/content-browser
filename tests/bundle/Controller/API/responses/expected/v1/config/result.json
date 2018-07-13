@@ -29,7 +29,6 @@
     "has_tree": false,
     "has_search": false,
     "has_preview": true,
-    "default_limit": 25,
     "default_columns": [
         "name"
     ],
