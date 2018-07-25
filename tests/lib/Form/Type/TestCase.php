@@ -7,7 +7,7 @@ namespace Netgen\ContentBrowser\Tests\Form\Type;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormConfigBuilder;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * @var \Symfony\Component\Form\FormBuilder
+     * @var \Symfony\Component\Form\FormConfigBuilder
      */
     protected $builder;
 
@@ -59,7 +59,8 @@ abstract class TestCase extends BaseTestCase
             ->getFormFactory();
 
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormBuilder('name', null, $this->dispatcher, $this->factory);
+        $this->builder = new FormConfigBuilder('name', null, $this->dispatcher);
+        $this->builder->setFormFactory($this->factory);
     }
 
     abstract public function getMainType(): FormTypeInterface;
