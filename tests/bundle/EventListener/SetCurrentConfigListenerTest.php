@@ -63,7 +63,7 @@ final class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $config = new Configuration('value', 'Value');
+        $config = new Configuration('value', 'Value', []);
         $this->container->set('netgen_content_browser.config.item_type', $config);
 
         $this->eventListener->onKernelRequest($event);
@@ -91,7 +91,7 @@ final class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $config = new Configuration('value', 'Value');
+        $config = new Configuration('value', 'Value', []);
         $config->setParameter('one', 'default');
         $config->setParameter('two', 'default');
 
@@ -133,7 +133,7 @@ final class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $this->container->set('netgen_content_browser.config.item_type', new Configuration('value', 'Value'));
+        $this->container->set('netgen_content_browser.config.item_type', new Configuration('value', 'Value', []));
 
         $this->eventListener->onKernelRequest($event);
     }
@@ -243,7 +243,7 @@ final class SetCurrentConfigListenerTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $config = new Configuration('value', 'Value');
+        $config = new Configuration('value', 'Value', []);
         $this->container->set('netgen_content_browser.config.item_type', $config);
 
         $this->eventListener->onKernelRequest($event);

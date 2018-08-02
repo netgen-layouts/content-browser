@@ -34,7 +34,7 @@ final class ColumnProvider implements ColumnProviderInterface
     public function __construct(
         ItemRendererInterface $itemRenderer,
         ConfigurationInterface $config,
-        array $columnValueProviders = []
+        array $columnValueProviders
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;

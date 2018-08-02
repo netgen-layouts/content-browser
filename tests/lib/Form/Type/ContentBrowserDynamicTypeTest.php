@@ -29,8 +29,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $configRegistry = new ConfigRegistry(
             [
-                'value1' => new Configuration('value1', 'Value 1'),
-                'value2' => new Configuration('value2', 'Value 2'),
+                'value1' => new Configuration('value1', 'Value 1', []),
+                'value2' => new Configuration('value2', 'Value 2', []),
             ]
         );
 

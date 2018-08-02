@@ -45,7 +45,8 @@ final class ColumnProviderTest extends TestCase
                         'value_provider' => 'invalid',
                     ],
                 ],
-            ]
+            ],
+            []
         );
 
         $this->columnProvider = new ColumnProvider(

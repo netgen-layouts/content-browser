@@ -23,7 +23,7 @@ final class ConfigRegistryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->configuration = new Configuration('value', 'Value');
+        $this->configuration = new Configuration('value', 'Value', []);
 
         $this->registry = new ConfigRegistry(
             [

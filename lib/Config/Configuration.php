@@ -21,17 +21,17 @@ final class Configuration implements ConfigurationInterface
     /**
      * @var array
      */
-    private $config = [];
+    private $config;
 
     /**
      * @var array
      */
-    private $parameters = [];
+    private $parameters;
 
     public function __construct(
         string $itemType,
         string $itemName,
-        array $config = [],
+        array $config,
         array $parameters = []
     ) {
         $this->itemType = $itemType;
