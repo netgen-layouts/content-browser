@@ -43,13 +43,13 @@ final class ContentBrowserType extends AbstractType
             'custom_params',
             function (array $customParams): bool {
                 foreach ($customParams as $customParam) {
-                    if (!is_string($customParam) && !is_array($customParam)) {
+                    if (!is_scalar($customParam) && !is_array($customParam)) {
                         return false;
                     }
 
                     if (is_array($customParam)) {
                         foreach ($customParam as $innerCustomParam) {
-                            if (!is_string($innerCustomParam)) {
+                            if (!is_scalar($innerCustomParam)) {
                                 return false;
                             }
                         }
