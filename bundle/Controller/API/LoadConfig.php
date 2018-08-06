@@ -51,7 +51,7 @@ final class LoadConfig extends Controller
     public function __invoke(): Response
     {
         $sections = [];
-        foreach ($this->backend->getDefaultSections() as $section) {
+        foreach ($this->backend->getSections() as $section) {
             $sections[] = $this->itemSerializer->serializeLocation($section);
         }
 

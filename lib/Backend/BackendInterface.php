@@ -13,7 +13,7 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */
-    public function getDefaultSections();
+    public function getSections();
 
     /**
      * Loads a  location by its ID.

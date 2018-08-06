@@ -18,7 +18,7 @@ final class LoadConfigTest extends JsonApiTestCase
     {
         $this->backendMock
             ->expects($this->any())
-            ->method('getDefaultSections')
+            ->method('getSections')
             ->will(
                 $this->returnValue(
                     [
