@@ -5,6 +5,9 @@
         class="js-input-browse {% if value is empty %}item-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
         {% if start_location is not null %} data-start_location="{{ start_location }}" {% endif %}
+        {% for param_name, param_value in custom_params %}
+            data-custom-{{ param_name }}="{{ param_value is iterable ? param_value|join(',') : param_value }}"
+        {% endfor %}
         data-min_selected="1"
         data-max_selected="1"
         data-input
@@ -35,6 +38,9 @@
         class="js-input-browse {% if form.item_value.vars.value is empty %}item-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
         {% if start_location is not null %} data-start_location="{{ start_location }}" {% endif %}
+        {% for param_name, param_value in custom_params %}
+            data-custom-{{ param_name }}="{{ param_value is iterable ? param_value|join(',') : param_value }}"
+        {% endfor %}
         data-min_selected="1"
         data-max_selected="1"
         data-input
@@ -84,6 +90,9 @@
         class="js-multiple-browse {% if form is empty %}items-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
         {% if start_location is not null %} data-start_location="{{ start_location }}" {% endif %}
+        {% for param_name, param_value in custom_params %}
+            data-custom-{{ param_name }}="{{ param_value is iterable ? param_value|join(',') : param_value }}"
+        {% endfor %}
         {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
         {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
         data-browser-prototype="{{ self.prototype(form.vars.prototype, items)|e }}"

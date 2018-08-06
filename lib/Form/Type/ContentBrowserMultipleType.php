@@ -37,17 +37,39 @@ final class ContentBrowserMultipleType extends AbstractType
             ]
         );
 
-        $resolver->setRequired(['item_type', 'min', 'max', 'start_location']);
+        $resolver->setRequired(['item_type', 'min', 'max', 'start_location', 'custom_params']);
 
         $resolver->setAllowedTypes('item_type', 'string');
         $resolver->setAllowedTypes('min', ['int', 'null']);
         $resolver->setAllowedTypes('max', ['int', 'null']);
         $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
+        $resolver->setAllowedTypes('custom_params', 'array');
 
         $resolver->setAllowedValues(
             'item_type',
             function (string $itemType): bool {
                 return $this->backendRegistry->hasBackend($itemType);
+            }
+        );
+
+        $resolver->setAllowedValues(
+            'custom_params',
+            function (array $customParams): bool {
+                foreach ($customParams as $customParam) {
+                    if (!is_string($customParam) && !is_array($customParam)) {
+                        return false;
+                    }
+
+                    if (is_array($customParam)) {
+                        foreach ($customParam as $innerCustomParam) {
+                            if (!is_string($innerCustomParam)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                return true;
             }
         );
 
@@ -83,6 +105,7 @@ final class ContentBrowserMultipleType extends AbstractType
         $view->vars['min'] = $options['min'];
         $view->vars['max'] = $options['max'];
         $view->vars['start_location'] = $options['start_location'];
+        $view->vars['custom_params'] = $options['custom_params'];
     }
 
     public function getParent(): string
