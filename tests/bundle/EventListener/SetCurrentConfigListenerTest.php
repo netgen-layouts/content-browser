@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Config\Configuration;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -31,7 +32,10 @@ final class SetCurrentConfigListenerTest extends TestCase
     {
         $this->container = new Container();
 
-        $this->eventListener = new SetCurrentConfigListener($this->container);
+        $this->eventListener = new SetCurrentConfigListener(
+            $this->container,
+            $this->createMock(EventDispatcherInterface::class)
+        );
     }
 
     /**
