@@ -61,6 +61,7 @@ final class ContentBrowserType extends AbstractType
         );
 
         $resolver->setDefault('start_location', null);
+        $resolver->setDefault('custom_params', []);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

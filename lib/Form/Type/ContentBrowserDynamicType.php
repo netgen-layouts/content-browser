@@ -84,6 +84,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         $resolver->setDefault('item_types', []);
         $resolver->setDefault('start_location', null);
+        $resolver->setDefault('custom_params', []);
 
         $resolver->setNormalizer(
             'item_types',

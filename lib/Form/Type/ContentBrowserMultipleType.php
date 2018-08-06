@@ -76,6 +76,7 @@ final class ContentBrowserMultipleType extends AbstractType
         $resolver->setDefault('min', null);
         $resolver->setDefault('max', null);
         $resolver->setDefault('start_location', null);
+        $resolver->setDefault('custom_params', []);
 
         $resolver->setNormalizer(
             'max',
