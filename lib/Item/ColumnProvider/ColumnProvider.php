@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Item\ColumnProvider;
 
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
@@ -17,7 +17,7 @@ final class ColumnProvider implements ColumnProviderInterface
     private $itemRenderer;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 
@@ -28,12 +28,12 @@ final class ColumnProvider implements ColumnProviderInterface
 
     /**
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
-     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface $config
+     * @param \Netgen\ContentBrowser\Config\Configuration $config
      * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
      */
     public function __construct(
         ItemRendererInterface $itemRenderer,
-        ConfigurationInterface $config,
+        Configuration $config,
         array $columnValueProviders
     ) {
         $this->itemRenderer = $itemRenderer;

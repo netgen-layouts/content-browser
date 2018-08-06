@@ -20,7 +20,7 @@ final class ColumnProviderTest extends TestCase
     private $itemRendererMock;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 

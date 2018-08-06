@@ -7,7 +7,7 @@ namespace Netgen\ContentBrowser\Registry;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 
 interface ConfigRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -21,12 +21,12 @@ interface ConfigRegistryInterface extends IteratorAggregate, Countable, ArrayAcc
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config does not exist
      */
-    public function getConfig(string $itemType): ConfigurationInterface;
+    public function getConfig(string $itemType): Configuration;
 
     /**
      * Returns all configs.
      *
-     * @return \Netgen\ContentBrowser\Config\ConfigurationInterface[]
+     * @return \Netgen\ContentBrowser\Config\Configuration[]
      */
     public function getConfigs(): array;
 }

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Event;
 
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Symfony\Component\EventDispatcher\Event;
 
 final class ConfigLoadEvent extends Event
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 
-    public function __construct(ConfigurationInterface $config)
+    public function __construct(Configuration $config)
     {
         $this->config = $config;
     }
@@ -22,7 +22,7 @@ final class ConfigLoadEvent extends Event
     /**
      * Returns the configuration which is being loaded.
      */
-    public function getConfig(): ConfigurationInterface
+    public function getConfig(): Configuration
     {
         return $this->config;
     }

@@ -6,7 +6,7 @@ namespace Netgen\ContentBrowser\Config;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 
-final class Configuration implements ConfigurationInterface
+final class Configuration
 {
     /**
      * @var string

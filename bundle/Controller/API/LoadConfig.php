@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ final class LoadConfig extends Controller
     private $backend;
 
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 
@@ -35,7 +35,7 @@ final class LoadConfig extends Controller
 
     public function __construct(
         BackendInterface $backend,
-        ConfigurationInterface $config,
+        Configuration $config,
         ItemSerializerInterface $itemSerializer,
         TranslatorInterface $translator
     ) {

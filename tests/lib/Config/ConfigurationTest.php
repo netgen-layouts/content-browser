@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 final class ConfigurationTest extends TestCase
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 

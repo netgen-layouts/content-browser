@@ -5,25 +5,25 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Registry;
 
 use ArrayIterator;
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 
 final class ConfigRegistry implements ConfigRegistryInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface[]
+     * @var \Netgen\ContentBrowser\Config\Configuration[]
      */
     private $configs = [];
 
     /**
-     * @param \Netgen\ContentBrowser\Config\ConfigurationInterface[] $configs
+     * @param \Netgen\ContentBrowser\Config\Configuration[] $configs
      */
     public function __construct(array $configs)
     {
         $this->configs = array_filter(
             $configs,
-            function (ConfigurationInterface $config): bool {
+            function (Configuration $config): bool {
                 return true;
             }
         );
@@ -34,7 +34,7 @@ final class ConfigRegistry implements ConfigRegistryInterface
         return isset($this->configs[$itemType]);
     }
 
-    public function getConfig(string $itemType): ConfigurationInterface
+    public function getConfig(string $itemType): Configuration
     {
         if (!$this->hasConfig($itemType)) {
             throw new InvalidArgumentException(

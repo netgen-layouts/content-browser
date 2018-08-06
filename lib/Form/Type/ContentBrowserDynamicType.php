@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Form\Type;
 
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
 use Netgen\ContentBrowser\Registry\ConfigRegistryInterface;
@@ -148,7 +148,7 @@ final class ContentBrowserDynamicType extends AbstractType
     {
         $allItemTypes = array_flip(
             array_map(
-                function (ConfigurationInterface $config): string {
+                function (Configuration $config): string {
                     return $config->getItemName();
                 },
                 $this->configRegistry->getConfigs()

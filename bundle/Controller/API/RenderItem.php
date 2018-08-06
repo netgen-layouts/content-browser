@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class RenderItem extends Controller
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\ConfigurationInterface
+     * @var \Netgen\ContentBrowser\Config\Configuration
      */
     private $config;
 
@@ -21,7 +21,7 @@ final class RenderItem extends Controller
      */
     private $itemRenderer;
 
-    public function __construct(ConfigurationInterface $config, ItemRendererInterface $itemRenderer)
+    public function __construct(Configuration $config, ItemRendererInterface $itemRenderer)
     {
         $this->config = $config;
         $this->itemRenderer = $itemRenderer;

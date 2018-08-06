@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
-use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Event\ConfigLoadEvent;
 use Netgen\ContentBrowser\Event\ContentBrowserEvents;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
@@ -82,7 +82,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
      *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config could not be found
      */
-    private function loadConfig(string $itemType): ConfigurationInterface
+    private function loadConfig(string $itemType): Configuration
     {
         $service = 'netgen_content_browser.config.' . $itemType;
 
@@ -96,7 +96,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
         }
 
         $config = $this->container->get($service);
-        if (!$config instanceof ConfigurationInterface) {
+        if (!$config instanceof Configuration) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" item type is invalid.',
