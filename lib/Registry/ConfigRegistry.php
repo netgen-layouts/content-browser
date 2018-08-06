@@ -14,7 +14,7 @@ final class ConfigRegistry implements ConfigRegistryInterface
     /**
      * @var \Netgen\ContentBrowser\Config\Configuration[]
      */
-    private $configs = [];
+    private $configs;
 
     /**
      * @param \Netgen\ContentBrowser\Config\Configuration[] $configs

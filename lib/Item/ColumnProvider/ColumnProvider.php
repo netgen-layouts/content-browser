@@ -24,7 +24,7 @@ final class ColumnProvider implements ColumnProviderInterface
     /**
      * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[]
      */
-    private $columnValueProviders = [];
+    private $columnValueProviders;
 
     /**
      * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer

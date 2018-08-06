@@ -14,7 +14,7 @@ final class BackendRegistry implements BackendRegistryInterface
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface[]
      */
-    private $backends = [];
+    private $backends;
 
     /**
      * @param \Netgen\ContentBrowser\Backend\BackendInterface[] $backends

@@ -20,7 +20,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * @var bool
      */
-    private $outputDebugInfo = false;
+    private $outputDebugInfo;
 
     /**
      * @var \Psr\Log\LoggerInterface
