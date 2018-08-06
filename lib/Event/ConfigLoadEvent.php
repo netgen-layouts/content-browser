@@ -26,4 +26,12 @@ final class ConfigLoadEvent extends Event
     {
         return $this->config;
     }
+
+    /**
+     * Returns the item type for which the configuration is being loaded.
+     */
+    public function getItemType(): string
+    {
+        return $this->config->getItemType();
+    }
 }
