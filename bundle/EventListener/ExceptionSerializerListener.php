@@ -27,7 +27,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      */
     private $logger;
 
-    public function __construct(bool $outputDebugInfo = false, ?LoggerInterface $logger = null)
+    public function __construct(bool $outputDebugInfo, ?LoggerInterface $logger = null)
     {
         $this->outputDebugInfo = $outputDebugInfo;
         $this->logger = $logger ?? new NullLogger();
