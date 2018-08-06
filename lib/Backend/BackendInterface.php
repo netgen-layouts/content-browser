@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 interface BackendInterface
 {
     /**
-     * Returns the default sections available in the backend.
+     * Returns the sections available in the backend.
      *
      * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */

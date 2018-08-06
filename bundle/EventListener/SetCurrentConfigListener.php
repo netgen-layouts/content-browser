@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Netgen\ContentBrowser\Config\ConfigurationInterface;
+use Netgen\ContentBrowser\Event\ConfigLoadEvent;
+use Netgen\ContentBrowser\Event\ContentBrowserEvents;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,9 +22,15 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
      */
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    public function __construct(ContainerInterface $container, EventDispatcherInterface $eventDispatcher)
     {
         $this->container = $container;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -61,6 +70,9 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
         }
 
         $config->addParameters($customParams);
+
+        $configLoadEvent = new ConfigLoadEvent($config);
+        $this->eventDispatcher->dispatch(ContentBrowserEvents::CONFIG_LOAD, $configLoadEvent);
 
         $this->container->set('netgen_content_browser.current_config', $config);
     }

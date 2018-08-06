@@ -81,6 +81,7 @@ services:
         # public: false
         arguments:
             - "@service_container"
+            - "@event_dispatcher"
         tags:
             - { name: kernel.event_subscriber }
 
