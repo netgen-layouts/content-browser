@@ -8,6 +8,7 @@
         {% for param_name, param_value in custom_params %}
             data-custom-{{ param_name }}="{{ param_value is iterable ? param_value|join(',') : param_value }}"
         {% endfor %}
+        data-custom-location_content_types="ng_category"
         data-min_selected="1"
         data-max_selected="1"
         data-input
