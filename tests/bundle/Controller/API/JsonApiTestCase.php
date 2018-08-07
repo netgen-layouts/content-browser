@@ -57,8 +57,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function assertEmptyResponse(Response $response): void
     {
-        $this->assertEmpty($response->getContent());
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+        self::assertEmpty($response->getContent());
+        self::assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -71,9 +71,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
             $this->showErrorInBrowserIfOccurred($response);
         }
 
-        $this->assertResponseCode($response, $statusCode);
-        $this->assertHeader($response, 'application/json');
-        $this->assertExceptionResponse($response, $statusCode, $message);
+        self::assertResponseCode($response, $statusCode);
+        self::assertHeader($response, 'application/json');
+        self::assertExceptionResponse($response, $statusCode, $message);
     }
 
     /**
@@ -82,16 +82,16 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
-        $this->assertInternalType('array', $responseContent);
+        self::assertInternalType('array', $responseContent);
 
-        $this->assertArrayHasKey('status_code', $responseContent);
-        $this->assertArrayHasKey('status_text', $responseContent);
+        self::assertArrayHasKey('status_code', $responseContent);
+        self::assertArrayHasKey('status_text', $responseContent);
 
-        $this->assertSame($statusCode, $responseContent['status_code']);
-        $this->assertSame(Response::$statusTexts[$statusCode], $responseContent['status_text']);
+        self::assertSame($statusCode, $responseContent['status_code']);
+        self::assertSame(Response::$statusTexts[$statusCode], $responseContent['status_text']);
 
         if ($message !== null) {
-            $this->assertSame($message, $responseContent['message']);
+            self::assertSame($message, $responseContent['message']);
         }
     }
 
@@ -140,8 +140,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         );
 
         $itemRendererMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('renderItem')
-            ->will($this->returnValue('rendered item'));
+            ->will(self::returnValue('rendered item'));
     }
 }

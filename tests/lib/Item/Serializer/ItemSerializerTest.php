@@ -49,20 +49,20 @@ final class ItemSerializerTest extends TestCase
         $item = new LocationItem(84, 42);
 
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue(3));
+            ->with(self::identicalTo($item))
+            ->will(self::returnValue(3));
 
         $this->columnProviderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provideColumns')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue(['column' => 'value']));
+            ->with(self::identicalTo($item))
+            ->will(self::returnValue(['column' => 'value']));
 
         $data = $this->serializer->serializeItem($item);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'location_id' => 42,
                 'value' => 84,
@@ -87,18 +87,18 @@ final class ItemSerializerTest extends TestCase
         $item = new Item(84);
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('getSubItemsCount');
 
         $this->columnProviderMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('provideColumns')
-            ->with($this->identicalTo($item))
-            ->will($this->returnValue(['column' => 'value']));
+            ->with(self::identicalTo($item))
+            ->will(self::returnValue(['column' => 'value']));
 
         $data = $this->serializer->serializeItem($item);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'location_id' => null,
                 'value' => 84,
@@ -122,20 +122,20 @@ final class ItemSerializerTest extends TestCase
         $location = new Location(42, 24);
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(3));
+            ->with(self::identicalTo($location))
+            ->will(self::returnValue(3));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getSubLocationsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(4));
+            ->with(self::identicalTo($location))
+            ->will(self::returnValue(4));
 
         $data = $this->serializer->serializeLocation($location);
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'id' => 42,
                 'parent_id' => 24,

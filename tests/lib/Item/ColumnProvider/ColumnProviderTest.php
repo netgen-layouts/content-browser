@@ -66,7 +66,7 @@ final class ColumnProviderTest extends TestCase
      */
     public function testProvideColumns(): void
     {
-        $this->assertSame(
+        self::assertSame(
             ['column1' => 'some_value', 'column2' => ''],
             $this->columnProvider->provideColumns(new Item())
         );
@@ -99,12 +99,12 @@ final class ColumnProviderTest extends TestCase
         $item = new Item();
 
         $this->itemRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('renderItem')
-            ->with($this->identicalTo($item), $this->identicalTo('template.html.twig'))
-            ->will($this->returnValue('rendered column'));
+            ->with(self::identicalTo($item), self::identicalTo('template.html.twig'))
+            ->will(self::returnValue('rendered column'));
 
-        $this->assertSame(
+        self::assertSame(
             ['column' => 'rendered column'],
             $this->columnProvider->provideColumns($item)
         );

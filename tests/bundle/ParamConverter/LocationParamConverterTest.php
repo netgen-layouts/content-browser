@@ -54,13 +54,13 @@ final class LocationParamConverterTest extends TestCase
         $location = new Location(42);
 
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLocation')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($location));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($location));
 
-        $this->assertTrue($this->paramConverter->apply($request, $configuration));
-        $this->assertSame($location, $request->attributes->get('location'));
+        self::assertTrue($this->paramConverter->apply($request, $configuration));
+        self::assertSame($location, $request->attributes->get('location'));
     }
 
     /**
@@ -79,11 +79,11 @@ final class LocationParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLocation');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('location'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -102,11 +102,11 @@ final class LocationParamConverterTest extends TestCase
         $request->attributes->set('locationId', 42);
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLocation');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('location'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -127,11 +127,11 @@ final class LocationParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLocation');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('location'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('location'));
     }
 
     /**
@@ -153,7 +153,7 @@ final class LocationParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadLocation');
 
         $this->paramConverter->apply($request, $configuration);
@@ -164,7 +164,7 @@ final class LocationParamConverterTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));
-        $this->assertFalse($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
+        self::assertTrue($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));
+        self::assertFalse($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
     }
 }

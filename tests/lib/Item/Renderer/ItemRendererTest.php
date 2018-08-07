@@ -38,15 +38,15 @@ final class ItemRendererTest extends TestCase
         $item = new Item();
 
         $this->twigMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo('template.html.twig'),
-                $this->identicalTo(['item' => $item])
+                self::identicalTo('template.html.twig'),
+                self::identicalTo(['item' => $item])
             )
-            ->will($this->returnValue('rendered item'));
+            ->will(self::returnValue('rendered item'));
 
-        $this->assertSame(
+        self::assertSame(
             'rendered item',
             $this->itemRenderer->renderItem($item, 'template.html.twig')
         );
@@ -60,14 +60,14 @@ final class ItemRendererTest extends TestCase
         $item = new Item();
 
         $this->twigMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('render')
             ->with(
-                $this->identicalTo('template.html.twig'),
-                $this->identicalTo(['item' => $item])
+                self::identicalTo('template.html.twig'),
+                self::identicalTo(['item' => $item])
             )
-            ->will($this->throwException(new Exception()));
+            ->will(self::throwException(new Exception()));
 
-        $this->assertSame('', $this->itemRenderer->renderItem($item, 'template.html.twig'));
+        self::assertSame('', $this->itemRenderer->renderItem($item, 'template.html.twig'));
     }
 }

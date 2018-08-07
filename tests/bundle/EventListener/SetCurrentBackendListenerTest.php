@@ -56,7 +56,7 @@ final class SetCurrentBackendListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->eventListener::getSubscribedEvents()
         );
@@ -80,8 +80,8 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        $this->assertTrue($this->container->has('netgen_content_browser.current_backend'));
-        $this->assertSame($this->backendMock, $this->container->get('netgen_content_browser.current_backend'));
+        self::assertTrue($this->container->has('netgen_content_browser.current_backend'));
+        self::assertSame($this->backendMock, $this->container->get('netgen_content_browser.current_backend'));
     }
 
     /**
@@ -102,7 +102,7 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        $this->assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
     }
 
     /**
@@ -122,7 +122,7 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        $this->assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
     }
 
     /**
@@ -142,6 +142,6 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        $this->assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
     }
 }

@@ -41,12 +41,12 @@ final class SubItemsAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($this->location))
-            ->will($this->returnValue(3));
+            ->with(self::identicalTo($this->location))
+            ->will(self::returnValue(3));
 
-        $this->assertSame(3, $this->adapter->getNbResults());
+        self::assertSame(3, $this->adapter->getNbResults());
     }
 
     /**
@@ -55,15 +55,15 @@ final class SubItemsAdapterTest extends TestCase
     public function testGetSlice(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getSubItems')
             ->with(
-                $this->identicalTo($this->location),
-                $this->identicalTo(5),
-                $this->identicalTo(10)
+                self::identicalTo($this->location),
+                self::identicalTo(5),
+                self::identicalTo(10)
             )
-            ->will($this->returnValue([1, 2, 3]));
+            ->will(self::returnValue([1, 2, 3]));
 
-        $this->assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
+        self::assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
     }
 }

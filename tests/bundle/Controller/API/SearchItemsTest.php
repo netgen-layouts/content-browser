@@ -17,10 +17,10 @@ final class SearchItemsTest extends JsonApiTestCase
     public function testSearchItems(): void
     {
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('search')
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
@@ -29,15 +29,15 @@ final class SearchItemsTest extends JsonApiTestCase
             );
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('searchCount')
             ->will(
-                $this->returnValue(2)
+                self::returnValue(2)
             );
 
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=test');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/search/result',
             Response::HTTP_OK
@@ -51,7 +51,7 @@ final class SearchItemsTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/search/empty_result',
             Response::HTTP_OK
@@ -65,7 +65,7 @@ final class SearchItemsTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/search/empty_result',
             Response::HTTP_OK

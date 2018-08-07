@@ -54,13 +54,13 @@ final class ItemParamConverterTest extends TestCase
         $item = new Item(42);
 
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo(42))
-            ->will($this->returnValue($item));
+            ->with(self::identicalTo(42))
+            ->will(self::returnValue($item));
 
-        $this->assertTrue($this->paramConverter->apply($request, $configuration));
-        $this->assertSame($item, $request->attributes->get('item'));
+        self::assertTrue($this->paramConverter->apply($request, $configuration));
+        self::assertSame($item, $request->attributes->get('item'));
     }
 
     /**
@@ -79,11 +79,11 @@ final class ItemParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('item'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('item'));
     }
 
     /**
@@ -102,11 +102,11 @@ final class ItemParamConverterTest extends TestCase
         $request->attributes->set('itemValue', 42);
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('item'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('item'));
     }
 
     /**
@@ -127,11 +127,11 @@ final class ItemParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
-        $this->assertFalse($this->paramConverter->apply($request, $configuration));
-        $this->assertNull($request->attributes->get('item'));
+        self::assertFalse($this->paramConverter->apply($request, $configuration));
+        self::assertNull($request->attributes->get('item'));
     }
 
     /**
@@ -153,7 +153,7 @@ final class ItemParamConverterTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
         $this->paramConverter->apply($request, $configuration);
@@ -164,7 +164,7 @@ final class ItemParamConverterTest extends TestCase
      */
     public function testSupports(): void
     {
-        $this->assertTrue($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
-        $this->assertFalse($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));
+        self::assertTrue($this->paramConverter->supports(new ParamConverter(['class' => ItemInterface::class])));
+        self::assertFalse($this->paramConverter->supports(new ParamConverter(['class' => LocationInterface::class])));
     }
 }

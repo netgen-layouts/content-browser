@@ -41,8 +41,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $form->submit([42, 24]);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame(['42', '24'], $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame(['42', '24'], $form->getData());
     }
 
     /**
@@ -56,16 +56,16 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $item2 = new Item(24);
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue($item1));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue($item1));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadItem')
-            ->with($this->identicalTo('24'))
-            ->will($this->returnValue($item2));
+            ->with(self::identicalTo('24'))
+            ->will(self::returnValue($item2));
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
@@ -81,13 +81,13 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('items', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
-        $this->assertArrayHasKey('min', $view->vars);
-        $this->assertArrayHasKey('max', $view->vars);
+        self::assertArrayHasKey('items', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('min', $view->vars);
+        self::assertArrayHasKey('max', $view->vars);
 
-        $this->assertSame('value', $view->vars['item_type']);
-        $this->assertSame(
+        self::assertSame('value', $view->vars['item_type']);
+        self::assertSame(
             [
                 42 => $item1,
                 24 => $item2,
@@ -95,8 +95,8 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             $view->vars['items']
         );
 
-        $this->assertSame(3, $view->vars['min']);
-        $this->assertSame(5, $view->vars['max']);
+        self::assertSame(3, $view->vars['min']);
+        self::assertSame(5, $view->vars['max']);
     }
 
     /**
@@ -106,10 +106,10 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->throwException(new NotFoundException()));
+            ->with(self::identicalTo('42'))
+            ->will(self::throwException(new NotFoundException()));
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
@@ -123,11 +123,11 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('items', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('items', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
 
-        $this->assertSame([], $view->vars['items']);
-        $this->assertSame('value', $view->vars['item_type']);
+        self::assertSame([], $view->vars['items']);
+        self::assertSame('value', $view->vars['item_type']);
     }
 
     /**
@@ -137,7 +137,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
         $form = $this->factory->create(
@@ -152,11 +152,11 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('items', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('items', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
 
-        $this->assertSame([], $view->vars['items']);
-        $this->assertSame('value', $view->vars['item_type']);
+        self::assertSame([], $view->vars['items']);
+        self::assertSame('value', $view->vars['item_type']);
     }
 
     /**
@@ -176,9 +176,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($options['item_type'], 'value');
-        $this->assertSame($options['min'], 3);
-        $this->assertSame($options['max'], 5);
+        self::assertSame($options['item_type'], 'value');
+        self::assertSame($options['min'], 3);
+        self::assertSame($options['max'], 5);
     }
 
     /**
@@ -198,9 +198,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($options['item_type'], 'value');
-        $this->assertSame($options['min'], 3);
-        $this->assertSame($options['max'], 3);
+        self::assertSame($options['item_type'], 'value');
+        self::assertSame($options['min'], 3);
+        self::assertSame($options['max'], 3);
     }
 
     /**
@@ -278,7 +278,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     public function testGetParent(): void
     {
-        $this->assertSame(CollectionType::class, $this->formType->getParent());
+        self::assertSame(CollectionType::class, $this->formType->getParent());
     }
 
     /**
@@ -286,6 +286,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngcb_multiple', $this->formType->getBlockPrefix());
+        self::assertSame('ngcb_multiple', $this->formType->getBlockPrefix());
     }
 }

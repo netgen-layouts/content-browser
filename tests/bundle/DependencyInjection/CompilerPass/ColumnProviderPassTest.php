@@ -28,7 +28,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.column_provider',
             2,
             ['test' => new Reference('netgen_content_browser.column_value_provider.test')]
@@ -60,7 +60,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

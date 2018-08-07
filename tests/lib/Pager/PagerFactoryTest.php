@@ -25,9 +25,9 @@ final class PagerFactoryTest extends TestCase
         $this->adapterMock = $this->createMock(AdapterInterface::class);
 
         $this->adapterMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getNbResults')
-            ->will($this->returnValue(500));
+            ->will(self::returnValue(500));
 
         $this->pagerFactory = new PagerFactory(100);
     }
@@ -46,9 +46,9 @@ final class PagerFactoryTest extends TestCase
             $limit
         );
 
-        $this->assertTrue($pager->getNormalizeOutOfRangePages());
-        $this->assertSame($maxPerPage, $pager->getMaxPerPage());
-        $this->assertSame($currentPage, $pager->getCurrentPage());
+        self::assertTrue($pager->getNormalizeOutOfRangePages());
+        self::assertSame($maxPerPage, $pager->getMaxPerPage());
+        self::assertSame($currentPage, $pager->getCurrentPage());
     }
 
     public function buildPagerProvider(): array

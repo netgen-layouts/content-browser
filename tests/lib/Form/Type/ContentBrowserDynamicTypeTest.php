@@ -51,8 +51,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form->submit($data);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($data, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($data, $form->getData());
     }
 
     /**
@@ -73,8 +73,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $form->submit($data);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($data, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($data, $form->getData());
     }
 
     /**
@@ -86,10 +86,10 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $item = new Item(42);
 
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue($item));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue($item));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
@@ -99,8 +99,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertSame($item, $view->vars['item']);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertSame($item, $view->vars['item']);
     }
 
     /**
@@ -109,10 +109,10 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->throwException(new NotFoundException()));
+            ->with(self::identicalTo('42'))
+            ->will(self::throwException(new NotFoundException()));
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
@@ -122,8 +122,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertNull($view->vars['item']);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertNull($view->vars['item']);
     }
 
     /**
@@ -132,7 +132,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
@@ -141,8 +141,8 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertNull($view->vars['item']);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertNull($view->vars['item']);
     }
 
     /**
@@ -160,7 +160,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($options['item_types'], ['value1']);
+        self::assertSame($options['item_types'], ['value1']);
     }
 
     /**
@@ -174,7 +174,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $options = $optionsResolver->resolve();
 
-        $this->assertSame($options['item_types'], []);
+        self::assertSame($options['item_types'], []);
     }
 
     /**
@@ -210,6 +210,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngcb_dynamic', $this->formType->getBlockPrefix());
+        self::assertSame('ngcb_dynamic', $this->formType->getBlockPrefix());
     }
 }

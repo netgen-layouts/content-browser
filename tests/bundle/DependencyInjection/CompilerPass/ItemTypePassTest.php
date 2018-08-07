@@ -40,19 +40,19 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.backend',
             0,
             ['test' => new Reference('netgen_content_browser.backend.test')]
         );
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        self::assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.config',
             0,
             ['test' => new Reference('netgen_content_browser.config.test')]
         );
 
-        $this->assertFalse($this->container->hasParameter('netgen_content_browser.item_types'));
+        self::assertFalse($this->container->hasParameter('netgen_content_browser.item_types'));
     }
 
     /**
@@ -148,7 +148,7 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
     {
         $this->compile();
 
-        $this->assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
+        self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

@@ -34,12 +34,12 @@ final class ItemSearchAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('searchCount')
-            ->with($this->identicalTo('text'))
-            ->will($this->returnValue(3));
+            ->with(self::identicalTo('text'))
+            ->will(self::returnValue(3));
 
-        $this->assertSame(3, $this->adapter->getNbResults());
+        self::assertSame(3, $this->adapter->getNbResults());
     }
 
     /**
@@ -48,15 +48,15 @@ final class ItemSearchAdapterTest extends TestCase
     public function testGetSlice(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('search')
             ->with(
-                $this->identicalTo('text'),
-                $this->identicalTo(5),
-                $this->identicalTo(10)
+                self::identicalTo('text'),
+                self::identicalTo(5),
+                self::identicalTo(10)
             )
-            ->will($this->returnValue([1, 2, 3]));
+            ->will(self::returnValue([1, 2, 3]));
 
-        $this->assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
+        self::assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
     }
 }

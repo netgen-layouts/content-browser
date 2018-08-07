@@ -22,29 +22,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new Location(41, 'Location 41', 40);
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo('41'))
-            ->will($this->returnValue($location));
+            ->with(self::identicalTo('41'))
+            ->will(self::returnValue($location));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLocation')
-            ->with($this->identicalTo(40))
-            ->will($this->returnValue(new Location(40, 'Location 40')));
+            ->with(self::identicalTo(40))
+            ->will(self::returnValue(new Location(40, 'Location 40')));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(2));
+            ->with(self::identicalTo($location))
+            ->will(self::returnValue(2));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItems')
-            ->with($this->identicalTo($location))
+            ->with(self::identicalTo($location))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
@@ -54,7 +54,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/browse/items',
             Response::HTTP_OK
@@ -70,29 +70,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new ItemLocation(41, 'Item 41', 40);
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo('41'))
-            ->will($this->returnValue($location));
+            ->with(self::identicalTo('41'))
+            ->will(self::returnValue($location));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLocation')
-            ->with($this->identicalTo(40))
-            ->will($this->returnValue(new ItemLocation(40, 'Item 40')));
+            ->with(self::identicalTo(40))
+            ->will(self::returnValue(new ItemLocation(40, 'Item 40')));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(2));
+            ->with(self::identicalTo($location))
+            ->will(self::returnValue(2));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItems')
-            ->with($this->identicalTo($location))
+            ->with(self::identicalTo($location))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
@@ -102,7 +102,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/browse/items_as_locations',
             Response::HTTP_OK
@@ -118,29 +118,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new ItemLocation(41, 'Item 41', 40);
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLocation')
-            ->with($this->identicalTo('41'))
-            ->will($this->returnValue($location));
+            ->with(self::identicalTo('41'))
+            ->will(self::returnValue($location));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLocation')
-            ->with($this->identicalTo(40))
-            ->will($this->throwException(new NotFoundException()));
+            ->with(self::identicalTo(40))
+            ->will(self::throwException(new NotFoundException()));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItemsCount')
-            ->with($this->identicalTo($location))
-            ->will($this->returnValue(2));
+            ->with(self::identicalTo($location))
+            ->will(self::returnValue(2));
 
         $this->backendMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getSubItems')
-            ->with($this->identicalTo($location))
+            ->with(self::identicalTo($location))
             ->will(
-                $this->returnValue(
+                self::returnValue(
                     [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
@@ -150,7 +150,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/browse/items_with_missing_parent',
             Response::HTTP_OK

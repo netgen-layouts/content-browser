@@ -25,7 +25,7 @@ final class NameTest extends TestCase
      */
     public function testGetValue(): void
     {
-        $this->assertSame(
+        self::assertSame(
             'This is a name',
             $this->provider->getValue(new Item())
         );

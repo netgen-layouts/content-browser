@@ -46,7 +46,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetItemType(): void
     {
-        $this->assertSame('value', $this->config->getItemType());
+        self::assertSame('value', $this->config->getItemType());
     }
 
     /**
@@ -54,7 +54,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetName(): void
     {
-        $this->assertSame('Value', $this->config->getItemName());
+        self::assertSame('Value', $this->config->getItemName());
     }
 
     /**
@@ -62,7 +62,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMinSelected(): void
     {
-        $this->assertSame(1, $this->config->getMinSelected());
+        self::assertSame(1, $this->config->getMinSelected());
     }
 
     /**
@@ -71,7 +71,7 @@ final class ConfigurationTest extends TestCase
     public function testGetMinSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertSame(1, $this->config->getMinSelected());
+        self::assertSame(1, $this->config->getMinSelected());
     }
 
     /**
@@ -79,7 +79,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetMaxSelected(): void
     {
-        $this->assertSame(3, $this->config->getMaxSelected());
+        self::assertSame(3, $this->config->getMaxSelected());
     }
 
     /**
@@ -88,7 +88,7 @@ final class ConfigurationTest extends TestCase
     public function testGetMaxSelectedWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertSame(0, $this->config->getMaxSelected());
+        self::assertSame(0, $this->config->getMaxSelected());
     }
 
     /**
@@ -96,7 +96,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetParameters(): void
     {
-        $this->assertSame(['default' => 'param'], $this->config->getParameters());
+        self::assertSame(['default' => 'param'], $this->config->getParameters());
     }
 
     /**
@@ -104,7 +104,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasTree(): void
     {
-        $this->assertTrue($this->config->hasTree());
+        self::assertTrue($this->config->hasTree());
     }
 
     /**
@@ -113,7 +113,7 @@ final class ConfigurationTest extends TestCase
     public function testHasTreeWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertFalse($this->config->hasTree());
+        self::assertFalse($this->config->hasTree());
     }
 
     /**
@@ -121,7 +121,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasSearch(): void
     {
-        $this->assertTrue($this->config->hasSearch());
+        self::assertTrue($this->config->hasSearch());
     }
 
     /**
@@ -130,7 +130,7 @@ final class ConfigurationTest extends TestCase
     public function testHasSearchWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertFalse($this->config->hasSearch());
+        self::assertFalse($this->config->hasSearch());
     }
 
     /**
@@ -138,7 +138,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testHasPreview(): void
     {
-        $this->assertTrue($this->config->hasPreview());
+        self::assertTrue($this->config->hasPreview());
     }
 
     /**
@@ -147,7 +147,7 @@ final class ConfigurationTest extends TestCase
     public function testHasPreviewWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertFalse($this->config->hasPreview());
+        self::assertFalse($this->config->hasPreview());
     }
 
     /**
@@ -155,7 +155,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetTemplate(): void
     {
-        $this->assertSame('template.html.twig', $this->config->getTemplate());
+        self::assertSame('template.html.twig', $this->config->getTemplate());
     }
 
     /**
@@ -164,7 +164,7 @@ final class ConfigurationTest extends TestCase
     public function testGetTemplateWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertNull($this->config->getTemplate());
+        self::assertNull($this->config->getTemplate());
     }
 
     /**
@@ -172,7 +172,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetColumns(): void
     {
-        $this->assertSame(['columns'], $this->config->getColumns());
+        self::assertSame(['columns'], $this->config->getColumns());
     }
 
     /**
@@ -181,7 +181,7 @@ final class ConfigurationTest extends TestCase
     public function testGetColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertSame([], $this->config->getColumns());
+        self::assertSame([], $this->config->getColumns());
     }
 
     /**
@@ -189,7 +189,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetDefaultColumns(): void
     {
-        $this->assertSame(['column1', 'column2'], $this->config->getDefaultColumns());
+        self::assertSame(['column1', 'column2'], $this->config->getDefaultColumns());
     }
 
     /**
@@ -198,7 +198,7 @@ final class ConfigurationTest extends TestCase
     public function testGetDefaultColumnsWithEmptyConfig(): void
     {
         $this->config = new Configuration('value', 'Value', []);
-        $this->assertSame([], $this->config->getDefaultColumns());
+        self::assertSame([], $this->config->getDefaultColumns());
     }
 
     /**
@@ -207,12 +207,12 @@ final class ConfigurationTest extends TestCase
     public function testAddParameters(): void
     {
         $this->config->addParameters(['param' => 'value', 'default' => 'override']);
-        $this->assertSame('value', $this->config->getParameter('param'));
-        $this->assertSame('override', $this->config->getParameter('default'));
+        self::assertSame('value', $this->config->getParameter('param'));
+        self::assertSame('override', $this->config->getParameter('default'));
 
-        $this->assertTrue($this->config->hasParameter('param'));
-        $this->assertTrue($this->config->hasParameter('default'));
-        $this->assertFalse($this->config->hasParameter('other'));
+        self::assertTrue($this->config->hasParameter('param'));
+        self::assertTrue($this->config->hasParameter('default'));
+        self::assertFalse($this->config->hasParameter('other'));
     }
 
     /**
@@ -225,12 +225,12 @@ final class ConfigurationTest extends TestCase
     {
         $this->config->setParameter('param', 'value');
         $this->config->setParameter('param2', 'value2');
-        $this->assertSame('value', $this->config->getParameter('param'));
+        self::assertSame('value', $this->config->getParameter('param'));
 
-        $this->assertTrue($this->config->hasParameter('param'));
-        $this->assertFalse($this->config->hasParameter('other'));
+        self::assertTrue($this->config->hasParameter('param'));
+        self::assertFalse($this->config->hasParameter('other'));
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'default' => 'param',
                 'param' => 'value',

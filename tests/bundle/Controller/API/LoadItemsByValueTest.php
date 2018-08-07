@@ -16,18 +16,18 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     public function testLoadItemsByValue(): void
     {
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->will($this->returnValue(new Item(42, 'Item 42')));
+            ->will(self::returnValue(new Item(42, 'Item 42')));
 
         $this->backendMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadItem')
-            ->will($this->returnValue(new Item(43, 'Item 43')));
+            ->will(self::returnValue(new Item(43, 'Item 43')));
 
         $this->client->request('GET', '/cb/api/v1/test/values?values=42,43');
 
-        $this->assertResponse(
+        self::assertResponse(
             $this->client->getResponse(),
             'v1/items/result',
             Response::HTTP_OK
@@ -41,7 +41,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/values?values=');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'List of values is invalid.'
@@ -55,7 +55,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/values');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'List of values is invalid.'

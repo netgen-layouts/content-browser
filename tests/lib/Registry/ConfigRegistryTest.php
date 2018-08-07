@@ -38,7 +38,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testGetConfigs(): void
     {
-        $this->assertSame(['value' => $this->configuration], $this->registry->getConfigs());
+        self::assertSame(['value' => $this->configuration], $this->registry->getConfigs());
     }
 
     /**
@@ -46,7 +46,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $this->assertSame($this->configuration, $this->registry->getConfig('value'));
+        self::assertSame($this->configuration, $this->registry->getConfig('value'));
     }
 
     /**
@@ -64,7 +64,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testHasConfig(): void
     {
-        $this->assertTrue($this->registry->hasConfig('value'));
+        self::assertTrue($this->registry->hasConfig('value'));
     }
 
     /**
@@ -72,7 +72,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testHasConfigWithNoConfig(): void
     {
-        $this->assertFalse($this->registry->hasConfig('other_value'));
+        self::assertFalse($this->registry->hasConfig('other_value'));
     }
 
     /**
@@ -80,14 +80,14 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $configs = [];
         foreach ($this->registry as $identifier => $config) {
             $configs[$identifier] = $config;
         }
 
-        $this->assertSame($this->registry->getConfigs(), $configs);
+        self::assertSame($this->registry->getConfigs(), $configs);
     }
 
     /**
@@ -95,7 +95,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -103,8 +103,8 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('value', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('value', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -112,7 +112,7 @@ final class ConfigRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->configuration, $this->registry['value']);
+        self::assertSame($this->configuration, $this->registry['value']);
     }
 
     /**

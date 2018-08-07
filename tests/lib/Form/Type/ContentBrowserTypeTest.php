@@ -41,8 +41,8 @@ final class ContentBrowserTypeTest extends TestCase
 
         $form->submit('42');
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame('42', $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame('42', $form->getData());
     }
 
     /**
@@ -54,10 +54,10 @@ final class ContentBrowserTypeTest extends TestCase
         $item = new Item(42);
 
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue($item));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue($item));
 
         $form = $this->factory->create(
             ContentBrowserType::class,
@@ -71,11 +71,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
 
-        $this->assertSame($item, $view->vars['item']);
-        $this->assertSame('value', $view->vars['item_type']);
+        self::assertSame($item, $view->vars['item']);
+        self::assertSame('value', $view->vars['item_type']);
     }
 
     /**
@@ -84,10 +84,10 @@ final class ContentBrowserTypeTest extends TestCase
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->throwException(new NotFoundException()));
+            ->with(self::identicalTo('42'))
+            ->will(self::throwException(new NotFoundException()));
 
         $form = $this->factory->create(
             ContentBrowserType::class,
@@ -101,11 +101,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
 
-        $this->assertNull($view->vars['item']);
-        $this->assertSame('value', $view->vars['item_type']);
+        self::assertNull($view->vars['item']);
+        self::assertSame('value', $view->vars['item_type']);
     }
 
     /**
@@ -114,7 +114,7 @@ final class ContentBrowserTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadItem');
 
         $form = $this->factory->create(
@@ -129,11 +129,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $view = $form->createView();
 
-        $this->assertArrayHasKey('item', $view->vars);
-        $this->assertArrayHasKey('item_type', $view->vars);
+        self::assertArrayHasKey('item', $view->vars);
+        self::assertArrayHasKey('item_type', $view->vars);
 
-        $this->assertNull($view->vars['item']);
-        $this->assertSame('value', $view->vars['item_type']);
+        self::assertNull($view->vars['item']);
+        self::assertSame('value', $view->vars['item_type']);
     }
 
     /**
@@ -151,7 +151,7 @@ final class ContentBrowserTypeTest extends TestCase
             ]
         );
 
-        $this->assertSame($options['item_type'], 'value');
+        self::assertSame($options['item_type'], 'value');
     }
 
     /**
@@ -201,7 +201,7 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testGetParent(): void
     {
-        $this->assertSame(TextType::class, $this->formType->getParent());
+        self::assertSame(TextType::class, $this->formType->getParent());
     }
 
     /**
@@ -209,6 +209,6 @@ final class ContentBrowserTypeTest extends TestCase
      */
     public function testGetBlockPrefix(): void
     {
-        $this->assertSame('ngcb', $this->formType->getBlockPrefix());
+        self::assertSame('ngcb', $this->formType->getBlockPrefix());
     }
 }

@@ -43,7 +43,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     public function testGetSubscribedEvents(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 5]],
             $this->eventListener::getSubscribedEvents()
         );
@@ -70,12 +70,12 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -106,17 +106,17 @@ final class ExceptionSerializerListenerTest extends TestCase
         );
 
         $this->loggerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('critical');
 
         $this->eventListener->onException($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
-        $this->assertSame(
+        self::assertSame(
             [
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
@@ -147,30 +147,30 @@ final class ExceptionSerializerListenerTest extends TestCase
         $this->eventListener = new ExceptionSerializerListener(true, $this->loggerMock);
         $this->eventListener->onException($event);
 
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             JsonResponse::class,
             $event->getResponse()
         );
 
         $data = json_decode($event->getResponse()->getContent(), true);
 
-        $this->assertInternalType('array', $data);
-        $this->assertArrayHasKey('code', $data);
-        $this->assertArrayHasKey('message', $data);
-        $this->assertArrayHasKey('status_code', $data);
-        $this->assertArrayHasKey('status_text', $data);
-        $this->assertArrayHasKey('debug', $data);
-        $this->assertArrayHasKey('line', $data['debug']);
-        $this->assertArrayHasKey('file', $data['debug']);
-        $this->assertArrayHasKey('trace', $data['debug']);
+        self::assertInternalType('array', $data);
+        self::assertArrayHasKey('code', $data);
+        self::assertArrayHasKey('message', $data);
+        self::assertArrayHasKey('status_code', $data);
+        self::assertArrayHasKey('status_text', $data);
+        self::assertArrayHasKey('debug', $data);
+        self::assertArrayHasKey('line', $data['debug']);
+        self::assertArrayHasKey('file', $data['debug']);
+        self::assertArrayHasKey('trace', $data['debug']);
 
-        $this->assertSame($exception->getCode(), $data['code']);
-        $this->assertSame($exception->getMessage(), $data['message']);
-        $this->assertSame($exception->getStatusCode(), $data['status_code']);
-        $this->assertSame(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
-        $this->assertSame(__FILE__, $data['debug']['file']);
-        $this->assertGreaterThan(0, $data['debug']['line']);
-        $this->assertNotEmpty($data['debug']['trace']);
+        self::assertSame($exception->getCode(), $data['code']);
+        self::assertSame($exception->getMessage(), $data['message']);
+        self::assertSame($exception->getStatusCode(), $data['status_code']);
+        self::assertSame(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
+        self::assertSame(__FILE__, $data['debug']['file']);
+        self::assertGreaterThan(0, $data['debug']['line']);
+        self::assertNotEmpty($data['debug']['trace']);
     }
 
     /**
@@ -191,7 +191,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 
     /**
@@ -212,6 +212,6 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $this->eventListener->onException($event);
 
-        $this->assertFalse($event->hasResponse());
+        self::assertFalse($event->hasResponse());
     }
 }

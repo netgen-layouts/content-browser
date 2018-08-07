@@ -38,7 +38,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetBackends(): void
     {
-        $this->assertSame(['value' => $this->backendMock], $this->registry->getBackends());
+        self::assertSame(['value' => $this->backendMock], $this->registry->getBackends());
     }
 
     /**
@@ -46,7 +46,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetBackend(): void
     {
-        $this->assertSame($this->backendMock, $this->registry->getBackend('value'));
+        self::assertSame($this->backendMock, $this->registry->getBackend('value'));
     }
 
     /**
@@ -64,7 +64,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testHasBackend(): void
     {
-        $this->assertTrue($this->registry->hasBackend('value'));
+        self::assertTrue($this->registry->hasBackend('value'));
     }
 
     /**
@@ -72,7 +72,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testHasBackendWithNoBackend(): void
     {
-        $this->assertFalse($this->registry->hasBackend('other_value'));
+        self::assertFalse($this->registry->hasBackend('other_value'));
     }
 
     /**
@@ -80,14 +80,14 @@ final class BackendRegistryTest extends TestCase
      */
     public function testGetIterator(): void
     {
-        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+        self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
 
         $backends = [];
         foreach ($this->registry as $identifier => $backend) {
             $backends[$identifier] = $backend;
         }
 
-        $this->assertSame($this->registry->getBackends(), $backends);
+        self::assertSame($this->registry->getBackends(), $backends);
     }
 
     /**
@@ -95,7 +95,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testCount(): void
     {
-        $this->assertCount(1, $this->registry);
+        self::assertCount(1, $this->registry);
     }
 
     /**
@@ -103,8 +103,8 @@ final class BackendRegistryTest extends TestCase
      */
     public function testOffsetExists(): void
     {
-        $this->assertArrayHasKey('value', $this->registry);
-        $this->assertArrayNotHasKey('other', $this->registry);
+        self::assertArrayHasKey('value', $this->registry);
+        self::assertArrayNotHasKey('other', $this->registry);
     }
 
     /**
@@ -112,7 +112,7 @@ final class BackendRegistryTest extends TestCase
      */
     public function testOffsetGet(): void
     {
-        $this->assertSame($this->backendMock, $this->registry['value']);
+        self::assertSame($this->backendMock, $this->registry['value']);
     }
 
     /**

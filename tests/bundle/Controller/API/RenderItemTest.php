@@ -25,10 +25,10 @@ final class RenderItemTest extends JsonApiTestCase
         }
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue(new Item(42, 'Item 42')));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue(new Item(42, 'Item 42')));
 
         $container->set(
             'netgen_content_browser.config.test',
@@ -55,10 +55,10 @@ final class RenderItemTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertResponseCode($response, Response::HTTP_OK);
-        $this->assertContains('text/html', $response->headers->get('Content-Type'));
-        $this->assertSame('rendered item', $response->getContent());
+        self::assertInstanceOf(Response::class, $response);
+        self::assertResponseCode($response, Response::HTTP_OK);
+        self::assertContains('text/html', $response->headers->get('Content-Type'));
+        self::assertSame('rendered item', $response->getContent());
     }
 
     /**
@@ -72,10 +72,10 @@ final class RenderItemTest extends JsonApiTestCase
         }
 
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->returnValue(new Item(42, 'Item 42')));
+            ->with(self::identicalTo('42'))
+            ->will(self::returnValue(new Item(42, 'Item 42')));
 
         $container->set(
             'netgen_content_browser.config.test',
@@ -101,10 +101,10 @@ final class RenderItemTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertResponseCode($response, Response::HTTP_OK);
-        $this->assertContains('text/html', $response->headers->get('Content-Type'));
-        $this->assertSame('', $response->getContent());
+        self::assertInstanceOf(Response::class, $response);
+        self::assertResponseCode($response, Response::HTTP_OK);
+        self::assertContains('text/html', $response->headers->get('Content-Type'));
+        self::assertSame('', $response->getContent());
     }
 
     /**
@@ -113,14 +113,14 @@ final class RenderItemTest extends JsonApiTestCase
     public function testRenderItemWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadItem')
-            ->with($this->identicalTo('42'))
-            ->will($this->throwException(new NotFoundException('Item does not exist.')));
+            ->with(self::identicalTo('42'))
+            ->will(self::throwException(new NotFoundException('Item does not exist.')));
 
         $this->client->request('GET', '/cb/api/v1/test/render/42');
 
-        $this->assertException(
+        self::assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Item does not exist.'
