@@ -20,15 +20,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     private $backendMock;
 
-    public function getMainType(): FormTypeInterface
-    {
-        $this->backendMock = $this->createMock(BackendInterface::class);
-
-        $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
-
-        return new ContentBrowserMultipleType($backendRegistry);
-    }
-
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
@@ -287,5 +278,14 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngcb_multiple', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        $this->backendMock = $this->createMock(BackendInterface::class);
+
+        $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
+
+        return new ContentBrowserMultipleType($backendRegistry);
     }
 }

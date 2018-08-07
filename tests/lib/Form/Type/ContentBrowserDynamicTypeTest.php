@@ -21,22 +21,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
      */
     private $backendMock;
 
-    public function getMainType(): FormTypeInterface
-    {
-        $this->backendMock = $this->createMock(BackendInterface::class);
-
-        $backendRegistry = new BackendRegistry(['value1' => $this->backendMock, 'value2' => $this->backendMock]);
-
-        $configRegistry = new ConfigRegistry(
-            [
-                'value1' => new Configuration('value1', 'Value 1', []),
-                'value2' => new Configuration('value2', 'Value 2', []),
-            ]
-        );
-
-        return new ContentBrowserDynamicType($backendRegistry, $configRegistry);
-    }
-
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
@@ -211,5 +195,21 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngcb_dynamic', $this->formType->getBlockPrefix());
+    }
+
+    protected function getMainType(): FormTypeInterface
+    {
+        $this->backendMock = $this->createMock(BackendInterface::class);
+
+        $backendRegistry = new BackendRegistry(['value1' => $this->backendMock, 'value2' => $this->backendMock]);
+
+        $configRegistry = new ConfigRegistry(
+            [
+                'value1' => new Configuration('value1', 'Value 1', []),
+                'value2' => new Configuration('value2', 'Value 2', []),
+            ]
+        );
+
+        return new ContentBrowserDynamicType($backendRegistry, $configRegistry);
     }
 }

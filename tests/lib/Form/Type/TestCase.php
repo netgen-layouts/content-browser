@@ -54,7 +54,6 @@ abstract class TestCase extends BaseTestCase
 
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
-            ->addTypes($this->getTypes())
             ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock))
             ->getFormFactory();
 
@@ -63,13 +62,5 @@ abstract class TestCase extends BaseTestCase
         $this->builder->setFormFactory($this->factory);
     }
 
-    abstract public function getMainType(): FormTypeInterface;
-
-    /**
-     * @return \Symfony\Component\Form\FormTypeInterface[]
-     */
-    public function getTypes(): array
-    {
-        return [];
-    }
+    abstract protected function getMainType(): FormTypeInterface;
 }
