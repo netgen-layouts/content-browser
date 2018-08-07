@@ -37,7 +37,7 @@ final class SearchItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=test');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/search/result',
             Response::HTTP_OK
@@ -51,7 +51,7 @@ final class SearchItemsTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/search/empty_result',
             Response::HTTP_OK
@@ -65,7 +65,7 @@ final class SearchItemsTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/search');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/search/empty_result',
             Response::HTTP_OK

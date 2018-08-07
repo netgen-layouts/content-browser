@@ -56,7 +56,7 @@ final class RenderItemTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         self::assertInstanceOf(Response::class, $response);
-        self::assertResponseCode($response, Response::HTTP_OK);
+        $this->assertResponseCode($response, Response::HTTP_OK);
         self::assertContains('text/html', $response->headers->get('Content-Type'));
         self::assertSame('rendered item', $response->getContent());
     }
@@ -102,7 +102,7 @@ final class RenderItemTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         self::assertInstanceOf(Response::class, $response);
-        self::assertResponseCode($response, Response::HTTP_OK);
+        $this->assertResponseCode($response, Response::HTTP_OK);
         self::assertContains('text/html', $response->headers->get('Content-Type'));
         self::assertSame('', $response->getContent());
     }
@@ -120,7 +120,7 @@ final class RenderItemTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/render/42');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Item does not exist.'

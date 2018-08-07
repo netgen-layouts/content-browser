@@ -27,7 +27,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/values?values=42,43');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/items/result',
             Response::HTTP_OK
@@ -41,7 +41,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/values?values=');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'List of values is invalid.'
@@ -55,7 +55,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     {
         $this->client->request('GET', '/cb/api/v1/test/values');
 
-        self::assertException(
+        $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'List of values is invalid.'

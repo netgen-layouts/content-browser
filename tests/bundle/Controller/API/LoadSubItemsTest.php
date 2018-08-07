@@ -54,7 +54,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/browse/items',
             Response::HTTP_OK
@@ -102,7 +102,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/browse/items_as_locations',
             Response::HTTP_OK
@@ -150,7 +150,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/browse/items_with_missing_parent',
             Response::HTTP_OK

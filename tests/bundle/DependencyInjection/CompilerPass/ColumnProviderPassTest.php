@@ -28,7 +28,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.column_provider',
             2,
             ['test' => new Reference('netgen_content_browser.column_value_provider.test')]

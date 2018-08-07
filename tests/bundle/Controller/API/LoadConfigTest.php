@@ -30,7 +30,7 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $this->client->request('GET', '/cb/api/v1/test/config');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/config/result',
             Response::HTTP_OK

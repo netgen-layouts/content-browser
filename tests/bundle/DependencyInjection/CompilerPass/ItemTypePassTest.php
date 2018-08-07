@@ -40,13 +40,13 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.backend',
             0,
             ['test' => new Reference('netgen_content_browser.backend.test')]
         );
 
-        self::assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.config',
             0,
             ['test' => new Reference('netgen_content_browser.config.test')]
