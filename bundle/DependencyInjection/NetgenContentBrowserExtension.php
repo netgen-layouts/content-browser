@@ -30,21 +30,6 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         );
 
         $loader->load('services.yml');
-
-        $activatedBundles = array_keys($container->getParameter('kernel.bundles'));
-
-        if (in_array('SyliusCoreBundle', $activatedBundles, true)) {
-            $loader->load('sylius/product/services.yml');
-            $loader->load('sylius/taxon/services.yml');
-        }
-
-        if (in_array('EzPublishCoreBundle', $activatedBundles, true)) {
-            $loader->load('ezplatform/services.yml');
-        }
-
-        if (in_array('NetgenTagsBundle', $activatedBundles, true)) {
-            $loader->load('eztags/services.yml');
-        }
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -57,22 +42,6 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $loader->load('default_settings.yml');
 
         $this->doPrepend($container, 'framework/twig.yml', 'twig');
-
-        $activatedBundles = array_keys($container->getParameter('kernel.bundles'));
-
-        if (in_array('SyliusCoreBundle', $activatedBundles, true)) {
-            $this->doPrepend($container, 'sylius/product/config.yml', 'netgen_content_browser');
-            $this->doPrepend($container, 'sylius/taxon/config.yml', 'netgen_content_browser');
-        }
-
-        if (in_array('EzPublishCoreBundle', $activatedBundles, true)) {
-            $this->doPrepend($container, 'ezplatform/config.yml', 'netgen_content_browser');
-            $this->doPrepend($container, 'ezplatform/image.yml', 'ezpublish');
-
-            if (in_array('NetgenTagsBundle', $activatedBundles, true)) {
-                $this->doPrepend($container, 'eztags/config.yml', 'netgen_content_browser');
-            }
-        }
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)

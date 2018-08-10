@@ -6,10 +6,11 @@ namespace Netgen\ContentBrowser\Tests\Kernel;
 
 use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 
-final class AppKernel extends Kernel
+final class AppKernel extends Kernel implements CompilerPassInterface
 {
     public function registerBundles(): array
     {
@@ -57,6 +58,17 @@ final class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config.yml');
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        if (Kernel::VERSION_ID < 40100) {
+            return;
+        }
+
+        $container
+            ->findDefinition('netgen_content_browser.item_renderer')
+            ->setPublic(true);
     }
 
     protected function getContainerBaseClass(): string

@@ -3,13 +3,3 @@ parameters:
     netgen_content_browser.columns.date_format: 'D, d M Y H:i:s'
     netgen_content_browser.browser.max_limit: 25
     netgen_content_browser.browser.default_limit: 25
-
-    netgen_content_browser.ezpublish.default_item_template: '@@NetgenContentBrowser/ezpublish/item.html.twig'
-    netgen_content_browser.ezpublish.default_preview_template: '@@NetgenContentBrowser/ezpublish/ngcb_preview.html.twig'
-    netgen_content_browser.ezpublish.default_thumbnail_template: '@@NetgenContentBrowser/ezpublish/columns/thumbnail.html.twig'
-
-    netgen_content_browser.eztags.default_item_template: '@@NetgenContentBrowser/eztags/item.html.twig'
-
-    netgen_content_browser.sylius_product.default_item_template: '@@NetgenContentBrowser/sylius/product_item.html.twig'
-    netgen_content_browser.sylius_product.default_price_template: '@@NetgenContentBrowser/sylius/columns/price.html.twig'
-    netgen_content_browser.sylius_taxon.default_item_template: '@@NetgenContentBrowser/sylius/taxon_item.html.twig'
