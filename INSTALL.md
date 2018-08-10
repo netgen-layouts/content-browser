@@ -7,7 +7,7 @@ Use Composer
 Run the following command to install Netgen Content Browser:
 
 ```
-composer require netgen/content-browser:^1.0
+composer require netgen/content-browser
 ```
 
 Activate the bundles
@@ -44,5 +44,5 @@ Install assets
 Run the following from your repo root to install Content Browser assets:
 
 ```
-php app/console assets:install --symlink --relative
+php bin/console assets:install --symlink --relative
 ```

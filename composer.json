@@ -1,6 +1,6 @@
 {
     "name": "netgen/content-browser",
-    "description": "Netgen Content Browser",
+    "description": "Netgen Content Browser is a Symfony bundle that provides an interface which selects items from any kind of backend and returns the IDs of selected items back to the calling code.",
     "license": "proprietary",
     "authors": [
         {
@@ -47,9 +47,6 @@
         "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --level=7 --ansi lib bundle",
         "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --level=7 --ansi tests"
     },
-    "repositories": [
-        { "type": "composer", "url": "https://packagist.netgen.biz" }
-    ],
     "autoload": {
         "psr-4": {
             "Netgen\\ContentBrowser\\": "lib/",
