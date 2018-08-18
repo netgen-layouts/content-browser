@@ -3,50 +3,33 @@ sudo: false
 
 language: php
 
+php:
+  - 7.1
+  - 7.2
+
 cache:
   directories:
     - $HOME/.composer/cache/files
 
+env:
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="^4.2@dev"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="^4.2@dev"
+
 matrix:
-  fast_finish: true
   include:
-    # PHP 7.1
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.1
+    -
+      php: 7.1
       env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.1
+    -
+      php: 7.1
       env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0"
-    - php: 7.1
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0"
-    # PHP 7.2
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="dev-master"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.1.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="dev-master"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.1.0"
-    # PHPStan
-    - php: 7.2
-      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~4.1.0"
+    -
+      php: 7.2
+      env: RUN_PHPSTAN="yes"
 
 branches:
   only:
@@ -67,18 +50,24 @@ before_script:
 
   - |
     if [ "$DEPS" = "low" ] ; then
-      composer update --prefer-dist --prefer-lowest --prefer-stable
+      composer update --no-suggest --prefer-dist --prefer-lowest --prefer-stable
     else
-      composer update --prefer-dist
+      composer update --no-suggest --prefer-dist
     fi
 
 script:
-  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG ; fi
+  - composer validate --strict
+  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG --colors=always ; fi
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan ; fi
   - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan-tests ; fi
 
 notifications:
   email: false
+  slack:
+    secure: UujeadMVF8G5BNNs1tBlSx0cvRscdDswMmRF+0xmGU0k7UY7llDqxWtNHXkvmEVG5iH3wX9r39dcKpZck8PUtGFzUEBe8JTsUrXZumeJZiy6aBwMNV9wDw8x1c/7noNxIK17tvHDCh/1HNXEkk8Lwa2yDNqQvXxFgEj1yA2Pl1F9lVFbDNozdKB0KFiT0EMiezNEX59u80cpeG9WPNeCWoIxDBWL9Ou80WMqcqnu/MnKrd69B2cll/rZw8rNkiJwUm4iX86oNeJQAHGhsGBES6+pcE7fU+NSmpGZ86biqfOXTMAm5/dWqRWCRfZj9TwAch9VU0qBlmhdbRQq5TfD+OwF+xHYXHWJDdYSp05m+YM2sLQv9Yl7CirJfhiPvVJLtObjaPXsGQ+3xQk/fozcwczxzzQxwy/G7KVYzPWmIrKnvN5K3+Xr9mEQHPNW0bPC70uYwoUR1UmciH7mlb+sxyxfNncfZ/twXnI3u5ipzDPhEMDxvOY/e/KQ1nxXeUwz9623c4+6r4+kLP0a/J9JgDmCISN2Wj37X4vjHmIEAR8i0N2sLzwq9sPlIe/3nwUzzP3Q9cH1ELyW9ZSkkAyYhG4uOMVe2pIBYDkJZ8VLXiQgfEOS3v8fQDYErQaWPre35leicghyDJGUyh69n+NGb64LVkBuUjDKdBrflirHNpY=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false
 
 git:
-  depth: 30
+  depth: 1
