@@ -15,10 +15,8 @@ interface LocationInterface
 
     /**
      * Returns the name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns the parent ID. Parent ID is null if location has no parent.

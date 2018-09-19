@@ -10,10 +10,6 @@ interface ColumnValueProviderInterface
 {
     /**
      * Provides the column value. Can return null if the provided item is unsupported.
-     *
-     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
-     *
-     * @return string|null
      */
-    public function getValue(ItemInterface $item);
+    public function getValue(ItemInterface $item): ?string;
 }

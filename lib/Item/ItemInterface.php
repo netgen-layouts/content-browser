@@ -15,22 +15,16 @@ interface ItemInterface
 
     /**
      * Returns the name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Returns if the item is visible.
-     *
-     * @return bool
      */
-    public function isVisible();
+    public function isVisible(): bool;
 
     /**
      * Returns if the item is selectable.
-     *
-     * @return bool
      */
-    public function isSelectable();
+    public function isSelectable(): bool;
 }

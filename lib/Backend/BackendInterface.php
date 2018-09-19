@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Backend;
 
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
 interface BackendInterface
@@ -13,7 +14,7 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */
-    public function getSections();
+    public function getSections(): iterable;
 
     /**
      * Loads a  location by its ID.
@@ -24,7 +25,7 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\LocationInterface
      */
-    public function loadLocation($id);
+    public function loadLocation($id): LocationInterface;
 
     /**
      * Loads the item by its value.
@@ -35,7 +36,7 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
-    public function loadItem($value);
+    public function loadItem($value): ItemInterface;
 
     /**
      * Returns the locations below provided location.
@@ -44,16 +45,12 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */
-    public function getSubLocations(LocationInterface $location);
+    public function getSubLocations(LocationInterface $location): iterable;
 
     /**
      * Returns the count of locations below provided location.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return int
      */
-    public function getSubLocationsCount(LocationInterface $location);
+    public function getSubLocationsCount(LocationInterface $location): int;
 
     /**
      * Returns the location items.
@@ -64,16 +61,12 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
-    public function getSubItems(LocationInterface $location, $offset = 0, $limit = 25);
+    public function getSubItems(LocationInterface $location, int $offset = 0, int $limit = 25): iterable;
 
     /**
      * Returns the location items count.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     *
-     * @return int
      */
-    public function getSubItemsCount(LocationInterface $location);
+    public function getSubItemsCount(LocationInterface $location): int;
 
     /**
      * Searches for items.
@@ -84,14 +77,10 @@ interface BackendInterface
      *
      * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
-    public function search($searchText, $offset = 0, $limit = 25);
+    public function search(string $searchText, int $offset = 0, int $limit = 25): iterable;
 
     /**
      * Returns the count of searched items.
-     *
-     * @param string $searchText
-     *
-     * @return int
      */
-    public function searchCount($searchText);
+    public function searchCount(string $searchText): int;
 }
