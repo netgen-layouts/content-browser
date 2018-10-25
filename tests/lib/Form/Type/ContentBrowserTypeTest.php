@@ -11,6 +11,8 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserTypeTest extends TestCase
@@ -147,11 +149,12 @@ final class ContentBrowserTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "item_type" is missing.
      */
     public function testConfigureOptionsWithMissingItemType(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "item_type" is missing.');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
@@ -161,11 +164,12 @@ final class ContentBrowserTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidItemType(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
@@ -175,11 +179,12 @@ final class ContentBrowserTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "item_type" with value "non_existing" is invalid.
      */
     public function testConfigureOptionsWithNonExistingItemType(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "item_type" with value "non_existing" is invalid.');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);

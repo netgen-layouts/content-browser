@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
@@ -137,11 +138,12 @@ final class ItemParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter::apply
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Required request attribute "itemValue" is empty
      */
     public function testApplyWithEmptyRequiredItemValue(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Required request attribute "itemValue" is empty');
+
         $configuration = new ParamConverter(
             [
                 'class' => ItemInterface::class,

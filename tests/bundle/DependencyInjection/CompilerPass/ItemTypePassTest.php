@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -57,11 +58,12 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage No backend registered for "test" item type.
      */
     public function testProcessThrowsRuntimeExceptionWithoutBackend(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No backend registered for "test" item type.');
+
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition(null, [[]]));
         $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
 
@@ -83,11 +85,12 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Backend definition must have an "item_type" attribute in its tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Backend definition must have an "item_type" attribute in its tag.');
+
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition());
         $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
 
@@ -113,11 +116,12 @@ final class ItemTypePassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Item type must begin with a letter and be followed by any combination of letters, digits and underscore, "Test type" given.
      */
     public function testProcessThrowsRuntimeExceptionWithInvalidItemType(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Item type must begin with a letter and be followed by any combination of letters, digits and underscore, "Test type" given.');
+
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition());
         $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
 

@@ -6,6 +6,8 @@ namespace Netgen\ContentBrowser\Tests\Registry;
 
 use ArrayIterator;
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use PHPUnit\Framework\TestCase;
 
@@ -51,11 +53,12 @@ final class ConfigRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::getConfig
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Configuration for item type "other_value" does not exist.
      */
     public function testGetConfigThrowsInvalidArgumentException(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Configuration for item type "other_value" does not exist.');
+
         $this->registry->getConfig('other_value');
     }
 
@@ -117,21 +120,23 @@ final class ConfigRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetSet
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['value'] = $this->configuration;
     }
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetUnset
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['value']);
     }
 }

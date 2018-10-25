@@ -7,6 +7,8 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
@@ -119,11 +121,12 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Invalid custom parameters specification for "item_type" item type.
      */
     public function testOnKernelRequestWithNonArrayCustomParams(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Invalid custom parameters specification for "item_type" item type.');
+
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
         $request = Request::create('/');
@@ -145,11 +148,12 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Configuration for "item_type" item type is invalid.
      */
     public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Configuration for "item_type" item type is invalid.');
+
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -231,11 +235,12 @@ final class SetCurrentConfigListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Configuration for "unknown" item type does not exist.
      */
     public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Configuration for "unknown" item type does not exist.');
+
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);

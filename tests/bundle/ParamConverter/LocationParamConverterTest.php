@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\ParamConverter;
 
 use Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
@@ -137,11 +138,12 @@ final class LocationParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter::apply
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Required request attribute "locationId" is empty
      */
     public function testApplyWithEmptyRequiredLocationId(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Required request attribute "locationId" is empty');
+
         $configuration = new ParamConverter(
             [
                 'class' => LocationInterface::class,

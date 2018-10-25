@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Tests\Config;
 
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigurationTest extends TestCase
@@ -242,11 +243,12 @@ final class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Config\Configuration::getParameter
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Parameter "unknown" does not exist in configuration.
      */
     public function testGetParameterThrowsInvalidArgumentException(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Parameter "unknown" does not exist in configuration.');
+
         $this->config->getParameter('unknown');
     }
 }

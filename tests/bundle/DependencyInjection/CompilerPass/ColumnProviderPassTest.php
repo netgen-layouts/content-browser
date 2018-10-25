@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -37,11 +38,12 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Column value provider definition must have a 'identifier' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Column value provider definition must have a \'identifier\' attribute in its\' tag.');
+
         $columnProvider = new Definition();
         $columnProvider->setArguments([null, null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);

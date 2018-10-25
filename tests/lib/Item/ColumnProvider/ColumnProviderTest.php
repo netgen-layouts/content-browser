@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Tests\Item\ColumnProvider;
 
 use Netgen\ContentBrowser\Config\Configuration;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Tests\Stubs\ColumnValueProvider;
@@ -113,11 +114,12 @@ final class ColumnProviderTest extends TestCase
     /**
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
      * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Column value provider "provider" does not exist
      */
     public function testProvideColumnsThrowsInvalidArgumentExceptionWithNoProvider(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Column value provider "provider" does not exist');
+
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,

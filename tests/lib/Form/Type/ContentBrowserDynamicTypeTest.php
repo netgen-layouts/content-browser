@@ -12,6 +12,7 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicTypeTest extends TestCase
@@ -163,11 +164,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "item_types" with value array is invalid.
      */
     public function testConfigureOptionsWithInvalidItemTypesItem(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "item_types" with value array is invalid.');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
@@ -177,11 +179,12 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "item_types" with value 42 is expected to be of type "array", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidItemTypes(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "item_types" with value 42 is expected to be of type "array", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);

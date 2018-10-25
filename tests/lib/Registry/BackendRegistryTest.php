@@ -6,6 +6,8 @@ namespace Netgen\ContentBrowser\Tests\Registry;
 
 use ArrayIterator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use PHPUnit\Framework\TestCase;
 
@@ -51,11 +53,12 @@ final class BackendRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::getBackend
-     * @expectedException \Netgen\ContentBrowser\Exceptions\InvalidArgumentException
-     * @expectedExceptionMessage Backend for "other_value" item type does not exist.
      */
     public function testGetBackendThrowsInvalidArgumentException(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Backend for "other_value" item type does not exist.');
+
         $this->registry->getBackend('other_value');
     }
 
@@ -117,21 +120,23 @@ final class BackendRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetSet
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['value'] = $this->backendMock;
     }
 
     /**
      * @covers \Netgen\ContentBrowser\Registry\BackendRegistry::offsetUnset
-     * @expectedException \Netgen\ContentBrowser\Exceptions\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['value']);
     }
 }
