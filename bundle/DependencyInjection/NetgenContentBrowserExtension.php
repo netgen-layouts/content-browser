@@ -44,6 +44,9 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $this->doPrepend($container, 'framework/twig.yml', 'twig');
     }
 
+    /**
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         return new Configuration($this);
