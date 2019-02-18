@@ -5,3 +5,4 @@ includes:
 parameters:
     excludes_analyse:
         - tests/application/web/bundles/
+        - tests/bootstrap.php
