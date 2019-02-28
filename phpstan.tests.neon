@@ -6,3 +6,9 @@ parameters:
     excludes_analyse:
         - tests/application/web/bundles/
         - tests/bootstrap.php
+
+    ignoreErrors:
+        - '#assertStringContainsString\(\) expects string, array<string>\|string\|null given#'
+        -
+            message: '#Call to function method_exists#'
+            path: tests/lib/TestCase/LegacyTestCaseTrait.php

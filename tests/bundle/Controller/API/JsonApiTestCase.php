@@ -11,10 +11,13 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
+use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -82,7 +85,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
-        self::assertInternalType('array', $responseContent);
+        self::assertIsArray($responseContent);
 
         self::assertArrayHasKey('status_code', $responseContent);
         self::assertArrayHasKey('status_text', $responseContent);

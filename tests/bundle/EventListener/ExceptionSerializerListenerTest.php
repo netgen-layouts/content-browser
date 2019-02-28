@@ -8,6 +8,7 @@ use Exception;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,6 +21,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ExceptionSerializerListenerTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
      */
@@ -154,7 +157,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         $data = json_decode($event->getResponse()->getContent(), true);
 
-        self::assertInternalType('array', $data);
+        self::assertIsArray($data);
         self::assertArrayHasKey('code', $data);
         self::assertArrayHasKey('message', $data);
         self::assertArrayHasKey('status_code', $data);

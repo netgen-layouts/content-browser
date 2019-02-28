@@ -9,10 +9,13 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
+use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 final class RenderItemTest extends JsonApiTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
@@ -57,7 +60,7 @@ final class RenderItemTest extends JsonApiTestCase
 
         self::assertInstanceOf(Response::class, $response);
         $this->assertResponseCode($response, Response::HTTP_OK);
-        self::assertContains('text/html', $response->headers->get('Content-Type'));
+        self::assertStringContainsString('text/html', $response->headers->get('Content-Type'));
         self::assertSame('rendered item', $response->getContent());
     }
 
@@ -103,7 +106,7 @@ final class RenderItemTest extends JsonApiTestCase
 
         self::assertInstanceOf(Response::class, $response);
         $this->assertResponseCode($response, Response::HTTP_OK);
-        self::assertContains('text/html', $response->headers->get('Content-Type'));
+        self::assertStringContainsString('text/html', $response->headers->get('Content-Type'));
         self::assertSame('', $response->getContent());
     }
 
