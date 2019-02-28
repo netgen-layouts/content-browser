@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Lakion\ApiTestCase\JsonApiTestCase as LegacyJsonApiTestCase;
 use ApiTestCase\JsonApiTestCase;
+use Lakion\ApiTestCase\JsonApiTestCase as LegacyJsonApiTestCase;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
