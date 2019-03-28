@@ -39,7 +39,7 @@ final class LoadItemsByValue extends Controller
         $queryValues = trim($request->query->get('values', ''));
         $values = array_map('trim', explode(',', $queryValues));
 
-        if (empty($queryValues) || empty($values)) {
+        if ($queryValues === '' || count($values) === 0) {
             throw new InvalidArgumentException('List of values is invalid.');
         }
 

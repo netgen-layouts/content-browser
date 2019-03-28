@@ -29,8 +29,8 @@ final class ItemParamConverter implements ParamConverterInterface
             return false;
         }
 
-        $itemValue = $request->attributes->get('itemValue');
-        if (empty($itemValue)) {
+        $itemValue = trim($request->attributes->get('itemValue', ''));
+        if ($itemValue === '') {
             if ($configuration->isOptional()) {
                 return false;
             }

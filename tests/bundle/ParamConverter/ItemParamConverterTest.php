@@ -49,7 +49,7 @@ final class ItemParamConverterTest extends TestCase
         );
 
         $request = Request::create('/');
-        $request->attributes->set('itemValue', 42);
+        $request->attributes->set('itemValue', '42');
         $request->attributes->set('itemType', 'value');
 
         $item = new Item(42);
@@ -57,7 +57,7 @@ final class ItemParamConverterTest extends TestCase
         $this->backendMock
             ->expects(self::once())
             ->method('loadItem')
-            ->with(self::identicalTo(42))
+            ->with(self::identicalTo('42'))
             ->will(self::returnValue($item));
 
         self::assertTrue($this->paramConverter->apply($request, $configuration));
@@ -100,7 +100,7 @@ final class ItemParamConverterTest extends TestCase
         );
 
         $request = Request::create('/');
-        $request->attributes->set('itemValue', 42);
+        $request->attributes->set('itemValue', '42');
 
         $this->backendMock
             ->expects(self::never())
@@ -124,7 +124,7 @@ final class ItemParamConverterTest extends TestCase
         );
 
         $request = Request::create('/');
-        $request->attributes->set('itemValue', null);
+        $request->attributes->set('itemValue', '');
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
@@ -151,7 +151,7 @@ final class ItemParamConverterTest extends TestCase
         );
 
         $request = Request::create('/');
-        $request->attributes->set('itemValue', null);
+        $request->attributes->set('itemValue', '');
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock

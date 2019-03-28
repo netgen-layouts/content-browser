@@ -54,7 +54,7 @@ final class SearchItems extends Controller
     public function __invoke(Request $request): Response
     {
         $searchText = trim($request->query->get('searchText', ''));
-        if (empty($searchText)) {
+        if ($searchText === '') {
             return new JsonResponse(['children' => [], 'children_count' => 0]);
         }
 
