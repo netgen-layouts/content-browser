@@ -90,6 +90,10 @@ final class Configuration
         return $this->config['default_columns'] ?? [];
     }
 
+    /**
+     * @param string $name
+     * @param mixed $value
+     */
     public function setParameter(string $name, $value): void
     {
         $this->parameters[$name] = $value;
@@ -105,6 +109,11 @@ final class Configuration
         return isset($this->parameters[$name]);
     }
 
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     */
     public function getParameter(string $name)
     {
         if (!$this->hasParameter($name)) {

@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class AppKernel extends Kernel implements CompilerPassInterface
 {
-    public function registerBundles(): array
+    public function registerBundles(): iterable
     {
         $bundles = [
             // Symfony
@@ -60,7 +60,7 @@ final class AppKernel extends Kernel implements CompilerPassInterface
         $loader->load(__DIR__ . '/config/config.yml');
     }
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (Kernel::VERSION_ID < 40100) {
             return;

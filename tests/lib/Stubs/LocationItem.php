@@ -24,6 +24,11 @@ final class LocationItem implements ItemInterface, LocationInterface
      */
     private $parentId;
 
+    /**
+     * @param mixed $value
+     * @param mixed $locationId
+     * @param mixed $parentId
+     */
     public function __construct($value = null, $locationId = null, $parentId = null)
     {
         $this->value = $value;
