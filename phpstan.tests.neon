@@ -13,4 +13,3 @@ parameters:
         -
             message: '#Call to function method_exists#'
             path: tests/lib/TestCase/LegacyTestCaseTrait.php
-        - '#Method .+::assertIs\w+\(\) has parameter \$actual with no typehint specified.#'
