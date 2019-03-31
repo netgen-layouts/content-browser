@@ -71,6 +71,7 @@ final class ItemTypePass implements CompilerPassInterface
 
                     if ($tag['item_type'] === $itemType) {
                         $foundBackend = $backend;
+
                         break 2;
                     }
                 }
