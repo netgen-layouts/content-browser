@@ -4,7 +4,11 @@ includes:
 parameters:
     ignoreErrors:
         # Symfony Config component
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
+        -
+            message: '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
+            path: bundle/DependencyInjection/Configuration.php
 
         # Compatibility with Symfony 3.4
-        - '#Netgen\\Bundle\\ContentBrowserBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
+        -
+            message: '#Netgen\\Bundle\\ContentBrowserBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
+            path: bundle/DependencyInjection/TreeBuilder.php

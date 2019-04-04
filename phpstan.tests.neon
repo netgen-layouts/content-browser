@@ -9,7 +9,10 @@ parameters:
         - tests/bootstrap.php
 
     ignoreErrors:
-        - '#assertStringContainsString\(\) expects string, array<string>\|string\|null given#'
+        -
+            message: '#assertStringContainsString\(\) expects string, array<string>\|string\|null given#'
+            path: tests/bundle/Controller/API/RenderItemTest.php
+
         -
             message: '#Call to function method_exists#'
             path: tests/lib/TestCase/LegacyTestCaseTrait.php
