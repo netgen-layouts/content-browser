@@ -58,7 +58,7 @@ final class LocationParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadLocation')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($location));
+            ->willReturn($location);
 
         self::assertTrue($this->paramConverter->apply($request, $configuration));
         self::assertSame($location, $request->attributes->get('location'));

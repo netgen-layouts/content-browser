@@ -25,31 +25,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
-            ->will(self::returnValue($location));
+            ->willReturn($location);
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
-            ->will(self::returnValue(new Location(40, 'Location 40')));
+            ->willReturn(new Location(40, 'Location 40'));
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
-            ->will(self::returnValue(2));
+            ->willReturn(2);
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
-            ->will(
-                self::returnValue(
-                    [
-                        new Item(42, 'Item 42'),
-                        new Item(43, 'Item 43'),
-                    ]
-                )
+            ->willReturn(
+                [
+                    new Item(42, 'Item 42'),
+                    new Item(43, 'Item 43'),
+                ]
             );
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
@@ -73,31 +71,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
-            ->will(self::returnValue($location));
+            ->willReturn($location);
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
-            ->will(self::returnValue(new ItemLocation(40, 'Item 40')));
+            ->willReturn(new ItemLocation(40, 'Item 40'));
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
-            ->will(self::returnValue(2));
+            ->willReturn(2);
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
-            ->will(
-                self::returnValue(
-                    [
-                        new Item(42, 'Item 42'),
-                        new Item(43, 'Item 43'),
-                    ]
-                )
+            ->willReturn(
+                [
+                    new Item(42, 'Item 42'),
+                    new Item(43, 'Item 43'),
+                ]
             );
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
@@ -121,31 +117,29 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
-            ->will(self::returnValue($location));
+            ->willReturn($location);
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
-            ->will(self::throwException(new NotFoundException()));
+            ->willThrowException(new NotFoundException());
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
-            ->will(self::returnValue(2));
+            ->willReturn(2);
 
         $this->backendMock
             ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
-            ->will(
-                self::returnValue(
-                    [
-                        new Item(42, 'Item 42'),
-                        new Item(43, 'Item 43'),
-                    ]
-                )
+            ->willReturn(
+                [
+                    new Item(42, 'Item 42'),
+                    new Item(43, 'Item 43'),
+                ]
             );
 
         $this->client->request('GET', '/cb/api/v1/test/browse/41/items');

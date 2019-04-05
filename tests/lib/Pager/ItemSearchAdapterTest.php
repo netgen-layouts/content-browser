@@ -37,7 +37,7 @@ final class ItemSearchAdapterTest extends TestCase
             ->expects(self::once())
             ->method('searchCount')
             ->with(self::identicalTo('text'))
-            ->will(self::returnValue(3));
+            ->willReturn(3);
 
         self::assertSame(3, $this->adapter->getNbResults());
     }
@@ -55,7 +55,7 @@ final class ItemSearchAdapterTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(10)
             )
-            ->will(self::returnValue([1, 2, 3]));
+            ->willReturn([1, 2, 3]);
 
         self::assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
     }

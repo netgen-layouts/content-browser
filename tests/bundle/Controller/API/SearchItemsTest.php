@@ -19,21 +19,17 @@ final class SearchItemsTest extends JsonApiTestCase
         $this->backendMock
             ->expects(self::any())
             ->method('search')
-            ->will(
-                self::returnValue(
-                    [
-                        new Item(42, 'Item 42'),
-                        new Item(43, 'Item 43'),
-                    ]
-                )
+            ->willReturn(
+                [
+                    new Item(42, 'Item 42'),
+                    new Item(43, 'Item 43'),
+                ]
             );
 
         $this->backendMock
             ->expects(self::any())
             ->method('searchCount')
-            ->will(
-                self::returnValue(2)
-            );
+            ->willReturn(2);
 
         $this->client->request('GET', '/cb/api/v1/test/search?searchText=test');
 

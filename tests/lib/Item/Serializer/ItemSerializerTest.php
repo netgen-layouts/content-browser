@@ -52,13 +52,13 @@ final class ItemSerializerTest extends TestCase
             ->expects(self::once())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($item))
-            ->will(self::returnValue(3));
+            ->willReturn(3);
 
         $this->columnProviderMock
             ->expects(self::once())
             ->method('provideColumns')
             ->with(self::identicalTo($item))
-            ->will(self::returnValue(['column' => 'value']));
+            ->willReturn(['column' => 'value']);
 
         $data = $this->serializer->serializeItem($item);
 
@@ -94,7 +94,7 @@ final class ItemSerializerTest extends TestCase
             ->expects(self::once())
             ->method('provideColumns')
             ->with(self::identicalTo($item))
-            ->will(self::returnValue(['column' => 'value']));
+            ->willReturn(['column' => 'value']);
 
         $data = $this->serializer->serializeItem($item);
 
@@ -125,13 +125,13 @@ final class ItemSerializerTest extends TestCase
             ->expects(self::at(0))
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
-            ->will(self::returnValue(3));
+            ->willReturn(3);
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('getSubLocationsCount')
             ->with(self::identicalTo($location))
-            ->will(self::returnValue(4));
+            ->willReturn(4);
 
         $data = $this->serializer->serializeLocation($location);
 

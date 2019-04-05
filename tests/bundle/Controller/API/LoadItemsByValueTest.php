@@ -18,12 +18,12 @@ final class LoadItemsByValueTest extends JsonApiTestCase
         $this->backendMock
             ->expects(self::at(0))
             ->method('loadItem')
-            ->will(self::returnValue(new Item(42, 'Item 42')));
+            ->willReturn(new Item(42, 'Item 42'));
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('loadItem')
-            ->will(self::returnValue(new Item(43, 'Item 43')));
+            ->willReturn(new Item(43, 'Item 43'));
 
         $this->client->request('GET', '/cb/api/v1/test/values?values=42,43');
 

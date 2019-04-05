@@ -74,7 +74,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ->expects(self::once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::returnValue($item));
+            ->willReturn($item);
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
@@ -97,7 +97,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ->expects(self::once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::throwException(new NotFoundException()));
+            ->willThrowException(new NotFoundException());
 
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 

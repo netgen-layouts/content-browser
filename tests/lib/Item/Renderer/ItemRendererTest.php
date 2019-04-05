@@ -44,7 +44,7 @@ final class ItemRendererTest extends TestCase
                 self::identicalTo('template.html.twig'),
                 self::identicalTo(['item' => $item])
             )
-            ->will(self::returnValue('rendered item'));
+            ->willReturn('rendered item');
 
         self::assertSame(
             'rendered item',
@@ -66,7 +66,7 @@ final class ItemRendererTest extends TestCase
                 self::identicalTo('template.html.twig'),
                 self::identicalTo(['item' => $item])
             )
-            ->will(self::throwException(new Exception()));
+            ->willThrowException(new Exception());
 
         self::assertSame('', $this->itemRenderer->renderItem($item, 'template.html.twig'));
     }

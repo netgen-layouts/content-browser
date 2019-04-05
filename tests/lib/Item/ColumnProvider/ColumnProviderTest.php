@@ -103,7 +103,7 @@ final class ColumnProviderTest extends TestCase
             ->expects(self::once())
             ->method('renderItem')
             ->with(self::identicalTo($item), self::identicalTo('template.html.twig'))
-            ->will(self::returnValue('rendered column'));
+            ->willReturn('rendered column');
 
         self::assertSame(
             ['column' => 'rendered column'],

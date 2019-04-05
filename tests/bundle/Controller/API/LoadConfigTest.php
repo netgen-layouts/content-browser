@@ -19,13 +19,11 @@ final class LoadConfigTest extends JsonApiTestCase
         $this->backendMock
             ->expects(self::any())
             ->method('getSections')
-            ->will(
-                self::returnValue(
-                    [
-                        new Location(42, 'Location 42'),
-                        new Location(42, 'Location 42'),
-                    ]
-                )
+            ->willReturn(
+                [
+                    new Location(42, 'Location 42'),
+                    new Location(42, 'Location 42'),
+                ]
             );
 
         $this->client->request('GET', '/cb/api/v1/test/config');

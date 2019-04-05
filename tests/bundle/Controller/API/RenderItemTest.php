@@ -31,7 +31,7 @@ final class RenderItemTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::returnValue(new Item(42, 'Item 42')));
+            ->willReturn(new Item(42, 'Item 42'));
 
         $container->set(
             'netgen_content_browser.config.test',
@@ -77,7 +77,7 @@ final class RenderItemTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::returnValue(new Item(42, 'Item 42')));
+            ->willReturn(new Item(42, 'Item 42'));
 
         $container->set(
             'netgen_content_browser.config.test',
@@ -117,7 +117,7 @@ final class RenderItemTest extends JsonApiTestCase
             ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::throwException(new NotFoundException('Item does not exist.')));
+            ->willThrowException(new NotFoundException('Item does not exist.'));
 
         $this->client->request('GET', '/cb/api/v1/test/render/42');
 

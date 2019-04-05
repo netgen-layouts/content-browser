@@ -27,7 +27,7 @@ final class PagerFactoryTest extends TestCase
         $this->adapterMock
             ->expects(self::any())
             ->method('getNbResults')
-            ->will(self::returnValue(500));
+            ->willReturn(500);
 
         $this->pagerFactory = new PagerFactory(100);
     }

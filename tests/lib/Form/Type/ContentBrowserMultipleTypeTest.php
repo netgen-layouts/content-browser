@@ -52,13 +52,13 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::returnValue($item1));
+            ->willReturn($item1);
 
         $this->backendMock
             ->expects(self::at(1))
             ->method('loadItem')
             ->with(self::identicalTo('24'))
-            ->will(self::returnValue($item2));
+            ->willReturn($item2);
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
@@ -102,7 +102,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ->expects(self::once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
-            ->will(self::throwException(new NotFoundException()));
+            ->willThrowException(new NotFoundException());
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
