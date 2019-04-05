@@ -54,7 +54,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setAllowedValues(
             'custom_params',
-            function (array $customParams): bool {
+            static function (array $customParams): bool {
                 foreach ($customParams as $customParam) {
                     if (!is_scalar($customParam) && !is_array($customParam)) {
                         return false;
@@ -80,7 +80,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setNormalizer(
             'max',
-            function (Options $options, ?int $value): ?int {
+            static function (Options $options, ?int $value): ?int {
                 if ($value === null || $options['min'] === null) {
                     return $value;
                 }

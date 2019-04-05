@@ -24,7 +24,7 @@ final class BackendRegistry implements BackendRegistryInterface
     {
         $this->backends = array_filter(
             $backends,
-            function (BackendInterface $backend): bool {
+            static function (BackendInterface $backend): bool {
                 return true;
             }
         );

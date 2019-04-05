@@ -50,7 +50,7 @@ final class ContentBrowserDynamicType extends AbstractType
         // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
         $resolver->setAllowedValues(
             'item_types',
-            function (array $itemTypes): bool {
+            static function (array $itemTypes): bool {
                 foreach ($itemTypes as $itemType) {
                     if (!is_string($itemType)) {
                         return false;
@@ -63,7 +63,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         $resolver->setAllowedValues(
             'custom_params',
-            function (array $customParams): bool {
+            static function (array $customParams): bool {
                 foreach ($customParams as $customParam) {
                     if (!is_scalar($customParam) && !is_array($customParam)) {
                         return false;
@@ -148,7 +148,7 @@ final class ContentBrowserDynamicType extends AbstractType
     {
         $allItemTypes = array_flip(
             array_map(
-                function (Configuration $config): string {
+                static function (Configuration $config): string {
                     return $config->getItemName();
                 },
                 $this->configRegistry->getConfigs()
@@ -161,7 +161,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         return array_filter(
             $allItemTypes,
-            function (string $itemType) use ($itemTypes): bool {
+            static function (string $itemType) use ($itemTypes): bool {
                 return in_array($itemType, $itemTypes, true);
             }
         );

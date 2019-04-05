@@ -40,7 +40,7 @@ final class ColumnProvider implements ColumnProviderInterface
         $this->config = $config;
         $this->columnValueProviders = array_filter(
             $columnValueProviders,
-            function (ColumnValueProviderInterface $columnValueProvider): bool {
+            static function (ColumnValueProviderInterface $columnValueProvider): bool {
                 return true;
             }
         );

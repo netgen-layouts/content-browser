@@ -62,13 +62,15 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('preview')
                         ->validate()
-                            ->always(function (array $v): array {
-                                if ($v['enabled'] && !isset($v['template'])) {
-                                    throw new InvalidConfigurationException('When preview is enabled, template needs to be specified');
-                                }
+                            ->always(
+                                static function (array $v): array {
+                                    if ($v['enabled'] && !isset($v['template'])) {
+                                        throw new InvalidConfigurationException('When preview is enabled, template needs to be specified');
+                                    }
 
-                                return $v;
-                            })
+                                    return $v;
+                                }
+                            )
                         ->end()
                         ->isRequired()
                         ->canBeDisabled()
@@ -80,30 +82,34 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('columns')
                         ->validate()
-                            ->always(function (array $v): array {
-                                if (!isset($v['name'])) {
-                                    throw new InvalidConfigurationException('Column with "name" identifier is required');
-                                }
+                            ->always(
+                                static function (array $v): array {
+                                    if (!isset($v['name'])) {
+                                        throw new InvalidConfigurationException('Column with "name" identifier is required');
+                                    }
 
-                                return $v;
-                            })
+                                    return $v;
+                                }
+                            )
                         ->end()
                         ->performNoDeepMerging()
                         ->prototype('array')
                             ->validate()
-                                ->always(function (array $v): array {
-                                    $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
+                                ->always(
+                                    static function (array $v): array {
+                                        $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
 
-                                    if (isset($v['template'], $v['value_provider'])) {
-                                        throw $exception;
+                                        if (isset($v['template'], $v['value_provider'])) {
+                                            throw $exception;
+                                        }
+
+                                        if (!isset($v['template']) && !isset($v['value_provider'])) {
+                                            throw $exception;
+                                        }
+
+                                        return $v;
                                     }
-
-                                    if (!isset($v['template']) && !isset($v['value_provider'])) {
-                                        throw $exception;
-                                    }
-
-                                    return $v;
-                                })
+                                )
                             ->end()
                             ->children()
                                 ->scalarNode('name')

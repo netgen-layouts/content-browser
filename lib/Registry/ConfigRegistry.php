@@ -24,7 +24,7 @@ final class ConfigRegistry implements ConfigRegistryInterface
     {
         $this->configs = array_filter(
             $configs,
-            function (Configuration $config): bool {
+            static function (Configuration $config): bool {
                 return true;
             }
         );
