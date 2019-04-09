@@ -11,13 +11,10 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
-use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */

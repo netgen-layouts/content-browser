@@ -9,13 +9,10 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
-use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 final class RenderItemTest extends JsonApiTestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke

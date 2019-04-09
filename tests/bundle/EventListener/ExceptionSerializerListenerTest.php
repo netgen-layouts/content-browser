@@ -8,7 +8,6 @@ use Exception;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,8 +20,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ExceptionSerializerListenerTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
      */
