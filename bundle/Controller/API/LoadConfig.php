@@ -7,11 +7,11 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
-final class LoadConfig extends Controller
+final class LoadConfig extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
@@ -50,6 +50,8 @@ final class LoadConfig extends Controller
      */
     public function __invoke(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $sections = [];
         foreach ($this->backend->getSections() as $section) {
             $sections[] = $this->itemSerializer->serializeLocation($section);
@@ -67,7 +69,7 @@ final class LoadConfig extends Controller
             'available_columns' => $this->getAvailableColumns(),
         ];
 
-        return new JsonResponse($data);
+        return $this->json($data);
     }
 
     /**

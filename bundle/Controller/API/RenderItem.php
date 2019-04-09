@@ -7,9 +7,10 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RenderItem extends Controller
+final class RenderItem extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Config\Configuration
@@ -32,6 +33,8 @@ final class RenderItem extends Controller
      */
     public function __invoke(ItemInterface $item): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $renderedItem = '';
         if ($this->config->hasPreview() && is_string($this->config->getTemplate())) {
             $renderedItem = $this->itemRenderer->renderItem($item, $this->config->getTemplate());

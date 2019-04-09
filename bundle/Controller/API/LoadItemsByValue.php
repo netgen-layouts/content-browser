@@ -7,11 +7,11 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LoadItemsByValue extends Controller
+final class LoadItemsByValue extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
@@ -36,6 +36,8 @@ final class LoadItemsByValue extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $queryValues = trim($request->query->get('values', ''));
         $values = array_map('trim', explode(',', $queryValues));
 
@@ -50,6 +52,6 @@ final class LoadItemsByValue extends Controller
             );
         }
 
-        return new JsonResponse(['items' => $items]);
+        return $this->json(['items' => $items]);
     }
 }

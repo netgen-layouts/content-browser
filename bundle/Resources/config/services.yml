@@ -8,11 +8,11 @@ services:
     # API controllers
 
     netgen_content_browser.controller.base:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller
+        class: Symfony\Bundle\FrameworkBundle\Controller\AbstractController
         public: false
         abstract: true
         calls:
-            - [initialize, ["@service_container"]]
+            - [setContainer, ["@service_container"]]
 
     netgen_content_browser.controller.api.load_config:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig

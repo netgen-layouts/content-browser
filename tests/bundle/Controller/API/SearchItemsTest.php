@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 final class SearchItemsTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\Controller::initialize
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__construct
      * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
      */

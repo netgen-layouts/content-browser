@@ -8,11 +8,11 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class SearchItems extends Controller
+final class SearchItems extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
@@ -53,9 +53,11 @@ final class SearchItems extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $searchText = trim($request->query->get('searchText', ''));
         if ($searchText === '') {
-            return new JsonResponse(['children' => [], 'children_count' => 0]);
+            return $this->json(['children' => [], 'children_count' => 0]);
         }
 
         $pager = $this->pagerFactory->buildPager(
@@ -73,6 +75,6 @@ final class SearchItems extends Controller
             $data['children'][] = $this->itemSerializer->serializeItem($item);
         }
 
-        return new JsonResponse($data);
+        return $this->json($data);
     }
 }

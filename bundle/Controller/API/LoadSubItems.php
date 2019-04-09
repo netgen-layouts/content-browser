@@ -11,11 +11,11 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Netgen\ContentBrowser\Pager\SubItemsAdapter;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LoadSubItems extends Controller
+final class LoadSubItems extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
@@ -54,6 +54,8 @@ final class LoadSubItems extends Controller
      */
     public function __invoke(LocationInterface $location, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $pager = $this->pagerFactory->buildPager(
             new SubItemsAdapter($this->backend, $location),
             $request->query->getInt('page', 1),
@@ -73,7 +75,7 @@ final class LoadSubItems extends Controller
             $data['children'][] = $this->itemSerializer->serializeItem($item);
         }
 
-        return new JsonResponse($data);
+        return $this->json($data);
     }
 
     /**

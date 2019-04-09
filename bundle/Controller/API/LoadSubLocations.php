@@ -7,10 +7,10 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LoadSubLocations extends Controller
+final class LoadSubLocations extends AbstractController
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface
@@ -33,11 +33,13 @@ final class LoadSubLocations extends Controller
      */
     public function __invoke(LocationInterface $location): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $children = [];
         foreach ($this->backend->getSubLocations($location) as $subLocation) {
             $children[] = $this->itemSerializer->serializeLocation($subLocation);
         }
 
-        return new JsonResponse(['children' => $children]);
+        return $this->json(['children' => $children]);
     }
 }
