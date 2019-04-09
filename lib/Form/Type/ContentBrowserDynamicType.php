@@ -19,8 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicType extends AbstractType
 {
-    use ChoicesAsValuesTrait;
-
     /**
      * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
      */
@@ -46,20 +44,7 @@ final class ContentBrowserDynamicType extends AbstractType
         $resolver->setAllowedTypes('item_types', 'array');
         $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
         $resolver->setAllowedTypes('custom_params', 'array');
-
-        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
-        $resolver->setAllowedValues(
-            'item_types',
-            static function (array $itemTypes): bool {
-                foreach ($itemTypes as $itemType) {
-                    if (!is_string($itemType)) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $resolver->setAllowedTypes('item_types', 'string[]');
 
         $resolver->setAllowedValues(
             'custom_params',
@@ -110,7 +95,7 @@ final class ContentBrowserDynamicType extends AbstractType
             [
                 'choices' => $this->getEnabledItemTypes($options['item_types']),
                 'choice_translation_domain' => 'ngcb',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
 
         $builder->add('item_value', HiddenType::class);
