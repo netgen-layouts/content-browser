@@ -62,6 +62,10 @@ final class AppKernel extends Kernel implements CompilerPassInterface
         $container
             ->findDefinition('netgen_content_browser.item_renderer')
             ->setPublic(true);
+
+        $container
+            ->findDefinition('netgen_content_browser.registry.backend')
+            ->setPublic(true);
     }
 
     protected function getContainerBaseClass(): string
