@@ -10,5 +10,5 @@ parameters:
 
         # Compatibility with Symfony 3.4
         -
-            message: '#Netgen\\Bundle\\ContentBrowserBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
-            path: bundle/DependencyInjection/TreeBuilder.php
+            message: '#Call to function method_exists\(\) with Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder and .+ will always evaluate to true.#'
+            path: bundle/DependencyInjection/Configuration.php
