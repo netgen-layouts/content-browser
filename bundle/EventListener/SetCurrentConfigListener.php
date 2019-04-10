@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetCurrentConfigListener implements EventSubscriberInterface
@@ -72,7 +73,10 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
         $config->addParameters($customParams);
 
         $configLoadEvent = new ConfigLoadEvent($config);
-        $this->eventDispatcher->dispatch(ContentBrowserEvents::CONFIG_LOAD, $configLoadEvent);
+
+        Kernel::VERSION_ID >= 40300 ?
+            $this->eventDispatcher->dispatch($configLoadEvent, ContentBrowserEvents::CONFIG_LOAD) :
+            $this->eventDispatcher->dispatch(ContentBrowserEvents::CONFIG_LOAD, $configLoadEvent);
 
         $this->container->set('netgen_content_browser.current_config', $config);
     }

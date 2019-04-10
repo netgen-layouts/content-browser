@@ -12,3 +12,5 @@ parameters:
         -
             message: '#Call to function method_exists\(\) with Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder and .+ will always evaluate to true.#'
             path: bundle/DependencyInjection/Configuration.php
+
+        - '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
