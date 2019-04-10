@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\ContentBrowser\Tests\Kernel;
+namespace Netgen\ContentBrowser\Tests\App;
 
 use Symfony\Component\DependencyInjection\Container;
 

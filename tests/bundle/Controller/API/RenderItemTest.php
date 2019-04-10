@@ -8,7 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Tests\Kernel\MockerContainer;
+use Netgen\ContentBrowser\Tests\App\MockerContainer;
 use Symfony\Component\HttpFoundation\Response;
 
 final class RenderItemTest extends JsonApiTestCase
