@@ -23,7 +23,7 @@ final class BackendRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 

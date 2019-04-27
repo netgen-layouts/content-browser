@@ -22,7 +22,7 @@ final class ItemRendererTest extends TestCase
      */
     private $itemRenderer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 

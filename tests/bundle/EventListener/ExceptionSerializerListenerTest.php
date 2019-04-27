@@ -30,7 +30,7 @@ final class ExceptionSerializerListenerTest extends TestCase
      */
     private $loggerMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 

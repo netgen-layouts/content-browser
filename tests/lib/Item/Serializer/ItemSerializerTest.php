@@ -29,7 +29,7 @@ final class ItemSerializerTest extends TestCase
      */
     private $serializer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
         $this->columnProviderMock = $this->createMock(ColumnProviderInterface::class);

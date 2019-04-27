@@ -15,7 +15,7 @@ final class ConfigurationTest extends TestCase
      */
     private $config;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $configArray = [
             'min_selected' => 1,

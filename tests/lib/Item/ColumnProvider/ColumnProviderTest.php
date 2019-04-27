@@ -30,7 +30,7 @@ final class ColumnProviderTest extends TestCase
      */
     private $columnProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
 

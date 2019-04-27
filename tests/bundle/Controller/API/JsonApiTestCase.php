@@ -20,7 +20,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected $backendMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -37,7 +37,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         // We need an empty method to disable tearing down since it is
         // not compatible with Symfony 4.1

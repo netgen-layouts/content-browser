@@ -26,7 +26,7 @@ final class SubItemsAdapterTest extends TestCase
      */
     private $location;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
         $this->location = new Location(42);

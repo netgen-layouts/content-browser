@@ -37,7 +37,7 @@ final class SetCurrentBackendListenerTest extends TestCase
      */
     private $eventListener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 

@@ -18,7 +18,7 @@ final class SetIsApiRequestListenerTest extends TestCase
      */
     private $eventListener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->eventListener = new SetIsApiRequestListener();
     }

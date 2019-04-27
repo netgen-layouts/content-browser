@@ -30,7 +30,7 @@ final class SetCurrentConfigListenerTest extends TestCase
      */
     private $eventListener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->container = new Container();
 

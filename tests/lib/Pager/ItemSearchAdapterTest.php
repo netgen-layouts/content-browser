@@ -20,7 +20,7 @@ final class ItemSearchAdapterTest extends TestCase
      */
     private $adapter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
