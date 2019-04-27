@@ -47,7 +47,7 @@
         "phpstan/phpstan-strict-rules": "^0.11",
         "phpstan/phpstan-phpunit": "^0.11",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "lchrusciel/api-test-case": "^4.0",
+        "lchrusciel/api-test-case": "^4.1",
         "franzl/studio": "*"
     },
     "conflict": {
