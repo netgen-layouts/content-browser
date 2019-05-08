@@ -28,7 +28,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     private $container;
 
     /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
     private $backendRegistry;
 

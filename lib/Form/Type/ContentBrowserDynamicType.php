@@ -6,8 +6,8 @@ namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
-use Netgen\ContentBrowser\Registry\ConfigRegistryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -20,18 +20,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ContentBrowserDynamicType extends AbstractType
 {
     /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
     private $backendRegistry;
 
     /**
-     * @var \Netgen\ContentBrowser\Registry\ConfigRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\ConfigRegistry
      */
     private $configRegistry;
 
     public function __construct(
-        BackendRegistryInterface $backendRegistry,
-        ConfigRegistryInterface $configRegistry
+        BackendRegistry $backendRegistry,
+        ConfigRegistry $configRegistry
     ) {
         $this->backendRegistry = $backendRegistry;
         $this->configRegistry = $configRegistry;

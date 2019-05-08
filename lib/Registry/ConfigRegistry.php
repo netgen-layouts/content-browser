@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Registry;
 
+use ArrayAccess;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Traversable;
 
-final class ConfigRegistry implements ConfigRegistryInterface
+final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\ContentBrowser\Config\Configuration[]
@@ -30,11 +33,19 @@ final class ConfigRegistry implements ConfigRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a config with specified item type.
+     */
     public function hasConfig(string $itemType): bool
     {
         return isset($this->configs[$itemType]);
     }
 
+    /**
+     * Returns the config for specified item type.
+     *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If config does not exist
+     */
     public function getConfig(string $itemType): Configuration
     {
         if (!$this->hasConfig($itemType)) {
@@ -46,6 +57,11 @@ final class ConfigRegistry implements ConfigRegistryInterface
         return $this->configs[$itemType];
     }
 
+    /**
+     * Returns all configs.
+     *
+     * @return \Netgen\ContentBrowser\Config\Configuration[]
+     */
     public function getConfigs(): array
     {
         return $this->configs;

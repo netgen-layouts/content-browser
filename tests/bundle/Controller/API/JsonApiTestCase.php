@@ -99,7 +99,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
 
-        /** @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface $backendRegistry */
+        /** @var \Netgen\ContentBrowser\Registry\BackendRegistry $backendRegistry */
         $backendRegistry = $container->get('netgen_content_browser.registry.backend');
 
         $backends = $backendRegistry->getBackends();

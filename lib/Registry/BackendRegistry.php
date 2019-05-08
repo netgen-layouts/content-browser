@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Registry;
 
+use ArrayAccess;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Traversable;
 
-final class BackendRegistry implements BackendRegistryInterface
+final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\ContentBrowser\Backend\BackendInterface[]
@@ -30,11 +33,19 @@ final class BackendRegistry implements BackendRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a backend.
+     */
     public function hasBackend(string $itemType): bool
     {
         return isset($this->backends[$itemType]);
     }
 
+    /**
+     * Returns a backend for provided item type.
+     *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If backend does not exist
+     */
     public function getBackend(string $itemType): BackendInterface
     {
         if (!$this->hasBackend($itemType)) {
@@ -46,6 +57,11 @@ final class BackendRegistry implements BackendRegistryInterface
         return $this->backends[$itemType];
     }
 
+    /**
+     * Returns all backends.
+     *
+     * @return \Netgen\ContentBrowser\Backend\BackendInterface[]
+     */
     public function getBackends(): array
     {
         return $this->backends;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
-use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -18,11 +18,11 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
     private $container;
 
     /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
     private $backendRegistry;
 
-    public function __construct(ContainerInterface $container, BackendRegistryInterface $backendRegistry)
+    public function __construct(ContainerInterface $container, BackendRegistry $backendRegistry)
     {
         $this->container = $container;
         $this->backendRegistry = $backendRegistry;

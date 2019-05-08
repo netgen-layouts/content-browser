@@ -6,7 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\ParamConverter;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\LocationInterface;
-use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 final class LocationParamConverter implements ParamConverterInterface
 {
     /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
     private $backendRegistry;
 
-    public function __construct(BackendRegistryInterface $backendRegistry)
+    public function __construct(BackendRegistry $backendRegistry)
     {
         $this->backendRegistry = $backendRegistry;
     }

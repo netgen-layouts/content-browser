@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Form\Type;
 
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Registry\BackendRegistryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -17,11 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ContentBrowserMultipleType extends AbstractType
 {
     /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistryInterface
+     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
      */
     private $backendRegistry;
 
-    public function __construct(BackendRegistryInterface $backendRegistry)
+    public function __construct(BackendRegistry $backendRegistry)
     {
         $this->backendRegistry = $backendRegistry;
     }
