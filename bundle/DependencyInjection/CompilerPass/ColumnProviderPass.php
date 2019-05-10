@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass;
 
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ColumnProviderPass implements CompilerPassInterface
 {
@@ -32,10 +35,10 @@ final class ColumnProviderPass implements CompilerPassInterface
                     );
                 }
 
-                $valueProviders[$tag['identifier']] = new Reference($serviceName);
+                $valueProviders[$tag['identifier']] = new ServiceClosureArgument(new Reference($serviceName));
             }
         }
 
-        $columnProvider->replaceArgument(2, $valueProviders);
+        $columnProvider->addArgument(new Definition(ServiceLocator::class, [$valueProviders]));
     }
 }

@@ -8,6 +8,7 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
+use Psr\Container\ContainerInterface;
 
 final class ColumnProvider implements ColumnProviderInterface
 {
@@ -22,28 +23,18 @@ final class ColumnProvider implements ColumnProviderInterface
     private $config;
 
     /**
-     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $columnValueProviders;
 
-    /**
-     * @param \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface $itemRenderer
-     * @param \Netgen\ContentBrowser\Config\Configuration $config
-     * @param \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface[] $columnValueProviders
-     */
     public function __construct(
         ItemRendererInterface $itemRenderer,
         Configuration $config,
-        array $columnValueProviders
+        ContainerInterface $columnValueProviders
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
-        $this->columnValueProviders = array_filter(
-            $columnValueProviders,
-            static function (ColumnValueProviderInterface $columnValueProvider): bool {
-                return true;
-            }
-        );
+        $this->columnValueProviders = $columnValueProviders;
     }
 
     public function provideColumns(ItemInterface $item): array
@@ -71,19 +62,27 @@ final class ColumnProvider implements ColumnProviderInterface
             );
         }
 
-        if (!isset($this->columnValueProviders[$columnConfig['value_provider']])) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Column value provider "%s" does not exist',
-                    $columnConfig['value_provider']
-                )
-            );
-        }
-
-        $columnValue = $this
-            ->columnValueProviders[$columnConfig['value_provider']]
-            ->getValue($item);
+        $columnValue = $this->getColumnValueProvider($columnConfig['value_provider'])->getValue($item);
 
         return $columnValue ?? '';
+    }
+
+    /**
+     * Returns the column value provider with provided identifier from the collection.
+     *
+     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If the column value provider does not exist or is not of correct type
+     */
+    private function getColumnValueProvider(string $identifier): ColumnValueProviderInterface
+    {
+        if (!$this->columnValueProviders->has($identifier)) {
+            throw new InvalidArgumentException(sprintf('Column value provider "%s" does not exist.', $identifier));
+        }
+
+        $valueProvider = $this->columnValueProviders->get($identifier);
+        if (!$valueProvider instanceof ColumnValueProviderInterface) {
+            throw new InvalidArgumentException(sprintf('Column value provider "%s" does not exist.', $identifier));
+        }
+
+        return $valueProvider;
     }
 }

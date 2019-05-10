@@ -7,10 +7,12 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
 {
@@ -20,7 +22,7 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $columnProvider = new Definition();
-        $columnProvider->setArguments([null, null, null]);
+        $columnProvider->setArguments([null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
         $columnValueProvider = new Definition();
@@ -32,7 +34,14 @@ final class ColumnProviderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.column_provider',
             2,
-            ['test' => new Reference('netgen_content_browser.column_value_provider.test')]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'test' => new ServiceClosureArgument(new Reference('netgen_content_browser.column_value_provider.test')),
+                    ],
+                ]
+            )
         );
     }
 

@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Tests\Stubs\ColumnValueProvider;
+use Netgen\ContentBrowser\Tests\Stubs\Container;
 use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
@@ -53,10 +54,12 @@ final class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            [
-                'provider' => new ColumnValueProvider(),
-                'invalid' => new InvalidColumnValueProvider(),
-            ]
+            new Container(
+                [
+                    'provider' => new ColumnValueProvider(),
+                    'invalid' => new InvalidColumnValueProvider(),
+                ]
+            )
         );
     }
 
@@ -94,7 +97,7 @@ final class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            []
+            new Container()
         );
 
         $item = new Item();
@@ -123,7 +126,7 @@ final class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            ['other' => new ColumnValueProvider()]
+            new Container(['other' => new ColumnValueProvider()])
         );
 
         $this->columnProvider->provideColumns(new Item());

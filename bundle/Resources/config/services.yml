@@ -141,7 +141,6 @@ services:
         arguments:
             - "@netgen_content_browser.item_renderer"
             - "@netgen_content_browser.current_config"
-            - []
 
     # Form types
 
