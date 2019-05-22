@@ -28,7 +28,7 @@
             </a>
         </div>
 
-        <input type="hidden" class="js-config-name" value="{{ item_type }}" />
+        <input type="hidden" class="js-item-type" value="{{ item_type }}" />
         <input type="hidden" class="js-value" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
     </div>
 {%- endblock -%}
@@ -45,7 +45,7 @@
         data-max_selected="1"
         data-input
     >
-        {{ form_row(form.item_type, {label: false, attr: {class: 'js-config-name'}}) }}
+        {{ form_row(form.item_type, {label: false, attr: {class: 'js-item-type'}}) }}
         {{ form_row(form.item_value, {attr: {class: 'js-value'}}) }}
 
         <div class="input-browse">
@@ -108,7 +108,7 @@
             </div>
         </div>
 
-        <input type="hidden" class="js-config-name" value="{{ item_type }}" />
+        <input type="hidden" class="js-item-type" value="{{ item_type }}" />
 
         <a href="#" class="js-trigger">{{ 'form.add_items'|trans }}</a>
     </div>
