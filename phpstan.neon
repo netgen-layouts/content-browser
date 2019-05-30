@@ -13,4 +13,5 @@ parameters:
             message: '#Call to function method_exists\(\) with Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder and .+ will always evaluate to true.#'
             path: bundle/DependencyInjection/Configuration.php
 
-        - '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
+        - '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
+        - '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
