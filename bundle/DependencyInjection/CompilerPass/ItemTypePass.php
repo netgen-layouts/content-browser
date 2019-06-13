@@ -53,7 +53,7 @@ final class ItemTypePass implements CompilerPassInterface
 
             $container
                 ->register($configServiceName, Configuration::class)
-                ->setPublic(true)
+                ->setPublic(false)
                 ->addArgument($itemType)
                 ->addArgument($itemTypeName)
                 ->addArgument($itemTypeConfig)
