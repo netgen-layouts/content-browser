@@ -1,7 +1,7 @@
 services:
     # Config services
 
-    netgen_content_browser.current_config:
+    netgen_content_browser.config:
         synthetic: true
         public: true
 
@@ -18,8 +18,8 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_backend"
-            - "@netgen_content_browser.current_config"
+            - "@netgen_content_browser.backend"
+            - "@netgen_content_browser.config"
             - "@netgen_content_browser.item_serializer"
             - "@translator"
 
@@ -28,7 +28,7 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
 
     netgen_content_browser.controller.api.load_sub_items:
@@ -36,7 +36,7 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.pager.factory"
             - "%netgen_content_browser.browser.default_limit%"
@@ -46,7 +46,7 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
             - "@netgen_content_browser.pager.factory"
             - "%netgen_content_browser.browser.default_limit%"
@@ -56,7 +56,7 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_config"
+            - "@netgen_content_browser.config"
             - "@netgen_content_browser.item_renderer"
 
     netgen_content_browser.controller.api.load_items_by_value:
@@ -64,7 +64,7 @@ services:
         parent: netgen_content_browser.controller.base
         public: true
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
 
     # Event listeners
@@ -74,16 +74,16 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_content_browser.event_listener.set_current_config:
-        class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
+    netgen_content_browser.event_listener.set_config:
+        class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener
         arguments:
             - "@service_container"
             - "@event_dispatcher"
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_content_browser.event_listener.set_current_backend:
-        class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
+    netgen_content_browser.event_listener.set_backend:
+        class: Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener
         arguments:
             - "@service_container"
             - "@netgen_content_browser.registry.backend"
@@ -118,14 +118,14 @@ services:
 
     # Main services
 
-    netgen_content_browser.current_backend:
+    netgen_content_browser.backend:
         synthetic: true
         public: true
 
     netgen_content_browser.item_serializer:
         class: Netgen\ContentBrowser\Item\Serializer\ItemSerializer
         arguments:
-            - "@netgen_content_browser.current_backend"
+            - "@netgen_content_browser.backend"
             - "@netgen_content_browser.column_provider"
 
     netgen_content_browser.item_renderer:
@@ -140,7 +140,7 @@ services:
         class: Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider
         arguments:
             - "@netgen_content_browser.item_renderer"
-            - "@netgen_content_browser.current_config"
+            - "@netgen_content_browser.config"
 
     # Form types
 

@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class SetCurrentConfigListener implements EventSubscriberInterface
+final class SetConfigListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -39,9 +39,6 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
-    /**
-     * Injects the current config into container.
-     */
     public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
@@ -78,7 +75,7 @@ final class SetCurrentConfigListener implements EventSubscriberInterface
             $this->eventDispatcher->dispatch($configLoadEvent, ContentBrowserEvents::CONFIG_LOAD) :
             $this->eventDispatcher->dispatch(ContentBrowserEvents::CONFIG_LOAD, $configLoadEvent);
 
-        $this->container->set('netgen_content_browser.current_config', $config);
+        $this->container->set('netgen_content_browser.config', $config);
     }
 
     /**

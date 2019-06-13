@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
-use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class SetCurrentConfigListenerTest extends TestCase
+final class SetConfigListenerTest extends TestCase
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -26,7 +26,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     private $container;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener
+     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener
      */
     private $eventListener;
 
@@ -34,15 +34,15 @@ final class SetCurrentConfigListenerTest extends TestCase
     {
         $this->container = new Container();
 
-        $this->eventListener = new SetCurrentConfigListener(
+        $this->eventListener = new SetConfigListener(
             $this->container,
             $this->createMock(EventDispatcherInterface::class)
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -53,8 +53,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequest(): void
     {
@@ -74,13 +74,13 @@ final class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertTrue($this->container->has('netgen_content_browser.current_config'));
-        self::assertSame($config, $this->container->get('netgen_content_browser.current_config'));
+        self::assertTrue($this->container->has('netgen_content_browser.config'));
+        self::assertSame($config, $this->container->get('netgen_content_browser.config'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithCustomParams(): void
     {
@@ -114,13 +114,13 @@ final class SetCurrentConfigListenerTest extends TestCase
         self::assertTrue($config->hasParameter('custom'));
         self::assertSame('value', $config->getParameter('custom'));
 
-        self::assertTrue($this->container->has('netgen_content_browser.current_config'));
-        self::assertSame($config, $this->container->get('netgen_content_browser.current_config'));
+        self::assertTrue($this->container->has('netgen_content_browser.config'));
+        self::assertSame($config, $this->container->get('netgen_content_browser.config'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithNonArrayCustomParams(): void
     {
@@ -146,8 +146,8 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService(): void
     {
@@ -172,7 +172,7 @@ final class SetCurrentConfigListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest(): void
     {
@@ -189,11 +189,11 @@ final class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_config'));
+        self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoItemType(): void
     {
@@ -209,11 +209,11 @@ final class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_config'));
+        self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
@@ -229,12 +229,12 @@ final class SetCurrentConfigListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_config'));
+        self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentConfigListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException(): void
     {

@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class SetCurrentBackendListener implements EventSubscriberInterface
+final class SetBackendListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
@@ -33,9 +33,6 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
-    /**
-     * Injects the current backend into container.
-     */
     public function onKernelRequest(GetResponseEvent $event): void
     {
         if (!$event->isMasterRequest()) {
@@ -52,6 +49,6 @@ final class SetCurrentBackendListener implements EventSubscriberInterface
         }
 
         $backend = $this->backendRegistry->getBackend($attributes->get('itemType'));
-        $this->container->set('netgen_content_browser.current_backend', $backend);
+        $this->container->set('netgen_content_browser.backend', $backend);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
-use Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class SetCurrentBackendListenerTest extends TestCase
+final class SetBackendListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -33,7 +33,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     private $backendRegistry;
 
     /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener
+     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener
      */
     private $eventListener;
 
@@ -44,15 +44,15 @@ final class SetCurrentBackendListenerTest extends TestCase
         $this->container = new Container();
         $this->backendRegistry = new BackendRegistry(['item_type' => $this->backendMock]);
 
-        $this->eventListener = new SetCurrentBackendListener(
+        $this->eventListener = new SetBackendListener(
             $this->container,
             $this->backendRegistry
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -63,7 +63,7 @@ final class SetCurrentBackendListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
      */
     public function testOnKernelRequest(): void
     {
@@ -80,12 +80,12 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertTrue($this->container->has('netgen_content_browser.current_backend'));
-        self::assertSame($this->backendMock, $this->container->get('netgen_content_browser.current_backend'));
+        self::assertTrue($this->container->has('netgen_content_browser.backend'));
+        self::assertSame($this->backendMock, $this->container->get('netgen_content_browser.backend'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest(): void
     {
@@ -102,11 +102,11 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.backend'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoItemType(): void
     {
@@ -122,11 +122,11 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.backend'));
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetCurrentBackendListener::onKernelRequest
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
      */
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
@@ -142,6 +142,6 @@ final class SetCurrentBackendListenerTest extends TestCase
 
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($this->container->has('netgen_content_browser.current_backend'));
+        self::assertFalse($this->container->has('netgen_content_browser.backend'));
     }
 }
