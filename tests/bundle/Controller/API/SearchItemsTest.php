@@ -30,11 +30,11 @@ final class SearchItemsTest extends JsonApiTestCase
             ->method('searchCount')
             ->willReturn(2);
 
-        $this->client->request('GET', '/cb/api/v1/test/search?searchText=test');
+        $this->client->request('GET', '/cb/api/test/search?searchText=test');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/search/result',
+            'search/result',
             Response::HTTP_OK
         );
     }
@@ -44,11 +44,11 @@ final class SearchItemsTest extends JsonApiTestCase
      */
     public function testSearchItemsWithEmptySearchText(): void
     {
-        $this->client->request('GET', '/cb/api/v1/test/search?searchText=');
+        $this->client->request('GET', '/cb/api/test/search?searchText=');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/search/empty_result',
+            'search/empty_result',
             Response::HTTP_OK
         );
     }
@@ -58,11 +58,11 @@ final class SearchItemsTest extends JsonApiTestCase
      */
     public function testSearchItemsWithMissingSearchText(): void
     {
-        $this->client->request('GET', '/cb/api/v1/test/search');
+        $this->client->request('GET', '/cb/api/test/search');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/search/empty_result',
+            'search/empty_result',
             Response::HTTP_OK
         );
     }

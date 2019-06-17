@@ -25,11 +25,11 @@ final class LoadItemsByValueTest extends JsonApiTestCase
             ->method('loadItem')
             ->willReturn(new Item(43, 'Item 43'));
 
-        $this->client->request('GET', '/cb/api/v1/test/values?values=42,43');
+        $this->client->request('GET', '/cb/api/test/values?values=42,43');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/items/result',
+            'items/result',
             Response::HTTP_OK
         );
     }
@@ -39,7 +39,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
      */
     public function testLoadItemsByValueWithInvalidValuesList(): void
     {
-        $this->client->request('GET', '/cb/api/v1/test/values?values=');
+        $this->client->request('GET', '/cb/api/test/values?values=');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -53,7 +53,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
      */
     public function testLoadItemsByValueWithMissingValuesList(): void
     {
-        $this->client->request('GET', '/cb/api/v1/test/values');
+        $this->client->request('GET', '/cb/api/test/values');
 
         $this->assertException(
             $this->client->getResponse(),

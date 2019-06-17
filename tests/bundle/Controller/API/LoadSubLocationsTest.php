@@ -34,11 +34,11 @@ final class LoadSubLocationsTest extends JsonApiTestCase
                 ]
             );
 
-        $this->client->request('GET', '/cb/api/v1/test/browse/41/locations');
+        $this->client->request('GET', '/cb/api/test/browse/41/locations');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/browse/locations',
+            'browse/locations',
             Response::HTTP_OK
         );
     }

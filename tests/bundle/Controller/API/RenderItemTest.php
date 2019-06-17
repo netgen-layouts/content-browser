@@ -51,7 +51,7 @@ final class RenderItemTest extends JsonApiTestCase
             )
         );
 
-        $this->client->request('GET', '/cb/api/v1/test/render/42');
+        $this->client->request('GET', '/cb/api/test/render/42');
 
         $response = $this->client->getResponse();
 
@@ -96,7 +96,7 @@ final class RenderItemTest extends JsonApiTestCase
             )
         );
 
-        $this->client->request('GET', '/cb/api/v1/test/render/42');
+        $this->client->request('GET', '/cb/api/test/render/42');
 
         $response = $this->client->getResponse();
 
@@ -116,7 +116,7 @@ final class RenderItemTest extends JsonApiTestCase
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException('Item does not exist.'));
 
-        $this->client->request('GET', '/cb/api/v1/test/render/42');
+        $this->client->request('GET', '/cb/api/test/render/42');
 
         $this->assertException(
             $this->client->getResponse(),

@@ -1,6 +1,6 @@
-ngcb_api_v1:
-    resource: "routing/api_v1.yml"
-    prefix: /api/v1
+ngcb_api:
+    resource: "routing/api.yml"
+    prefix: /api
 
 ngcb_root:
     path: /

@@ -1,34 +1,34 @@
-ngcb_api_v1_config:
+ngcb_api_config:
     path: /{itemType}/config
     methods: [GET]
     defaults:
         _controller: 'netgen_content_browser.controller.api.load_config'
 
-ngcb_api_v1_browse_locations:
+ngcb_api_browse_locations:
     path: /{itemType}/browse/{locationId}/locations
     methods: [GET]
     defaults:
         _controller: 'netgen_content_browser.controller.api.load_sub_locations'
 
-ngcb_api_v1_browse_items:
+ngcb_api_browse_items:
     path: /{itemType}/browse/{locationId}/items
     methods: [GET]
     defaults:
         _controller: 'netgen_content_browser.controller.api.load_sub_items'
 
-ngcb_api_v1_item_render:
+ngcb_api_item_render:
     path: /{itemType}/render/{itemValue}
     methods: [GET]
     defaults:
         _controller: 'netgen_content_browser.controller.api.render_item'
 
-ngcb_api_v1_item_values:
+ngcb_api_item_values:
     path: /{itemType}/values
     methods: [GET]
     defaults:
         _controller: 'netgen_content_browser.controller.api.load_items_by_value'
 
-ngcb_api_v1_search:
+ngcb_api_search:
     path: /{itemType}/search
     methods: [GET]
     defaults:

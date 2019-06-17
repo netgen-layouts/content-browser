@@ -41,7 +41,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $request->attributes->set('_route', 'ngcb_api_v1_config');
+        $request->attributes->set('_route', 'ngcb_api_config');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->eventListener->onKernelRequest($event);

@@ -50,11 +50,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ]
             );
 
-        $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
+        $this->client->request('GET', '/cb/api/test/browse/41/items');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/browse/items',
+            'browse/items',
             Response::HTTP_OK
         );
     }
@@ -96,11 +96,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ]
             );
 
-        $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
+        $this->client->request('GET', '/cb/api/test/browse/41/items');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/browse/items_as_locations',
+            'browse/items_as_locations',
             Response::HTTP_OK
         );
     }
@@ -142,11 +142,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ]
             );
 
-        $this->client->request('GET', '/cb/api/v1/test/browse/41/items');
+        $this->client->request('GET', '/cb/api/test/browse/41/items');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/browse/items_with_missing_parent',
+            'browse/items_with_missing_parent',
             Response::HTTP_OK
         );
     }

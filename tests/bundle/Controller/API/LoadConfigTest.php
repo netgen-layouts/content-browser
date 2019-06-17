@@ -26,11 +26,11 @@ final class LoadConfigTest extends JsonApiTestCase
                 ]
             );
 
-        $this->client->request('GET', '/cb/api/v1/test/config');
+        $this->client->request('GET', '/cb/api/test/config');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/config/result',
+            'config/result',
             Response::HTTP_OK
         );
     }

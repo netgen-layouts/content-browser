@@ -34,7 +34,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->mockBackend($clientContainer);
         $this->mockItemRenderer($clientContainer);
 
-        $this->expectedResponsesPath = __DIR__ . '/responses/expected';
+        $this->expectedResponsesPath = __DIR__ . '/_responses/expected';
     }
 
     protected function tearDown(): void
