@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<psalm
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="bundle" />
+        <directory name="lib" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- Symfony BC layer -->
+
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
+            </errorLevel>
+        </InvalidArgument>
+
+        <TooManyArguments>
+            <errorLevel type="suppress">
+                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
+            </errorLevel>
+        </TooManyArguments>
+
+        <!-- Pagerfanta -->
+
+        <InvalidReturnType>
+            <errorLevel type="suppress">
+                <directory name="lib/Pager" />
+            </errorLevel>
+        </InvalidReturnType>
+
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+
+        <InvalidDocblock errorLevel="info" />
+        <DeprecatedClass errorLevel="info" />
+        <DeprecatedMethod errorLevel="info" />
+        <MissingPropertyType errorLevel="info" />
+        <PropertyNotSetInConstructor errorLevel="info" />
+    </issueHandlers>
+</psalm>

@@ -91,12 +91,13 @@ final class LoadSubItems extends AbstractController
                 'name' => $location->getName(),
             ];
 
-            if ($location->getParentId() === null) {
+            $parentId = $location->getParentId();
+            if ($parentId === null) {
                 break;
             }
 
             try {
-                $location = $this->backend->loadLocation($location->getParentId());
+                $location = $this->backend->loadLocation($parentId);
             } catch (NotFoundException $e) {
                 break;
             }

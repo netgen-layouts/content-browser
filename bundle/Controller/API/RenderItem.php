@@ -36,8 +36,9 @@ final class RenderItem extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
         $renderedItem = '';
-        if ($this->config->hasPreview() && is_string($this->config->getTemplate())) {
-            $renderedItem = $this->itemRenderer->renderItem($item, $this->config->getTemplate());
+        $template = $this->config->getTemplate();
+        if (is_string($template) && $this->config->hasPreview()) {
+            $renderedItem = $this->itemRenderer->renderItem($item, $template);
         }
 
         return new Response($renderedItem);

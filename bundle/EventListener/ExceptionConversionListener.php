@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
+use Exception;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
@@ -70,7 +71,9 @@ final class ExceptionConversionListener implements EventSubscriberInterface
                 $exception->getCode()
             );
 
-            $event->setException($convertedException);
+            if ($convertedException instanceof Exception) {
+                $event->setException($convertedException);
+            }
         }
     }
 }
