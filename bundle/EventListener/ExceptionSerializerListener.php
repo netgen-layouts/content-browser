@@ -73,10 +73,10 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
         if ($this->outputDebugInfo) {
             $debugException = $exception->getPrevious() ?? $exception;
-            if ($debugException instanceof Exception) {
-                $debugException = class_exists(ErrorCatcherFlattenException::class) ?
-                    ErrorCatcherFlattenException::createFromThrowable($debugException) :
-                    DebugFlattenException::create($debugException);
+            if (class_exists(ErrorCatcherFlattenException::class)) {
+                $debugException = ErrorCatcherFlattenException::createFromThrowable($debugException);
+            } elseif ($debugException instanceof Exception) {
+                $debugException = DebugFlattenException::create($debugException);
             }
 
             $data['debug'] = [
