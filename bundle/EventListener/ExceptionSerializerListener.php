@@ -7,7 +7,8 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
+use Symfony\Component\ErrorCatcher\Exception\FlattenException as ErrorCatcherFlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,7 +74,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
         if ($this->outputDebugInfo) {
             $debugException = $exception->getPrevious() ?? $exception;
             if ($debugException instanceof Exception) {
-                $debugException = FlattenException::create($debugException);
+                $debugException = class_exists(ErrorCatcherFlattenException::class) ?
+                    ErrorCatcherFlattenException::createFromThrowable($debugException) :
+                    DebugFlattenException::create($debugException);
             }
 
             $data['debug'] = [
