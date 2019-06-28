@@ -15,3 +15,4 @@ parameters:
 
         - '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
         - '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
+        - '#Symfony\\Component\\ErrorCatcher\\Exception\\FlattenException#'
