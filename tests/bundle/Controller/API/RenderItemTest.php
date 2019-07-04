@@ -51,6 +51,7 @@ final class RenderItemTest extends JsonApiTestCase
             )
         );
 
+        $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
         $this->client->request('GET', '/cb/api/test/render/42');
 
         $response = $this->client->getResponse();
@@ -96,6 +97,7 @@ final class RenderItemTest extends JsonApiTestCase
             )
         );
 
+        $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
         $this->client->request('GET', '/cb/api/test/render/42');
 
         $response = $this->client->getResponse();
