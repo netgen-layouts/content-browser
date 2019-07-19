@@ -8,7 +8,7 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
-use Symfony\Component\ErrorCatcher\Exception\FlattenException as ErrorCatcherFlattenException;
+use Symfony\Component\ErrorRenderer\Exception\FlattenException as ErrorRendererFlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,8 +73,8 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
         if ($this->outputDebugInfo) {
             $debugException = $exception->getPrevious() ?? $exception;
-            if (class_exists(ErrorCatcherFlattenException::class)) {
-                $debugException = ErrorCatcherFlattenException::createFromThrowable($debugException);
+            if (class_exists(ErrorRendererFlattenException::class)) {
+                $debugException = ErrorRendererFlattenException::createFromThrowable($debugException);
             } elseif ($debugException instanceof Exception) {
                 $debugException = DebugFlattenException::create($debugException);
             }
