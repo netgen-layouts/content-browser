@@ -52,7 +52,7 @@
         "franzl/studio": "*"
     },
     "conflict": {
-        "ocramius/proxy-manager": "<2.1"
+        "ocramius/proxy-manager": "<2.2"
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
