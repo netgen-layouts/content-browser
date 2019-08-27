@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
@@ -24,9 +24,7 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder($this->extension->getAlias());
-        $rootNode = method_exists($treeBuilder, 'getRootNode') ?
-            $treeBuilder->getRootNode() :
-            $treeBuilder->root($this->extension->getAlias());
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode->children()
             ->arrayNode('item_types')

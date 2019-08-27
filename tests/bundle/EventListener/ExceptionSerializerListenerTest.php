@@ -82,7 +82,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ],
-            json_decode($event->getResponse()->getContent(), true)
+            json_decode((string) $event->getResponse()->getContent(), true)
         );
     }
 
@@ -121,7 +121,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ],
-            json_decode($event->getResponse()->getContent(), true)
+            json_decode((string) $event->getResponse()->getContent(), true)
         );
     }
 
@@ -152,7 +152,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $event->getResponse()
         );
 
-        $data = json_decode($event->getResponse()->getContent(), true);
+        $data = json_decode((string) $event->getResponse()->getContent(), true);
 
         self::assertIsArray($data);
         self::assertArrayHasKey('code', $data);

@@ -27,6 +27,12 @@
             </errorLevel>
         </TooManyArguments>
 
+        <PossiblyUndefinedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
+            </errorLevel>
+        </PossiblyUndefinedMethod>
+
         <!-- Pagerfanta -->
 
         <InvalidReturnType>
