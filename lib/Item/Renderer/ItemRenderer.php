@@ -45,7 +45,8 @@ final class ItemRenderer implements ItemRendererInterface
                     'An error occurred while rendering an item with "%s" value: %s',
                     $item->getValue(),
                     $t->getMessage()
-                )
+                ),
+                ['error' => $t]
             );
         }
 
