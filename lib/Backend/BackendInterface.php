@@ -14,7 +14,7 @@ interface BackendInterface
      *
      * @return iterable&\Netgen\ContentBrowser\Item\LocationInterface[]
      */
-    public function getSections(): iterable;
+    public function getSections() : iterable;
 
     /**
      * Loads a  location by its ID.
