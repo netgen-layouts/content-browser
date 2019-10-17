@@ -1,6 +1,4 @@
-ngcb_api:
-    resource: "routing/api.yml"
-    prefix: /api
+# Deprecated, use routing.yaml file instead
 
-ngcb_root:
-    path: /
+netgen_content_browser_yaml:
+    resource: "routing.yaml"

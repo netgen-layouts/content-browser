@@ -29,7 +29,7 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
             new FileLocator(__DIR__ . '/../Resources/config')
         );
 
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -39,9 +39,9 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
             new FileLocator(__DIR__ . '/../Resources/config')
         );
 
-        $loader->load('default_settings.yml');
+        $loader->load('default_settings.yaml');
 
-        $this->doPrepend($container, 'framework/twig.yml', 'twig');
+        $this->doPrepend($container, 'framework/twig.yaml', 'twig');
     }
 
     /**

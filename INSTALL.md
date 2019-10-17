@@ -25,12 +25,11 @@ return $bundles;
 
 ## Activate the routes
 
-Add the following to your main `routing.yml` file to activate Content Browser
-routes:
+Add the following to your main routing file to activate Content Browser routes:
 
 ```
 netgen_content_browser:
-    resource: "@NetgenContentBrowserBundle/Resources/config/routing.yml"
+    resource: "@NetgenContentBrowserBundle/Resources/config/routing.yaml"
     prefix: "%netgen_content_browser.route_prefix%"
 ```
 
