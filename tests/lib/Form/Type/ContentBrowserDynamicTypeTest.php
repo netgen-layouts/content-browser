@@ -168,7 +168,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     public function testConfigureOptionsWithInvalidItemTypesItem(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "item_types" with value array is expected to be of type "string[]", but one of the elements is of type "integer[]".');
+        $this->expectExceptionMessage('The option "item_types" with value array is expected to be of type "string[]", but one of the elements is of type "integer".');
 
         $optionsResolver = new OptionsResolver();
 
