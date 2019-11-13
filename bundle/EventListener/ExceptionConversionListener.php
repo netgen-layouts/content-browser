@@ -17,6 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Throwable;
 
 final class ExceptionConversionListener implements EventSubscriberInterface
 {
@@ -50,7 +51,8 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $event->getException();
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
+        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
         if ($exception instanceof HttpExceptionInterface) {
             return;
         }
@@ -71,7 +73,12 @@ final class ExceptionConversionListener implements EventSubscriberInterface
                 $exception->getCode()
             );
 
-            if ($convertedException instanceof Exception) {
+            // @deprecated Remove the call to setException when support for Symfony 3.4 ends
+            if (method_exists($event, 'setThrowable')) {
+                if ($convertedException instanceof Throwable) {
+                    $event->setThrowable($convertedException);
+                }
+            } elseif ($convertedException instanceof Exception) {
                 $event->setException($convertedException);
             }
         }
