@@ -84,8 +84,6 @@
         </div>
     {% endmacro %}
 
-    {% import _self as self %}
-
     <div
         class="js-multiple-browse {% if form is empty %}items-empty{% endif %}"
         data-disabled="{% if form.vars.disabled %}true{% else %}false{% endif %}"
@@ -95,12 +93,12 @@
         {% endfor %}
         {% if min is not null %} data-min_selected="{{ min }}" {% endif %}
         {% if max is not null %} data-max_selected="{{ max }}" {% endif %}
-        data-browser-prototype="{{ self.prototype(form.vars.prototype, items)|e }}"
+        data-browser-prototype="{{ _self.prototype(form.vars.prototype, items)|e }}"
         data-input
     >
         <div class="items">
             {% for child in form %}
-                {{ self.prototype(child, items) }}
+                {{ _self.prototype(child, items) }}
             {% endfor %}
 
             <div class="no-items">
