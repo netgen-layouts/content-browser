@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
@@ -93,21 +94,21 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * Logs all critical errors.
      */
-    private function logException(Exception $exception): void
+    private function logException(Throwable $error): void
     {
-        if ($exception instanceof HttpExceptionInterface && $exception->getStatusCode() < 500) {
+        if ($error instanceof HttpExceptionInterface && $error->getStatusCode() < 500) {
             return;
         }
 
         $this->logger->critical(
             sprintf(
-                'Uncaught PHP Exception %s: "%s" at %s line %s',
-                get_class($exception),
-                $exception->getMessage(),
-                $exception->getFile(),
-                $exception->getLine()
+                'Uncaught PHP error %s: "%s" at %s line %s',
+                get_class($error),
+                $error->getMessage(),
+                $error->getFile(),
+                $error->getLine()
             ),
-            ['exception' => $exception]
+            ['error' => $error]
         );
     }
 }

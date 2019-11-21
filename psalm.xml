@@ -33,6 +33,13 @@
             </errorLevel>
         </PossiblyUndefinedMethod>
 
+        <RedundantCondition>
+            <errorLevel type="suppress">
+                <file name="bundle/EventListener/ExceptionSerializerListener.php" />
+                <file name="bundle/EventListener/ExceptionConversionListener.php" />
+            </errorLevel>
+        </RedundantCondition>
+
         <!-- Pagerfanta -->
 
         <InvalidReturnType>
