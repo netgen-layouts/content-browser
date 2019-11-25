@@ -35,7 +35,7 @@
         "symfony/yaml": "^3.4.33 || ^4.4",
         "twig/twig": "^2.11 || ^3.0",
         "sensio/framework-extra-bundle": "^5.3",
-        "white-october/pagerfanta-bundle": "^1.2.4",
+        "pagerfanta/pagerfanta": "^2.1",
         "jean85/pretty-package-versions": "^1.2"
     },
     "require-dev": {
