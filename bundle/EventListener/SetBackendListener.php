@@ -7,7 +7,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetBackendListener implements EventSubscriberInterface
@@ -33,7 +32,10 @@ final class SetBackendListener implements EventSubscriberInterface
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

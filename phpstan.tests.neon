@@ -3,12 +3,16 @@ includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
+
 parameters:
     excludes_analyse:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
 
     ignoreErrors:
-        # Compatibility with Symfony 4.4
+        # Compatibility with Symfony 3.4
 
-        - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent not found.#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent not found.#'
+        - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
+        - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'

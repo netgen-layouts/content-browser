@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
-use Exception;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -17,10 +16,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Throwable;
 
 final class ExceptionConversionListener implements EventSubscriberInterface
 {
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var array
      */
@@ -39,8 +39,10 @@ final class ExceptionConversionListener implements EventSubscriberInterface
 
     /**
      * Converts exceptions to Symfony HTTP exceptions.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event): void
+    public function onException($event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -51,8 +53,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $exception = $this->getThrowable($event);
         if ($exception instanceof HttpExceptionInterface) {
             return;
         }
@@ -67,20 +68,14 @@ final class ExceptionConversionListener implements EventSubscriberInterface
         }
 
         if ($exceptionClass !== null) {
+            /** @var \Throwable $convertedException */
             $convertedException = new $exceptionClass(
                 $exception->getMessage(),
                 $exception,
                 $exception->getCode()
             );
 
-            // @deprecated Remove the call to setException when support for Symfony 3.4 ends
-            if (method_exists($event, 'setThrowable')) {
-                if ($convertedException instanceof Throwable) {
-                    $event->setThrowable($convertedException);
-                }
-            } elseif ($convertedException instanceof Exception) {
-                $event->setException($convertedException);
-            }
+            $this->setThrowable($event, $convertedException);
         }
     }
 }

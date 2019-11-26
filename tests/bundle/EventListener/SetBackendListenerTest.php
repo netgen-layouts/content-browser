@@ -8,15 +8,17 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetBackendListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -72,7 +74,7 @@ final class SetBackendListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -94,7 +96,7 @@ final class SetBackendListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST
@@ -114,7 +116,7 @@ final class SetBackendListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -134,7 +136,7 @@ final class SetBackendListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST

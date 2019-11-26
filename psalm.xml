@@ -40,6 +40,26 @@
             </errorLevel>
         </RedundantCondition>
 
+        <DuplicateClass>
+            <errorLevel type="suppress">
+                <file name="lib/Utils/BackwardsCompatibility/Event.php" />
+                <file name="lib/Utils/BackwardsCompatibility/TranslatorInterface.php" />
+            </errorLevel>
+        </DuplicateClass>
+
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Debug\Exception\FlattenException" />
+            </errorLevel>
+        </UndefinedClass>
+
+        <DeprecatedTrait>
+            <errorLevel type="suppress">
+                <file name="bundle/EventListener/ExceptionConversionListener.php" />
+                <file name="bundle/EventListener/ExceptionSerializerListener.php" />
+            </errorLevel>
+        </DeprecatedTrait>
+
         <!-- Pagerfanta -->
 
         <InvalidReturnType>

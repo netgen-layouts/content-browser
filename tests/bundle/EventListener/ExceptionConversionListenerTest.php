@@ -10,10 +10,11 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
+use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -25,6 +26,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 final class ExceptionConversionListenerTest extends TestCase
 {
+    use CreateEventTrait;
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
      */
@@ -56,7 +60,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -64,15 +68,9 @@ final class ExceptionConversionListenerTest extends TestCase
         );
 
         $this->eventListener->onException($event);
+        $eventException = $this->getThrowable($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
-
-        self::assertInstanceOf(
-            $convertedClass,
-            $eventException
-        );
-
+        self::assertInstanceOf($convertedClass, $eventException);
         self::assertSame($exception->getMessage(), $eventException->getMessage());
         self::assertSame($exception->getCode(), $eventException->getCode());
 
@@ -95,7 +93,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new Exception('Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -103,9 +101,7 @@ final class ExceptionConversionListenerTest extends TestCase
         );
 
         $this->eventListener->onException($event);
-
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertSame($exception, $eventException);
     }
@@ -120,7 +116,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new NotFoundException('Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -128,9 +124,7 @@ final class ExceptionConversionListenerTest extends TestCase
         );
 
         $this->eventListener->onException($event);
-
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertSame($exception, $eventException);
     }
@@ -144,7 +138,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $exception = new NotFoundException('Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -152,9 +146,7 @@ final class ExceptionConversionListenerTest extends TestCase
         );
 
         $this->eventListener->onException($event);
-
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertSame($exception, $eventException);
     }

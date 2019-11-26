@@ -7,9 +7,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Translation\TranslatorInterface;
 
 final class LoadConfig extends AbstractController
 {
@@ -29,7 +29,7 @@ final class LoadConfig extends AbstractController
     private $itemSerializer;
 
     /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var \Netgen\ContentBrowser\Utils\BackwardsCompatibility\TranslatorInterface
      */
     private $translator;
 

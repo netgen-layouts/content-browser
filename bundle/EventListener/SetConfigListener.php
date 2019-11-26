@@ -12,7 +12,6 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -39,7 +38,10 @@ final class SetConfigListener implements EventSubscriberInterface
         return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Exception;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
-use Symfony\Component\ErrorRenderer\Exception\FlattenException as ErrorRendererFlattenException;
+use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var bool
      */
@@ -43,8 +45,10 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
     /**
      * Serializes the exception.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event): void
+    public function onException($event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -55,9 +59,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
-
+        $exception = $this->getThrowable($event);
         $this->logException($exception);
 
         $data = [
@@ -75,9 +77,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
         if ($this->outputDebugInfo) {
             $debugException = $exception->getPrevious() ?? $exception;
-            if (class_exists(ErrorRendererFlattenException::class)) {
-                $debugException = ErrorRendererFlattenException::createFromThrowable($debugException);
-            } elseif ($debugException instanceof Exception) {
+            if (class_exists(ErrorHandlerFlattenException::class)) {
+                $debugException = ErrorHandlerFlattenException::createFromThrowable($debugException);
+            } elseif ($debugException instanceof Exception && class_exists(DebugFlattenException::class)) {
                 $debugException = DebugFlattenException::create($debugException);
             }
 

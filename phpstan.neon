@@ -9,14 +9,21 @@ parameters:
             path: bundle/DependencyInjection/Configuration.php
 
         # Compatibility with Symfony 3.4
+
         -
-            message: '#Call to function is_callable\(\) with .+ will always evaluate to false.#'
+            message: '#Call to an undefined method Netgen\\ContentBrowser\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
 
-        - '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
-        - '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
-        - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
+        -
+            message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
+            path: bundle/EventListener/SetConfigListener.php
 
-        # Compatibility with Symfony 4.4
+        -
+            message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given/'
+            path: bundle/EventListener/SetConfigListener.php
 
-        - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
+        - '#Symfony\\Component\\EventDispatcher\\Event#'
+        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\Translation\\TranslatorInterface#'
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"

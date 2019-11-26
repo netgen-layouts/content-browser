@@ -9,17 +9,19 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetConfigListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -63,7 +65,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -91,7 +93,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set('itemType', 'item_type');
         $request->query->set('customParams', ['custom' => 'value', 'two' => 'override']);
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -134,7 +136,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set('itemType', 'item_type');
         $request->query->set('customParams', 'custom');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -159,7 +161,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -181,7 +183,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST
@@ -201,7 +203,7 @@ final class SetConfigListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -221,7 +223,7 @@ final class SetConfigListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
@@ -246,7 +248,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'unknown');
 
-        $event = new GetResponseEvent(
+        $event = $this->createRequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST
