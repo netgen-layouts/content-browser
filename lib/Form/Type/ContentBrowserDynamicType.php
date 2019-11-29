@@ -127,6 +127,10 @@ final class ContentBrowserDynamicType extends AbstractType
 
     /**
      * Returns the enabled item types based on provided list.
+     *
+     * @param string[] $itemTypes
+     *
+     * @return string[]
      */
     private function getEnabledItemTypes(array $itemTypes): array
     {

@@ -30,7 +30,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => true,
                 'template' => 'template.html.twig',
             ],
-            'columns' => ['columns'],
+            'columns' => ['column' => ['column_value']],
             'default_columns' => ['column1', 'column2'],
         ];
 
@@ -173,7 +173,7 @@ final class ConfigurationTest extends TestCase
      */
     public function testGetColumns(): void
     {
-        self::assertSame(['columns'], $this->config->getColumns());
+        self::assertSame(['column' => ['column_value']], $this->config->getColumns());
     }
 
     /**

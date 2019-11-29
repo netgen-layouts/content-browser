@@ -80,6 +80,8 @@ final class LoadSubItems extends AbstractController
 
     /**
      * Builds the path array for specified item.
+     *
+     * @return array<array<string, mixed>>
      */
     private function buildPath(LocationInterface $location): array
     {

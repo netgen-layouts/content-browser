@@ -68,6 +68,12 @@
             </errorLevel>
         </InvalidReturnType>
 
+        <ImplementedReturnTypeMismatch>
+            <errorLevel type="suppress">
+                <directory name="lib/Pager" />
+            </errorLevel>
+        </ImplementedReturnTypeMismatch>
+
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
         <InvalidDocblock errorLevel="info" />

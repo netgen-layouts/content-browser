@@ -9,12 +9,12 @@ use Symfony\Component\DependencyInjection\Container;
 class MockerContainer extends Container
 {
     /**
-     * @var array
+     * @var array<string, object>
      */
     private $originalServices = [];
 
     /**
-     * @var array
+     * @var array<string, object>
      */
     private $mockedServices = [];
 
@@ -34,6 +34,9 @@ class MockerContainer extends Container
         unset($this->originalServices[$id], $this->mockedServices[$id]);
     }
 
+    /**
+     * @return array<string, object>
+     */
     public function getMockedServices(): array
     {
         return $this->mockedServices;

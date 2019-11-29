@@ -19,15 +19,19 @@ final class Configuration
     private $itemName;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $config;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $parameters;
 
+    /**
+     * @param array<string, mixed> $config
+     * @param array<string, mixed> $parameters
+     */
     public function __construct(
         string $itemType,
         string $itemName,
@@ -80,11 +84,17 @@ final class Configuration
         return $this->config['preview']['template'] ?? null;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getColumns(): array
     {
         return $this->config['columns'] ?? [];
     }
 
+    /**
+     * @return string[]
+     */
     public function getDefaultColumns(): array
     {
         return $this->config['default_columns'] ?? [];
@@ -99,6 +109,9 @@ final class Configuration
         $this->parameters[$name] = $value;
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function addParameters(array $parameters): void
     {
         $this->parameters = $parameters + $this->parameters;
@@ -128,6 +141,9 @@ final class Configuration
         return $this->parameters[$name];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getParameters(): array
     {
         return $this->parameters;

@@ -30,6 +30,12 @@ final class ItemSearchAdapter implements AdapterInterface
         return $this->backend->searchCount($this->searchText);
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
+     */
     public function getSlice($offset, $length)
     {
         return $this->backend->search($this->searchText, $offset, $length);

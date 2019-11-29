@@ -7,21 +7,24 @@ namespace Netgen\ContentBrowser\Registry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
+use Iterator;
 use IteratorAggregate;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Backend\BackendInterface>
+ */
 final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface[]
+     * @var array<string, \Netgen\ContentBrowser\Backend\BackendInterface>
      */
     private $backends;
 
     /**
-     * @param \Netgen\ContentBrowser\Backend\BackendInterface[] $backends
+     * @param array<string, \Netgen\ContentBrowser\Backend\BackendInterface> $backends
      */
     public function __construct(array $backends)
     {
@@ -60,14 +63,17 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Returns all backends.
      *
-     * @return \Netgen\ContentBrowser\Backend\BackendInterface[]
+     * @return array<string, \Netgen\ContentBrowser\Backend\BackendInterface>
      */
     public function getBackends(): array
     {
         return $this->backends;
     }
 
-    public function getIterator(): Traversable
+    /**
+     * @return \Iterator<string, \Netgen\ContentBrowser\Backend\BackendInterface>
+     */
+    public function getIterator(): Iterator
     {
         return new ArrayIterator($this->backends);
     }

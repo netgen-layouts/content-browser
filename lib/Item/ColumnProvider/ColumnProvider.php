@@ -51,6 +51,8 @@ final class ColumnProvider implements ColumnProviderInterface
     /**
      * Provides the column with specified identifier for selected item.
      *
+     * @param mixed[] $columnConfig
+     *
      * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If value provider for the column does not exist
      */
     private function provideColumn(ItemInterface $item, array $columnConfig): string

@@ -7,21 +7,24 @@ namespace Netgen\ContentBrowser\Registry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
+use Iterator;
 use IteratorAggregate;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>
+ */
 final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\ContentBrowser\Config\Configuration[]
+     * @var array<string, \Netgen\ContentBrowser\Config\Configuration>
      */
     private $configs;
 
     /**
-     * @param \Netgen\ContentBrowser\Config\Configuration[] $configs
+     * @param array<string, \Netgen\ContentBrowser\Config\Configuration> $configs
      */
     public function __construct(array $configs)
     {
@@ -60,14 +63,17 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Returns all configs.
      *
-     * @return \Netgen\ContentBrowser\Config\Configuration[]
+     * @return array<string, \Netgen\ContentBrowser\Config\Configuration>
      */
     public function getConfigs(): array
     {
         return $this->configs;
     }
 
-    public function getIterator(): Traversable
+    /**
+     * @return \Iterator<string, \Netgen\ContentBrowser\Config\Configuration>
+     */
+    public function getIterator(): Iterator
     {
         return new ArrayIterator($this->configs);
     }

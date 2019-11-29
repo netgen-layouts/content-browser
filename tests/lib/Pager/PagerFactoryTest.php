@@ -36,7 +36,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\ContentBrowser\Pager\PagerFactory::__construct
      * @covers \Netgen\ContentBrowser\Pager\PagerFactory::buildPager
      *
-     * @dataProvider buildPagerProvider
+     * @dataProvider buildPagerDataProvider
      */
     public function testBuildPager(int $page, int $limit, int $currentPage, int $maxPerPage): void
     {
@@ -51,7 +51,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($currentPage, $pager->getCurrentPage());
     }
 
-    public function buildPagerProvider(): array
+    public function buildPagerDataProvider(): array
     {
         return [
             [5, 20, 5, 20],

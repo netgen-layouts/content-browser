@@ -74,6 +74,8 @@ final class LoadConfig extends AbstractController
 
     /**
      * Returns the list of available columns from configuration.
+     *
+     * @return array<array<string, string>>
      */
     private function getAvailableColumns(): array
     {

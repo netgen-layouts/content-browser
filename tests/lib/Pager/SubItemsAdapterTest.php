@@ -6,6 +6,7 @@ namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pager\SubItemsAdapter;
+use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\TestCase;
 
@@ -54,6 +55,8 @@ final class SubItemsAdapterTest extends TestCase
      */
     public function testGetSlice(): void
     {
+        $items = [new Item(1), new Item(2), new Item(3)];
+
         $this->backendMock
             ->expects(self::once())
             ->method('getSubItems')
@@ -62,8 +65,8 @@ final class SubItemsAdapterTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(10)
             )
-            ->willReturn([1, 2, 3]);
+            ->willReturn($items);
 
-        self::assertSame([1, 2, 3], $this->adapter->getSlice(5, 10));
+        self::assertSame($items, $this->adapter->getSlice(5, 10));
     }
 }

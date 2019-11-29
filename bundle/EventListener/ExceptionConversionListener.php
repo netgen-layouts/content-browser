@@ -22,7 +22,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
     use ExceptionEventThrowableTrait;
 
     /**
-     * @var array
+     * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpException>>
      */
     private $exceptionMap = [
         NotFoundException::class => NotFoundHttpException::class,
@@ -68,7 +68,6 @@ final class ExceptionConversionListener implements EventSubscriberInterface
         }
 
         if ($exceptionClass !== null) {
-            /** @var \Throwable $convertedException */
             $convertedException = new $exceptionClass(
                 $exception->getMessage(),
                 $exception,

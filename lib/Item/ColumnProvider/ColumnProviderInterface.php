@@ -10,6 +10,8 @@ interface ColumnProviderInterface
 {
     /**
      * Provides the columns for selected item.
+     *
+     * @return array<string, string>
      */
     public function provideColumns(ItemInterface $item): array;
 }
