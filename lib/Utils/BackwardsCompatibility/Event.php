@@ -14,7 +14,7 @@ if (class_exists(ContractsEvent::class)) {
     abstract class Event extends ContractsEvent
     {
     }
-} elseif (class_exists(LegacyEvent::class)) {
+} else {
     abstract class Event extends LegacyEvent
     {
     }
