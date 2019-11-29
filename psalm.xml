@@ -43,7 +43,6 @@
         <DuplicateClass>
             <errorLevel type="suppress">
                 <file name="lib/Utils/BackwardsCompatibility/Event.php" />
-                <file name="lib/Utils/BackwardsCompatibility/TranslatorInterface.php" />
             </errorLevel>
         </DuplicateClass>
 

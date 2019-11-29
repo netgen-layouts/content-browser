@@ -29,15 +29,18 @@ final class LoadConfig extends AbstractController
     private $itemSerializer;
 
     /**
-     * @var \Netgen\ContentBrowser\Utils\BackwardsCompatibility\TranslatorInterface
+     * @var \Symfony\Contracts\Translation\TranslatorInterface
      */
     private $translator;
 
+    /**
+     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     */
     public function __construct(
         BackendInterface $backend,
         Configuration $config,
         ItemSerializerInterface $itemSerializer,
-        TranslatorInterface $translator
+        $translator
     ) {
         $this->backend = $backend;
         $this->config = $config;

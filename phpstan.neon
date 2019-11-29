@@ -32,7 +32,6 @@ parameters:
 
         - '#Symfony\\Component\\EventDispatcher\\Event#'
         - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
-        - '#Symfony\\Component\\Translation\\TranslatorInterface#'
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
