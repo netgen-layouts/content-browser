@@ -2,6 +2,9 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
+    dynamicConstantNames:
+        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
+
     ignoreErrors:
         # Symfony Config component
         -
@@ -20,14 +23,6 @@ parameters:
 
         -
             message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given/'
-            path: bundle/EventListener/SetConfigListener.php
-
-        -
-            message: '#Comparison operation ">=" between \d+ and 40300 is always true.#'
-            path: bundle/EventListener/SetConfigListener.php
-
-        -
-            message: '#Else branch is unreachable because ternary operator condition is always true.#'
             path: bundle/EventListener/SetConfigListener.php
 
         - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
