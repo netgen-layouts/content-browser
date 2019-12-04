@@ -7,11 +7,11 @@ namespace Netgen\ContentBrowser\Registry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use Iterator;
 use IteratorAggregate;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Traversable;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Backend\BackendInterface>
@@ -70,10 +70,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
         return $this->backends;
     }
 
-    /**
-     * @return \Iterator<string, \Netgen\ContentBrowser\Backend\BackendInterface>
-     */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->backends);
     }

@@ -7,11 +7,11 @@ namespace Netgen\ContentBrowser\Registry;
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
-use Iterator;
 use IteratorAggregate;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Traversable;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>
@@ -70,10 +70,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
         return $this->configs;
     }
 
-    /**
-     * @return \Iterator<string, \Netgen\ContentBrowser\Config\Configuration>
-     */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->configs);
     }

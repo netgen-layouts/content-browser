@@ -20,7 +20,7 @@ class MockerContainer extends Container
     private $mockedServices = [];
 
     /**
-     * @throws \Netgen\ContentBrowser\Exceptions\RuntimeException If the mocked service does not exist.
+     * @throws \Netgen\ContentBrowser\Exceptions\RuntimeException if the mocked service does not exist
      */
     public function mock(string $id, object $mock): object
     {

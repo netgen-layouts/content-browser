@@ -7,7 +7,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
