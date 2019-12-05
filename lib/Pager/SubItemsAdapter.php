@@ -37,7 +37,7 @@ final class SubItemsAdapter implements AdapterInterface
      *
      * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
-    public function getSlice($offset, $length)
+    public function getSlice($offset, $length): iterable
     {
         return $this->backend->getSubItems($this->location, $offset, $length);
     }
