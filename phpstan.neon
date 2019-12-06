@@ -32,7 +32,6 @@ parameters:
         # Disable errors about missing value types in various Symfony based classes
 
         - '#Method .+Type::buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface.#'
-        - '#Method .+Type::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+Type::buildView\(\) has parameter \$form with no value type specified in iterable type Symfony\\Component\\Form\\FormInterface.#'
-        - '#Method .+Type::buildView\(\) has parameter \$options with no value type specified in iterable type array.#'
+        - '#Method .+Type::build(Form|View)\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
