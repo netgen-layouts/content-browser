@@ -29,9 +29,10 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
-        # Disable errors about missing value types in various Symfony based classes
+        # Disable errors about missing value types in various vendor classes
 
-        - '#Method .+Type::buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface.#'
-        - '#Method .+Type::buildView\(\) has parameter \$form with no value type specified in iterable type Symfony\\Component\\Form\\FormInterface.#'
+        - '#no value type specified in iterable type Pagerfanta\\Pagerfanta.#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface.#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface.#'
         - '#Method .+Type::build(Form|View)\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'

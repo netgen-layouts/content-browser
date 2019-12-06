@@ -15,6 +15,7 @@ use Traversable;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Backend\BackendInterface>
+ * @implements \ArrayAccess<string, \Netgen\ContentBrowser\Backend\BackendInterface>
  */
 final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
@@ -90,10 +91,8 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): BackendInterface
     {
         return $this->getBackend($offset);
     }

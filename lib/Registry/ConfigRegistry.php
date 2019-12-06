@@ -15,6 +15,7 @@ use Traversable;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>
+ * @implements \ArrayAccess<string, \Netgen\ContentBrowser\Config\Configuration>
  */
 final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
@@ -92,10 +93,8 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): Configuration
     {
         return $this->getConfig($offset);
     }
