@@ -1,0 +1,27 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: bundle/EventListener/SetConfigListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'getException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundle/EventListener/ExceptionConversionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'setException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundle/EventListener/ExceptionConversionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'getException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundle/EventListener/ExceptionSerializerListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'setException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundle/EventListener/ExceptionSerializerListener.php
+

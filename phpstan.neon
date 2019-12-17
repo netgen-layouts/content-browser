@@ -1,4 +1,5 @@
 includes:
+    - phpstan-sf5-baseline.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
@@ -13,20 +14,20 @@ parameters:
 
         # Compatibility with Symfony 3.4
 
-        -
-            message: '#Call to an undefined method Netgen\\ContentBrowser\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
-            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+        # -
+        #     message: '#Call to an undefined method Netgen\\ContentBrowser\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
+        #     path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
 
         -
             message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
             path: bundle/EventListener/SetConfigListener.php
 
-        -
-            message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given/'
-            path: bundle/EventListener/SetConfigListener.php
+        # -
+        #     message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given/'
+        #     path: bundle/EventListener/SetConfigListener.php
 
-        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
-        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
+        # - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
+        # - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
         # Disable errors about missing value types in various vendor classes
