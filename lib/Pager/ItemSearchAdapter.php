@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Pager;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Backend\SearchQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class ItemSearchAdapter implements AdapterInterface
@@ -15,19 +16,25 @@ final class ItemSearchAdapter implements AdapterInterface
     private $backend;
 
     /**
-     * @var string
+     * @var \Netgen\ContentBrowser\Backend\SearchQuery
      */
-    private $searchText;
+    private $searchQuery;
 
-    public function __construct(BackendInterface $backend, string $searchText)
+    public function __construct(BackendInterface $backend, SearchQuery $searchQuery)
     {
         $this->backend = $backend;
-        $this->searchText = $searchText;
+        $this->searchQuery = $searchQuery;
     }
 
     public function getNbResults(): int
     {
-        return $this->backend->searchCount($this->searchText);
+        if (method_exists($this->backend, 'searchItemsCount')) {
+            return $this->backend->searchItemsCount($this->searchQuery);
+        }
+
+        @trigger_error(sprintf('"%s::searchCount" method is deprecated in 1.2 and will be removed in 2.0. Implement the "searchItemsCount" method instead.', get_class($this->backend)), E_USER_DEPRECATED);
+
+        return $this->backend->searchCount($this->searchQuery->getSearchText());
     }
 
     /**
@@ -38,6 +45,17 @@ final class ItemSearchAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): iterable
     {
-        return $this->backend->search($this->searchText, $offset, $length);
+        if (method_exists($this->backend, 'searchItems')) {
+            // Cloning the query to replace offset & limit in the query with current values
+            $searchQuery = clone $this->searchQuery;
+            $searchQuery->setOffset($offset);
+            $searchQuery->setLimit($length);
+
+            return $this->backend->searchItems($searchQuery)->getResults();
+        }
+
+        @trigger_error(sprintf('"%s::search" method is deprecated in 1.2 and will be removed in 2.0. Implement the "searchItems" method instead.', get_class($this->backend)), E_USER_DEPRECATED);
+
+        return $this->backend->search($this->searchQuery->getSearchText(), $offset, $length);
     }
 }

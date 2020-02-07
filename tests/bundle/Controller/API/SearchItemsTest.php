@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
+use Netgen\ContentBrowser\Backend\SearchResult;
 use Symfony\Component\HttpFoundation\Response;
 
 final class SearchItemsTest extends JsonApiTestCase
@@ -17,17 +18,19 @@ final class SearchItemsTest extends JsonApiTestCase
     {
         $this->backendMock
             ->expects(self::any())
-            ->method('search')
+            ->method('searchItems')
             ->willReturn(
-                [
-                    new Item(42, 'Item 42'),
-                    new Item(43, 'Item 43'),
-                ]
+                new SearchResult(
+                    [
+                        new Item(42, 'Item 42'),
+                        new Item(43, 'Item 43'),
+                    ]
+                )
             );
 
         $this->backendMock
             ->expects(self::any())
-            ->method('searchCount')
+            ->method('searchItemsCount')
             ->willReturn(2);
 
         $this->client->request('GET', '/cb/api/test/search?searchText=test');

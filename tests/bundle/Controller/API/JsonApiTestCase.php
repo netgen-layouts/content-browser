@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\App\MockerContainer;
+use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Backend\SearchQuery;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
@@ -60,8 +61,15 @@ final class SearchItems extends AbstractController
             return $this->json(['children' => [], 'children_count' => 0]);
         }
 
+        $sectionId = trim($request->query->get('sectionId', ''));
+        $section = $sectionId !== '' ?
+            $this->backend->loadLocation($sectionId) :
+            null;
+
+        $searchQuery = new SearchQuery($searchText, $section);
+
         $pager = $this->pagerFactory->buildPager(
-            new ItemSearchAdapter($this->backend, $searchText),
+            new ItemSearchAdapter($this->backend, $searchQuery),
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->defaultLimit)
         );

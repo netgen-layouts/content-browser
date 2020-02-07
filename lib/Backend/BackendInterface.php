@@ -7,6 +7,10 @@ namespace Netgen\ContentBrowser\Backend;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
+/**
+ * @method \Netgen\ContentBrowser\Backend\SearchResultInterface searchItems(SearchQuery $searchQuery)
+ * @method int searchItemsCount(SearchQuery $searchQuery)
+ */
 interface BackendInterface
 {
     /**
@@ -71,6 +75,8 @@ interface BackendInterface
     /**
      * Searches for items.
      *
+     * @deprecated in favor BackendInterface::searchItems. Will be removed in 2.0.
+     *
      * @param string $searchText
      * @param int $offset
      * @param int $limit
@@ -81,6 +87,22 @@ interface BackendInterface
 
     /**
      * Returns the count of searched items.
+     *
+     * @deprecated in favor BackendInterface::searchItemsCount. Will be removed in 2.0.
      */
     public function searchCount(string $searchText): int;
+
+    /*
+     * Searches for items.
+     *
+     * Will be added to interface in 2.0.
+     */
+    // public function searchItems(SearchQuery $searchQuery): SearchResultInterface;
+
+    /*
+     * Returns the count of searched items.
+     *
+     * Will be added to interface in 2.0.
+     */
+    // public function searchItemsCount(SearchQuery $searchQuery): int;
 }

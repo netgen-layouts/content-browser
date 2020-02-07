@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Tests\Pager;
 
-use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Backend\SearchQuery;
+use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
+use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +19,11 @@ final class ItemSearchAdapterTest extends TestCase
     private $backendMock;
 
     /**
+     * @var \Netgen\ContentBrowser\Backend\SearchQuery
+     */
+    private $searchQuery;
+
+    /**
      * @var \Netgen\ContentBrowser\Pager\ItemSearchAdapter
      */
     private $adapter;
@@ -24,8 +31,9 @@ final class ItemSearchAdapterTest extends TestCase
     protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->searchQuery = new SearchQuery('text');
 
-        $this->adapter = new ItemSearchAdapter($this->backendMock, 'text');
+        $this->adapter = new ItemSearchAdapter($this->backendMock, $this->searchQuery);
     }
 
     /**
@@ -36,8 +44,8 @@ final class ItemSearchAdapterTest extends TestCase
     {
         $this->backendMock
             ->expects(self::once())
-            ->method('searchCount')
-            ->with(self::identicalTo('text'))
+            ->method('searchItemsCount')
+            ->with(self::identicalTo($this->searchQuery))
             ->willReturn(3);
 
         self::assertSame(3, $this->adapter->getNbResults());
@@ -50,15 +58,15 @@ final class ItemSearchAdapterTest extends TestCase
     {
         $items = [new Item(1), new Item(2), new Item(3)];
 
+        $searchQuery = clone $this->searchQuery;
+        $searchQuery->setOffset(5);
+        $searchQuery->setLimit(10);
+
         $this->backendMock
             ->expects(self::once())
-            ->method('search')
-            ->with(
-                self::identicalTo('text'),
-                self::identicalTo(5),
-                self::identicalTo(10)
-            )
-            ->willReturn($items);
+            ->method('searchItems')
+            ->with(self::equalTo($searchQuery))
+            ->willReturn(new SearchResult($items));
 
         self::assertSame($items, $this->adapter->getSlice(5, 10));
     }

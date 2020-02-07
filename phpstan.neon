@@ -37,3 +37,7 @@ parameters:
         - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface.#'
         - '#Method .+Type::build(Form|View)\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
+
+        # Content Browser specifics
+
+        - "#Call to function method_exists\\(\\) with Netgen\\\\ContentBrowser\\\\Backend\\\\BackendInterface and 'searchItems(Count)?' will always evaluate to true.#"
