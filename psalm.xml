@@ -73,9 +73,8 @@
             </errorLevel>
         </ImplementedReturnTypeMismatch>
 
-        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+        <!-- level 3 issues - slightly lazy code writing, but probably low false-negatives -->
 
-        <InvalidDocblock errorLevel="info" />
         <DeprecatedClass errorLevel="info" />
         <DeprecatedMethod errorLevel="info" />
         <MissingPropertyType errorLevel="info" />

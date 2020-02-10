@@ -16,7 +16,7 @@ interface BackendInterface
     /**
      * Returns the sections available in the backend.
      *
-     * @return iterable&\Netgen\ContentBrowser\Item\LocationInterface[]
+     * @return iterable<\Netgen\ContentBrowser\Item\LocationInterface>
      */
     public function getSections(): iterable;
 
@@ -47,7 +47,7 @@ interface BackendInterface
      *
      * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      *
-     * @return iterable&\Netgen\ContentBrowser\Item\LocationInterface[]
+     * @return iterable<\Netgen\ContentBrowser\Item\LocationInterface>
      */
     public function getSubLocations(LocationInterface $location): iterable;
 
@@ -63,7 +63,7 @@ interface BackendInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return iterable&\Netgen\ContentBrowser\Item\ItemInterface[]
+     * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
     public function getSubItems(LocationInterface $location, int $offset = 0, int $limit = 25): iterable;
 
@@ -81,7 +81,7 @@ interface BackendInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return iterable&\Netgen\ContentBrowser\Item\ItemInterface[]
+     * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
     public function search(string $searchText, int $offset = 0, int $limit = 25): iterable;
 
