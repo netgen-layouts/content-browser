@@ -21,30 +21,11 @@
             </errorLevel>
         </InvalidArgument>
 
-        <TooManyArguments>
-            <errorLevel type="suppress">
-                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
-            </errorLevel>
-        </TooManyArguments>
-
         <PossiblyUndefinedMethod>
             <errorLevel type="suppress">
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
             </errorLevel>
         </PossiblyUndefinedMethod>
-
-        <RedundantCondition>
-            <errorLevel type="suppress">
-                <file name="bundle/EventListener/ExceptionSerializerListener.php" />
-                <file name="bundle/EventListener/ExceptionConversionListener.php" />
-            </errorLevel>
-        </RedundantCondition>
-
-        <DuplicateClass>
-            <errorLevel type="suppress">
-                <file name="lib/Utils/BackwardsCompatibility/Event.php" />
-            </errorLevel>
-        </DuplicateClass>
 
         <UndefinedClass>
             <errorLevel type="suppress">
@@ -60,12 +41,6 @@
         </DeprecatedTrait>
 
         <!-- Pagerfanta -->
-
-        <InvalidReturnType>
-            <errorLevel type="suppress">
-                <directory name="lib/Pager" />
-            </errorLevel>
-        </InvalidReturnType>
 
         <ImplementedReturnTypeMismatch>
             <errorLevel type="suppress">
