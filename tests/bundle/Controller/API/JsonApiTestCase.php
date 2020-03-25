@@ -37,12 +37,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->expectedResponsesPath = __DIR__ . '/_responses/expected';
     }
 
-    protected function tearDown(): void
-    {
-        // We need an empty method to disable tearing down since it is
-        // not compatible with Symfony 4.1
-    }
-
     public function setUpClient(): void
     {
         parent::setUpClient();
