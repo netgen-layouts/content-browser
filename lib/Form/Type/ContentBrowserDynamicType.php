@@ -16,6 +16,14 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function array_filter;
+use function array_flip;
+use function array_map;
+use function count;
+use function in_array;
+use function is_array;
+use function is_scalar;
+use function trim;
 
 final class ContentBrowserDynamicType extends AbstractType
 {

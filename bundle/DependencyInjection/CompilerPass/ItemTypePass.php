@@ -9,6 +9,9 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use function is_string;
+use function preg_match;
+use function sprintf;
 
 final class ItemTypePass implements CompilerPassInterface
 {

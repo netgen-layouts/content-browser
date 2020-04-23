@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use function dirname;
+use function sys_get_temp_dir;
 
 final class Kernel extends BaseKernel implements CompilerPassInterface
 {
@@ -30,17 +32,17 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
 
     public function getProjectDir(): string
     {
-        return \dirname(__DIR__);
+        return dirname(__DIR__);
     }
 
     public function getCacheDir(): string
     {
-        return \sys_get_temp_dir() . '/ngcb/cache';
+        return sys_get_temp_dir() . '/ngcb/cache';
     }
 
     public function getLogDir(): string
     {
-        return \sys_get_temp_dir() . '/ngcb/logs';
+        return sys_get_temp_dir() . '/ngcb/logs';
     }
 
     public function process(ContainerBuilder $container): void

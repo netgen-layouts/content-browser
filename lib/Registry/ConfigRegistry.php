@@ -12,6 +12,9 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Traversable;
+use function array_filter;
+use function count;
+use function sprintf;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>

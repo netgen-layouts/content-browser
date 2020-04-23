@@ -7,6 +7,11 @@ namespace Netgen\ContentBrowser\Pager;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Backend\SearchQuery;
 use Pagerfanta\Adapter\AdapterInterface;
+use function get_class;
+use function method_exists;
+use function sprintf;
+use function trigger_error;
+use const E_USER_DEPRECATED;
 
 final class ItemSearchAdapter implements AdapterInterface
 {

@@ -12,6 +12,8 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\App\MockerContainer;
 use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Symfony\Component\HttpFoundation\Response;
+use function getenv;
+use function json_decode;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {

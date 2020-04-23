@@ -12,6 +12,7 @@ use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function trim;
 
 final class SearchItems extends AbstractController
 {

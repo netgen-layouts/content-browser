@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Config;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use function sprintf;
 
 final class Configuration
 {

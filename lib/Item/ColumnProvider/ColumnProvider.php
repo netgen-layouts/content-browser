@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Psr\Container\ContainerInterface;
+use function sprintf;
 
 final class ColumnProvider implements ColumnProviderInterface
 {

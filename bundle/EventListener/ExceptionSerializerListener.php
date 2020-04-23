@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
+use function class_exists;
+use function get_debug_type;
+use function sprintf;
 
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {

@@ -10,6 +10,8 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use function is_a;
+use function trim;
 
 final class ItemParamConverter implements ParamConverterInterface
 {

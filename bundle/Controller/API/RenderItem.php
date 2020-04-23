@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use function is_string;
 
 final class RenderItem extends AbstractController
 {
