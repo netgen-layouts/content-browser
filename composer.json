@@ -73,10 +73,7 @@
             "Netgen\\ContentBrowser\\Tests\\": "tests/lib/",
             "Netgen\\ContentBrowser\\Tests\\App\\": "tests/application/src/",
             "Netgen\\Bundle\\ContentBrowserBundle\\Tests\\": "tests/bundle/"
-        },
-        "files": [
-            "vendor/symfony/var-dumper/Resources/functions/dump.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
