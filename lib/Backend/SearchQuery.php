@@ -29,7 +29,7 @@ final class SearchQuery
      */
     private $limit = 25;
 
-    public function __construct(string $searchText, LocationInterface $location = null)
+    public function __construct(string $searchText, ?LocationInterface $location = null)
     {
         $this->searchText = $searchText;
         $this->location = $location;
