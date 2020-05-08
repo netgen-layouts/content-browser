@@ -37,7 +37,7 @@ final class ItemSearchAdapter implements AdapterInterface
             return $this->backend->searchItemsCount($this->searchQuery);
         }
 
-        @trigger_error(sprintf('"%s::searchCount" method is deprecated in 1.2 and will be removed in 2.0. Implement the "searchItemsCount" method instead.', get_class($this->backend)), E_USER_DEPRECATED);
+        trigger_deprecation('netgen/content-browser', '1.2', '"%s::searchCount" method is deprecated. Implement the "searchItemsCount" method instead.', get_debug_type($this->backend));
 
         return $this->backend->searchCount($this->searchQuery->getSearchText());
     }
@@ -59,7 +59,7 @@ final class ItemSearchAdapter implements AdapterInterface
             return $this->backend->searchItems($searchQuery)->getResults();
         }
 
-        @trigger_error(sprintf('"%s::search" method is deprecated in 1.2 and will be removed in 2.0. Implement the "searchItems" method instead.', get_class($this->backend)), E_USER_DEPRECATED);
+        trigger_deprecation('netgen/content-browser', '1.2', '"%s::search" method is deprecated. Implement the "searchItems" method instead.', get_debug_type($this->backend));
 
         return $this->backend->search($this->searchQuery->getSearchText(), $offset, $length);
     }
