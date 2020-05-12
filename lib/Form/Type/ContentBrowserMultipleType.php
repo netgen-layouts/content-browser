@@ -125,7 +125,6 @@ final class ContentBrowserMultipleType extends AbstractType
      * Returns the array of items for all provided item values.
      *
      * @param mixed $itemValues
-     * @param string $itemType
      *
      * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */

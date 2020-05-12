@@ -26,7 +26,6 @@ final class ItemLocation implements ItemInterface, LocationInterface
 
     /**
      * @param mixed $value
-     * @param string $name
      * @param mixed $parentId
      */
     public function __construct($value, string $name, $parentId = null)

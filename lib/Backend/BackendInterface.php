@@ -26,8 +26,6 @@ interface BackendInterface
      * @param int|string $id
      *
      * @throws \Netgen\ContentBrowser\Exceptions\NotFoundException If location does not exist
-     *
-     * @return \Netgen\ContentBrowser\Item\LocationInterface
      */
     public function loadLocation($id): LocationInterface;
 
@@ -37,15 +35,11 @@ interface BackendInterface
      * @param int|string $value
      *
      * @throws \Netgen\ContentBrowser\Exceptions\NotFoundException If item does not exist
-     *
-     * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
     public function loadItem($value): ItemInterface;
 
     /**
      * Returns the locations below provided location.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      *
      * @return iterable<\Netgen\ContentBrowser\Item\LocationInterface>
      */
@@ -58,10 +52,6 @@ interface BackendInterface
 
     /**
      * Returns the location items.
-     *
-     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
-     * @param int $offset
-     * @param int $limit
      *
      * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
@@ -76,10 +66,6 @@ interface BackendInterface
      * Searches for items.
      *
      * @deprecated in favor BackendInterface::searchItems. Will be removed in 2.0.
-     *
-     * @param string $searchText
-     * @param int $offset
-     * @param int $limit
      *
      * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */

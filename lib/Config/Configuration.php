@@ -102,7 +102,6 @@ final class Configuration
     }
 
     /**
-     * @param string $name
      * @param mixed $value
      */
     public function setParameter(string $name, $value): void
@@ -124,8 +123,6 @@ final class Configuration
     }
 
     /**
-     * @param string $name
-     *
      * @return mixed
      */
     public function getParameter(string $name)

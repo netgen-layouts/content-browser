@@ -25,7 +25,6 @@ final class Location implements LocationInterface
 
     /**
      * @param mixed $locationId
-     * @param string $name
      * @param mixed $parentId
      */
     public function __construct($locationId, string $name, $parentId = null)

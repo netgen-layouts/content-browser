@@ -20,7 +20,6 @@ final class Item implements ItemInterface
 
     /**
      * @param mixed $value
-     * @param string $name
      */
     public function __construct($value, string $name)
     {

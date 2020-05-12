@@ -86,8 +86,6 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {
