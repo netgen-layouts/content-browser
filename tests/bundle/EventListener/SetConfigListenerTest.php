@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetConfigListenerTest extends TestCase
@@ -126,6 +127,10 @@ final class SetConfigListenerTest extends TestCase
      */
     public function testOnKernelRequestWithNonArrayCustomParams(): void
     {
+        if (Kernel::VERSION_ID >= 50100) {
+            self::markTestSkipped('Test not needed on Symfony 5.1+');
+        }
+
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Invalid custom parameters specification for "item_type" item type.');
 

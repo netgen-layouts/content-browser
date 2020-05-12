@@ -217,7 +217,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testConfigureOptionsWithInvalidItemType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "item_type" with value 42 is expected to be of type "string", but is of type "integer".');
+        $this->expectExceptionMessageMatches('/^The option "item_type" with value 42 is expected to be of type "string", but is of type "int(eger)?".$/');
 
         $optionsResolver = new OptionsResolver();
 
