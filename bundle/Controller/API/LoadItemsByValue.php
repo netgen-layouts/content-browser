@@ -42,7 +42,7 @@ final class LoadItemsByValue extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $queryValues = trim($request->query->get('values', ''));
+        $queryValues = trim($request->query->get('values') ?? '');
         $values = array_map('trim', explode(',', $queryValues));
 
         if ($queryValues === '' || count($values) === 0) {

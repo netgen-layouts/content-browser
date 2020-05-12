@@ -61,7 +61,10 @@ final class SetConfigListener implements EventSubscriberInterface
 
         $config = $this->loadConfig($attributes->get('itemType'));
 
-        $customParams = $request->query->get('customParams', []);
+        $customParams = Kernel::VERSION_ID >= 50100 ?
+            $request->query->all('customParams') :
+            $request->query->get('customParams') ?? [];
+
         if (!is_array($customParams)) {
             throw new RuntimeException(
                 sprintf(
