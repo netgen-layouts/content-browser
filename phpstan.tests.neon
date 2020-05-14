@@ -3,11 +3,13 @@ includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
-
 parameters:
     excludes_analyse:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
+
+    dynamicConstantNames:
+        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
     ignoreErrors:
         # Compatibility with Symfony 3.4
