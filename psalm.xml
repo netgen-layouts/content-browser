@@ -40,6 +40,12 @@
             </errorLevel>
         </DeprecatedTrait>
 
+        <DuplicateClass>
+            <errorLevel type="suppress">
+                <file name="lib/Utils/BackwardsCompatibility/Event.php" />
+            </errorLevel>
+        </DuplicateClass>
+
         <!-- Pagerfanta -->
 
         <ImplementedReturnTypeMismatch>
