@@ -22,6 +22,11 @@ final class ContentBrowserTypeTest extends TestCase
      */
     private $backendMock;
 
+    /**
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::__construct
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
+     */
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(

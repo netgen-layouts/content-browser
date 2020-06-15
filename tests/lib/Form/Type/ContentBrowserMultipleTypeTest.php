@@ -22,6 +22,12 @@ final class ContentBrowserMultipleTypeTest extends TestCase
      */
     private $backendMock;
 
+    /**
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::__construct
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
+     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItems
+     */
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
