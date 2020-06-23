@@ -37,7 +37,7 @@
         "twig/twig": "^2.11 || ^3.0",
         "sensio/framework-extra-bundle": "^5.4",
         "pagerfanta/pagerfanta": "^2.1",
-        "jean85/pretty-package-versions": "^1.2"
+        "jean85/pretty-package-versions": "^1.5 || ^2.0"
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^1.0",
