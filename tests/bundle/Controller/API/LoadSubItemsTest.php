@@ -23,13 +23,14 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->with(self::identicalTo('41'))
-            ->willReturn($location);
-
-        $this->backendMock
-            ->method('loadLocation')
-            ->with(self::identicalTo(40))
-            ->willReturn(new Location(40, 'Location 40'));
+            ->withConsecutive(
+                [self::identicalTo('41')],
+                [self::identicalTo(40)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $location,
+                new Location(40, 'Location 40')
+            );
 
         $this->backendMock
             ->expects(self::any())
@@ -67,13 +68,14 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->with(self::identicalTo('41'))
-            ->willReturn($location);
-
-        $this->backendMock
-            ->method('loadLocation')
-            ->with(self::identicalTo(40))
-            ->willReturn(new ItemLocation(40, 'Item 40'));
+            ->withConsecutive(
+                [self::identicalTo('41')],
+                [self::identicalTo(40)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                $location,
+                new ItemLocation(40, 'Item 40')
+            );
 
         $this->backendMock
             ->expects(self::any())
@@ -111,13 +113,14 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->with(self::identicalTo('41'))
-            ->willReturn($location);
-
-        $this->backendMock
-            ->method('loadLocation')
-            ->with(self::identicalTo(40))
-            ->willThrowException(new NotFoundException());
+            ->withConsecutive(
+                [self::identicalTo('41')],
+                [self::identicalTo(40)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                self::returnValue($location),
+                self::throwException(new NotFoundException())
+            );
 
         $this->backendMock
             ->expects(self::any())

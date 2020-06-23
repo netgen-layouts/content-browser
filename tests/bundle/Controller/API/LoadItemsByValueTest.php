@@ -17,11 +17,10 @@ final class LoadItemsByValueTest extends JsonApiTestCase
     {
         $this->backendMock
             ->method('loadItem')
-            ->willReturn(new Item(42, 'Item 42'));
-
-        $this->backendMock
-            ->method('loadItem')
-            ->willReturn(new Item(43, 'Item 43'));
+            ->willReturnOnConsecutiveCalls(
+                new Item(42, 'Item 42'),
+                new Item(43, 'Item 43')
+            );
 
         $this->client->request('GET', '/cb/api/test/values?values=42,43');
 
