@@ -55,16 +55,12 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $item2 = new Item(24);
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
-            ->willReturn($item1);
-
-        $this->backendMock
-            ->expects(self::at(1))
-            ->method('loadItem')
-            ->with(self::identicalTo('24'))
-            ->willReturn($item2);
+            ->withConsecutive(
+                [self::identicalTo('42')],
+                [self::identicalTo('24')]
+            )
+            ->willReturnOnConsecutiveCalls($item1, $item2);
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,

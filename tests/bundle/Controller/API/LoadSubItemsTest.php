@@ -22,13 +22,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new Location(41, 'Location 41', 40);
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
             ->willReturn($location);
 
         $this->backendMock
-            ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
             ->willReturn(new Location(40, 'Location 40'));
@@ -68,13 +66,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new ItemLocation(41, 'Item 41', 40);
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
             ->willReturn($location);
 
         $this->backendMock
-            ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
             ->willReturn(new ItemLocation(40, 'Item 40'));
@@ -114,13 +110,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $location = new ItemLocation(41, 'Item 41', 40);
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
             ->willReturn($location);
 
         $this->backendMock
-            ->expects(self::at(1))
             ->method('loadLocation')
             ->with(self::identicalTo(40))
             ->willThrowException(new NotFoundException());

@@ -18,13 +18,11 @@ final class LoadSubLocationsTest extends JsonApiTestCase
         $location = new Location(41, 'Location 41');
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
             ->willReturn($location);
 
         $this->backendMock
-            ->expects(self::at(1))
             ->method('getSubLocations')
             ->with(self::identicalTo($location))
             ->willReturn(

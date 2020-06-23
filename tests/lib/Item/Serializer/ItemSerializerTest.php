@@ -122,13 +122,11 @@ final class ItemSerializerTest extends TestCase
         $location = new Location(42, 24);
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(3);
 
         $this->backendMock
-            ->expects(self::at(1))
             ->method('getSubLocationsCount')
             ->with(self::identicalTo($location))
             ->willReturn(4);

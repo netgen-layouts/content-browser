@@ -25,7 +25,6 @@ final class RenderItemTest extends JsonApiTestCase
         }
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn(new Item(42, 'Item 42'));
@@ -72,7 +71,6 @@ final class RenderItemTest extends JsonApiTestCase
         }
 
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn(new Item(42, 'Item 42'));
@@ -113,7 +111,6 @@ final class RenderItemTest extends JsonApiTestCase
     public function testRenderItemWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects(self::at(0))
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException('Item does not exist.'));
