@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use function json_decode;
+use const JSON_THROW_ON_ERROR;
 
 final class ExceptionSerializerListenerTest extends TestCase
 {
