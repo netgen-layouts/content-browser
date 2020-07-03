@@ -15,12 +15,12 @@ use PHPUnit\Framework\TestCase;
 final class ItemSerializerTest extends TestCase
 {
     /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $backendMock;
 
     /**
-     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $columnProviderMock;
 

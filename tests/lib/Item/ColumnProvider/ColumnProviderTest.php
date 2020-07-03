@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class ColumnProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
      */
     private $itemRendererMock;
 
