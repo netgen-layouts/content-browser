@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.0/phpunit.xsd"
     bootstrap="vendor/autoload.php"
     colors="true"
     forceCoversAnnotation="true"
@@ -23,16 +23,18 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
-        <include>
+    <filter>
+        <whitelist>
             <directory suffix=".php">lib</directory>
             <directory suffix=".php">bundle</directory>
-        </include>
-        <exclude>
-            <directory>bundle/Controller</directory>
-            <directory>bundle/Resources</directory>
-            <file>bundle/NetgenContentBrowserBundle.php</file>
-            <file>bundle/DependencyInjection/NetgenContentBrowserExtension.php</file>
-        </exclude>
-    </coverage>
+            <exclude>
+                <file>bundle/NetgenContentBrowserBundle.php</file>
+                <file>bundle/DependencyInjection/NetgenContentBrowserExtension.php</file>
+            </exclude>
+            <exclude>
+                <directory>bundle/Controller</directory>
+                <directory>bundle/Resources</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
