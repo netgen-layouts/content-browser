@@ -7,6 +7,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use stdClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,8 +26,8 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(null, [[]]));
-        $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class, [[]]));
 
         $this->setParameter(
             'netgen_content_browser.item_types',
@@ -41,7 +42,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
             ]
         );
 
-        $backend = new Definition();
+        $backend = new Definition(stdClass::class);
         $backend->addTag('netgen_content_browser.backend', ['item_type' => 'test']);
         $this->setDefinition('netgen_content_browser.backend.test', $backend);
 
@@ -68,10 +69,10 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
     public function testProcessThrowsRuntimeExceptionWithoutBackend(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No backend registered for "test" item type.');
+        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that either "item_type" attribute exists in the tag or a "$defaultItemType" static property exists in the class.');
 
-        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(null, [[]]));
-        $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class, [[]]));
 
         $this->setParameter(
             'netgen_content_browser.item_types',
@@ -95,10 +96,10 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
     public function testProcessThrowsRuntimeExceptionWithNoTagType(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Backend definition must have an "item_type" attribute in its tag.');
+        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that either "item_type" attribute exists in the tag or a "$defaultItemType" static property exists in the class.');
 
-        $this->setDefinition('netgen_content_browser.registry.backend', new Definition());
-        $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class));
+        $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class, [[]]));
 
         $this->setParameter(
             'netgen_content_browser.item_types',
@@ -113,7 +114,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
             ]
         );
 
-        $backend = new Definition();
+        $backend = new Definition(stdClass::class);
         $backend->addTag('netgen_content_browser.backend');
         $this->setDefinition('netgen_content_browser.backend.test', $backend);
 
@@ -128,8 +129,8 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Item type must begin with a letter and be followed by any combination of letters, digits and underscore, "Test type" given.');
 
-        $this->setDefinition('netgen_content_browser.registry.backend', new Definition());
-        $this->setDefinition('netgen_content_browser.registry.config', new Definition(null, [[]]));
+        $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class));
+        $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class, [[]]));
 
         $this->setParameter(
             'netgen_content_browser.item_types',
@@ -144,7 +145,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
             ]
         );
 
-        $backend = new Definition();
+        $backend = new Definition(stdClass::class);
         $backend->addTag('netgen_content_browser.backend', ['item_type' => 'test']);
         $this->setDefinition('netgen_content_browser.backend.test', $backend);
 

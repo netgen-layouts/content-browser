@@ -11,9 +11,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+use function sprintf;
 
 final class ColumnProviderPass implements CompilerPassInterface
 {
+    use DefinitionClassTrait;
+
     private const SERVICE_NAME = 'netgen_content_browser.column_provider';
     private const TAG_NAME = 'netgen_content_browser.column_value_provider';
 
@@ -27,15 +30,35 @@ final class ColumnProviderPass implements CompilerPassInterface
         $valueProviderServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $valueProviders = [];
+
         foreach ($valueProviderServices as $serviceName => $tags) {
+            $serviceClass = $this->getDefinitionClass($container, $serviceName);
+            $registeredFromTag = false;
+            $registeredDefault = false;
+
             foreach ($tags as $tag) {
-                if (!isset($tag['identifier'])) {
-                    throw new RuntimeException(
-                        "Column value provider definition must have a 'identifier' attribute in its' tag."
-                    );
+                if (isset($tag['identifier'])) {
+                    $valueProviders[$tag['identifier']] = new ServiceClosureArgument(new Reference($serviceName));
+                    $registeredFromTag = true;
+
+                    continue;
                 }
 
-                $valueProviders[$tag['identifier']] = new ServiceClosureArgument(new Reference($serviceName));
+                if (isset($serviceClass::$defaultIdentifier) && !$registeredDefault) {
+                    $valueProviders[$serviceClass::$defaultIdentifier] = new ServiceClosureArgument(new Reference($serviceName));
+                    $registeredDefault = true;
+                }
+            }
+
+            if (!$registeredFromTag && !$registeredDefault) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Could not register column value provider "%s". Make sure that either "%s" attribute exists in the tag or a "%s" static property exists in the class.',
+                        $serviceName,
+                        'identifier',
+                        '$defaultIdentifier'
+                    )
+                );
             }
         }
 

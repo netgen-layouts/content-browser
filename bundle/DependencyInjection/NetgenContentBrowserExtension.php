@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,6 +37,9 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         );
 
         $loader->load('services.yaml');
+        $loader->load('autowiring.yaml');
+
+        $this->registerAutoConfiguration($container);
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -68,5 +73,16 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $config = Yaml::parse((string) file_get_contents($configFile));
         $container->prependExtensionConfig($configName, $config);
         $container->addResource(new FileResource($configFile));
+    }
+
+    private function registerAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container
+            ->registerForAutoconfiguration(BackendInterface::class)
+            ->addTag('netgen_content_browser.backend');
+
+        $container
+            ->registerForAutoconfiguration(ColumnValueProviderInterface::class)
+            ->addTag('netgen_content_browser.column_value_provider');
     }
 }

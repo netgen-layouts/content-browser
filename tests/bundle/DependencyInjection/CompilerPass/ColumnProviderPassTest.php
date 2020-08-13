@@ -7,6 +7,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use stdClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -27,11 +28,11 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
      */
     public function testProcess(): void
     {
-        $columnProvider = new Definition();
+        $columnProvider = new Definition(stdClass::class);
         $columnProvider->setArguments([null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
-        $columnValueProvider = new Definition();
+        $columnValueProvider = new Definition(stdClass::class);
         $columnValueProvider->addTag('netgen_content_browser.column_value_provider', ['identifier' => 'test']);
         $this->setDefinition('netgen_content_browser.column_value_provider.test', $columnValueProvider);
 
@@ -57,13 +58,13 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
     public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Column value provider definition must have a \'identifier\' attribute in its\' tag.');
+        $this->expectExceptionMessage('Could not register column value provider "netgen_content_browser.column_value_provider.test". Make sure that either "identifier" attribute exists in the tag or a "$defaultIdentifier" static property exists in the class.');
 
-        $columnProvider = new Definition();
+        $columnProvider = new Definition(stdClass::class);
         $columnProvider->setArguments([null, null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
-        $columnValueProvider = new Definition();
+        $columnValueProvider = new Definition(stdClass::class);
         $columnValueProvider->addTag('netgen_content_browser.column_value_provider');
         $this->setDefinition('netgen_content_browser.column_value_provider.test', $columnValueProvider);
 

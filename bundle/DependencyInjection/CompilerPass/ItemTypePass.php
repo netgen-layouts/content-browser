@@ -10,11 +10,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use function is_string;
+use function method_exists;
 use function preg_match;
 use function sprintf;
 
 final class ItemTypePass implements CompilerPassInterface
 {
+    use DefinitionClassTrait;
+
     private const BACKEND_REGISTRY_SERVICE = 'netgen_content_browser.registry.backend';
     private const CONFIG_REGISTRY_SERVICE = 'netgen_content_browser.registry.config';
     private const BACKEND_TAG_NAME = 'netgen_content_browser.backend';
@@ -65,29 +68,46 @@ final class ItemTypePass implements CompilerPassInterface
             $foundBackend = null;
 
             foreach ($backendServices as $backend => $tags) {
-                foreach ($tags as $tag) {
-                    if (!isset($tag['item_type'])) {
-                        throw new RuntimeException(
-                            'Backend definition must have an "item_type" attribute in its tag.'
-                        );
-                    }
+                $backendClass = $this->getDefinitionClass($container, $backend);
 
-                    if ($tag['item_type'] === $itemType) {
+                foreach ($tags as $tag) {
+                    if (isset($tag['item_type']) && $tag['item_type'] === $itemType) {
                         $foundBackend = $backend;
 
                         break 2;
                     }
                 }
+
+                if (isset($backendClass::$defaultItemType) && $backendClass::$defaultItemType === $itemType) {
+                    $foundBackend = $backend;
+
+                    break;
+                }
             }
 
             if (!is_string($foundBackend)) {
                 throw new RuntimeException(
-                    sprintf('No backend registered for "%s" item type.', $itemType)
+                    sprintf(
+                        'No backend registered for "%s" item type. Make sure that either "%s" attribute exists in the tag or a "%s" static property exists in the class.',
+                        $itemType,
+                        'item_type',
+                        '$defaultItemType'
+                    )
                 );
             }
 
             $backends[$itemType] = new Reference($foundBackend);
             $configs[$itemType] = new Reference($configServiceName);
+
+            // The check is deprecated and serves to support Symfony 3.4 where
+            // this method is missing
+            if (method_exists($container, 'registerAliasForArgument')) {
+                $container->registerAliasForArgument(
+                    $configServiceName,
+                    Configuration::class,
+                    $itemType . 'Config'
+                );
+            }
         }
 
         $backendRegistry->replaceArgument(0, $backends);

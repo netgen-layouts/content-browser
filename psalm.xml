@@ -54,6 +54,14 @@
             </errorLevel>
         </ImplementedReturnTypeMismatch>
 
+        <!-- Other -->
+
+        <InvalidPropertyFetch>
+            <errorLevel type="suppress">
+                <directory name="bundle/DependencyInjection" />
+            </errorLevel>
+        </InvalidPropertyFetch>
+
         <!-- level 3 issues - slightly lazy code writing, but probably low false-negatives -->
 
         <DeprecatedClass errorLevel="info" />
