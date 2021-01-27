@@ -42,15 +42,13 @@ final class LoadItemsByValue extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $queryValues = trim($request->query->get('values') ?? '');
-        $values = array_map('trim', explode(',', $queryValues));
-
-        if ($queryValues === '' || count($values) === 0) {
+        $values = trim($request->query->get('values') ?? '');
+        if ($values === '') {
             throw new InvalidArgumentException('List of values is invalid.');
         }
 
         $items = [];
-        foreach ($values as $value) {
+        foreach (array_map('trim', explode(',', $values)) as $value) {
             $items[] = $this->itemSerializer->serializeItem(
                 $this->backend->loadItem($value)
             );
