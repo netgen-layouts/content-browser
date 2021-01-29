@@ -39,6 +39,7 @@ final class ItemTypePass implements CompilerPassInterface
         $backends = [];
         $configs = [];
 
+        /** @var array<string, mixed[]> $itemTypesConfig */
         $itemTypesConfig = $container->getParameter('netgen_content_browser.item_types');
 
         foreach ($itemTypesConfig as $itemType => $itemTypeConfig) {
