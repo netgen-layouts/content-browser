@@ -25,8 +25,8 @@ final class ItemTypePass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         if (
-            !$container->has(self::BACKEND_REGISTRY_SERVICE) ||
-            !$container->has(self::CONFIG_REGISTRY_SERVICE)
+            !$container->has(self::BACKEND_REGISTRY_SERVICE)
+            || !$container->has(self::CONFIG_REGISTRY_SERVICE)
         ) {
             return;
         }
