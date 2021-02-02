@@ -51,6 +51,9 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "lchrusciel/api-test-case": "^4.1 || ^5.0"
     },
+    "conflict": {
+        "ocramius/proxy-manager": "<2.1"
+    },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
         "test-api": "@php vendor/bin/phpunit -c phpunit-api.xml --colors=always",
