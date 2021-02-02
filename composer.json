@@ -35,7 +35,7 @@
         "symfony/validator": "^3.4.33 || ^4.4 || ^5.2",
         "symfony/yaml": "^3.4.33 || ^4.4 || ^5.2",
         "twig/twig": "^2.14 || ^3.2",
-        "sensio/framework-extra-bundle": "^5.4",
+        "sensio/framework-extra-bundle": "^5.4 || ^6.0",
         "pagerfanta/pagerfanta": "^2.5",
         "jean85/pretty-package-versions": "^1.5 || ^2.0"
     },
