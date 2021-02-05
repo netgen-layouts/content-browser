@@ -34,26 +34,11 @@
             </errorLevel>
         </UndefinedClass>
 
-        <DeprecatedTrait>
-            <errorLevel type="suppress">
-                <file name="bundle/EventListener/ExceptionConversionListener.php" />
-                <file name="bundle/EventListener/ExceptionSerializerListener.php" />
-            </errorLevel>
-        </DeprecatedTrait>
-
         <DuplicateClass>
             <errorLevel type="suppress">
                 <file name="lib/Utils/BackwardsCompatibility/Event.php" />
             </errorLevel>
         </DuplicateClass>
-
-        <!-- Pagerfanta -->
-
-        <ImplementedReturnTypeMismatch>
-            <errorLevel type="suppress">
-                <directory name="lib/Pager" />
-            </errorLevel>
-        </ImplementedReturnTypeMismatch>
 
         <!-- Other -->
 
