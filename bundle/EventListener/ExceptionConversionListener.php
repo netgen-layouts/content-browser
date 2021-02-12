@@ -25,7 +25,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
     /**
      * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpException>>
      */
-    private $exceptionMap = [
+    private array $exceptionMap = [
         NotFoundException::class => NotFoundHttpException::class,
         OutOfBoundsException::class => UnprocessableEntityHttpException::class,
         InvalidArgumentException::class => BadRequestHttpException::class,

@@ -10,24 +10,16 @@ use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use Netgen\ContentBrowser\Tests\Stubs\LocationItem;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ItemSerializerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $backendMock;
+    private MockObject $backendMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $columnProviderMock;
+    private MockObject $columnProviderMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    private $serializer;
+    private ItemSerializer $serializer;
 
     protected function setUp(): void
     {

@@ -9,25 +9,19 @@ use function sprintf;
 
 final class Configuration
 {
-    /**
-     * @var string
-     */
-    private $itemType;
+    private string $itemType;
 
-    /**
-     * @var string
-     */
-    private $itemName;
+    private string $itemName;
 
     /**
      * @var array<string, mixed>
      */
-    private $config;
+    private array $config;
 
     /**
      * @var array<string, mixed>
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param array<string, mixed> $config

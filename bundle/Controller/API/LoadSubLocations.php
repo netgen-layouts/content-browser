@@ -12,15 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class LoadSubLocations extends AbstractController
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    private $itemSerializer;
+    private ItemSerializerInterface $itemSerializer;
 
     public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
     {

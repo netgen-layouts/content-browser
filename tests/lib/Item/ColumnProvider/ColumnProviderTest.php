@@ -12,6 +12,7 @@ use Netgen\ContentBrowser\Tests\Stubs\ColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Container;
 use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ColumnProviderTest extends TestCase
@@ -19,17 +20,11 @@ final class ColumnProviderTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
      */
-    private $itemRendererMock;
+    private MockObject $itemRendererMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider
-     */
-    private $columnProvider;
+    private ColumnProvider $columnProvider;
 
     protected function setUp(): void
     {

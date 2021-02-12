@@ -25,7 +25,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
     /**
      * @var array<string, \Netgen\ContentBrowser\Config\Configuration>
      */
-    private $configs;
+    private array $configs;
 
     /**
      * @param array<string, \Netgen\ContentBrowser\Config\Configuration> $configs

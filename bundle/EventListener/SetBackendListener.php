@@ -11,15 +11,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetBackendListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
     public function __construct(ContainerInterface $container, BackendRegistry $backendRegistry)
     {

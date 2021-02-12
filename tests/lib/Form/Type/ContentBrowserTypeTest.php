@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -17,10 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserTypeTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $backendMock;
+    private MockObject $backendMock;
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::__construct

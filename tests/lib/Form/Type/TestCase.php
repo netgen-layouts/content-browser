@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Tests\Form\Type;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormConfigBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,30 +17,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * @var \Symfony\Component\Form\FormConfigBuilder
-     */
-    protected $builder;
+    protected FormConfigBuilder $builder;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $dispatcher;
+    protected MockObject $dispatcher;
 
-    /**
-     * @var \Symfony\Component\Form\FormTypeInterface
-     */
-    protected $formType;
+    protected FormTypeInterface $formType;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $validatorMock;
+    protected MockObject $validatorMock;
 
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    protected $factory;
+    protected FormFactoryInterface $factory;
 
     protected function setUp(): void
     {

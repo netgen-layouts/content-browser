@@ -11,16 +11,14 @@ use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserDynamicTypeTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $backendMock;
+    private MockObject $backendMock;
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm

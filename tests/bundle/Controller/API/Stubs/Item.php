@@ -13,10 +13,7 @@ final class Item implements ItemInterface
      */
     private $value;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @param mixed $value

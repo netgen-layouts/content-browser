@@ -24,15 +24,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     use ExceptionEventThrowableTrait;
 
-    /**
-     * @var bool
-     */
-    private $outputDebugInfo;
+    private bool $outputDebugInfo;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(bool $outputDebugInfo, ?LoggerInterface $logger = null)
     {

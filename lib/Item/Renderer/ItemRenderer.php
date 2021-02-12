@@ -13,15 +13,9 @@ use function sprintf;
 
 final class ItemRenderer implements ItemRendererInterface
 {
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(Environment $twig, ?LoggerInterface $logger = null)
     {

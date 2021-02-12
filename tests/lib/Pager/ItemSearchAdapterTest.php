@@ -9,24 +9,16 @@ use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ItemSearchAdapterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $backendMock;
+    private MockObject $backendMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Backend\SearchQuery
-     */
-    private $searchQuery;
+    private SearchQuery $searchQuery;
 
-    /**
-     * @var \Netgen\ContentBrowser\Pager\ItemSearchAdapter
-     */
-    private $adapter;
+    private ItemSearchAdapter $adapter;
 
     protected function setUp(): void
     {

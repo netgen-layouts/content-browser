@@ -13,10 +13,7 @@ final class Location implements LocationInterface
      */
     private $locationId;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var mixed

@@ -9,6 +9,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,22 +23,13 @@ final class SetBackendListenerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $backendMock;
+    private MockObject $backendMock;
 
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
+    private Container $container;
 
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener
-     */
-    private $eventListener;
+    private SetBackendListener $eventListener;
 
     protected function setUp(): void
     {

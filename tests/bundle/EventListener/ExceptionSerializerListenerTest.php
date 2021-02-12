@@ -9,6 +9,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,15 +25,12 @@ final class ExceptionSerializerListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
-     */
-    private $eventListener;
+    private ExceptionSerializerListener $eventListener;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
      */
-    private $loggerMock;
+    private MockObject $loggerMock;
 
     protected function setUp(): void
     {

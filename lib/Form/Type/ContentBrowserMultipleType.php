@@ -18,10 +18,7 @@ use function is_scalar;
 
 final class ContentBrowserMultipleType extends AbstractType
 {
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
     public function __construct(BackendRegistry $backendRegistry)
     {

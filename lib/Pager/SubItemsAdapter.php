@@ -10,15 +10,9 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 final class SubItemsAdapter implements AdapterInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\LocationInterface
-     */
-    private $location;
+    private LocationInterface $location;
 
     public function __construct(BackendInterface $backend, LocationInterface $location)
     {

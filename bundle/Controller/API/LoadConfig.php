@@ -12,23 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class LoadConfig extends AbstractController
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    private $itemSerializer;
+    private ItemSerializerInterface $itemSerializer;
 
     /**
      * @var \Symfony\Contracts\Translation\TranslatorInterface
+     *
+     * Deprecated: Add typehint when support for Symfony 3.4 ends
      */
     private $translator;
 

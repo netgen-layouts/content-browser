@@ -9,25 +9,13 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class SearchQuery
 {
-    /**
-     * @var string
-     */
-    private $searchText;
+    private string $searchText;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\LocationInterface|null
-     */
-    private $location;
+    private ?LocationInterface $location;
 
-    /**
-     * @var int
-     */
-    private $offset = 0;
+    private int $offset = 0;
 
-    /**
-     * @var int
-     */
-    private $limit = 25;
+    private int $limit = 25;
 
     public function __construct(string $searchText, ?LocationInterface $location = null)
     {

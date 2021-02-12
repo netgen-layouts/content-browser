@@ -11,6 +11,7 @@ use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\App\MockerContainer;
 use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Response;
 use function getenv;
 use function json_decode;
@@ -18,10 +19,7 @@ use const JSON_THROW_ON_ERROR;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $backendMock;
+    protected MockObject $backendMock;
 
     /**
      * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser

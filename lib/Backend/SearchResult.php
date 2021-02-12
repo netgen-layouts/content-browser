@@ -9,7 +9,7 @@ final class SearchResult implements SearchResultInterface
     /**
      * @var iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
-    private $results;
+    private iterable $results;
 
     /**
      * @param iterable<\Netgen\ContentBrowser\Item\ItemInterface> $results

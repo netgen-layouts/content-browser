@@ -14,12 +14,12 @@ class MockerContainer extends Container
     /**
      * @var array<string, object>
      */
-    private $originalServices = [];
+    private array $originalServices = [];
 
     /**
      * @var array<string, object>
      */
-    private $mockedServices = [];
+    private array $mockedServices = [];
 
     /**
      * @throws \Netgen\ContentBrowser\Exceptions\RuntimeException if the mocked service does not exist

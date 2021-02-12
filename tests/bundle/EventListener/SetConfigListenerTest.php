@@ -23,15 +23,9 @@ final class SetConfigListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
+    private Container $container;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener
-     */
-    private $eventListener;
+    private SetConfigListener $eventListener;
 
     protected function setUp(): void
     {

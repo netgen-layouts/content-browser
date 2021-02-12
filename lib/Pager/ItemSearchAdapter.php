@@ -13,15 +13,9 @@ use function trigger_deprecation;
 
 final class ItemSearchAdapter implements AdapterInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Backend\SearchQuery
-     */
-    private $searchQuery;
+    private SearchQuery $searchQuery;
 
     public function __construct(BackendInterface $backend, SearchQuery $searchQuery)
     {

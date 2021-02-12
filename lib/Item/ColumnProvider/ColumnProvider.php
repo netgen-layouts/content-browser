@@ -13,20 +13,11 @@ use function sprintf;
 
 final class ColumnProvider implements ColumnProviderInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
-     */
-    private $itemRenderer;
+    private ItemRendererInterface $itemRenderer;
 
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $columnValueProviders;
+    private ContainerInterface $columnValueProviders;
 
     public function __construct(
         ItemRendererInterface $itemRenderer,

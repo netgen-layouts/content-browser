@@ -27,15 +27,9 @@ use function trim;
 
 final class ContentBrowserDynamicType extends AbstractType
 {
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
-    /**
-     * @var \Netgen\ContentBrowser\Registry\ConfigRegistry
-     */
-    private $configRegistry;
+    private ConfigRegistry $configRegistry;
 
     public function __construct(
         BackendRegistry $backendRegistry,

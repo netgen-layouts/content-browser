@@ -13,15 +13,9 @@ use function is_string;
 
 final class RenderItem extends AbstractController
 {
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
-     */
-    private $itemRenderer;
+    private ItemRendererInterface $itemRenderer;
 
     public function __construct(Configuration $config, ItemRendererInterface $itemRenderer)
     {

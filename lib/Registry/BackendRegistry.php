@@ -25,7 +25,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
     /**
      * @var array<string, \Netgen\ContentBrowser\Backend\BackendInterface>
      */
-    private $backends;
+    private array $backends;
 
     /**
      * @param array<string, \Netgen\ContentBrowser\Backend\BackendInterface> $backends

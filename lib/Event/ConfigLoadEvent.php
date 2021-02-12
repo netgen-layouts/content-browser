@@ -9,10 +9,7 @@ use Netgen\ContentBrowser\Utils\BackwardsCompatibility\Event;
 
 final class ConfigLoadEvent extends Event
 {
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
     public function __construct(Configuration $config)
     {

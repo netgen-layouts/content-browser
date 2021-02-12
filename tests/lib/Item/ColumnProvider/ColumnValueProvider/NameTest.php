@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NameTest extends TestCase
 {
-    /**
-     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name
-     */
-    private $provider;
+    private Name $provider;
 
     protected function setUp(): void
     {

@@ -14,10 +14,7 @@ use function is_a;
 
 final class LocationParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
     public function __construct(BackendRegistry $backendRegistry)
     {

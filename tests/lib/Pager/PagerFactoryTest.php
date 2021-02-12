@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
 {
-    /**
-     * @var \Pagerfanta\Adapter\AdapterInterface
-     */
-    private $adapterMock;
+    private AdapterInterface $adapterMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Pager\PagerFactory
-     */
-    private $pagerFactory;
+    private PagerFactory $pagerFactory;
 
     protected function setUp(): void
     {

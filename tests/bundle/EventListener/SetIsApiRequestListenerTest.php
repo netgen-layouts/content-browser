@@ -15,10 +15,7 @@ final class SetIsApiRequestListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener
-     */
-    private $eventListener;
+    private SetIsApiRequestListener $eventListener;
 
     protected function setUp(): void
     {

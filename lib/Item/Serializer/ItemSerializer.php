@@ -11,15 +11,9 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class ItemSerializer implements ItemSerializerInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProviderInterface
-     */
-    private $columnProvider;
+    private ColumnProviderInterface $columnProvider;
 
     public function __construct(
         BackendInterface $backend,

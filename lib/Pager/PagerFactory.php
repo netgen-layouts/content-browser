@@ -9,10 +9,7 @@ use Pagerfanta\Pagerfanta;
 
 final class PagerFactory implements PagerFactoryInterface
 {
-    /**
-     * @var int
-     */
-    private $maxLimit;
+    private int $maxLimit;
 
     public function __construct(int $maxLimit)
     {

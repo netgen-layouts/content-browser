@@ -11,10 +11,7 @@ use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\Extension\ExtensionInterface
-     */
-    private $extension;
+    private ExtensionInterface $extension;
 
     public function __construct(ExtensionInterface $extension)
     {

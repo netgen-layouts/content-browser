@@ -8,24 +8,16 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pager\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class SubItemsAdapterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $backendMock;
+    private MockObject $backendMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Pager\SubItemsAdapter
-     */
-    private $adapter;
+    private SubItemsAdapter $adapter;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\LocationInterface
-     */
-    private $location;
+    private Location $location;
 
     protected function setUp(): void
     {

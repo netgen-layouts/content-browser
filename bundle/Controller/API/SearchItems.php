@@ -16,25 +16,13 @@ use function trim;
 
 final class SearchItems extends AbstractController
 {
-    /**
-     * @var \Netgen\ContentBrowser\Backend\BackendInterface
-     */
-    private $backend;
+    private BackendInterface $backend;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface
-     */
-    private $itemSerializer;
+    private ItemSerializerInterface $itemSerializer;
 
-    /**
-     * @var \Netgen\ContentBrowser\Pager\PagerFactoryInterface
-     */
-    private $pagerFactory;
+    private PagerFactoryInterface $pagerFactory;
 
-    /**
-     * @var int
-     */
-    private $defaultLimit;
+    private int $defaultLimit;
 
     public function __construct(
         BackendInterface $backend,

@@ -14,10 +14,7 @@ final class ItemLocation implements ItemInterface, LocationInterface
      */
     private $value;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var mixed

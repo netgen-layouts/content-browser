@@ -12,7 +12,7 @@ final class Container implements ContainerInterface
     /**
      * @var array<string, object>
      */
-    private $entries;
+    private array $entries;
 
     /**
      * @param array<string, object> $entries

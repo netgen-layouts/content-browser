@@ -29,10 +29,7 @@ final class ExceptionConversionListenerTest extends TestCase
     use CreateEventTrait;
     use ExceptionEventThrowableTrait;
 
-    /**
-     * @var \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
-     */
-    private $eventListener;
+    private ExceptionConversionListener $eventListener;
 
     protected function setUp(): void
     {

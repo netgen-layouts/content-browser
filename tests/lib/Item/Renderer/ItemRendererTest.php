@@ -7,6 +7,7 @@ namespace Netgen\ContentBrowser\Tests\Item\Renderer;
 use Exception;
 use Netgen\ContentBrowser\Item\Renderer\ItemRenderer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
@@ -15,12 +16,9 @@ final class ItemRendererTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $twigMock;
+    private MockObject $twigMock;
 
-    /**
-     * @var \Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface
-     */
-    private $itemRenderer;
+    private ItemRenderer $itemRenderer;
 
     protected function setUp(): void
     {

@@ -15,10 +15,7 @@ use function trim;
 
 final class ItemParamConverter implements ParamConverterInterface
 {
-    /**
-     * @var \Netgen\ContentBrowser\Registry\BackendRegistry
-     */
-    private $backendRegistry;
+    private BackendRegistry $backendRegistry;
 
     public function __construct(BackendRegistry $backendRegistry)
     {
