@@ -34,9 +34,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         $this->backends = array_filter(
             $backends,
-            static function (BackendInterface $backend): bool {
-                return true;
-            }
+            static fn (BackendInterface $backend): bool => true
         );
     }
 

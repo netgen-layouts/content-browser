@@ -34,9 +34,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         $this->configs = array_filter(
             $configs,
-            static function (Configuration $config): bool {
-                return true;
-            }
+            static fn (Configuration $config): bool => true
         );
     }
 

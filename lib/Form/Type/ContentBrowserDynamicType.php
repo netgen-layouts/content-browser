@@ -138,9 +138,7 @@ final class ContentBrowserDynamicType extends AbstractType
     {
         $allItemTypes = array_flip(
             array_map(
-                static function (Configuration $config): string {
-                    return $config->getItemName();
-                },
+                static fn (Configuration $config): string => $config->getItemName(),
                 $this->configRegistry->getConfigs()
             )
         );
@@ -151,9 +149,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         return array_filter(
             $allItemTypes,
-            static function (string $itemType) use ($itemTypes): bool {
-                return in_array($itemType, $itemTypes, true);
-            }
+            static fn (string $itemType): bool => in_array($itemType, $itemTypes, true)
         );
     }
 }

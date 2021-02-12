@@ -46,9 +46,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setAllowedValues(
             'item_type',
-            function (string $itemType): bool {
-                return $this->backendRegistry->hasBackend($itemType);
-            }
+            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType)
         );
 
         $resolver->setAllowedValues(
