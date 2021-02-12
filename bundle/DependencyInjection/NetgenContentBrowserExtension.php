@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -56,10 +57,8 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
 
     /**
      * @param mixed[] $config
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    public function getConfiguration(array $config, ContainerBuilder $container)
+    public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
         return new Configuration($this);
     }

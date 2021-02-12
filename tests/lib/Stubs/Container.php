@@ -22,7 +22,7 @@ final class Container implements ContainerInterface
         $this->entries = $entries;
     }
 
-    public function get($id)
+    public function get($id): object
     {
         return $this->entries[$id];
     }
