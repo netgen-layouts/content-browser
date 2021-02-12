@@ -20,9 +20,6 @@ final class SetBackendListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
     private MockObject $backendMock;
 
     private Container $container;
