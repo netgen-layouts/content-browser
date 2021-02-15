@@ -17,6 +17,10 @@ parameters:
         - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
         - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
 
+        # Symfony
+
+        - '#Cannot cast array\|string\|false to string.#'
+
         # Disable errors about missing value types in PHPUnit data providers
 
         - '#Method .+Test::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
