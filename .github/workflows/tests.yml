@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4']
+        php: ['7.4', 8.0]
         symfony: ['~3.4.0', '~4.4.0', '~5.2.0']
         phpunit: ['phpunit.xml', 'phpunit-api.xml']
         deps: ['normal']
@@ -28,6 +28,9 @@ jobs:
             symfony: '~3.4.0'
             phpunit: 'phpunit-api.xml'
             deps: 'low'
+        exclude:
+          - php: '8.0'
+            symfony: '~3.4.0'
 
     steps:
       - uses: actions/checkout@v2

@@ -50,7 +50,7 @@
         "phpstan/phpstan-phpunit": "^0.12",
         "vimeo/psalm": "^4.4",
         "matthiasnoback/symfony-dependency-injection-test": "^4.2",
-        "lchrusciel/api-test-case": "^4.1 || ^5.0"
+        "lchrusciel/api-test-case": "^4.1 || ^5.1"
     },
     "conflict": {
         "ocramius/proxy-manager": "<2.1"
