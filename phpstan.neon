@@ -1,15 +1,15 @@
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
 
 parameters:
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
     ignoreErrors:
-        # Symfony Config component
-        -
-            message: '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
-            path: bundle/DependencyInjection/Configuration.php
+        # phpstan/phpstan-symfony issues
+        - '#Call to method Symfony\\Component\\DependencyInjection\\ContainerBuilder::has\(\) with .+ will always evaluate to false.#'
 
         # Compatibility with older versions of Symfony
 
@@ -32,10 +32,6 @@ parameters:
         # Disable errors about missing value types in various vendor classes
 
         - '#no value type specified in iterable type Pagerfanta\\Pagerfanta.#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface.#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface.#'
-        - '#Method .+Type::build(Form|View)\(\) has parameter \$options with no value type specified in iterable type array.#'
-        - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
 
         # Content Browser specifics
 
