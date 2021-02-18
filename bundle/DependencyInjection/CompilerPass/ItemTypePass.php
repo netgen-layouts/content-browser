@@ -72,14 +72,14 @@ final class ItemTypePass implements CompilerPassInterface
                 $backendClass = $this->getDefinitionClass($container, $backend);
 
                 foreach ($tags as $tag) {
-                    if (isset($tag['item_type']) && $tag['item_type'] === $itemType) {
+                    if (($tag['item_type'] ?? '') === $itemType) {
                         $foundBackend = $backend;
 
                         break 2;
                     }
                 }
 
-                if (isset($backendClass::$defaultItemType) && $backendClass::$defaultItemType === $itemType) {
+                if (($backendClass::$defaultItemType ?? '') === $itemType) {
                     $foundBackend = $backend;
 
                     break;
