@@ -150,6 +150,9 @@ final class ExceptionConversionListenerTest extends TestCase
         self::assertSame($exception, $eventException);
     }
 
+    /**
+     * @return array<int, mixed[]>
+     */
     public function onExceptionDataProvider(): array
     {
         return [

@@ -45,6 +45,9 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($currentPage, $pager->getCurrentPage());
     }
 
+    /**
+     * @return int[][]
+     */
     public function buildPagerDataProvider(): array
     {
         return [
