@@ -8,30 +8,20 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class Location implements LocationInterface
 {
-    /**
-     * @var mixed
-     */
-    private $locationId;
+    private int $locationId;
 
     private string $name;
 
-    /**
-     * @var mixed
-     */
-    private $parentId;
+    private ?int $parentId;
 
-    /**
-     * @param mixed $locationId
-     * @param mixed $parentId
-     */
-    public function __construct($locationId, string $name, $parentId = null)
+    public function __construct(int $locationId, string $name, ?int $parentId = null)
     {
         $this->locationId = $locationId;
         $this->name = $name;
         $this->parentId = $parentId;
     }
 
-    public function getLocationId()
+    public function getLocationId(): int
     {
         return $this->locationId;
     }
@@ -41,7 +31,7 @@ final class Location implements LocationInterface
         return $this->name;
     }
 
-    public function getParentId()
+    public function getParentId(): ?int
     {
         return $this->parentId;
     }

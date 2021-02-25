@@ -8,20 +8,14 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class Item implements ItemInterface
 {
-    /**
-     * @var mixed
-     */
-    private $value;
+    private ?int $value;
 
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
+    public function __construct(?int $value = null)
     {
         $this->value = $value;
     }
 
-    public function getValue()
+    public function getValue(): ?int
     {
         return $this->value;
     }
