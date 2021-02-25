@@ -9,7 +9,7 @@ interface ItemInterface
     /**
      * Returns the value.
      *
-     * @return mixed
+     * @return int|string
      */
     public function getValue();
 
