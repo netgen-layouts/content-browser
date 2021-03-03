@@ -67,7 +67,7 @@ final class ColumnProviderTest extends TestCase
     {
         self::assertSame(
             ['column1' => 'some_value', 'column2' => ''],
-            $this->columnProvider->provideColumns(new Item())
+            $this->columnProvider->provideColumns(new Item(42))
         );
     }
 
@@ -95,7 +95,7 @@ final class ColumnProviderTest extends TestCase
             new Container()
         );
 
-        $item = new Item();
+        $item = new Item(42);
 
         $this->itemRendererMock
             ->expects(self::once())
@@ -124,6 +124,6 @@ final class ColumnProviderTest extends TestCase
             new Container(['other' => new ColumnValueProvider()])
         );
 
-        $this->columnProvider->provideColumns(new Item());
+        $this->columnProvider->provideColumns(new Item(42));
     }
 }

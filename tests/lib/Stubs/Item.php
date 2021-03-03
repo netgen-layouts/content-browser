@@ -8,27 +8,21 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class Item implements ItemInterface
 {
-    private ?int $value;
+    private int $value;
 
-    public function __construct(?int $value = null)
+    public function __construct(int $value)
     {
         $this->value = $value;
     }
 
-    public function getValue(): ?int
+    public function getValue(): int
     {
         return $this->value;
     }
 
     public function getName(): string
     {
-        $name = 'This is a name';
-
-        if ($this->value !== null) {
-            $name .= ' (' . $this->value . ')';
-        }
-
-        return $name;
+        return 'This is a name (' . $this->value . ')';
     }
 
     public function isVisible(): bool

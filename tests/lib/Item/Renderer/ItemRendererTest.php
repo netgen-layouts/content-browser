@@ -30,7 +30,7 @@ final class ItemRendererTest extends TestCase
      */
     public function testRenderItem(): void
     {
-        $item = new Item();
+        $item = new Item(42);
 
         $this->twigMock
             ->expects(self::once())
@@ -52,7 +52,7 @@ final class ItemRendererTest extends TestCase
      */
     public function testRenderItemWithException(): void
     {
-        $item = new Item();
+        $item = new Item(42);
 
         $this->twigMock
             ->expects(self::once())

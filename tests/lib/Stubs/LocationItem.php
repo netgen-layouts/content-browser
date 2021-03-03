@@ -9,33 +9,27 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class LocationItem implements ItemInterface, LocationInterface
 {
-    private ?int $value;
+    private int $value;
 
-    private ?int $locationId;
+    private int $locationId;
 
     private ?int $parentId;
 
-    public function __construct(?int $value = null, ?int $locationId = null, ?int $parentId = null)
+    public function __construct(int $value, int $locationId, ?int $parentId = null)
     {
         $this->value = $value;
         $this->locationId = $locationId;
         $this->parentId = $parentId;
     }
 
-    public function getValue(): ?int
+    public function getValue(): int
     {
         return $this->value;
     }
 
     public function getName(): string
     {
-        $name = 'This is a name';
-
-        if ($this->value !== null) {
-            $name .= ' (' . $this->value . ')';
-        }
-
-        return $name;
+        return 'This is a name (' . $this->value . ')';
     }
 
     public function isVisible(): bool
@@ -48,7 +42,7 @@ final class LocationItem implements ItemInterface, LocationInterface
         return true;
     }
 
-    public function getLocationId(): ?int
+    public function getLocationId(): int
     {
         return $this->locationId;
     }
