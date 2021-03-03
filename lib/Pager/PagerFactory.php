@@ -6,6 +6,7 @@ namespace Netgen\ContentBrowser\Pager;
 
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 
 final class PagerFactory implements PagerFactoryInterface
 {
@@ -16,7 +17,7 @@ final class PagerFactory implements PagerFactoryInterface
         $this->maxLimit = $maxLimit;
     }
 
-    public function buildPager(AdapterInterface $adapter, int $page, int $limit): Pagerfanta
+    public function buildPager(AdapterInterface $adapter, int $page, int $limit): PagerfantaInterface
     {
         $pager = new Pagerfanta($adapter);
 
