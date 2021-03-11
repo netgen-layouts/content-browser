@@ -37,7 +37,7 @@
         "symfony/yaml": "^3.4.47 || ^4.4 || ^5.2",
         "twig/twig": "^2.14 || ^3.3",
         "sensio/framework-extra-bundle": "^5.4 || ^6.1",
-        "pagerfanta/pagerfanta": "^2.7",
+        "pagerfanta/pagerfanta": "^2.7 || ^3.0",
         "jean85/pretty-package-versions": "^1.6 || ^2.0"
     },
     "require-dev": {
@@ -49,7 +49,7 @@
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpstan/phpstan-symfony": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
-        "vimeo/psalm": "^4.4",
+        "vimeo/psalm": "^4.6",
         "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "lchrusciel/api-test-case": "^4.1 || ^5.1"
     },
