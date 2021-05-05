@@ -47,7 +47,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 5]],
-            $this->eventListener::getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents(),
         );
     }
 
@@ -67,14 +67,14 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->eventListener->onException($event);
 
         self::assertInstanceOf(
             JsonResponse::class,
-            $event->getResponse()
+            $event->getResponse(),
         );
 
         self::assertSame(
@@ -84,7 +84,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ],
-            json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR)
+            json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR),
         );
     }
 
@@ -104,7 +104,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->loggerMock
@@ -115,7 +115,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         self::assertInstanceOf(
             JsonResponse::class,
-            $event->getResponse()
+            $event->getResponse(),
         );
 
         self::assertSame(
@@ -123,7 +123,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ],
-            json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR)
+            json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR),
         );
     }
 
@@ -143,7 +143,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->eventListener = new ExceptionSerializerListener(true, $this->loggerMock);
@@ -151,7 +151,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         self::assertInstanceOf(
             JsonResponse::class,
-            $event->getResponse()
+            $event->getResponse(),
         );
 
         $data = json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -188,7 +188,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new NotFoundHttpException('Some message')
+            new NotFoundHttpException('Some message'),
         );
 
         $this->eventListener->onException($event);
@@ -209,7 +209,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new NotFoundHttpException('Some message')
+            new NotFoundHttpException('Some message'),
         );
 
         $this->eventListener->onException($event);

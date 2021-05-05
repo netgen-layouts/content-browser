@@ -60,7 +60,7 @@ final class SearchItems extends AbstractController
         $pager = $this->pagerFactory->buildPager(
             new ItemSearchAdapter($this->backend, $searchQuery),
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->defaultLimit)
+            $request->query->getInt('limit', $this->defaultLimit),
         );
 
         $data = [

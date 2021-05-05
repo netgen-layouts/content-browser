@@ -65,7 +65,7 @@ final class ContentBrowserDynamicType extends AbstractType
                 }
 
                 return true;
-            }
+            },
         );
 
         $resolver->setDefault('item_types', []);
@@ -84,7 +84,7 @@ final class ContentBrowserDynamicType extends AbstractType
                 }
 
                 return $validItemTypes;
-            }
+            },
         );
     }
 
@@ -96,7 +96,7 @@ final class ContentBrowserDynamicType extends AbstractType
             [
                 'choices' => $this->getEnabledItemTypes($options['item_types']),
                 'choice_translation_domain' => 'ngcb',
-            ]
+            ],
         );
 
         $builder->add('item_value', HiddenType::class);
@@ -139,8 +139,8 @@ final class ContentBrowserDynamicType extends AbstractType
         $allItemTypes = array_flip(
             array_map(
                 static fn (Configuration $config): string => $config->getItemName(),
-                $this->configRegistry->getConfigs()
-            )
+                $this->configRegistry->getConfigs(),
+            ),
         );
 
         if (count($itemTypes) === 0) {
@@ -149,7 +149,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
         return array_filter(
             $allItemTypes,
-            static fn (string $itemType): bool => in_array($itemType, $itemTypes, true)
+            static fn (string $itemType): bool => in_array($itemType, $itemTypes, true),
         );
     }
 }

@@ -37,7 +37,7 @@ final class PagerFactoryTest extends TestCase
         $pager = $this->pagerFactory->buildPager(
             $this->adapterMock,
             $page,
-            $limit
+            $limit,
         );
 
         self::assertTrue($pager->getNormalizeOutOfRangePages());

@@ -24,8 +24,8 @@ final class SearchItemsTest extends JsonApiTestCase
                     [
                         new Item(42, 'Item 42'),
                         new Item(43, 'Item 43'),
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->backendMock
@@ -38,7 +38,7 @@ final class SearchItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'search/result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -52,7 +52,7 @@ final class SearchItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'search/empty_result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -66,7 +66,7 @@ final class SearchItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'search/empty_result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

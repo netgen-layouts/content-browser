@@ -25,7 +25,7 @@ final class BackendRegistryTest extends TestCase
         $this->registry = new BackendRegistry(
             [
                 'value' => $this->backendMock,
-            ]
+            ],
         );
     }
 

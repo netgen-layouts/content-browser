@@ -32,7 +32,7 @@ final class ContentBrowserTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit('42');
@@ -60,7 +60,7 @@ final class ContentBrowserTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit('42');
@@ -90,7 +90,7 @@ final class ContentBrowserTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit('42');
@@ -118,7 +118,7 @@ final class ContentBrowserTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit(null);
@@ -144,7 +144,7 @@ final class ContentBrowserTypeTest extends TestCase
         $options = $optionsResolver->resolve(
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         self::assertSame($options['item_type'], 'value');

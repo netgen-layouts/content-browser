@@ -234,7 +234,7 @@ final class ConfigurationTest extends TestCase
                 'param' => 'value',
                 'param2' => 'value2',
             ],
-            $this->config->getParameters()
+            $this->config->getParameters(),
         );
     }
 

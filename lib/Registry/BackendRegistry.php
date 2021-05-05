@@ -34,7 +34,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         $this->backends = array_filter(
             $backends,
-            static fn (BackendInterface $backend): bool => true
+            static fn (BackendInterface $backend): bool => true,
         );
     }
 
@@ -55,7 +55,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         if (!$this->hasBackend($itemType)) {
             throw new InvalidArgumentException(
-                sprintf('Backend for "%s" item type does not exist.', $itemType)
+                sprintf('Backend for "%s" item type does not exist.', $itemType),
             );
         }
 

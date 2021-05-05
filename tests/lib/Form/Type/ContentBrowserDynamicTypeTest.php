@@ -27,7 +27,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     public function testSubmitValidDataWithNoItemTypeLimit(): void
     {
         $form = $this->factory->create(
-            ContentBrowserDynamicType::class
+            ContentBrowserDynamicType::class,
         );
 
         $data = ['item_type' => 'value2', 'item_value' => '42'];
@@ -49,7 +49,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             null,
             [
                 'item_types' => ['value1'],
-            ]
+            ],
         );
 
         $data = ['item_type' => 'value1', 'item_value' => '42'];
@@ -140,7 +140,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $options = $optionsResolver->resolve(
             [
                 'item_types' => ['value1'],
-            ]
+            ],
         );
 
         self::assertSame($options['item_types'], ['value1']);
@@ -208,7 +208,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             [
                 'value1' => new Configuration('value1', 'Value 1', []),
                 'value2' => new Configuration('value2', 'Value 2', []),
-            ]
+            ],
         );
 
         return new ContentBrowserDynamicType($backendRegistry, $configRegistry);

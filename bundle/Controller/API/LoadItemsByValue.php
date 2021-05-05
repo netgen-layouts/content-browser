@@ -43,7 +43,7 @@ final class LoadItemsByValue extends AbstractController
         $items = [];
         foreach (array_map('trim', explode(',', $values)) as $value) {
             $items[] = $this->itemSerializer->serializeItem(
-                $this->backend->loadItem($value)
+                $this->backend->loadItem($value),
             );
         }
 

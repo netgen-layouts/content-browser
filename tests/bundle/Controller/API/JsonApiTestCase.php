@@ -107,7 +107,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $container->mock(
             'netgen_content_browser.registry.backend',
-            new BackendRegistry($backends)
+            new BackendRegistry($backends),
         );
 
         $container->set(
@@ -126,8 +126,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
                     'preview' => [
                         'enabled' => true,
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -136,7 +136,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         /** @var \PHPUnit\Framework\MockObject\MockObject $itemRendererMock */
         $itemRendererMock = $container->mock(
             'netgen_content_browser.item_renderer',
-            $this->createMock(ItemRendererInterface::class)
+            $this->createMock(ItemRendererInterface::class),
         );
 
         $itemRendererMock

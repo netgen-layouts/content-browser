@@ -47,8 +47,8 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
                     [
                         'test' => new ServiceClosureArgument(new Reference('netgen_content_browser.column_value_provider.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

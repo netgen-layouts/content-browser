@@ -29,12 +29,12 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
 
         $container->setParameter(
             sprintf('%s.%s', $this->getAlias(), 'item_types'),
-            $config['item_types']
+            $config['item_types'],
         );
 
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+            new FileLocator(__DIR__ . '/../Resources/config'),
         );
 
         $loader->load('services.yaml');
@@ -47,7 +47,7 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
     {
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+            new FileLocator(__DIR__ . '/../Resources/config'),
         );
 
         $loader->load('default_settings.yaml');

@@ -28,7 +28,7 @@ final class ItemSerializerTest extends TestCase
 
         $this->serializer = new ItemSerializer(
             $this->backendMock,
-            $this->columnProviderMock
+            $this->columnProviderMock,
         );
     }
 
@@ -66,7 +66,7 @@ final class ItemSerializerTest extends TestCase
                     'column' => 'value',
                 ],
             ],
-            $data
+            $data,
         );
     }
 
@@ -102,7 +102,7 @@ final class ItemSerializerTest extends TestCase
                     'column' => 'value',
                 ],
             ],
-            $data
+            $data,
         );
     }
 
@@ -137,7 +137,7 @@ final class ItemSerializerTest extends TestCase
                     'name' => 'This is a name',
                 ],
             ],
-            $data
+            $data,
         );
     }
 }

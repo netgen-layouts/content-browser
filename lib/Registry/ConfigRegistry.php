@@ -34,7 +34,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         $this->configs = array_filter(
             $configs,
-            static fn (Configuration $config): bool => true
+            static fn (Configuration $config): bool => true,
         );
     }
 
@@ -55,7 +55,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
     {
         if (!$this->hasConfig($itemType)) {
             throw new InvalidArgumentException(
-                sprintf('Configuration for item type "%s" does not exist.', $itemType)
+                sprintf('Configuration for item type "%s" does not exist.', $itemType),
             );
         }
 

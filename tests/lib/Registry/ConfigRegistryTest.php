@@ -24,7 +24,7 @@ final class ConfigRegistryTest extends TestCase
         $this->registry = new ConfigRegistry(
             [
                 'value' => $this->configuration,
-            ]
+            ],
         );
     }
 

@@ -66,7 +66,7 @@ final class Configuration implements ConfigurationInterface
                                     }
 
                                     return $v;
-                                }
+                                },
                             )
                         ->end()
                         ->isRequired()
@@ -86,7 +86,7 @@ final class Configuration implements ConfigurationInterface
                                     }
 
                                     return $v;
-                                }
+                                },
                             )
                         ->end()
                         ->performNoDeepMerging()
@@ -105,7 +105,7 @@ final class Configuration implements ConfigurationInterface
                                         }
 
                                         return $v;
-                                    }
+                                    },
                                 )
                             ->end()
                             ->children()

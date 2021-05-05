@@ -55,7 +55,7 @@ final class SubItemsAdapterTest extends TestCase
             ->with(
                 self::identicalTo($this->location),
                 self::identicalTo(5),
-                self::identicalTo(10)
+                self::identicalTo(10),
             )
             ->willReturn($items);
 

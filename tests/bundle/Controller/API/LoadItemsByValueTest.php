@@ -19,7 +19,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
             ->method('loadItem')
             ->willReturnOnConsecutiveCalls(
                 new Item(42, 'Item 42'),
-                new Item(43, 'Item 43')
+                new Item(43, 'Item 43'),
             );
 
         $this->client->request('GET', '/cb/api/test/values?values=42,43');
@@ -27,7 +27,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'items/result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -41,7 +41,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.'
+            'List of values is invalid.',
         );
     }
 
@@ -55,7 +55,7 @@ final class LoadItemsByValueTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.'
+            'List of values is invalid.',
         );
     }
 }

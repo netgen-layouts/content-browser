@@ -43,7 +43,7 @@ final class ColumnProviderTest extends TestCase
                     ],
                 ],
             ],
-            []
+            [],
         );
 
         $this->columnProvider = new ColumnProvider(
@@ -53,8 +53,8 @@ final class ColumnProviderTest extends TestCase
                 [
                     'provider' => new ColumnValueProvider(),
                     'invalid' => new InvalidColumnValueProvider(),
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -67,7 +67,7 @@ final class ColumnProviderTest extends TestCase
     {
         self::assertSame(
             ['column1' => 'some_value', 'column2' => ''],
-            $this->columnProvider->provideColumns(new Item(42))
+            $this->columnProvider->provideColumns(new Item(42)),
         );
     }
 
@@ -86,13 +86,13 @@ final class ColumnProviderTest extends TestCase
                         'template' => 'template.html.twig',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            new Container()
+            new Container(),
         );
 
         $item = new Item(42);
@@ -105,7 +105,7 @@ final class ColumnProviderTest extends TestCase
 
         self::assertSame(
             ['column' => 'rendered column'],
-            $this->columnProvider->provideColumns($item)
+            $this->columnProvider->provideColumns($item),
         );
     }
 
@@ -121,7 +121,7 @@ final class ColumnProviderTest extends TestCase
         $this->columnProvider = new ColumnProvider(
             $this->itemRendererMock,
             $this->config,
-            new Container(['other' => new ColumnValueProvider()])
+            new Container(['other' => new ColumnValueProvider()]),
         );
 
         $this->columnProvider->provideColumns(new Item(42));

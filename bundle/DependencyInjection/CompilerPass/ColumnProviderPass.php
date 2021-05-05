@@ -56,8 +56,8 @@ final class ColumnProviderPass implements CompilerPassInterface
                         'Could not register column value provider "%s". Make sure that either "%s" attribute exists in the tag or a "%s" static property exists in the class.',
                         $serviceName,
                         'identifier',
-                        '$defaultIdentifier'
-                    )
+                        '$defaultIdentifier',
+                    ),
                 );
             }
         }

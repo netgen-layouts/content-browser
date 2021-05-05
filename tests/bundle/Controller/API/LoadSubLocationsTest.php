@@ -29,7 +29,7 @@ final class LoadSubLocationsTest extends JsonApiTestCase
                 [
                     new Location(42, 'Location 42'),
                     new Location(43, 'Location 43'),
-                ]
+                ],
             );
 
         $this->client->request('GET', '/cb/api/test/browse/41/locations');
@@ -37,7 +37,7 @@ final class LoadSubLocationsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'browse/locations',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

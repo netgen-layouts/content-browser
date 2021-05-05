@@ -37,7 +37,7 @@ final class SetBackendListenerTest extends TestCase
 
         $this->eventListener = new SetBackendListener(
             $this->container,
-            $this->backendRegistry
+            $this->backendRegistry,
         );
     }
 
@@ -49,7 +49,7 @@ final class SetBackendListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->eventListener::getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents(),
         );
     }
 
@@ -66,7 +66,7 @@ final class SetBackendListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -88,7 +88,7 @@ final class SetBackendListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::SUB_REQUEST
+            HttpKernelInterface::SUB_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -108,7 +108,7 @@ final class SetBackendListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -128,7 +128,7 @@ final class SetBackendListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);

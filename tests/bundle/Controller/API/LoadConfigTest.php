@@ -23,7 +23,7 @@ final class LoadConfigTest extends JsonApiTestCase
                 [
                     new Location(42, 'Location 42'),
                     new Location(42, 'Location 42'),
-                ]
+                ],
             );
 
         $this->client->request('GET', '/cb/api/test/config');
@@ -31,7 +31,7 @@ final class LoadConfigTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'config/result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

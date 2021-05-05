@@ -33,7 +33,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit([42, 24]);
@@ -56,7 +56,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ->method('loadItem')
             ->withConsecutive(
                 [self::identicalTo('42')],
-                [self::identicalTo('24')]
+                [self::identicalTo('24')],
             )
             ->willReturnOnConsecutiveCalls($item1, $item2);
 
@@ -67,7 +67,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 5,
-            ]
+            ],
         );
 
         $form->submit([42, 24]);
@@ -85,7 +85,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
                 42 => $item1,
                 24 => $item2,
             ],
-            $view->vars['items']
+            $view->vars['items'],
         );
 
         self::assertSame(3, $view->vars['min']);
@@ -109,7 +109,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit([42]);
@@ -138,7 +138,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             null,
             [
                 'item_type' => 'value',
-            ]
+            ],
         );
 
         $form->submit(null);
@@ -166,7 +166,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 5,
-            ]
+            ],
         );
 
         self::assertSame($options['item_type'], 'value');
@@ -188,7 +188,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
                 'item_type' => 'value',
                 'min' => 3,
                 'max' => 2,
-            ]
+            ],
         );
 
         self::assertSame($options['item_type'], 'value');

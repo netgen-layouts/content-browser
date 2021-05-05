@@ -63,8 +63,8 @@ final class SetConfigListener implements EventSubscriberInterface
             throw new RuntimeException(
                 sprintf(
                     'Invalid custom parameters specification for "%s" item type.',
-                    $attributes->get('itemType')
-                )
+                    $attributes->get('itemType'),
+                ),
             );
         }
 
@@ -92,8 +92,8 @@ final class SetConfigListener implements EventSubscriberInterface
             throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" item type does not exist.',
-                    $itemType
-                )
+                    $itemType,
+                ),
             );
         }
 
@@ -102,8 +102,8 @@ final class SetConfigListener implements EventSubscriberInterface
             throw new InvalidArgumentException(
                 sprintf(
                     'Configuration for "%s" item type is invalid.',
-                    $itemType
-                )
+                    $itemType,
+                ),
             );
         }
 

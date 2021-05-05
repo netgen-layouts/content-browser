@@ -25,11 +25,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->method('loadLocation')
             ->withConsecutive(
                 [self::identicalTo('41')],
-                [self::identicalTo(40)]
+                [self::identicalTo(40)],
             )
             ->willReturnOnConsecutiveCalls(
                 $location,
-                new Location(40, 'Location 40')
+                new Location(40, 'Location 40'),
             );
 
         $this->backendMock
@@ -46,7 +46,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 [
                     new Item(42, 'Item 42'),
                     new Item(43, 'Item 43'),
-                ]
+                ],
             );
 
         $this->client->request('GET', '/cb/api/test/browse/41/items');
@@ -54,7 +54,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'browse/items',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -70,11 +70,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->method('loadLocation')
             ->withConsecutive(
                 [self::identicalTo('41')],
-                [self::identicalTo(40)]
+                [self::identicalTo(40)],
             )
             ->willReturnOnConsecutiveCalls(
                 $location,
-                new ItemLocation(40, 'Item 40')
+                new ItemLocation(40, 'Item 40'),
             );
 
         $this->backendMock
@@ -91,7 +91,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 [
                     new Item(42, 'Item 42'),
                     new Item(43, 'Item 43'),
-                ]
+                ],
             );
 
         $this->client->request('GET', '/cb/api/test/browse/41/items');
@@ -99,7 +99,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'browse/items_as_locations',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -115,11 +115,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             ->method('loadLocation')
             ->withConsecutive(
                 [self::identicalTo('41')],
-                [self::identicalTo(40)]
+                [self::identicalTo(40)],
             )
             ->willReturnOnConsecutiveCalls(
                 self::returnValue($location),
-                self::throwException(new NotFoundException())
+                self::throwException(new NotFoundException()),
             );
 
         $this->backendMock
@@ -136,7 +136,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 [
                     new Item(42, 'Item 42'),
                     new Item(43, 'Item 43'),
-                ]
+                ],
             );
 
         $this->client->request('GET', '/cb/api/test/browse/41/items');
@@ -144,7 +144,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'browse/items_with_missing_parent',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

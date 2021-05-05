@@ -33,7 +33,7 @@ final class ContentBrowserType extends AbstractType
 
         $resolver->setAllowedValues(
             'item_type',
-            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType)
+            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType),
         );
 
         $resolver->setAllowedValues(
@@ -54,7 +54,7 @@ final class ContentBrowserType extends AbstractType
                 }
 
                 return true;
-            }
+            },
         );
 
         $resolver->setDefault('start_location', null);

@@ -46,8 +46,8 @@ final class RenderItemTest extends JsonApiTestCase
                         'enabled' => true,
                         'template' => 'template.html.twig',
                     ],
-                ]
-            )
+                ],
+            ),
         );
 
         $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
@@ -91,8 +91,8 @@ final class RenderItemTest extends JsonApiTestCase
                     'preview' => [
                         'enabled' => false,
                     ],
-                ]
-            )
+                ],
+            ),
         );
 
         $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
@@ -120,7 +120,7 @@ final class RenderItemTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Item does not exist.'
+            'Item does not exist.',
         );
     }
 }

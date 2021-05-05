@@ -24,7 +24,7 @@ final class NameTest extends TestCase
     {
         self::assertSame(
             'This is a name (42)',
-            $this->provider->getValue(new Item(42))
+            $this->provider->getValue(new Item(42)),
         );
     }
 }

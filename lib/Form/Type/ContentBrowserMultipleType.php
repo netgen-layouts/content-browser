@@ -33,7 +33,7 @@ final class ContentBrowserMultipleType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => true,
-            ]
+            ],
         );
 
         $resolver->setRequired(['item_type', 'min', 'max', 'start_location', 'custom_params']);
@@ -46,7 +46,7 @@ final class ContentBrowserMultipleType extends AbstractType
 
         $resolver->setAllowedValues(
             'item_type',
-            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType)
+            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType),
         );
 
         $resolver->setAllowedValues(
@@ -67,7 +67,7 @@ final class ContentBrowserMultipleType extends AbstractType
                 }
 
                 return true;
-            }
+            },
         );
 
         $resolver->setDefault('min', null);
@@ -87,7 +87,7 @@ final class ContentBrowserMultipleType extends AbstractType
                 }
 
                 return $value;
-            }
+            },
         );
     }
 

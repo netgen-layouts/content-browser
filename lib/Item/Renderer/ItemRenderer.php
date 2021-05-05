@@ -32,16 +32,16 @@ final class ItemRenderer implements ItemRendererInterface
                 $template,
                 [
                     'item' => $item,
-                ]
+                ],
             );
         } catch (Throwable $t) {
             $this->logger->critical(
                 sprintf(
                     'An error occurred while rendering an item with "%s" value: %s',
                     $item->getValue(),
-                    $t->getMessage()
+                    $t->getMessage(),
                 ),
-                ['error' => $t]
+                ['error' => $t],
             );
         }
 

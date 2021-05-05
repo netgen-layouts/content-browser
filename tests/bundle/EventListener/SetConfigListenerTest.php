@@ -33,7 +33,7 @@ final class SetConfigListenerTest extends TestCase
 
         $this->eventListener = new SetConfigListener(
             $this->container,
-            $this->createMock(EventDispatcherInterface::class)
+            $this->createMock(EventDispatcherInterface::class),
         );
     }
 
@@ -45,7 +45,7 @@ final class SetConfigListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->eventListener::getSubscribedEvents()
+            $this->eventListener::getSubscribedEvents(),
         );
     }
 
@@ -63,7 +63,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);
@@ -91,7 +91,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);
@@ -138,7 +138,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->container->set('netgen_content_browser.config.item_type', new Configuration('value', 'Value', []));
@@ -163,7 +163,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $config = new stdClass();
@@ -185,7 +185,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::SUB_REQUEST
+            HttpKernelInterface::SUB_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -205,7 +205,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -225,7 +225,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -250,7 +250,7 @@ final class SetConfigListenerTest extends TestCase
         $event = $this->createRequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);

@@ -52,7 +52,7 @@ final class ColumnProvider implements ColumnProviderInterface
         if (isset($columnConfig['template'])) {
             return $this->itemRenderer->renderItem(
                 $item,
-                $columnConfig['template']
+                $columnConfig['template'],
             );
         }
 

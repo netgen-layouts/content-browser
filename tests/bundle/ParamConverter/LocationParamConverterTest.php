@@ -40,7 +40,7 @@ final class LocationParamConverterTest extends TestCase
         $configuration = new ParamConverter(
             [
                 'class' => LocationInterface::class,
-            ]
+            ],
         );
 
         $request = Request::create('/');
@@ -68,7 +68,7 @@ final class LocationParamConverterTest extends TestCase
         $configuration = new ParamConverter(
             [
                 'class' => LocationInterface::class,
-            ]
+            ],
         );
 
         $request = Request::create('/');
@@ -91,7 +91,7 @@ final class LocationParamConverterTest extends TestCase
         $configuration = new ParamConverter(
             [
                 'class' => LocationInterface::class,
-            ]
+            ],
         );
 
         $request = Request::create('/');
@@ -115,7 +115,7 @@ final class LocationParamConverterTest extends TestCase
             [
                 'class' => LocationInterface::class,
                 'isOptional' => true,
-            ]
+            ],
         );
 
         $request = Request::create('/');
@@ -142,7 +142,7 @@ final class LocationParamConverterTest extends TestCase
         $configuration = new ParamConverter(
             [
                 'class' => LocationInterface::class,
-            ]
+            ],
         );
 
         $request = Request::create('/');

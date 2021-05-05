@@ -47,8 +47,8 @@ final class ItemTypePass implements CompilerPassInterface
                 throw new RuntimeException(
                     sprintf(
                         'Item type must begin with a letter and be followed by any combination of letters, digits and underscore, "%s" given.',
-                        $itemType
-                    )
+                        $itemType,
+                    ),
                 );
             }
 
@@ -92,8 +92,8 @@ final class ItemTypePass implements CompilerPassInterface
                         'No backend registered for "%s" item type. Make sure that either "%s" attribute exists in the tag or a "%s" static property exists in the class.',
                         $itemType,
                         'item_type',
-                        '$defaultItemType'
-                    )
+                        '$defaultItemType',
+                    ),
                 );
             }
 
@@ -106,7 +106,7 @@ final class ItemTypePass implements CompilerPassInterface
                 $container->registerAliasForArgument(
                     $configServiceName,
                     Configuration::class,
-                    $itemType . 'Config'
+                    $itemType . 'Config',
                 );
             }
         }

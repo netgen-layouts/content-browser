@@ -48,7 +48,7 @@ final class LoadSubItems extends AbstractController
         $pager = $this->pagerFactory->buildPager(
             new SubItemsAdapter($this->backend, $location),
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->defaultLimit)
+            $request->query->getInt('limit', $this->defaultLimit),
         );
 
         $data = [

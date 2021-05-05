@@ -39,7 +39,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     ],
                     'parameters' => [],
                 ],
-            ]
+            ],
         );
 
         $backend = new Definition(stdClass::class);
@@ -51,13 +51,13 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.backend',
             0,
-            ['test' => new Reference('netgen_content_browser.backend.test')]
+            ['test' => new Reference('netgen_content_browser.backend.test')],
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_content_browser.registry.config',
             0,
-            ['test' => new Reference('netgen_content_browser.config.test')]
+            ['test' => new Reference('netgen_content_browser.config.test')],
         );
 
         self::assertFalse($this->container->hasParameter('netgen_content_browser.item_types'));
@@ -84,7 +84,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     ],
                     'parameters' => [],
                 ],
-            ]
+            ],
         );
 
         $this->compile();
@@ -111,7 +111,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     ],
                     'parameters' => [],
                 ],
-            ]
+            ],
         );
 
         $backend = new Definition(stdClass::class);
@@ -142,7 +142,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     ],
                     'parameters' => [],
                 ],
-            ]
+            ],
         );
 
         $backend = new Definition(stdClass::class);
