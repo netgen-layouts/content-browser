@@ -8,6 +8,7 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
 use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -21,6 +22,7 @@ use function is_a;
 final class ExceptionConversionListener implements EventSubscriberInterface
 {
     use ExceptionEventThrowableTrait;
+    use MainRequestEventTrait;
 
     /**
      * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpException>>
@@ -45,7 +47,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
      */
     public function onException($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use function str_starts_with;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     public const API_FLAG_NAME = 'ngcb_is_api_request';
 
     private const API_ROUTE_PREFIX = 'ngcb_api_';
@@ -26,7 +29,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

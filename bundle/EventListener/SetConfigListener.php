@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Event\ConfigLoadEvent;
 use Netgen\ContentBrowser\Event\ContentBrowserEvents;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,6 +20,8 @@ use function sprintf;
 
 final class SetConfigListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     private ContainerInterface $container;
 
     private EventDispatcherInterface $eventDispatcher;
@@ -39,7 +42,7 @@ final class SetConfigListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

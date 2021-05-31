@@ -45,12 +45,12 @@ final class SearchItems extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $searchText = trim($request->query->get('searchText') ?? '');
+        $searchText = trim((string) ($request->query->get('searchText') ?? ''));
         if ($searchText === '') {
             return $this->json(['children' => [], 'children_count' => 0]);
         }
 
-        $sectionId = trim($request->query->get('sectionId') ?? '');
+        $sectionId = trim((string) ($request->query->get('sectionId') ?? ''));
         $section = $sectionId !== '' ?
             $this->backend->loadLocation($sectionId) :
             null;

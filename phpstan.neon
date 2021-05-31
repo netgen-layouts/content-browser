@@ -28,6 +28,7 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder#"
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent and 'isMainRequest' will always evaluate to true.#"
 
         # Content Browser specifics
 

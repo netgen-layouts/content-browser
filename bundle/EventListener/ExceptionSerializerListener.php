@@ -6,6 +6,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Exception;
 use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
+use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
@@ -23,6 +24,7 @@ use function sprintf;
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     use ExceptionEventThrowableTrait;
+    use MainRequestEventTrait;
 
     private bool $outputDebugInfo;
 
@@ -47,7 +49,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public function onException($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 
