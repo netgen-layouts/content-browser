@@ -32,13 +32,13 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->setUpClient();
 
-        $clientContainer = $this->client->getContainer();
-        if (!$clientContainer instanceof MockerContainer) {
+        $container = $this->client->getKernel()->getContainer();
+        if (!$container instanceof MockerContainer) {
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
 
-        $this->mockBackend($clientContainer);
-        $this->mockItemRenderer($clientContainer);
+        $this->mockBackend($container);
+        $this->mockItemRenderer($container);
 
         $this->expectedResponsesPath = __DIR__ . '/_responses/expected';
     }

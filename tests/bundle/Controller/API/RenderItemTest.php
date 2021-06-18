@@ -19,7 +19,7 @@ final class RenderItemTest extends JsonApiTestCase
      */
     public function testRenderItem(): void
     {
-        $container = $this->client->getContainer();
+        $container = $this->client->getKernel()->getContainer();
         if (!$container instanceof MockerContainer) {
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
@@ -65,7 +65,7 @@ final class RenderItemTest extends JsonApiTestCase
      */
     public function testRenderItemWithDisabledPreview(): void
     {
-        $container = $this->client->getContainer();
+        $container = $this->client->getKernel()->getContainer();
         if (!$container instanceof MockerContainer) {
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
