@@ -8,9 +8,6 @@ parameters:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
     ignoreErrors:
-        # phpstan/phpstan-symfony issues
-        - '#Call to method Symfony\\Component\\DependencyInjection\\ContainerBuilder::has\(\) with .+ will always evaluate to false.#'
-
         # Compatibility with older versions of Symfony
 
         -
