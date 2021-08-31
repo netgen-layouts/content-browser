@@ -18,3 +18,6 @@ parameters:
 
         - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
         - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
+
+        # Disable errors for various tests that verify arrays not having certain elements
+        - '#Call to static method PHPUnit\\Framework\\Assert::assertArrayHasKey\(\)#'
