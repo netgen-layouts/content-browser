@@ -29,7 +29,7 @@ final class SubItemsAdapter implements AdapterInterface
      * @param int $offset
      * @param int $length
      *
-     * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
+     * @return iterable<int, \Netgen\ContentBrowser\Item\ItemInterface>
      */
     public function getSlice($offset, $length): iterable
     {
