@@ -31,6 +31,8 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent and 'isMainRequest' will always evaluate to true.#"
 
+        - "#Casting to string something that's already string.#"
+
         # Content Browser specifics
 
         - "#Call to function method_exists\\(\\) with Netgen\\\\ContentBrowser\\\\Backend\\\\BackendInterface and 'searchItems(Count)?' will always evaluate to true.#"

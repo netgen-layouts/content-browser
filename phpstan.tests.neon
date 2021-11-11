@@ -6,9 +6,10 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
-    excludes_analyse:
+    excludePaths:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
+        - tests/application/src/Kernel.php
 
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
@@ -21,3 +22,5 @@ parameters:
 
         # Disable errors for various tests that verify arrays not having certain elements
         - '#Call to static method PHPUnit\\Framework\\Assert::assertArrayHasKey\(\)#'
+
+        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
