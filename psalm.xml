@@ -40,6 +40,24 @@
             </errorLevel>
         </DuplicateClass>
 
+        <!-- Ignore Pagerfanta integer ranges, they bring more trouble
+             with trying to satisfy PHPStan than they're worth
+        -->
+
+        <MoreSpecificReturnType>
+            <errorLevel type="suppress">
+                <file name="lib/Pager/ItemSearchAdapter.php" />
+                <file name="lib/Pager/SubItemsAdapter.php" />
+            </errorLevel>
+        </MoreSpecificReturnType>
+
+        <LessSpecificReturnStatement>
+            <errorLevel type="suppress">
+                <file name="lib/Pager/ItemSearchAdapter.php" />
+                <file name="lib/Pager/SubItemsAdapter.php" />
+            </errorLevel>
+        </LessSpecificReturnStatement>
+
         <!-- Other -->
 
         <InvalidPropertyFetch>

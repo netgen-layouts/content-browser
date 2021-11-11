@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 /**
  * @method \Netgen\ContentBrowser\Backend\SearchResultInterface searchItems(SearchQuery $searchQuery)
- * @method int<0, max> searchItemsCount(SearchQuery $searchQuery)
+ * @method int searchItemsCount(SearchQuery $searchQuery)
  */
 interface BackendInterface
 {
@@ -59,8 +59,6 @@ interface BackendInterface
 
     /**
      * Returns the location items count.
-     *
-     * @return int<0, max>
      */
     public function getSubItemsCount(LocationInterface $location): int;
 
@@ -76,8 +74,6 @@ interface BackendInterface
     /**
      * Returns the count of searched items.
      *
-     * @return int<0, max>
-     *
      * @deprecated in favor BackendInterface::searchItemsCount. Will be removed in 2.0.
      */
     public function searchCount(string $searchText): int;
@@ -91,8 +87,6 @@ interface BackendInterface
 
     /*
      * Returns the count of searched items.
-     *
-     * @return int<0, max>
      *
      * Will be added to interface in 2.0.
      */
