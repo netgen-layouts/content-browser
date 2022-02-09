@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4 || ^8.1",
         "ext-mbstring": "*",
         "netgen/content-browser-ui": "~1.4.0",
         "symfony/asset": "^3.4.47 || ^4.4 || ^5.2",
