@@ -11,6 +11,9 @@ use function get_debug_type;
 use function method_exists;
 use function trigger_deprecation;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Netgen\ContentBrowser\Item\ItemInterface>
+ */
 final class ItemSearchAdapter implements AdapterInterface
 {
     private BackendInterface $backend;
