@@ -6,11 +6,15 @@ namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Pager\PagerFactory;
 use Pagerfanta\Adapter\AdapterInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
 {
-    private AdapterInterface $adapterMock;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Pagerfanta\Adapter\AdapterInterface<\Netgen\ContentBrowser\Item\ItemInterface>
+     */
+    private MockObject $adapterMock;
 
     private PagerFactory $pagerFactory;
 
