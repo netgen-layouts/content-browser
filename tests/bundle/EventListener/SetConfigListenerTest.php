@@ -44,7 +44,7 @@ final class SetConfigListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => 'onKernelRequest'],
+            [KernelEvents::REQUEST => ['onKernelRequest', 1]],
             $this->eventListener::getSubscribedEvents(),
         );
     }
