@@ -7,6 +7,7 @@ namespace Netgen\ContentBrowser\Utils\BackwardsCompatibility;
 use Exception;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Throwable;
+
 use function method_exists;
 
 /**

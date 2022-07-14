@@ -7,6 +7,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+
 use function str_starts_with;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface

@@ -6,6 +6,7 @@ namespace Netgen\ContentBrowser\Tests\App;
 
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\Container;
+
 use function array_key_exists;
 use function sprintf;
 

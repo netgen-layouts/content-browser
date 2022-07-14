@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Throwable;
 use Twig\Environment;
+
 use function sprintf;
 
 final class ItemRenderer implements ItemRendererInterface

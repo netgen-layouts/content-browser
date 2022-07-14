@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+
 use function is_string;
 use function method_exists;
 use function preg_match;

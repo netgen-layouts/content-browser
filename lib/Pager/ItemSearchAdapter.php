@@ -7,6 +7,7 @@ namespace Netgen\ContentBrowser\Pager;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Backend\SearchQuery;
 use Pagerfanta\Adapter\AdapterInterface;
+
 use function get_debug_type;
 use function method_exists;
 use function trigger_deprecation;
