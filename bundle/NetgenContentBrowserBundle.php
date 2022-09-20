@@ -14,5 +14,6 @@ final class NetgenContentBrowserBundle extends Bundle
     {
         $container->addCompilerPass(new CompilerPass\ItemTypePass());
         $container->addCompilerPass(new CompilerPass\ColumnProviderPass());
+        $container->addCompilerPass(new CompilerPass\ControllerContainerPass());
     }
 }
