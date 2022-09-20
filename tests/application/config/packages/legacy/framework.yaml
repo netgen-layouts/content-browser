@@ -3,8 +3,7 @@ framework:
     profiler:
         collect: false
     session:
-        storage_factory_id: session.storage.factory.mock_file
-    http_method_override: false
+        storage_id: session.storage.mock_file
     form: ~
     csrf_protection: ~
     validation: ~

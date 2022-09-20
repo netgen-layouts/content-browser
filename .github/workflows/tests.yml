@@ -15,22 +15,44 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', 8.1]
-        symfony: ['~3.4.0', '~4.4.0', '~5.4.0']
+        php: ['7.4', '8.1']
+        symfony: ['~5.4.0', '~6.1.0']
         phpunit: ['phpunit.xml', 'phpunit-api.xml']
         deps: ['normal']
         include:
           - php: '7.4'
             symfony: '~3.4.0'
             phpunit: 'phpunit.xml'
+          - php: '7.4'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit-api-legacy.xml'
+
+          - php: '7.4'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit.xml'
+          - php: '7.4'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit-api-legacy.xml'
+          - php: '8.1'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit.xml'
+          - php: '8.1'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit-api-legacy.xml'
+
+          - php: '7.4'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit.xml'
             deps: 'low'
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit-api.xml'
+            phpunit: 'phpunit-api-legacy.xml'
             deps: 'low'
         exclude:
           - php: '8.1'
             symfony: '~3.4.0'
+          - php: '7.4'
+            symfony: '~6.1.0'
 
     steps:
       - uses: actions/checkout@v2
