@@ -51,6 +51,7 @@ final class ExceptionConversionListenerTest extends TestCase
      * @param class-string<\Symfony\Component\HttpKernel\Exception\HttpException> $convertedClass
      *
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     *
      * @dataProvider onExceptionDataProvider
      */
     public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
