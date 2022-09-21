@@ -42,8 +42,8 @@
     "require-dev": {
         "netgen/layouts-coding-standard": "^1.0 || ^2.0",
         "phpunit/phpunit": "^8.5 || ^9.5",
-        "symfony/dotenv": "^3.4.47 || ^5.4 || ^6.1",
         "symfony/phpunit-bridge": "^6.1",
+        "symfony/runtime": "^5.4 || ^6.1",
         "symfony/var-dumper": "^3.4.47 || ^5.4 || ^6.1",
         "phpstan/phpstan": "^1.1",
         "phpstan/phpstan-strict-rules": "^1.0",
@@ -55,6 +55,11 @@
     },
     "conflict": {
         "ocramius/proxy-manager": "<2.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
