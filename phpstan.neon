@@ -26,6 +26,7 @@ parameters:
             message: '/Unable to resolve the template type TEvent/'
             path: bundle/EventListener/SetConfigListener.php
 
+        - "#Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent::isMasterRequest\\(\\).#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder#"
