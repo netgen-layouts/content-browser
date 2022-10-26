@@ -12,6 +12,8 @@
         data-max_selected="1"
         data-input
     >
+        {{ pre_input_browse|default }}
+
         <div class="input-browse">
             {% if not required %}
                 <span class="js-clear"><i class="material-icons">close</i></span>
@@ -27,6 +29,8 @@
                 </span>
             </a>
         </div>
+
+        {{ post_input_browse|default }}
 
         <input type="hidden" class="js-item-type" value="{{ item_type }}" />
         <input type="hidden" class="js-value" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
@@ -48,6 +52,8 @@
         {{ form_row(form.item_type, {label: false, attr: {class: 'js-item-type'}}) }}
         {{ form_row(form.item_value, {attr: {class: 'js-value'}}) }}
 
+        {{ pre_input_browse|default }}
+
         <div class="input-browse">
             {% if not required %}
                 <span class="js-clear"><i class="material-icons">close</i></span>
@@ -63,6 +69,8 @@
                 </span>
             </a>
         </div>
+
+        {{ post_input_browse|default }}
     </div>
 {%- endblock -%}
 
