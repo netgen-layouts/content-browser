@@ -8,7 +8,6 @@ includes:
 parameters:
     excludePaths:
         - tests/application/public/bundles/
-        - tests/application/config/bootstrap.php
         - tests/application/src/Kernel.php
         - tests/application/src/LegacyKernel.php
 
