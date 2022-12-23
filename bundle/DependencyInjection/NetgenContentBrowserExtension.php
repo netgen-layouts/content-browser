@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
+use Netgen\ContentBrowser\Attribute;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -16,7 +18,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
 use function file_get_contents;
+use function method_exists;
 use function sprintf;
+
+use const PHP_VERSION_ID;
 
 final class NetgenContentBrowserExtension extends Extension implements PrependExtensionInterface
 {
@@ -42,6 +47,10 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $loader->load('autowiring.yaml');
 
         $this->registerAutoConfiguration($container);
+
+        if (PHP_VERSION_ID >= 80000 && method_exists($container, 'registerAttributeForAutoconfiguration')) {
+            $this->registerAttributeAutoConfiguration($container);
+        }
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -84,5 +93,22 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $container
             ->registerForAutoconfiguration(ColumnValueProviderInterface::class)
             ->addTag('netgen_content_browser.column_value_provider');
+    }
+
+    private function registerAttributeAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsBackend::class,
+            static function (ChildDefinition $definition, Attribute\AsBackend $attribute): void {
+                $definition->addTag('netgen_content_browser.backend', ['item_type' => $attribute->itemType]);
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsColumnValueProvider::class,
+            static function (ChildDefinition $definition, Attribute\AsColumnValueProvider $attribute): void {
+                $definition->addTag('netgen_content_browser.column_value_provider', ['identifier' => $attribute->identifier]);
+            },
+        );
     }
 }
