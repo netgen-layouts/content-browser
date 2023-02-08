@@ -8,6 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\ItemLocation;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
+use Netgen\ContentBrowser\Item\LocationInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadSubItemsTest extends JsonApiTestCase
@@ -23,13 +24,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->withConsecutive(
-                [self::identicalTo('41')],
-                [self::identicalTo(40)],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $location,
-                new Location(40, 'Location 40'),
+            ->willReturnMap(
+                [
+                    ['41', $location],
+                    [40, new Location(40, 'Location 40')],
+                ],
             );
 
         $this->backendMock
@@ -68,13 +67,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->withConsecutive(
-                [self::identicalTo('41')],
-                [self::identicalTo(40)],
-            )
-            ->willReturnOnConsecutiveCalls(
-                $location,
-                new ItemLocation(40, 'Item 40'),
+            ->willReturnMap(
+                [
+                    ['41', $location],
+                    [40, new ItemLocation(40, 'Item 40')],
+                ],
             );
 
         $this->backendMock
@@ -113,13 +110,14 @@ final class LoadSubItemsTest extends JsonApiTestCase
 
         $this->backendMock
             ->method('loadLocation')
-            ->withConsecutive(
-                [self::identicalTo('41')],
-                [self::identicalTo(40)],
-            )
-            ->willReturnOnConsecutiveCalls(
-                self::returnValue($location),
-                self::throwException(new NotFoundException()),
+            ->willReturnCallback(
+                static function ($id) use ($location): LocationInterface {
+                    if ($id === '41') {
+                        return $location;
+                    }
+
+                    throw new NotFoundException();
+                },
             );
 
         $this->backendMock

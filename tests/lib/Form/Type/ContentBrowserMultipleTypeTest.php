@@ -54,11 +54,12 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->backendMock
             ->method('loadItem')
-            ->withConsecutive(
-                [self::identicalTo('42')],
-                [self::identicalTo('24')],
-            )
-            ->willReturnOnConsecutiveCalls($item1, $item2);
+            ->willReturnMap(
+                [
+                    ['42', $item1],
+                    ['24', $item2],
+                ],
+            );
 
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
