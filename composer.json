@@ -40,7 +40,7 @@
         "jean85/pretty-package-versions": "^1.6 || ^2.0"
     },
     "require-dev": {
-        "netgen/layouts-coding-standard": "^1.0 || ^2.0",
+        "netgen/layouts-coding-standard": "^2.0",
         "phpunit/phpunit": "^8.5 || ^9.5",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/runtime": "^5.4 || ^6.2",
