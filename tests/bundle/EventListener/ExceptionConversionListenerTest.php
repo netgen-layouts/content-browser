@@ -154,7 +154,7 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @return array<int, mixed[]>
      */
-    public function onExceptionDataProvider(): array
+    public static function onExceptionDataProvider(): array
     {
         return [
             [

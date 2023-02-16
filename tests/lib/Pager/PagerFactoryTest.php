@@ -52,7 +52,7 @@ final class PagerFactoryTest extends TestCase
     /**
      * @return int[][]
      */
-    public function buildPagerDataProvider(): array
+    public static function buildPagerDataProvider(): array
     {
         return [
             [5, 20, 5, 20],
