@@ -11,7 +11,11 @@ parameters:
         # Compatibility with older versions of Symfony
 
         -
-            message: '#Call to an undefined method Netgen\\ContentBrowser\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
+            message: '#If condition is always true.#'
+            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+
+        -
+            message: '#Unreachable statement - code above always terminates.#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
 
         -
