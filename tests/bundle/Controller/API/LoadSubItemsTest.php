@@ -32,13 +32,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             );
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(
@@ -75,13 +73,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             );
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(
@@ -121,13 +117,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
             );
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendMock
-            ->expects(self::any())
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(

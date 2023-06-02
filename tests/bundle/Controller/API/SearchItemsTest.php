@@ -17,7 +17,6 @@ final class SearchItemsTest extends JsonApiTestCase
     public function testSearchItems(): void
     {
         $this->backendMock
-            ->expects(self::any())
             ->method('searchItems')
             ->willReturn(
                 new SearchResult(
@@ -29,7 +28,6 @@ final class SearchItemsTest extends JsonApiTestCase
             );
 
         $this->backendMock
-            ->expects(self::any())
             ->method('searchItemsCount')
             ->willReturn(2);
 
