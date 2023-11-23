@@ -50,7 +50,7 @@
         "phpstan/phpstan-symfony": "^1.2",
         "phpstan/phpstan-phpunit": "^1.3",
         "vimeo/psalm": "^4.30 || ^5.4",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.2",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.2 || ^5.0",
         "lchrusciel/api-test-case": "^4.1 || ^5.2"
     },
     "config": {
