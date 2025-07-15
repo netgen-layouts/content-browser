@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests:
-    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.phpunit }}
+    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.script }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,23 +17,23 @@ jobs:
       matrix:
         php: ['7.4', '8.4']
         symfony: ['~5.4.0', '~6.4.0']
-        phpunit: ['phpunit.xml', 'phpunit-api.xml']
+        script: ['test', 'test-api']
         deps: ['normal']
         include:
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit-api-legacy.xml'
+            script: 'test-api-legacy'
 
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit.xml'
+            script: 'test'
             deps: 'low'
           - php: '7.4'
             symfony: '~3.4.0'
-            phpunit: 'phpunit-api-legacy.xml'
+            script: 'test-api-legacy'
             deps: 'low'
         exclude:
           - php: '8.4'
@@ -66,4 +66,4 @@ jobs:
         run: composer update --prefer-dist --prefer-lowest --prefer-stable
         if: ${{ matrix.deps == 'low' }}
 
-      - run: vendor/bin/phpunit -c ${{ matrix.phpunit }} --colors=always
+      - run: composer ${{ matrix.script }}
