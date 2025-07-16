@@ -11,6 +11,8 @@ parameters:
         - tests/application/src/Kernel.php
         - tests/application/src/LegacyKernel.php
 
+    treatPhpDocTypesAsCertain: false
+
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
@@ -21,3 +23,7 @@ parameters:
         - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
 
         - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
+
+        # Symfony
+
+        - '#with generic interface Symfony\\Component\\Form\\\w+ does not specify its types: TData#'

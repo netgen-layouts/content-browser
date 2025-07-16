@@ -9,7 +9,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class ColumnValueProvider implements ColumnValueProviderInterface
 {
-    public function getValue(ItemInterface $item): ?string
+    public function getValue(ItemInterface $item): string
     {
         return 'some_value';
     }

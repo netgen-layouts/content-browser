@@ -11,24 +11,20 @@ parameters:
         # Compatibility with older versions of Symfony
 
         -
-            message: '#If condition is always true.#'
+            message: '#Parameter \#1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given#'
+            path: bundle/EventListener/SetConfigListener.php
+
+        -
+            message: '#Parameter \#2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given#'
+            path: bundle/EventListener/SetConfigListener.php
+
+        -
+            message: '#Unable to resolve the template type TEvent#'
+            path: bundle/EventListener/SetConfigListener.php
+
+        -
+            message: '#Call to an undefined method Netgen\\ContentBrowser\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
-
-        -
-            message: '#Unreachable statement - code above always terminates.#'
-            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
-
-        -
-            message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
-            path: bundle/EventListener/SetConfigListener.php
-
-        -
-            message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, Netgen\\ContentBrowser\\Event\\ConfigLoadEvent given/'
-            path: bundle/EventListener/SetConfigListener.php
-
-        -
-            message: '/Unable to resolve the template type TEvent/'
-            path: bundle/EventListener/SetConfigListener.php
 
         - "#Call to an undefined method Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent::isMasterRequest\\(\\).#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
@@ -37,6 +33,10 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\KernelEvent and 'isMainRequest' will always evaluate to true.#"
 
         - "#Casting to string something that's already string.#"
+
+        # Symfony
+
+        - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
 
         # Ignore Pagerfanta integer ranges, they bring more trouble with trying to satisfy PHPStan than they're worth
 
