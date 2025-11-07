@@ -8,10 +8,8 @@ interface ItemInterface
 {
     /**
      * Returns the value.
-     *
-     * @return int|string
      */
-    public function getValue();
+    public function getValue(): int|string;
 
     /**
      * Returns the name.

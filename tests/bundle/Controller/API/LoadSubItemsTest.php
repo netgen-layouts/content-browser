@@ -107,7 +107,7 @@ final class LoadSubItemsTest extends JsonApiTestCase
         $this->backendMock
             ->method('loadLocation')
             ->willReturnCallback(
-                static function ($id) use ($location): LocationInterface {
+                static function (int|string $id) use ($location): LocationInterface {
                     if ($id === '41') {
                         return $location;
                     }

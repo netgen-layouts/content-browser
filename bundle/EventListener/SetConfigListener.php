@@ -13,6 +13,7 @@ use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -38,10 +39,7 @@ final class SetConfigListener implements EventSubscriberInterface
         return [KernelEvents::REQUEST => ['onKernelRequest', 1]];
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     */
-    public function onKernelRequest($event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

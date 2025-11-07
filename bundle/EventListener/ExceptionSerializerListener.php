@@ -14,6 +14,7 @@ use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFla
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
@@ -45,10 +46,8 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 
     /**
      * Serializes the exception.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException($event): void
+    public function onException(ExceptionEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

@@ -83,35 +83,22 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
         return count($this->configs);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasConfig($offset);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): Configuration
+    public function offsetGet(mixed $offset): Configuration
     {
         return $this->getConfig($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): never
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
     }

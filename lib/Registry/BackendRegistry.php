@@ -83,35 +83,22 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
         return count($this->backends);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasBackend($offset);
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetGet($offset): BackendInterface
+    public function offsetGet(mixed $offset): BackendInterface
     {
         return $this->getBackend($offset);
     }
 
-    /**
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): never
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): never
     {
         throw new RuntimeException('Method call not supported.');
     }

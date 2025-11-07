@@ -8,10 +8,8 @@ interface LocationInterface
 {
     /**
      * Returns the location ID.
-     *
-     * @return int|string
      */
-    public function getLocationId();
+    public function getLocationId(): int|string;
 
     /**
      * Returns the name.
@@ -20,8 +18,6 @@ interface LocationInterface
 
     /**
      * Returns the parent ID. Parent ID is null if location has no parent.
-     *
-     * @return int|string|null
      */
-    public function getParentId();
+    public function getParentId(): int|string|null;
 }

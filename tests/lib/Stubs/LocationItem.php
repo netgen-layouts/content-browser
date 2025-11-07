@@ -32,12 +32,12 @@ final class LocationItem implements ItemInterface, LocationInterface
         return 'This is a name (' . $this->value . ')';
     }
 
-    public function isVisible(): bool
+    public function isVisible(): true
     {
         return true;
     }
 
-    public function isSelectable(): bool
+    public function isSelectable(): true
     {
         return true;
     }

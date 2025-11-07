@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
 use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -43,10 +44,8 @@ final class ExceptionConversionListener implements EventSubscriberInterface
 
     /**
      * Converts exceptions to Symfony HTTP exceptions.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException($event): void
+    public function onException(ExceptionEvent $event): void
     {
         if (!$this->isMainRequest($event)) {
             return;

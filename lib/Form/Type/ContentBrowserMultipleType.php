@@ -120,11 +120,9 @@ final class ContentBrowserMultipleType extends AbstractType
     /**
      * Returns the array of items for all provided item values.
      *
-     * @param mixed $itemValues
-     *
      * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
-    private function getItems($itemValues, string $itemType): array
+    private function getItems(mixed $itemValues, string $itemType): array
     {
         $items = [];
 

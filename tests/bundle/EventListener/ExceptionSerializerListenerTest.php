@@ -29,10 +29,7 @@ final class ExceptionSerializerListenerTest extends TestCase
 
     private ExceptionSerializerListener $eventListener;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
-     */
-    private MockObject $loggerMock;
+    private MockObject&LoggerInterface $loggerMock;
 
     protected function setUp(): void
     {

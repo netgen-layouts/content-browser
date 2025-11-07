@@ -96,10 +96,7 @@ final class Configuration
         return $this->config['default_columns'] ?? [];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setParameter(string $name, $value): void
+    public function setParameter(string $name, mixed $value): void
     {
         $this->parameters[$name] = $value;
     }
@@ -117,10 +114,7 @@ final class Configuration
         return isset($this->parameters[$name]);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParameter(string $name)
+    public function getParameter(string $name): mixed
     {
         if (!$this->hasParameter($name)) {
             throw new InvalidArgumentException(

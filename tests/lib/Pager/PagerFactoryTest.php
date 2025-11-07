@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Tests\Pager;
 
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Pager\PagerFactory;
 use Pagerfanta\Adapter\AdapterInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -11,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Pagerfanta\Adapter\AdapterInterface<\Netgen\ContentBrowser\Item\ItemInterface>
-     */
-    private MockObject $adapterMock;
+    private MockObject&ItemInterface $adapterMock;
 
     private PagerFactory $pagerFactory;
 

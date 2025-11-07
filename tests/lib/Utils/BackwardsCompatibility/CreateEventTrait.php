@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Throwable;
 
 use function class_exists;
 
@@ -39,11 +40,9 @@ trait CreateEventTrait
     }
 
     /**
-     * @param \Throwable|\Exception $throwable
-     *
      * @return \Symfony\Component\HttpKernel\Event\ExceptionEvent
      */
-    private function createExceptionEvent(HttpKernelInterface $kernel, Request $request, int $requestType, $throwable): object
+    private function createExceptionEvent(HttpKernelInterface $kernel, Request $request, int $requestType, Throwable $throwable): object
     {
         if (class_exists(ExceptionEvent::class)) {
             return new ExceptionEvent($kernel, $request, $requestType, $throwable);

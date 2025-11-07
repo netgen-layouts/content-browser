@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
+use Symfony\Component\Routing\RouteCollectionBuilder;
 use function dirname;
 use function sys_get_temp_dir;
 
@@ -69,10 +70,7 @@ final class LegacyKernel extends BaseKernel implements CompilerPassInterface
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
 
-    /**
-     * @param \Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator|\Symfony\Component\Routing\RouteCollectionBuilder $routes
-     */
-    protected function configureRoutes($routes): void
+    protected function configureRoutes(RoutingConfigurator|RouteCollectionBuilder $routes): void
     {
         if ($routes instanceof RoutingConfigurator) {
             $routes->import('../config/{routes}/' . $this->environment . '/*.yaml');
