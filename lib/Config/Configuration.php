@@ -87,7 +87,7 @@ final class Configuration
      */
     public function addParameters(array $parameters): void
     {
-        $this->parameters = $parameters + $this->parameters;
+        $this->parameters = [...$this->parameters, ...$parameters];
     }
 
     public function hasParameter(string $name): bool
