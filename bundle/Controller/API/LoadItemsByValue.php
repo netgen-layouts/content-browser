@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function explode;
-use function trim;
+use function mb_trim;
 
 final class LoadItemsByValue extends AbstractController
 {
@@ -36,13 +36,13 @@ final class LoadItemsByValue extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $values = trim((string) ($request->query->get('values') ?? ''));
+        $values = mb_trim((string) ($request->query->get('values') ?? ''));
         if ($values === '') {
             throw new InvalidArgumentException('List of values is invalid.');
         }
 
         $items = [];
-        foreach (array_map('trim', explode(',', $values)) as $value) {
+        foreach (array_map('mb_trim', explode(',', $values)) as $value) {
             $items[] = $this->itemSerializer->serializeItem(
                 $this->backend->loadItem($value),
             );

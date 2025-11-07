@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function array_any;
 use function is_array;
 use function is_scalar;
 
@@ -59,10 +60,8 @@ final class ContentBrowserMultipleType extends AbstractType
                     }
 
                     if (is_array($customParam)) {
-                        foreach ($customParam as $innerCustomParam) {
-                            if (!is_scalar($innerCustomParam)) {
-                                return false;
-                            }
+                        if (array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))) {
+                            return false;
                         }
                     }
                 }

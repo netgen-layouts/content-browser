@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function trim;
+use function mb_trim;
 
 final class SearchItems extends AbstractController
 {
@@ -46,12 +46,12 @@ final class SearchItems extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $searchText = trim((string) ($request->query->get('searchText') ?? ''));
+        $searchText = mb_trim((string) ($request->query->get('searchText') ?? ''));
         if ($searchText === '') {
             return $this->json(['children' => [], 'children_count' => 0]);
         }
 
-        $sectionId = trim((string) ($request->query->get('sectionId') ?? ''));
+        $sectionId = mb_trim((string) ($request->query->get('sectionId') ?? ''));
         $section = $sectionId !== '' ?
             $this->backend->loadLocation($sectionId) :
             null;

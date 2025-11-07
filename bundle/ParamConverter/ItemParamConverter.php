@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 
 use function is_a;
-use function trim;
+use function mb_trim;
 
 final class ItemParamConverter implements ParamConverterInterface
 {
@@ -29,7 +29,7 @@ final class ItemParamConverter implements ParamConverterInterface
             return false;
         }
 
-        $itemValue = trim($request->attributes->get('itemValue', ''));
+        $itemValue = mb_trim($request->attributes->get('itemValue', ''));
         if ($itemValue === '') {
             if ($configuration->isOptional()) {
                 return false;

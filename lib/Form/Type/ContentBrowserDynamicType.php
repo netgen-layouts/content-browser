@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function array_any;
 use function array_filter;
 use function array_flip;
 use function array_map;
@@ -24,7 +25,7 @@ use function count;
 use function in_array;
 use function is_array;
 use function is_scalar;
-use function trim;
+use function mb_trim;
 
 final class ContentBrowserDynamicType extends AbstractType
 {
@@ -57,10 +58,8 @@ final class ContentBrowserDynamicType extends AbstractType
                     }
 
                     if (is_array($customParam)) {
-                        foreach ($customParam as $innerCustomParam) {
-                            if (!is_scalar($innerCustomParam)) {
-                                return false;
-                            }
+                        if (array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))) {
+                            return false;
                         }
                     }
                 }
@@ -106,8 +105,8 @@ final class ContentBrowserDynamicType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $item = null;
-        $itemValue = trim($form->get('item_value')->getData() ?? '');
-        $itemType = trim($form->get('item_type')->getData() ?? '');
+        $itemValue = mb_trim($form->get('item_value')->getData() ?? '');
+        $itemType = mb_trim($form->get('item_type')->getData() ?? '');
 
         if ($itemValue !== '' && $itemType !== '') {
             try {
