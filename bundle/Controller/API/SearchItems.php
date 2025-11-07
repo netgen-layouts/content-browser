@@ -29,7 +29,7 @@ final class SearchItems extends AbstractController
         BackendInterface $backend,
         ItemSerializerInterface $itemSerializer,
         PagerFactoryInterface $pagerFactory,
-        int $defaultLimit
+        int $defaultLimit,
     ) {
         $this->backend = $backend;
         $this->itemSerializer = $itemSerializer;

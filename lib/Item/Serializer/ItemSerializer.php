@@ -17,7 +17,7 @@ final class ItemSerializer implements ItemSerializerInterface
 
     public function __construct(
         BackendInterface $backend,
-        ColumnProviderInterface $columnProvider
+        ColumnProviderInterface $columnProvider,
     ) {
         $this->backend = $backend;
         $this->columnProvider = $columnProvider;

@@ -35,7 +35,7 @@ final class ContentBrowserDynamicType extends AbstractType
 
     public function __construct(
         BackendRegistry $backendRegistry,
-        ConfigRegistry $configRegistry
+        ConfigRegistry $configRegistry,
     ) {
         $this->backendRegistry = $backendRegistry;
         $this->configRegistry = $configRegistry;

@@ -32,7 +32,7 @@ final class LoadConfig extends AbstractController
         BackendInterface $backend,
         Configuration $config,
         ItemSerializerInterface $itemSerializer,
-        $translator
+        $translator,
     ) {
         $this->backend = $backend;
         $this->config = $config;

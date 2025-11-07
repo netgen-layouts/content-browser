@@ -32,7 +32,7 @@ final class Configuration
         string $itemType,
         string $itemName,
         array $config,
-        array $parameters = []
+        array $parameters = [],
     ) {
         $this->itemType = $itemType;
         $this->itemName = $itemName;

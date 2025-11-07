@@ -23,7 +23,7 @@ final class ColumnProvider implements ColumnProviderInterface
     public function __construct(
         ItemRendererInterface $itemRenderer,
         Configuration $config,
-        ContainerInterface $columnValueProviders
+        ContainerInterface $columnValueProviders,
     ) {
         $this->itemRenderer = $itemRenderer;
         $this->config = $config;
