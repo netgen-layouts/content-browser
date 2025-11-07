@@ -18,10 +18,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
 use function file_get_contents;
-use function method_exists;
 use function sprintf;
-
-use const PHP_VERSION_ID;
 
 final class NetgenContentBrowserExtension extends Extension implements PrependExtensionInterface
 {
@@ -47,10 +44,7 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $loader->load('autowiring.yaml');
 
         $this->registerAutoConfiguration($container);
-
-        if (PHP_VERSION_ID >= 80000 && method_exists($container, 'registerAttributeForAutoconfiguration')) {
-            $this->registerAttributeAutoConfiguration($container);
-        }
+        $this->registerAttributeAutoConfiguration($container);
     }
 
     public function prepend(ContainerBuilder $container): void
