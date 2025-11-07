@@ -20,7 +20,7 @@ final class LegacyKernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait;
 
-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+    private const string CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     public function registerBundles(): iterable
     {

@@ -18,8 +18,8 @@ final class ColumnProviderPass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_content_browser.column_provider';
-    private const TAG_NAME = 'netgen_content_browser.column_value_provider';
+    private const string SERVICE_NAME = 'netgen_content_browser.column_provider';
+    private const string TAG_NAME = 'netgen_content_browser.column_value_provider';
 
     public function process(ContainerBuilder $container): void
     {

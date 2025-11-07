@@ -19,9 +19,9 @@ final class ItemTypePass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const BACKEND_REGISTRY_SERVICE = 'netgen_content_browser.registry.backend';
-    private const CONFIG_REGISTRY_SERVICE = 'netgen_content_browser.registry.config';
-    private const BACKEND_TAG_NAME = 'netgen_content_browser.backend';
+    private const string BACKEND_REGISTRY_SERVICE = 'netgen_content_browser.registry.backend';
+    private const string CONFIG_REGISTRY_SERVICE = 'netgen_content_browser.registry.config';
+    private const string BACKEND_TAG_NAME = 'netgen_content_browser.backend';
 
     public function process(ContainerBuilder $container): void
     {

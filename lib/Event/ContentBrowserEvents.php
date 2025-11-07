@@ -9,5 +9,5 @@ final class ContentBrowserEvents
     /**
      * This event will be dispatched when the configuration for the backend is loaded.
      */
-    public const CONFIG_LOAD = 'ngcb.config_load';
+    public const string CONFIG_LOAD = 'ngcb.config_load';
 }
