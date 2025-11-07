@@ -77,7 +77,7 @@ final class LoadSubItems extends AbstractController
 
             try {
                 $location = $this->backend->loadLocation($parentId);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 break;
             }
         }

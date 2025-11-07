@@ -65,7 +65,7 @@ final class ContentBrowserType extends AbstractType
             try {
                 $backend = $this->backendRegistry->getBackend($options['item_type']);
                 $item = $backend->loadItem($form->getData());
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Do nothing
             }
         }

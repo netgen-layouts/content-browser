@@ -105,7 +105,7 @@ final class ContentBrowserDynamicType extends AbstractType
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
                 $item = $backend->loadItem($itemValue);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Do nothing
             }
         }
