@@ -14,15 +14,10 @@ use function sprintf;
 
 final class ItemRenderer implements ItemRendererInterface
 {
-    private Environment $twig;
-
-    private LoggerInterface $logger;
-
-    public function __construct(Environment $twig, ?LoggerInterface $logger = null)
-    {
-        $this->twig = $twig;
-        $this->logger = $logger ?? new NullLogger();
-    }
+    public function __construct(
+        private Environment $twig,
+        private LoggerInterface $logger = new NullLogger(),
+    ) {}
 
     public function renderItem(ItemInterface $item, string $template): string
     {

@@ -15,12 +15,9 @@ use function is_a;
 
 final class LocationParamConverter implements ParamConverterInterface
 {
-    private BackendRegistry $backendRegistry;
-
-    public function __construct(BackendRegistry $backendRegistry)
-    {
-        $this->backendRegistry = $backendRegistry;
-    }
+    public function __construct(
+        private BackendRegistry $backendRegistry,
+    ) {}
 
     public function apply(Request $request, ParamConverter $configuration): bool
     {

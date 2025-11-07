@@ -11,17 +11,10 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class ItemSerializer implements ItemSerializerInterface
 {
-    private BackendInterface $backend;
-
-    private ColumnProviderInterface $columnProvider;
-
     public function __construct(
-        BackendInterface $backend,
-        ColumnProviderInterface $columnProvider,
-    ) {
-        $this->backend = $backend;
-        $this->columnProvider = $columnProvider;
-    }
+        private BackendInterface $backend,
+        private ColumnProviderInterface $columnProvider,
+    ) {}
 
     public function serializeItem(ItemInterface $item): array
     {

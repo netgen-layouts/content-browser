@@ -17,15 +17,10 @@ use function trigger_deprecation;
  */
 final class ItemSearchAdapter implements AdapterInterface
 {
-    private BackendInterface $backend;
-
-    private SearchQuery $searchQuery;
-
-    public function __construct(BackendInterface $backend, SearchQuery $searchQuery)
-    {
-        $this->backend = $backend;
-        $this->searchQuery = $searchQuery;
-    }
+    public function __construct(
+        private BackendInterface $backend,
+        private SearchQuery $searchQuery,
+    ) {}
 
     public function getNbResults(): int
     {

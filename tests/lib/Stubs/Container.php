@@ -11,17 +11,11 @@ use function array_key_exists;
 final class Container implements ContainerInterface
 {
     /**
-     * @var array<string, object>
-     */
-    private array $entries;
-
-    /**
      * @param array<string, object> $entries
      */
-    public function __construct(array $entries = [])
-    {
-        $this->entries = $entries;
-    }
+    public function __construct(
+        private array $entries = [],
+    ) {}
 
     public function get(string $id): object
     {

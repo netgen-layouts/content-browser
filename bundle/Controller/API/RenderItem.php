@@ -14,15 +14,10 @@ use function is_string;
 
 final class RenderItem extends AbstractController
 {
-    private Configuration $config;
-
-    private ItemRendererInterface $itemRenderer;
-
-    public function __construct(Configuration $config, ItemRendererInterface $itemRenderer)
-    {
-        $this->config = $config;
-        $this->itemRenderer = $itemRenderer;
-    }
+    public function __construct(
+        private Configuration $config,
+        private ItemRendererInterface $itemRenderer,
+    ) {}
 
     /**
      * Renders the provided item.

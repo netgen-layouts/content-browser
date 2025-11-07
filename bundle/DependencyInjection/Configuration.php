@@ -11,12 +11,9 @@ use Symfony\Component\Form\Exception\InvalidConfigurationException;
 
 final class Configuration implements ConfigurationInterface
 {
-    private ExtensionInterface $extension;
-
-    public function __construct(ExtensionInterface $extension)
-    {
-        $this->extension = $extension;
-    }
+    public function __construct(
+        private ExtensionInterface $extension,
+    ) {}
 
     public function getConfigTreeBuilder(): TreeBuilder
     {

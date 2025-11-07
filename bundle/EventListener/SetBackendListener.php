@@ -15,15 +15,10 @@ final class SetBackendListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private ContainerInterface $container;
-
-    private BackendRegistry $backendRegistry;
-
-    public function __construct(ContainerInterface $container, BackendRegistry $backendRegistry)
-    {
-        $this->container = $container;
-        $this->backendRegistry = $backendRegistry;
-    }
+    public function __construct(
+        private ContainerInterface $container,
+        private BackendRegistry $backendRegistry,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

@@ -13,15 +13,10 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 final class SubItemsAdapter implements AdapterInterface
 {
-    private BackendInterface $backend;
-
-    private LocationInterface $location;
-
-    public function __construct(BackendInterface $backend, LocationInterface $location)
-    {
-        $this->backend = $backend;
-        $this->location = $location;
-    }
+    public function __construct(
+        private BackendInterface $backend,
+        private LocationInterface $location,
+    ) {}
 
     public function getNbResults(): int
     {

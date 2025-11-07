@@ -14,21 +14,11 @@ use function sprintf;
 
 final class ColumnProvider implements ColumnProviderInterface
 {
-    private ItemRendererInterface $itemRenderer;
-
-    private Configuration $config;
-
-    private ContainerInterface $columnValueProviders;
-
     public function __construct(
-        ItemRendererInterface $itemRenderer,
-        Configuration $config,
-        ContainerInterface $columnValueProviders,
-    ) {
-        $this->itemRenderer = $itemRenderer;
-        $this->config = $config;
-        $this->columnValueProviders = $columnValueProviders;
-    }
+        private ItemRendererInterface $itemRenderer,
+        private Configuration $config,
+        private ContainerInterface $columnValueProviders,
+    ) {}
 
     public function provideColumns(ItemInterface $item): array
     {

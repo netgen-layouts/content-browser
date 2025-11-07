@@ -9,18 +9,11 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class LocationItem implements ItemInterface, LocationInterface
 {
-    private int $value;
-
-    private int $locationId;
-
-    private ?int $parentId;
-
-    public function __construct(int $value, int $locationId, ?int $parentId = null)
-    {
-        $this->value = $value;
-        $this->locationId = $locationId;
-        $this->parentId = $parentId;
-    }
+    public function __construct(
+        private int $value,
+        private int $locationId,
+        private ?int $parentId = null,
+    ) {}
 
     public function getValue(): int
     {

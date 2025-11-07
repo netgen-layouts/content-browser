@@ -9,12 +9,9 @@ use Netgen\ContentBrowser\Utils\BackwardsCompatibility\Event;
 
 final class ConfigLoadEvent extends Event
 {
-    private Configuration $config;
-
-    public function __construct(Configuration $config)
-    {
-        $this->config = $config;
-    }
+    public function __construct(
+        private Configuration $config,
+    ) {}
 
     /**
      * Returns the configuration which is being loaded.

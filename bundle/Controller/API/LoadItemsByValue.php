@@ -17,15 +17,10 @@ use function mb_trim;
 
 final class LoadItemsByValue extends AbstractController
 {
-    private BackendInterface $backend;
-
-    private ItemSerializerInterface $itemSerializer;
-
-    public function __construct(BackendInterface $backend, ItemSerializerInterface $itemSerializer)
-    {
-        $this->backend = $backend;
-        $this->itemSerializer = $itemSerializer;
-    }
+    public function __construct(
+        private BackendInterface $backend,
+        private ItemSerializerInterface $itemSerializer,
+    ) {}
 
     /**
      * Returns all items with specified values.

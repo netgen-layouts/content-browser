@@ -9,19 +9,14 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class SearchQuery
 {
-    private string $searchText;
-
-    private ?LocationInterface $location;
-
     private int $offset = 0;
 
     private int $limit = 25;
 
-    public function __construct(string $searchText, ?LocationInterface $location = null)
-    {
-        $this->searchText = $searchText;
-        $this->location = $location;
-    }
+    public function __construct(
+        private string $searchText,
+        private ?LocationInterface $location = null,
+    ) {}
 
     /**
      * Returns the search text in the query.

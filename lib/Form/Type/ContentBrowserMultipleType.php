@@ -20,12 +20,9 @@ use function is_scalar;
 
 final class ContentBrowserMultipleType extends AbstractType
 {
-    private BackendRegistry $backendRegistry;
-
-    public function __construct(BackendRegistry $backendRegistry)
-    {
-        $this->backendRegistry = $backendRegistry;
-    }
+    public function __construct(
+        private BackendRegistry $backendRegistry,
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

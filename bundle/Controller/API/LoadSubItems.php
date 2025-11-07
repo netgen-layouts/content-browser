@@ -19,25 +19,12 @@ use function array_reverse;
 
 final class LoadSubItems extends AbstractController
 {
-    private BackendInterface $backend;
-
-    private ItemSerializerInterface $itemSerializer;
-
-    private PagerFactoryInterface $pagerFactory;
-
-    private int $defaultLimit;
-
     public function __construct(
-        BackendInterface $backend,
-        ItemSerializerInterface $itemSerializer,
-        PagerFactoryInterface $pagerFactory,
-        int $defaultLimit,
-    ) {
-        $this->backend = $backend;
-        $this->itemSerializer = $itemSerializer;
-        $this->pagerFactory = $pagerFactory;
-        $this->defaultLimit = $defaultLimit;
-    }
+        private BackendInterface $backend,
+        private ItemSerializerInterface $itemSerializer,
+        private PagerFactoryInterface $pagerFactory,
+        private int $defaultLimit,
+    ) {}
 
     /**
      * Returns all items below specified location.

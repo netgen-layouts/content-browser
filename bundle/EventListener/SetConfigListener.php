@@ -24,15 +24,10 @@ final class SetConfigListener implements EventSubscriberInterface
 {
     use MainRequestEventTrait;
 
-    private ContainerInterface $container;
-
-    private EventDispatcherInterface $eventDispatcher;
-
-    public function __construct(ContainerInterface $container, EventDispatcherInterface $eventDispatcher)
-    {
-        $this->container = $container;
-        $this->eventDispatcher = $eventDispatcher;
-    }
+    public function __construct(
+        private ContainerInterface $container,
+        private EventDispatcherInterface $eventDispatcher,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

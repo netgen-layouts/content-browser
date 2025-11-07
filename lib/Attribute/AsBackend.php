@@ -12,10 +12,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 final class AsBackend
 {
-    public string $itemType;
-
-    public function __construct(string $itemType)
-    {
-        $this->itemType = $itemType;
-    }
+    public function __construct(
+        public string $itemType,
+    ) {}
 }

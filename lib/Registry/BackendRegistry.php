@@ -24,17 +24,13 @@ use function sprintf;
 final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\ContentBrowser\Backend\BackendInterface>
-     */
-    private array $backends;
-
-    /**
      * @param array<string, \Netgen\ContentBrowser\Backend\BackendInterface> $backends
      */
-    public function __construct(array $backends)
-    {
+    public function __construct(
+        private array $backends,
+    ) {
         $this->backends = array_filter(
-            $backends,
+            $this->backends,
             static fn (BackendInterface $backend): bool => true,
         );
     }

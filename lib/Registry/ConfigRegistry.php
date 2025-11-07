@@ -24,17 +24,13 @@ use function sprintf;
 final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array<string, \Netgen\ContentBrowser\Config\Configuration>
-     */
-    private array $configs;
-
-    /**
      * @param array<string, \Netgen\ContentBrowser\Config\Configuration> $configs
      */
-    public function __construct(array $configs)
-    {
+    public function __construct(
+        private array $configs,
+    ) {
         $this->configs = array_filter(
-            $configs,
+            $this->configs,
             static fn (Configuration $config): bool => true,
         );
     }

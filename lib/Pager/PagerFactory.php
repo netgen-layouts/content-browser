@@ -11,17 +11,11 @@ use Pagerfanta\PagerfantaInterface;
 final class PagerFactory implements PagerFactoryInterface
 {
     /**
-     * @var int<1, max>
-     */
-    private int $maxLimit;
-
-    /**
      * @param int<1, max> $maxLimit
      */
-    public function __construct(int $maxLimit)
-    {
-        $this->maxLimit = $maxLimit;
-    }
+    public function __construct(
+        private int $maxLimit,
+    ) {}
 
     public function buildPager(AdapterInterface $adapter, int $page, int $limit): PagerfantaInterface
     {

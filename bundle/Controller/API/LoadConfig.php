@@ -12,33 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class LoadConfig extends AbstractController
 {
-    private BackendInterface $backend;
-
-    private Configuration $config;
-
-    private ItemSerializerInterface $itemSerializer;
-
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * Deprecated: Add typehint when support for Symfony 3.4 ends.
      *
-     * Deprecated: Add typehint when support for Symfony 3.4 ends
-     */
-    private $translator;
-
-    /**
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(
-        BackendInterface $backend,
-        Configuration $config,
-        ItemSerializerInterface $itemSerializer,
-        $translator,
-    ) {
-        $this->backend = $backend;
-        $this->config = $config;
-        $this->itemSerializer = $itemSerializer;
-        $this->translator = $translator;
-    }
+        private BackendInterface $backend,
+        private Configuration $config,
+        private ItemSerializerInterface $itemSerializer,
+        private $translator,
+    ) {}
 
     /**
      * Returns the configuration for content browser.

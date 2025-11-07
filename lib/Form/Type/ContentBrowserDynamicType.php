@@ -29,17 +29,10 @@ use function mb_trim;
 
 final class ContentBrowserDynamicType extends AbstractType
 {
-    private BackendRegistry $backendRegistry;
-
-    private ConfigRegistry $configRegistry;
-
     public function __construct(
-        BackendRegistry $backendRegistry,
-        ConfigRegistry $configRegistry,
-    ) {
-        $this->backendRegistry = $backendRegistry;
-        $this->configRegistry = $configRegistry;
-    }
+        private BackendRegistry $backendRegistry,
+        private ConfigRegistry $configRegistry,
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

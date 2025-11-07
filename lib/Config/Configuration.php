@@ -10,35 +10,16 @@ use function sprintf;
 
 final class Configuration
 {
-    private string $itemType;
-
-    private string $itemName;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $config;
-
-    /**
-     * @var array<string, mixed>
-     */
-    private array $parameters;
-
     /**
      * @param array<string, mixed> $config
      * @param array<string, mixed> $parameters
      */
     public function __construct(
-        string $itemType,
-        string $itemName,
-        array $config,
-        array $parameters = [],
-    ) {
-        $this->itemType = $itemType;
-        $this->itemName = $itemName;
-        $this->config = $config;
-        $this->parameters = $parameters;
-    }
+        private string $itemType,
+        private string $itemName,
+        private array $config,
+        private array $parameters = [],
+    ) {}
 
     public function getItemType(): string
     {

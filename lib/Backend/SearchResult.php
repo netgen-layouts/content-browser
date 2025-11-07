@@ -7,17 +7,11 @@ namespace Netgen\ContentBrowser\Backend;
 final class SearchResult implements SearchResultInterface
 {
     /**
-     * @var iterable<\Netgen\ContentBrowser\Item\ItemInterface>
-     */
-    private iterable $results;
-
-    /**
      * @param iterable<\Netgen\ContentBrowser\Item\ItemInterface> $results
      */
-    public function __construct(iterable $results = [])
-    {
-        $this->results = $results;
-    }
+    public function __construct(
+        private iterable $results = [],
+    ) {}
 
     public function getResults(): iterable
     {
