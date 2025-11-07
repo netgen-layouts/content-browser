@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BackendRegistryTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private BackendRegistry $registry;
 

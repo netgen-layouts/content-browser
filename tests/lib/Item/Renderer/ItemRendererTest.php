@@ -13,7 +13,7 @@ use Twig\Environment;
 
 final class ItemRendererTest extends TestCase
 {
-    private MockObject $twigMock;
+    private MockObject&Environment $twigMock;
 
     private ItemRenderer $itemRenderer;
 

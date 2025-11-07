@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ItemParamConverterTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private ItemParamConverter $paramConverter;
 

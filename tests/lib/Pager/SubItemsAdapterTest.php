@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SubItemsAdapterTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private SubItemsAdapter $adapter;
 

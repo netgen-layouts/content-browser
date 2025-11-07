@@ -15,9 +15,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemSerializerTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
-    private MockObject $columnProviderMock;
+    private MockObject&ColumnProviderInterface $columnProviderMock;
 
     private ItemSerializer $serializer;
 

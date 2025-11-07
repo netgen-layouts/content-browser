@@ -20,7 +20,7 @@ final class SetBackendListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private Container $container;
 

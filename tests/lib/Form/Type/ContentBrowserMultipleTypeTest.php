@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentBrowserMultipleTypeTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     /**
      * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::__construct
