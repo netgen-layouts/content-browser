@@ -21,12 +21,12 @@ use const JSON_THROW_ON_ERROR;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
-    protected MockObject $backendMock;
+    final protected MockObject $backendMock;
 
     /**
      * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
      */
-    protected $client;
+    final protected $client;
 
     protected function setUp(): void
     {

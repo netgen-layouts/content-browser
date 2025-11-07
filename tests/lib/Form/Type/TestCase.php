@@ -17,15 +17,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class TestCase extends BaseTestCase
 {
-    protected FormConfigBuilder $builder;
+    final protected FormConfigBuilder $builder;
 
-    protected MockObject $dispatcher;
+    final protected MockObject $dispatcher;
 
-    protected FormTypeInterface $formType;
+    final protected FormTypeInterface $formType;
 
-    protected MockObject $validatorMock;
+    final protected MockObject $validatorMock;
 
-    protected FormFactoryInterface $factory;
+    final protected FormFactoryInterface $factory;
 
     protected function setUp(): void
     {
