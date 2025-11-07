@@ -10,12 +10,14 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Kernel;
 
+#[CoversClass(LocationValueResolver::class)]
 final class LocationValueResolverTest extends TestCase
 {
     private MockObject $backendMock;
@@ -35,10 +37,6 @@ final class LocationValueResolverTest extends TestCase
         $this->valueResolver = new LocationValueResolver($backendRegistry);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::resolve
-     */
     public function testResolve(): void
     {
         $argument = new ArgumentMetadata('location', LocationInterface::class, false, false, null);
@@ -61,10 +59,6 @@ final class LocationValueResolverTest extends TestCase
         self::assertSame($location, $values[0]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::resolve
-     */
     public function testResolveWithMissingLocationId(): void
     {
         $argument = new ArgumentMetadata('location', LocationInterface::class, false, false, null);
@@ -81,10 +75,6 @@ final class LocationValueResolverTest extends TestCase
         self::assertSame([], $values);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::resolve
-     */
     public function testResolveWithMissingItemType(): void
     {
         $argument = new ArgumentMetadata('location', LocationInterface::class, false, false, null);
@@ -101,10 +91,6 @@ final class LocationValueResolverTest extends TestCase
         self::assertSame([], $values);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver::resolve
-     */
     public function testResolveWithEmptyRequiredLocationId(): void
     {
         $this->expectException(InvalidArgumentException::class);

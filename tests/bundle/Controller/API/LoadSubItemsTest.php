@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\ItemLocation;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\LocationInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadSubItems::class)]
 final class LoadSubItemsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
-     */
     public function testLoadSubItems(): void
     {
         $location = new Location(41, 'Location 41', 40);
@@ -55,10 +53,6 @@ final class LoadSubItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
-     */
     public function testLoadSubItemsWithItemAsLocation(): void
     {
         $location = new ItemLocation(41, 'Item 41', 40);
@@ -96,10 +90,6 @@ final class LoadSubItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::__invoke
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems::buildPath
-     */
     public function testLoadSubItemsWithMissingParent(): void
     {
         $location = new ItemLocation(41, 'Item 41', 40);

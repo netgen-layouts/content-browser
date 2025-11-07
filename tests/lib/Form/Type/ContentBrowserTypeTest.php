@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -16,15 +17,11 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ContentBrowserType::class)]
 final class ContentBrowserTypeTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::__construct
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
@@ -41,10 +38,6 @@ final class ContentBrowserTypeTest extends TestCase
         self::assertSame('42', $form->getData());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::__construct
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
-     */
     public function testBuildView(): void
     {
         $item = new Item(42);
@@ -74,9 +67,6 @@ final class ContentBrowserTypeTest extends TestCase
         self::assertSame('value', $view->vars['item_type']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
-     */
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
@@ -104,9 +94,6 @@ final class ContentBrowserTypeTest extends TestCase
         self::assertSame('value', $view->vars['item_type']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::buildView
-     */
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
@@ -132,9 +119,6 @@ final class ContentBrowserTypeTest extends TestCase
         self::assertSame('value', $view->vars['item_type']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -150,9 +134,6 @@ final class ContentBrowserTypeTest extends TestCase
         self::assertSame($options['item_type'], 'value');
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
     public function testConfigureOptionsWithMissingItemType(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -165,9 +146,6 @@ final class ContentBrowserTypeTest extends TestCase
         $optionsResolver->resolve([]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidItemType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -180,9 +158,6 @@ final class ContentBrowserTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 42]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::configureOptions
-     */
     public function testConfigureOptionsWithNonExistingItemType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -195,17 +170,11 @@ final class ContentBrowserTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 'non_existing']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::getParent
-     */
     public function testGetParent(): void
     {
         self::assertSame(TextType::class, $this->formType->getParent());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngcb', $this->formType->getBlockPrefix());

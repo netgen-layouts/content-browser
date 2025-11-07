@@ -7,6 +7,7 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use stdClass;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
@@ -14,6 +15,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
+#[CoversClass(ColumnProviderPass::class)]
 final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -23,9 +25,6 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ColumnProviderPass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     */
     public function testProcess(): void
     {
         $columnProvider = new Definition(stdClass::class);
@@ -52,9 +51,6 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithNoTagIdentifier(): void
     {
         $this->expectException(RuntimeException::class);
@@ -71,9 +67,6 @@ final class ColumnProviderPassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ColumnProviderPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

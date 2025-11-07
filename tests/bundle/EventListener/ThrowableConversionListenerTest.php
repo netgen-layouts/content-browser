@@ -10,6 +10,8 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +25,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Throwable;
 
+#[CoversClass(ThrowableConversionListener::class)]
 final class ThrowableConversionListenerTest extends TestCase
 {
     private ThrowableConversionListener $eventListener;
@@ -32,9 +35,6 @@ final class ThrowableConversionListenerTest extends TestCase
         $this->eventListener = new ThrowableConversionListener();
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -45,11 +45,8 @@ final class ThrowableConversionListenerTest extends TestCase
 
     /**
      * @param class-string<\Symfony\Component\HttpKernel\Exception\HttpException> $convertedClass
-     *
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
-     *
-     * @dataProvider onExceptionDataProvider
      */
+    #[DataProvider('onExceptionDataProvider')]
     public function testOnException(Throwable $throwable, string $convertedClass, int $statusCode, bool $converted): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -76,9 +73,6 @@ final class ThrowableConversionListenerTest extends TestCase
             self::assertNull($eventThrowable->getPrevious());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
-     */
     public function testOnExceptionNotConvertsOtherThrowables(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -99,9 +93,6 @@ final class ThrowableConversionListenerTest extends TestCase
         self::assertSame($throwable, $eventThrowable);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
-     */
     public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -122,9 +113,6 @@ final class ThrowableConversionListenerTest extends TestCase
         self::assertSame($throwable, $eventThrowable);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
-     */
     public function testOnExceptionInNonAPIRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

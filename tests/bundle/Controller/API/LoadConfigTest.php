@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadConfig::class)]
 final class LoadConfigTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::__invoke
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig::getAvailableColumns
-     */
     public function testLoadConfig(): void
     {
         $this->backendMock

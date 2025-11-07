@@ -9,8 +9,10 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ConfigRegistry::class)]
 final class ConfigRegistryTest extends TestCase
 {
     private Configuration $configuration;
@@ -28,26 +30,16 @@ final class ConfigRegistryTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::__construct
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::getConfigs
-     */
     public function testGetConfigs(): void
     {
         self::assertSame(['value' => $this->configuration], $this->registry->getConfigs());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::getConfig
-     */
     public function testGetConfig(): void
     {
         self::assertSame($this->configuration, $this->registry->getConfig('value'));
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::getConfig
-     */
     public function testGetConfigThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -56,25 +48,16 @@ final class ConfigRegistryTest extends TestCase
         $this->registry->getConfig('other_value');
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::hasConfig
-     */
     public function testHasConfig(): void
     {
         self::assertTrue($this->registry->hasConfig('value'));
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::hasConfig
-     */
     public function testHasConfigWithNoConfig(): void
     {
         self::assertFalse($this->registry->hasConfig('other_value'));
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::getIterator
-     */
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
@@ -87,34 +70,22 @@ final class ConfigRegistryTest extends TestCase
         self::assertSame($this->registry->getConfigs(), $configs);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::count
-     */
     public function testCount(): void
     {
         self::assertCount(1, $this->registry);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetExists
-     */
     public function testOffsetExists(): void
     {
         self::assertArrayHasKey('value', $this->registry);
         self::assertArrayNotHasKey('other', $this->registry);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetGet
-     */
     public function testOffsetGet(): void
     {
         self::assertSame($this->configuration, $this->registry['value']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetSet
-     */
     public function testOffsetSet(): void
     {
         $this->expectException(RuntimeException::class);
@@ -123,9 +94,6 @@ final class ConfigRegistryTest extends TestCase
         $this->registry['value'] = $this->configuration;
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Registry\ConfigRegistry::offsetUnset
-     */
     public function testOffsetUnset(): void
     {
         $this->expectException(RuntimeException::class);

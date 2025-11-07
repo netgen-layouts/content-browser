@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\ContentBrowser\Backend\SearchResult;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(SearchItems::class)]
 final class SearchItemsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
-     */
     public function testSearchItems(): void
     {
         $this->backendMock
@@ -40,9 +39,6 @@ final class SearchItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
-     */
     public function testSearchItemsWithEmptySearchText(): void
     {
         $this->client->request('GET', '/cb/api/test/search?searchText=');
@@ -54,9 +50,6 @@ final class SearchItemsTest extends JsonApiTestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems::__invoke
-     */
     public function testSearchItemsWithMissingSearchText(): void
     {
         $this->client->request('GET', '/cb/api/test/search');

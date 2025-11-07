@@ -9,7 +9,6 @@ parameters:
     excludePaths:
         - tests/application/public/bundles/
         - tests/application/src/Kernel.php
-        - tests/application/src/LegacyKernel.php
 
     treatPhpDocTypesAsCertain: false
 

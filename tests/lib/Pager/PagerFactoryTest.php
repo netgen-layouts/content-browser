@@ -6,9 +6,12 @@ namespace Netgen\ContentBrowser\Tests\Pager;
 
 use Netgen\ContentBrowser\Pager\PagerFactory;
 use Pagerfanta\Adapter\AdapterInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PagerFactory::class)]
 final class PagerFactoryTest extends TestCase
 {
     /**
@@ -29,12 +32,7 @@ final class PagerFactoryTest extends TestCase
         $this->pagerFactory = new PagerFactory(100);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Pager\PagerFactory::__construct
-     * @covers \Netgen\ContentBrowser\Pager\PagerFactory::buildPager
-     *
-     * @dataProvider buildPagerDataProvider
-     */
+    #[DataProvider('buildPagerDataProvider')]
     public function testBuildPager(int $page, int $limit, int $currentPage, int $maxPerPage): void
     {
         $pager = $this->pagerFactory->buildPager(

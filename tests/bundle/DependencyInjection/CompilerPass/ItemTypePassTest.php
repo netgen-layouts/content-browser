@@ -7,11 +7,13 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\DependencyInjection\CompilerP
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use stdClass;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
+#[CoversClass(ItemTypePass::class)]
 final class ItemTypePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
@@ -21,9 +23,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ItemTypePass());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     */
     public function testProcess(): void
     {
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class, [[]]));
@@ -63,9 +62,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         self::assertFalse($this->container->hasParameter('netgen_content_browser.item_types'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithoutBackend(): void
     {
         $this->expectException(RuntimeException::class);
@@ -90,9 +86,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithNoTagType(): void
     {
         $this->expectException(RuntimeException::class);
@@ -121,9 +114,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     */
     public function testProcessThrowsRuntimeExceptionWithInvalidItemType(): void
     {
         $this->expectException(RuntimeException::class);
@@ -152,9 +142,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\DependencyInjection\CompilerPass\ItemTypePass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

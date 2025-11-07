@@ -10,12 +10,14 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Kernel;
 
+#[CoversClass(ItemValueResolver::class)]
 final class ItemValueResolverTest extends TestCase
 {
     private MockObject $backendMock;
@@ -35,10 +37,6 @@ final class ItemValueResolverTest extends TestCase
         $this->valueResolver = new ItemValueResolver($backendRegistry);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::resolve
-     */
     public function testResolve(): void
     {
         $argument = new ArgumentMetadata('item', ItemInterface::class, false, false, null);
@@ -61,10 +59,6 @@ final class ItemValueResolverTest extends TestCase
         self::assertSame($item, $values[0]);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::resolve
-     */
     public function testResolveWithMissingItemValue(): void
     {
         $argument = new ArgumentMetadata('item', ItemInterface::class, false, false, null);
@@ -81,10 +75,6 @@ final class ItemValueResolverTest extends TestCase
         self::assertSame([], $values);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::resolve
-     */
     public function testResolveWithMissingItemType(): void
     {
         $argument = new ArgumentMetadata('item', ItemInterface::class, false, false, null);
@@ -101,10 +91,6 @@ final class ItemValueResolverTest extends TestCase
         self::assertSame([], $values);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver::resolve
-     */
     public function testResolveWithEmptyRequiredItemValue(): void
     {
         $this->expectException(InvalidArgumentException::class);

@@ -8,6 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(SetBackendListener::class)]
 final class SetBackendListenerTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
@@ -39,10 +41,6 @@ final class SetBackendListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -51,9 +49,6 @@ final class SetBackendListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -73,9 +68,6 @@ final class SetBackendListenerTest extends TestCase
         self::assertSame($this->backendMock, $this->container->get('netgen_content_browser.backend'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -94,9 +86,6 @@ final class SetBackendListenerTest extends TestCase
         self::assertFalse($this->container->has('netgen_content_browser.backend'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoItemType(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -114,9 +103,6 @@ final class SetBackendListenerTest extends TestCase
         self::assertFalse($this->container->has('netgen_content_browser.backend'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

@@ -10,9 +10,11 @@ use Netgen\ContentBrowser\Item\Serializer\ItemSerializer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use Netgen\ContentBrowser\Tests\Stubs\LocationItem;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemSerializer::class)]
 final class ItemSerializerTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
@@ -32,10 +34,6 @@ final class ItemSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItem
-     */
     public function testSerializeItem(): void
     {
         $item = new LocationItem(84, 42);
@@ -70,10 +68,6 @@ final class ItemSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::__construct
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeItem
-     */
     public function testSerializeNonLocationItem(): void
     {
         $item = new Item(84);
@@ -106,9 +100,6 @@ final class ItemSerializerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\Serializer\ItemSerializer::serializeLocation
-     */
     public function testSerializeLocation(): void
     {
         $location = new Location(42, 24);

@@ -8,6 +8,7 @@ use Exception;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -23,6 +24,7 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
+#[CoversClass(ThrowableSerializerListener::class)]
 final class ThrowableSerializerListenerTest extends TestCase
 {
     private ThrowableSerializerListener $eventListener;
@@ -36,10 +38,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         $this->eventListener = new ThrowableSerializerListener(false, $this->loggerMock);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -48,10 +46,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
-     */
     public function testOnException(): void
     {
         $throwable = new NotFoundHttpException('Some message');
@@ -85,10 +79,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
-     */
     public function testOnExceptionLogsCriticalError(): void
     {
         $throwable = new RuntimeException('Some message');
@@ -124,10 +114,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
-     */
     public function testOnExceptionWithDebugging(): void
     {
         $throwable = new NotFoundHttpException('Some message', new Exception('Previous exception'));
@@ -172,9 +158,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         self::assertNotEmpty($data['debug']['trace']);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
-     */
     public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -193,9 +176,6 @@ final class ThrowableSerializerListenerTest extends TestCase
         self::assertFalse($event->hasResponse());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
-     */
     public function testOnExceptionWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);

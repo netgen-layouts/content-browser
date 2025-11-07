@@ -9,6 +9,7 @@ use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -16,16 +17,11 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ContentBrowserMultipleType::class)]
 final class ContentBrowserMultipleTypeTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::__construct
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItems
-     */
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
@@ -42,11 +38,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame(['42', '24'], $form->getData());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::__construct
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItems
-     */
     public function testBuildView(): void
     {
         $item1 = new Item(42);
@@ -93,10 +84,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame(5, $view->vars['max']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItems
-     */
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
@@ -124,10 +111,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame('value', $view->vars['item_type']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::buildView
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getItems
-     */
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
@@ -153,9 +136,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame('value', $view->vars['item_type']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -175,9 +155,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame($options['max'], 5);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithNormalizedMax(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -197,9 +174,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         self::assertSame($options['max'], 3);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithMissingItemType(): void
     {
         $this->expectException(MissingOptionsException::class);
@@ -212,9 +186,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $optionsResolver->resolve([]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidItemType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -227,9 +198,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 42]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithNonExistingItemType(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -242,9 +210,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 'non_existing']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidMin(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -257,9 +222,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 'value', 'min' => 'min']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidMax(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -272,17 +234,11 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $optionsResolver->resolve(['item_type' => 'value', 'max' => 'max']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getParent
-     */
     public function testGetParent(): void
     {
         self::assertSame(CollectionType::class, $this->formType->getParent());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngcb_multiple', $this->formType->getBlockPrefix());

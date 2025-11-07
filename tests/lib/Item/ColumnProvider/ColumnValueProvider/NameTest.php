@@ -6,8 +6,10 @@ namespace Netgen\ContentBrowser\Tests\Item\ColumnProvider\ColumnValueProvider;
 
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Name::class)]
 final class NameTest extends TestCase
 {
     private Name $provider;
@@ -17,9 +19,6 @@ final class NameTest extends TestCase
         $this->provider = new Name();
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProvider\Name::getValue
-     */
     public function testGetValue(): void
     {
         self::assertSame(

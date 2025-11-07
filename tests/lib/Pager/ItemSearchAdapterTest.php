@@ -9,9 +9,11 @@ use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ItemSearchAdapter::class)]
 final class ItemSearchAdapterTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
@@ -28,10 +30,6 @@ final class ItemSearchAdapterTest extends TestCase
         $this->adapter = new ItemSearchAdapter($this->backendMock, $this->searchQuery);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::__construct
-     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getNbResults
-     */
     public function testGetNbResults(): void
     {
         $this->backendMock
@@ -43,9 +41,6 @@ final class ItemSearchAdapterTest extends TestCase
         self::assertSame(3, $this->adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Pager\ItemSearchAdapter::getSlice
-     */
     public function testGetSlice(): void
     {
         $items = [new Item(1), new Item(2), new Item(3)];

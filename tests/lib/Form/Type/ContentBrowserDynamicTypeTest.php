@@ -11,19 +11,17 @@ use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+#[CoversClass(ContentBrowserDynamicType::class)]
 final class ContentBrowserDynamicTypeTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
-     */
     public function testSubmitValidDataWithNoItemTypeLimit(): void
     {
         $form = $this->factory->create(
@@ -38,10 +36,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertSame($data, $form->getData());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildForm
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getEnabledItemTypes
-     */
     public function testSubmitValidDataWithItemTypeLimit(): void
     {
         $form = $this->factory->create(
@@ -60,10 +54,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertSame($data, $form->getData());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::__construct
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     */
     public function testBuildView(): void
     {
         $item = new Item(42);
@@ -86,9 +76,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertSame($item, $view->vars['item']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     */
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
@@ -109,9 +96,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertNull($view->vars['item']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::buildView
-     */
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
@@ -128,9 +112,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertNull($view->vars['item']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     */
     public function testConfigureOptions(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -146,9 +127,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertSame($options['item_types'], ['value1']);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     */
     public function testConfigureOptionsWithMissingItemTypes(): void
     {
         $optionsResolver = new OptionsResolver();
@@ -160,9 +138,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         self::assertSame($options['item_types'], []);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidItemTypesItem(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -175,9 +150,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $optionsResolver->resolve(['item_types' => [42]]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::configureOptions
-     */
     public function testConfigureOptionsWithInvalidItemTypes(): void
     {
         $this->expectException(InvalidOptionsException::class);
@@ -190,9 +162,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
         $optionsResolver->resolve(['item_types' => 42]);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType::getBlockPrefix
-     */
     public function testGetBlockPrefix(): void
     {
         self::assertSame('ngcb_dynamic', $this->formType->getBlockPrefix());

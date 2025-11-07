@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Tests\App\MockerContainer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(RenderItem::class)]
 final class RenderItemTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
-     */
     public function testRenderItem(): void
     {
         $container = $this->client->getKernel()->getContainer();
@@ -60,9 +59,6 @@ final class RenderItemTest extends JsonApiTestCase
         self::assertSame('rendered item', $response->getContent());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
-     */
     public function testRenderItemWithDisabledPreview(): void
     {
         $container = $this->client->getKernel()->getContainer();
@@ -105,9 +101,6 @@ final class RenderItemTest extends JsonApiTestCase
         self::assertSame('', $response->getContent());
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem::__invoke
-     */
     public function testRenderItemWithNonExistingItem(): void
     {
         $this->backendMock

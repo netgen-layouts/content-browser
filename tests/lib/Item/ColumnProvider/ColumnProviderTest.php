@@ -12,9 +12,11 @@ use Netgen\ContentBrowser\Tests\Stubs\ColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Container;
 use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(ColumnProvider::class)]
 final class ColumnProviderTest extends TestCase
 {
     private MockObject&ItemRendererInterface $itemRendererMock;
@@ -55,11 +57,6 @@ final class ColumnProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::__construct
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
-     */
     public function testProvideColumns(): void
     {
         self::assertSame(
@@ -68,10 +65,6 @@ final class ColumnProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
-     */
     public function testProvideColumnsWithTemplate(): void
     {
         $this->config = new Configuration(
@@ -106,10 +99,6 @@ final class ColumnProviderTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumn
-     * @covers \Netgen\ContentBrowser\Item\ColumnProvider\ColumnProvider::provideColumns
-     */
     public function testProvideColumnsThrowsInvalidArgumentExceptionWithNoProvider(): void
     {
         $this->expectException(InvalidArgumentException::class);

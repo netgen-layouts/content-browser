@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
+use Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Location;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
+#[CoversClass(LoadSubLocations::class)]
 final class LoadSubLocationsTest extends JsonApiTestCase
 {
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations::__invoke
-     */
     public function testLoadSubLocations(): void
     {
         $location = new Location(41, 'Location 41');

@@ -8,6 +8,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+#[CoversClass(SetConfigListener::class)]
 final class SetConfigListenerTest extends TestCase
 {
     private Container $container;
@@ -33,10 +35,6 @@ final class SetConfigListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::getSubscribedEvents
-     */
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
@@ -45,10 +43,6 @@ final class SetConfigListenerTest extends TestCase
         );
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -71,10 +65,6 @@ final class SetConfigListenerTest extends TestCase
         self::assertSame($config, $this->container->get('netgen_content_browser.config'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestWithCustomParams(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -111,10 +101,6 @@ final class SetConfigListenerTest extends TestCase
         self::assertSame($config, $this->container->get('netgen_content_browser.config'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -137,9 +123,6 @@ final class SetConfigListenerTest extends TestCase
         $this->eventListener->onKernelRequest($event);
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -158,9 +141,6 @@ final class SetConfigListenerTest extends TestCase
         self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoItemType(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -178,9 +158,6 @@ final class SetConfigListenerTest extends TestCase
         self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -198,10 +175,6 @@ final class SetConfigListenerTest extends TestCase
         self::assertFalse($this->container->has('netgen_content_browser.config'));
     }
 
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestWithInvalidItemTypeThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);

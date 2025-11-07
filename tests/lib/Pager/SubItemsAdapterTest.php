@@ -8,9 +8,11 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Pager\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(SubItemsAdapter::class)]
 final class SubItemsAdapterTest extends TestCase
 {
     private MockObject&BackendInterface $backendMock;
@@ -27,10 +29,6 @@ final class SubItemsAdapterTest extends TestCase
         $this->adapter = new SubItemsAdapter($this->backendMock, $this->location);
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::__construct
-     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getNbResults
-     */
     public function testGetNbResults(): void
     {
         $this->backendMock
@@ -42,9 +40,6 @@ final class SubItemsAdapterTest extends TestCase
         self::assertSame(3, $this->adapter->getNbResults());
     }
 
-    /**
-     * @covers \Netgen\ContentBrowser\Pager\SubItemsAdapter::getSlice
-     */
     public function testGetSlice(): void
     {
         $items = [new Item(1), new Item(2), new Item(3)];
