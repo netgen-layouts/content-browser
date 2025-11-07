@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 use function is_string;
-use function method_exists;
 use function preg_match;
 use function sprintf;
 
@@ -101,15 +100,11 @@ final class ItemTypePass implements CompilerPassInterface
             $backends[$itemType] = new Reference($foundBackend);
             $configs[$itemType] = new Reference($configServiceName);
 
-            // The check is deprecated and serves to support Symfony 3.4 where
-            // this method is missing
-            if (method_exists($container, 'registerAliasForArgument')) {
-                $container->registerAliasForArgument(
-                    $configServiceName,
-                    Configuration::class,
-                    $itemType . 'Config',
-                );
-            }
+            $container->registerAliasForArgument(
+                $configServiceName,
+                Configuration::class,
+                $itemType . 'Config',
+            );
         }
 
         $backendRegistry->replaceArgument(0, $backends);

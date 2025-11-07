@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Event;
 
 use Netgen\ContentBrowser\Config\Configuration;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 final class ConfigLoadEvent extends Event
 {

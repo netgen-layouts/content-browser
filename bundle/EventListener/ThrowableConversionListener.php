@@ -7,8 +7,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -21,19 +19,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use function is_a;
 
-final class ExceptionConversionListener implements EventSubscriberInterface
+final class ThrowableConversionListener implements EventSubscriberInterface
 {
-    use ExceptionEventThrowableTrait;
-    use MainRequestEventTrait;
-
     /**
      * @var array<class-string<\Throwable>, class-string<\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface>>
      */
-    private array $exceptionMap = [
+    private array $throwableMap = [
         NotFoundException::class => NotFoundHttpException::class,
         OutOfBoundsException::class => UnprocessableEntityHttpException::class,
         InvalidArgumentException::class => BadRequestHttpException::class,
-        // Various other useful exceptions
+        // Various other useful throwables
         AccessDeniedException::class => AccessDeniedHttpException::class,
     ];
 
@@ -43,11 +38,11 @@ final class ExceptionConversionListener implements EventSubscriberInterface
     }
 
     /**
-     * Converts exceptions to Symfony HTTP exceptions.
+     * Converts throwables to Symfony HTTP exceptions.
      */
     public function onException(ExceptionEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -56,28 +51,28 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $this->getThrowable($event);
-        if ($exception instanceof HttpExceptionInterface) {
+        $throwable = $event->getThrowable();
+        if ($throwable instanceof HttpExceptionInterface) {
             return;
         }
 
-        $exceptionClass = null;
-        foreach ($this->exceptionMap as $sourceException => $targetException) {
-            if (is_a($exception, $sourceException, true)) {
-                $exceptionClass = $targetException;
+        $throwableClass = null;
+        foreach ($this->throwableMap as $sourceThrowable => $targetThrowable) {
+            if (is_a($throwable, $sourceThrowable, true)) {
+                $throwableClass = $targetThrowable;
 
                 break;
             }
         }
 
-        if ($exceptionClass !== null) {
-            $convertedException = new $exceptionClass(
-                $exception->getMessage(),
-                $exception,
-                $exception->getCode(),
+        if ($throwableClass !== null) {
+            $convertedThrowable = new $throwableClass(
+                $throwable->getMessage(),
+                $throwable,
+                $throwable->getCode(),
             );
 
-            $this->setThrowable($event, $convertedException);
+            $event->setThrowable($convertedThrowable);
         }
     }
 }

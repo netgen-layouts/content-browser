@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -23,11 +23,9 @@ use function json_decode;
 
 use const JSON_THROW_ON_ERROR;
 
-final class ExceptionSerializerListenerTest extends TestCase
+final class ThrowableSerializerListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
-    private ExceptionSerializerListener $eventListener;
+    private ThrowableSerializerListener $eventListener;
 
     private MockObject&LoggerInterface $loggerMock;
 
@@ -35,12 +33,12 @@ final class ExceptionSerializerListenerTest extends TestCase
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 
-        $this->eventListener = new ExceptionSerializerListener(false, $this->loggerMock);
+        $this->eventListener = new ThrowableSerializerListener(false, $this->loggerMock);
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::__construct
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::__construct
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -51,22 +49,22 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
      */
     public function testOnException(): void
     {
-        $exception = new NotFoundHttpException('Some message');
+        $throwable = new NotFoundHttpException('Some message');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
         $this->eventListener->onException($event);
@@ -78,32 +76,32 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         self::assertSame(
             [
-                'code' => $exception->getCode(),
-                'message' => $exception->getMessage(),
-                'status_code' => $exception->getStatusCode(),
-                'status_text' => Response::$statusTexts[$exception->getStatusCode()],
+                'code' => $throwable->getCode(),
+                'message' => $throwable->getMessage(),
+                'status_code' => $throwable->getStatusCode(),
+                'status_text' => Response::$statusTexts[$throwable->getStatusCode()],
             ],
             json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR),
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
      */
     public function testOnExceptionLogsCriticalError(): void
     {
-        $exception = new RuntimeException('Some message');
+        $throwable = new RuntimeException('Some message');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
         $this->loggerMock
@@ -119,33 +117,33 @@ final class ExceptionSerializerListenerTest extends TestCase
 
         self::assertSame(
             [
-                'code' => $exception->getCode(),
-                'message' => $exception->getMessage(),
+                'code' => $throwable->getCode(),
+                'message' => $throwable->getMessage(),
             ],
             json_decode((string) $event->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR),
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::logException
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::logThrowable
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
      */
     public function testOnExceptionWithDebugging(): void
     {
-        $exception = new NotFoundHttpException('Some message', new Exception('Previous exception'));
+        $throwable = new NotFoundHttpException('Some message', new Exception('Previous exception'));
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
-        $this->eventListener = new ExceptionSerializerListener(true, $this->loggerMock);
+        $this->eventListener = new ThrowableSerializerListener(true, $this->loggerMock);
         $this->eventListener->onException($event);
 
         self::assertInstanceOf(
@@ -165,17 +163,17 @@ final class ExceptionSerializerListenerTest extends TestCase
         self::assertArrayHasKey('file', $data['debug']);
         self::assertArrayHasKey('trace', $data['debug']);
 
-        self::assertSame($exception->getCode(), $data['code']);
-        self::assertSame($exception->getMessage(), $data['message']);
-        self::assertSame($exception->getStatusCode(), $data['status_code']);
-        self::assertSame(Response::$statusTexts[$exception->getStatusCode()], $data['status_text']);
+        self::assertSame($throwable->getCode(), $data['code']);
+        self::assertSame($throwable->getMessage(), $data['message']);
+        self::assertSame($throwable->getStatusCode(), $data['status_code']);
+        self::assertSame(Response::$statusTexts[$throwable->getStatusCode()], $data['status_text']);
         self::assertSame(__FILE__, $data['debug']['file']);
         self::assertGreaterThan(0, $data['debug']['line']);
         self::assertNotEmpty($data['debug']['trace']);
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
      */
     public function testOnExceptionInSubRequest(): void
     {
@@ -183,7 +181,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -196,7 +194,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener::onException
      */
     public function testOnExceptionWithNoContentBrowserRequest(): void
     {
@@ -204,10 +202,10 @@ final class ExceptionSerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             new NotFoundHttpException('Some message'),
         );
 

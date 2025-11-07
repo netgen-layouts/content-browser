@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Exceptions\OutOfBoundsException;
-use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,21 +21,19 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Throwable;
 
-final class ExceptionConversionListenerTest extends TestCase
+final class ThrowableConversionListenerTest extends TestCase
 {
-    use CreateEventTrait;
-    use ExceptionEventThrowableTrait;
-
-    private ExceptionConversionListener $eventListener;
+    private ThrowableConversionListener $eventListener;
 
     protected function setUp(): void
     {
-        $this->eventListener = new ExceptionConversionListener();
+        $this->eventListener = new ThrowableConversionListener();
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -49,102 +46,102 @@ final class ExceptionConversionListenerTest extends TestCase
     /**
      * @param class-string<\Symfony\Component\HttpKernel\Exception\HttpException> $convertedClass
      *
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
      *
      * @dataProvider onExceptionDataProvider
      */
-    public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
+    public function testOnException(Throwable $throwable, string $convertedClass, int $statusCode, bool $converted): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
         $this->eventListener->onException($event);
-        $eventException = $this->getThrowable($event);
+        $eventThrowable = $event->getThrowable();
 
-        self::assertInstanceOf($convertedClass, $eventException);
-        self::assertSame($exception->getMessage(), $eventException->getMessage());
-        self::assertSame($exception->getCode(), $eventException->getCode());
-        self::assertSame($statusCode, $eventException->getStatusCode());
+        self::assertInstanceOf($convertedClass, $eventThrowable);
+        self::assertSame($throwable->getMessage(), $eventThrowable->getMessage());
+        self::assertSame($throwable->getCode(), $eventThrowable->getCode());
+        self::assertSame($statusCode, $eventThrowable->getStatusCode());
 
         $converted ?
-            self::assertSame($exception, $eventException->getPrevious()) :
-            self::assertNull($eventException->getPrevious());
+            self::assertSame($throwable, $eventThrowable->getPrevious()) :
+            self::assertNull($eventThrowable->getPrevious());
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
      */
-    public function testOnExceptionNotConvertsOtherExceptions(): void
+    public function testOnExceptionNotConvertsOtherThrowables(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
-        $exception = new Exception('Some error');
+        $throwable = new Exception('Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
         $this->eventListener->onException($event);
-        $eventException = $this->getThrowable($event);
+        $eventThrowable = $event->getThrowable();
 
-        self::assertSame($exception, $eventException);
+        self::assertSame($throwable, $eventThrowable);
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
      */
     public function testOnExceptionInSubRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
-        $exception = new NotFoundException('Some error');
+        $throwable = new NotFoundException('Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            $exception,
+            $throwable,
         );
 
         $this->eventListener->onException($event);
-        $eventException = $this->getThrowable($event);
+        $eventThrowable = $event->getThrowable();
 
-        self::assertSame($exception, $eventException);
+        self::assertSame($throwable, $eventThrowable);
     }
 
     /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener::onException
      */
     public function testOnExceptionInNonAPIRequest(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
-        $exception = new NotFoundException('Some error');
+        $throwable = new NotFoundException('Some error');
 
-        $event = $this->createExceptionEvent(
+        $event = new ExceptionEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $exception,
+            HttpKernelInterface::MAIN_REQUEST,
+            $throwable,
         );
 
         $this->eventListener->onException($event);
-        $eventException = $this->getThrowable($event);
+        $eventThrowable = $event->getThrowable();
 
-        self::assertSame($exception, $eventException);
+        self::assertSame($throwable, $eventThrowable);
     }
 
     /**

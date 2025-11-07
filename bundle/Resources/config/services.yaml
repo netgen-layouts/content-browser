@@ -102,13 +102,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_content_browser.event_listener.exception_conversion:
-        class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionConversionListener
+    netgen_content_browser.event_listener.throwable_conversion:
+        class: Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableConversionListener
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_content_browser.event_listener.exception_serializer:
-        class: Netgen\Bundle\ContentBrowserBundle\EventListener\ExceptionSerializerListener
+    netgen_content_browser.event_listener.throwable_serializer:
+        class: Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener
         arguments:
             - "%kernel.debug%"
             - "@?logger"
@@ -178,21 +178,21 @@ services:
         tags:
             - { name: form.type }
 
-    # Param converters
+    # Value resolvers
 
-    netgen_content_browser.param_converter.item:
-        class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\ItemParamConverter
+    netgen_content_browser.value_resolver.item:
+        class: Netgen\Bundle\ContentBrowserBundle\ValueResolver\ItemValueResolver
         arguments:
             - "@netgen_content_browser.registry.backend"
         tags:
-            - { name: request.param_converter, priority: 0 }
+            - { name: controller.argument_value_resolver }
 
-    netgen_content_browser.param_converter.location:
-        class: Netgen\Bundle\ContentBrowserBundle\ParamConverter\LocationParamConverter
+    netgen_content_browser.value_resolver.location:
+        class: Netgen\Bundle\ContentBrowserBundle\ValueResolver\LocationValueResolver
         arguments:
             - "@netgen_content_browser.registry.backend"
         tags:
-            - { name: request.param_converter, priority: 0 }
+            - { name: controller.argument_value_resolver }
 
     # Column value providers
 

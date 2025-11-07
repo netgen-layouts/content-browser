@@ -9,19 +9,15 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class LoadConfig extends AbstractController
 {
-    /**
-     * Deprecated: Add typehint when support for Symfony 3.4 ends.
-     *
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     */
     public function __construct(
         private BackendInterface $backend,
         private Configuration $config,
         private ItemSerializerInterface $itemSerializer,
-        private $translator,
+        private TranslatorInterface $translator,
     ) {}
 
     /**

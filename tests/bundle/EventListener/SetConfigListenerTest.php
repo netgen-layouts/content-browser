@@ -8,21 +8,17 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetConfigListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private Container $container;
 
     private SetConfigListener $eventListener;
@@ -60,10 +56,10 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);
@@ -88,10 +84,10 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set('itemType', 'item_type');
         $request->query->set('customParams', ['custom' => 'value', 'two' => 'override']);
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);
@@ -119,37 +115,6 @@ final class SetConfigListenerTest extends TestCase
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
      * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNonArrayCustomParams(): void
-    {
-        if (Kernel::VERSION_ID >= 50100) {
-            self::markTestSkipped('Test not needed on Symfony 5.1+');
-        }
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Invalid custom parameters specification for "item_type" item type.');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-
-        $request = Request::create('/');
-        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
-        $request->attributes->set('itemType', 'item_type');
-        $request->query->set('customParams', 'custom');
-
-        $event = $this->createRequestEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-        );
-
-        $this->container->set('netgen_content_browser.config.item_type', new Configuration('value', 'Value', []));
-
-        $this->eventListener->onKernelRequest($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::loadConfig
-     * @covers \Netgen\Bundle\ContentBrowserBundle\EventListener\SetConfigListener::onKernelRequest
-     */
     public function testOnKernelRequestThrowsInvalidArgumentExceptionWithInvalidConfigService(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -160,10 +125,10 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $config = new stdClass();
@@ -182,7 +147,7 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -202,10 +167,10 @@ final class SetConfigListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -222,10 +187,10 @@ final class SetConfigListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -247,10 +212,10 @@ final class SetConfigListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'unknown');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $config = new Configuration('value', 'Value', []);

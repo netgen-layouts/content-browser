@@ -8,18 +8,16 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetBackendListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
-use Netgen\ContentBrowser\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetBackendListenerTest extends TestCase
 {
-    use CreateEventTrait;
-
     private MockObject&BackendInterface $backendMock;
 
     private Container $container;
@@ -63,10 +61,10 @@ final class SetBackendListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -85,7 +83,7 @@ final class SetBackendListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -105,10 +103,10 @@ final class SetBackendListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);
@@ -125,10 +123,10 @@ final class SetBackendListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
-        $event = $this->createRequestEvent(
+        $event = new RequestEvent(
             $kernelMock,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
         );
 
         $this->eventListener->onKernelRequest($event);

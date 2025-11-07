@@ -8,22 +8,16 @@ use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Event\ConfigLoadEvent;
 use Netgen\ContentBrowser\Event\ContentBrowserEvents;
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
-use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-use function is_array;
 use function sprintf;
 
 final class SetConfigListener implements EventSubscriberInterface
 {
-    use MainRequestEventTrait;
-
     public function __construct(
         private ContainerInterface $container,
         private EventDispatcherInterface $eventDispatcher,
@@ -36,7 +30,7 @@ final class SetConfigListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$this->isMainRequest($event)) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -52,26 +46,12 @@ final class SetConfigListener implements EventSubscriberInterface
 
         $config = $this->loadConfig($attributes->get('itemType'));
 
-        $customParams = Kernel::VERSION_ID >= 50100 ?
-            $request->query->all('customParams') :
-            $request->query->get('customParams') ?? [];
-
-        if (!is_array($customParams)) {
-            throw new RuntimeException(
-                sprintf(
-                    'Invalid custom parameters specification for "%s" item type.',
-                    $attributes->get('itemType'),
-                ),
-            );
-        }
-
+        $customParams = $request->query->all('customParams');
         $config->addParameters($customParams);
 
         $configLoadEvent = new ConfigLoadEvent($config);
 
-        Kernel::VERSION_ID >= 40300 ?
-            $this->eventDispatcher->dispatch($configLoadEvent, ContentBrowserEvents::CONFIG_LOAD) :
-            $this->eventDispatcher->dispatch(ContentBrowserEvents::CONFIG_LOAD, $configLoadEvent);
+        $this->eventDispatcher->dispatch($configLoadEvent, ContentBrowserEvents::CONFIG_LOAD);
 
         $this->container->set('netgen_content_browser.config', $config);
     }

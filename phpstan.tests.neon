@@ -13,17 +13,8 @@ parameters:
 
     treatPhpDocTypesAsCertain: false
 
-    dynamicConstantNames:
-        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
-
     ignoreErrors:
-        # Compatibility with Symfony 3.4
-
-        - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
-        - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
-
-        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
-
         # Symfony
 
+        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
         - '#with generic interface Symfony\\Component\\Form\\\w+ does not specify its types: TData#'

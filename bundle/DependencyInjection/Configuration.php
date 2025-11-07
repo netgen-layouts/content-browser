@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\DependencyInjection;
 
-use Netgen\ContentBrowser\Utils\BackwardsCompatibility\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;

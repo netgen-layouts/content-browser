@@ -15,31 +15,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.4', '8.4']
-        symfony: ['~5.4.0', '~6.4.0']
+        php: ['8.4']
+        symfony: ['~7.3.0']
         script: ['test', 'test-api']
         deps: ['normal']
-        include:
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test'
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test-api-legacy'
-
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test'
-            deps: 'low'
-          - php: '7.4'
-            symfony: '~3.4.0'
-            script: 'test-api-legacy'
-            deps: 'low'
-        exclude:
-          - php: '8.4'
-            symfony: '~3.4.0'
-          - php: '7.4'
-            symfony: '~6.4.0'
 
     steps:
       - uses: actions/checkout@v3
