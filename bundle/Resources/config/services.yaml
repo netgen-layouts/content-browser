@@ -121,12 +121,12 @@ services:
     netgen_content_browser.registry.backend:
         class: Netgen\ContentBrowser\Registry\BackendRegistry
         arguments:
-            - []
+            - !abstract "Set in ItemTypePass"
 
     netgen_content_browser.registry.config:
         class: Netgen\ContentBrowser\Registry\ConfigRegistry
         arguments:
-            - []
+            - !abstract "Set in ItemTypePass"
 
     # Main services
 
