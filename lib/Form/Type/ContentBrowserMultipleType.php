@@ -35,57 +35,68 @@ final class ContentBrowserMultipleType extends AbstractType
             ],
         );
 
-        $resolver->setRequired(['item_type', 'min', 'max', 'start_location', 'custom_params']);
+        $resolver
+            ->define('item_type')
+            ->required()
+            ->allowedTypes('string')
+            ->allowedValues(
+                fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType),
+            )->info('It must be a valid item type.');
 
-        $resolver->setAllowedTypes('item_type', 'string');
-        $resolver->setAllowedTypes('min', ['int', 'null']);
-        $resolver->setAllowedTypes('max', ['int', 'null']);
-        $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
-        $resolver->setAllowedTypes('custom_params', 'array');
+        $resolver
+            ->define('min')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'null');
 
-        $resolver->setAllowedValues(
-            'item_type',
-            fn (string $itemType): bool => $this->backendRegistry->hasBackend($itemType),
-        );
-
-        $resolver->setAllowedValues(
-            'custom_params',
-            static function (array $customParams): bool {
-                foreach ($customParams as $customParam) {
-                    if (!is_scalar($customParam) && !is_array($customParam)) {
-                        return false;
+        $resolver
+            ->define('max')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'null')
+            ->normalize(
+                static function (Options $options, ?int $value): ?int {
+                    if ($value === null || $options['min'] === null) {
+                        return $value;
                     }
 
-                    if (is_array($customParam)) {
-                        if (array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))) {
+                    if ($value < $options['min']) {
+                        return $options['min'];
+                    }
+
+                    return $value;
+                },
+            );
+
+        $resolver
+            ->define('start_location')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'string', 'null');
+
+        $resolver
+            ->define('custom_params')
+            ->required()
+            ->default([])
+            ->allowedTypes('array')
+            ->allowedValues(
+                static function (array $customParams): bool {
+                    foreach ($customParams as $customParam) {
+                        if (!is_scalar($customParam) && !is_array($customParam)) {
+                            return false;
+                        }
+
+                        if (
+                            is_array($customParam) &&
+                            array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))
+                        ) {
                             return false;
                         }
                     }
-                }
 
-                return true;
-            },
-        );
-
-        $resolver->setDefault('min', null);
-        $resolver->setDefault('max', null);
-        $resolver->setDefault('start_location', null);
-        $resolver->setDefault('custom_params', []);
-
-        $resolver->setNormalizer(
-            'max',
-            static function (Options $options, ?int $value): ?int {
-                if ($value === null || $options['min'] === null) {
-                    return $value;
-                }
-
-                if ($value < $options['min']) {
-                    return $options['min'];
-                }
-
-                return $value;
-            },
-        );
+                    return true;
+                },
+            )->info('It must be an array of scalar values or arrays of scalar values.');
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

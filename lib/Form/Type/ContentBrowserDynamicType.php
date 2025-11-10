@@ -36,49 +36,54 @@ final class ContentBrowserDynamicType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired(['item_types', 'start_location', 'custom_params']);
+        $resolver
+            ->define('item_types')
+            ->required()
+            ->default([])
+            ->allowedTypes('string[]')
+            ->normalize(
+                function (Options $options, array $itemTypes): array {
+                    $validItemTypes = [];
 
-        $resolver->setAllowedTypes('start_location', ['int', 'string', 'null']);
-        $resolver->setAllowedTypes('custom_params', 'array');
-        $resolver->setAllowedTypes('item_types', 'string[]');
-
-        $resolver->setAllowedValues(
-            'custom_params',
-            static function (array $customParams): bool {
-                foreach ($customParams as $customParam) {
-                    if (!is_scalar($customParam) && !is_array($customParam)) {
-                        return false;
+                    foreach ($itemTypes as $itemType) {
+                        if ($this->backendRegistry->hasBackend($itemType)) {
+                            $validItemTypes[] = $itemType;
+                        }
                     }
 
-                    if (is_array($customParam)) {
-                        if (array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))) {
+                    return $validItemTypes;
+                },
+            );
+
+        $resolver
+            ->define('start_location')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'string', 'null');
+
+        $resolver
+            ->define('custom_params')
+            ->required()
+            ->default([])
+            ->allowedTypes('array')
+            ->allowedValues(
+                static function (array $customParams): bool {
+                    foreach ($customParams as $customParam) {
+                        if (!is_scalar($customParam) && !is_array($customParam)) {
+                            return false;
+                        }
+
+                        if (
+                            is_array($customParam) &&
+                            array_any($customParam, static fn (mixed $innerCustomParam): bool => !is_scalar($innerCustomParam))
+                        ) {
                             return false;
                         }
                     }
-                }
 
-                return true;
-            },
-        );
-
-        $resolver->setDefault('item_types', []);
-        $resolver->setDefault('start_location', null);
-        $resolver->setDefault('custom_params', []);
-
-        $resolver->setNormalizer(
-            'item_types',
-            function (Options $options, array $itemTypes): array {
-                $validItemTypes = [];
-
-                foreach ($itemTypes as $itemType) {
-                    if ($this->backendRegistry->hasBackend($itemType)) {
-                        $validItemTypes[] = $itemType;
-                    }
-                }
-
-                return $validItemTypes;
-            },
-        );
+                    return true;
+                },
+            )->info('It must be an array of scalar values or arrays of scalar values.');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
