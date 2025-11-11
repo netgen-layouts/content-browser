@@ -121,7 +121,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->arrayNode('default_columns')
                         ->performNoDeepMerging()
-                        ->scalarPrototype()
+                        ->stringPrototype()
                             ->cannotBeEmpty()
                         ->end()
                     ->end()
