@@ -19,6 +19,15 @@ jobs:
         symfony: ['~7.3.0']
         script: ['test', 'test-api']
         deps: ['normal']
+        include:
+          - php: '8.4'
+            symfony: '~7.3.0'
+            script: 'test'
+            deps: 'low'
+          - php: '8.4'
+            symfony: '~7.3.0'
+            script: 'test-api'
+            deps: 'low'
 
     steps:
       - uses: actions/checkout@v3
