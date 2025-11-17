@@ -15,7 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\HttpKernel\Kernel;
 
 #[CoversClass(ItemValueResolver::class)]
 final class ItemValueResolverTest extends TestCase
@@ -26,10 +25,6 @@ final class ItemValueResolverTest extends TestCase
 
     protected function setUp(): void
     {
-        if (Kernel::VERSION_ID < 60400) {
-            self::markTestSkipped('Test requires Symfony 6.4 to run');
-        }
-
         $this->backendMock = $this->createMock(BackendInterface::class);
 
         $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
