@@ -40,7 +40,7 @@
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^2.0",
-        "phpunit/phpunit": "^11.5",
+        "phpunit/phpunit": "^12.4",
         "symfony/phpunit-bridge": "^7.3",
         "symfony/runtime": "^7.3",
         "symfony/var-dumper": "^7.3",
@@ -49,7 +49,8 @@
         "phpstan/phpstan-symfony": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "matthiasnoback/symfony-dependency-injection-test": "^6.1",
-        "lchrusciel/api-test-case": "^5.3"
+        "zenstruck/browser": "^1.9",
+        "mtdowling/jmespath.php": "^2.8"
     },
     "config": {
         "allow-plugins": {

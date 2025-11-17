@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(SearchItems::class)]
-final class SearchItemsTest extends JsonApiTestCase
+final class SearchItemsTest extends ApiTestCase
 {
     public function testSearchItems(): void
     {
@@ -30,34 +30,28 @@ final class SearchItemsTest extends JsonApiTestCase
             ->method('searchItemsCount')
             ->willReturn(2);
 
-        $this->client->request('GET', '/cb/api/test/search?searchText=test');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'search/result',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/search?searchText=test')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('search/result');
     }
 
     public function testSearchItemsWithEmptySearchText(): void
     {
-        $this->client->request('GET', '/cb/api/test/search?searchText=');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'search/empty_result',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/search?searchText=')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('search/empty_result');
     }
 
     public function testSearchItemsWithMissingSearchText(): void
     {
-        $this->client->request('GET', '/cb/api/test/search');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'search/empty_result',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/search')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('search/empty_result');
     }
 }

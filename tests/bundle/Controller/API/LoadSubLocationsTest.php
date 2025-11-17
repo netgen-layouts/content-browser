@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(LoadSubLocations::class)]
-final class LoadSubLocationsTest extends JsonApiTestCase
+final class LoadSubLocationsTest extends ApiTestCase
 {
     public function testLoadSubLocations(): void
     {
@@ -31,12 +31,10 @@ final class LoadSubLocationsTest extends JsonApiTestCase
                 ],
             );
 
-        $this->client->request('GET', '/cb/api/test/browse/41/locations');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'browse/locations',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/browse/41/locations')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('browse/locations');
     }
 }

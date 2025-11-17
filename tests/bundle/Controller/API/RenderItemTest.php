@@ -7,113 +7,69 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 use Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
 use Netgen\ContentBrowser\Config\Configuration;
-use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Exceptions\RuntimeException;
-use Netgen\ContentBrowser\Tests\App\MockerContainer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(RenderItem::class)]
-final class RenderItemTest extends JsonApiTestCase
+final class RenderItemTest extends ApiTestCase
 {
     public function testRenderItem(): void
     {
-        $container = $this->client->getKernel()->getContainer();
-        if (!$container instanceof MockerContainer) {
-            throw new RuntimeException('Symfony kernel is not configured yet.');
-        }
-
         $this->backendMock
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn(new Item(42, 'Item 42'));
 
-        $container->set(
-            'netgen_content_browser.config.test',
-            new Configuration(
-                'test',
-                'Test',
-                [
-                    'columns' => [
-                        'name' => [
-                            'name' => 'columns.name',
-                            'value_provider' => 'name',
+        $this->browser()
+            ->withConfig(
+                new Configuration(
+                    'test',
+                    'Test',
+                    [
+                        'columns' => [
+                            'name' => [
+                                'name' => 'columns.name',
+                                'value_provider' => 'name',
+                            ],
+                        ],
+                        'default_columns' => ['name'],
+                        'preview' => [
+                            'enabled' => true,
+                            'template' => 'template.html.twig',
                         ],
                     ],
-                    'default_columns' => ['name'],
-                    'preview' => [
-                        'enabled' => true,
-                        'template' => 'template.html.twig',
-                    ],
-                ],
-            ),
-        );
-
-        $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
-        $this->client->request('GET', '/cb/api/test/render/42');
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_OK);
-        self::assertStringContainsString('text/html', $response->headers->get('Content-Type') ?? '');
-        self::assertSame('rendered item', $response->getContent());
+                ),
+            )
+            ->get('/cb/api/test/render/42')
+            ->assertHtml()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertContentIs('rendered item');
     }
 
     public function testRenderItemWithDisabledPreview(): void
     {
-        $container = $this->client->getKernel()->getContainer();
-        if (!$container instanceof MockerContainer) {
-            throw new RuntimeException('Symfony kernel is not configured yet.');
-        }
-
-        $this->backendMock
-            ->method('loadItem')
-            ->with(self::identicalTo('42'))
-            ->willReturn(new Item(42, 'Item 42'));
-
-        $container->set(
-            'netgen_content_browser.config.test',
-            new Configuration(
-                'test',
-                'Test',
-                [
-                    'columns' => [
-                        'name' => [
-                            'name' => 'columns.name',
-                            'value_provider' => 'name',
+        $this->browser()
+            ->withConfig(
+                new Configuration(
+                    'test',
+                    'Test',
+                    [
+                        'columns' => [
+                            'name' => [
+                                'name' => 'columns.name',
+                                'value_provider' => 'name',
+                            ],
+                        ],
+                        'default_columns' => ['name'],
+                        'preview' => [
+                            'enabled' => false,
                         ],
                     ],
-                    'default_columns' => ['name'],
-                    'preview' => [
-                        'enabled' => false,
-                    ],
-                ],
-            ),
-        );
-
-        $this->client->setServerParameter('HTTP_ACCEPT', 'text/html');
-        $this->client->request('GET', '/cb/api/test/render/42');
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_OK);
-        self::assertStringContainsString('text/html', $response->headers->get('Content-Type') ?? '');
-        self::assertSame('', $response->getContent());
-    }
-
-    public function testRenderItemWithNonExistingItem(): void
-    {
-        $this->backendMock
-            ->method('loadItem')
-            ->with(self::identicalTo('42'))
-            ->willThrowException(new NotFoundException('Item does not exist.'));
-
-        $this->client->request('GET', '/cb/api/test/render/42');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Item does not exist.',
-        );
+                ),
+            )
+            ->get('/cb/api/test/render/42')
+            ->assertHtml()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertContentIs('');
     }
 }

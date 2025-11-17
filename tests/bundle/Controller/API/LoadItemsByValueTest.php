@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(LoadItemsByValue::class)]
-final class LoadItemsByValueTest extends JsonApiTestCase
+final class LoadItemsByValueTest extends ApiTestCase
 {
     public function testLoadItemsByValue(): void
     {
@@ -21,34 +21,28 @@ final class LoadItemsByValueTest extends JsonApiTestCase
                 new Item(43, 'Item 43'),
             );
 
-        $this->client->request('GET', '/cb/api/test/values?values=42,43');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'items/result',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/values?values=42,43')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('items/result');
     }
 
     public function testLoadItemsByValueWithInvalidValuesList(): void
     {
-        $this->client->request('GET', '/cb/api/test/values?values=');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.',
-        );
+        $this->browser()
+            ->get('/cb/api/test/values?values=')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'List of values is invalid.');
     }
 
     public function testLoadItemsByValueWithMissingValuesList(): void
     {
-        $this->client->request('GET', '/cb/api/test/values');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'List of values is invalid.',
-        );
+        $this->browser()
+            ->get('/cb/api/test/values')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_BAD_REQUEST)
+            ->assertJsonMatches('message', 'List of values is invalid.');
     }
 }

@@ -15,5 +15,8 @@ parameters:
     ignoreErrors:
         # Symfony
 
-        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'
         - '#with generic interface Symfony\\Component\\Form\\\w+ does not specify its types: TData#'
+
+        # Content Browser specifics
+
+        - '#Method Netgen\\Bundle\\ContentBrowserBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\ContentBrowserBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'

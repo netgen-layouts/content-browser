@@ -41,9 +41,4 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
             ->findDefinition('netgen_content_browser.registry.backend')
             ->setPublic(true);
     }
-
-    protected function getContainerBaseClass(): string
-    {
-        return '\\' . MockerContainer::class;
-    }
 }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(LoadConfig::class)]
-final class LoadConfigTest extends JsonApiTestCase
+final class LoadConfigTest extends ApiTestCase
 {
     public function testLoadConfig(): void
     {
@@ -23,12 +23,10 @@ final class LoadConfigTest extends JsonApiTestCase
                 ],
             );
 
-        $this->client->request('GET', '/cb/api/test/config');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'config/result',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/config')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('config/result');
     }
 }

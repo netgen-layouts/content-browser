@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(LoadSubItems::class)]
-final class LoadSubItemsTest extends JsonApiTestCase
+final class LoadSubItemsTest extends ApiTestCase
 {
     public function testLoadSubItems(): void
     {
@@ -44,13 +44,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ],
             );
 
-        $this->client->request('GET', '/cb/api/test/browse/41/items');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'browse/items',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/browse/41/items')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('browse/items');
     }
 
     public function testLoadSubItemsWithItemAsLocation(): void
@@ -81,13 +79,11 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ],
             );
 
-        $this->client->request('GET', '/cb/api/test/browse/41/items');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'browse/items_as_locations',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/browse/41/items')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('browse/items_as_locations');
     }
 
     public function testLoadSubItemsWithMissingParent(): void
@@ -121,12 +117,10 @@ final class LoadSubItemsTest extends JsonApiTestCase
                 ],
             );
 
-        $this->client->request('GET', '/cb/api/test/browse/41/items');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'browse/items_with_missing_parent',
-            Response::HTTP_OK,
-        );
+        $this->browser()
+            ->get('/cb/api/test/browse/41/items')
+            ->assertJson()
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonIs('browse/items_with_missing_parent');
     }
 }
