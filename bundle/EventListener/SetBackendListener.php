@@ -8,7 +8,6 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetBackendListener implements EventSubscriberInterface
 {
@@ -19,7 +18,7 @@ final class SetBackendListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::REQUEST => ['onKernelRequest', 1]];
+        return [RequestEvent::class => ['onKernelRequest', 1]];
     }
 
     public function onKernelRequest(RequestEvent $event): void

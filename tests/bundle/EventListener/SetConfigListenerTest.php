@@ -16,7 +16,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(SetConfigListener::class)]
 final class SetConfigListenerTest extends TestCase
@@ -38,7 +37,7 @@ final class SetConfigListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => ['onKernelRequest', 1]],
+            [RequestEvent::class => ['onKernelRequest', 1]],
             $this->eventListener::getSubscribedEvents(),
         );
     }

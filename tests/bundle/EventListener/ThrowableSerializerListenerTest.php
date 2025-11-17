@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 use function json_decode;
 
@@ -41,7 +40,7 @@ final class ThrowableSerializerListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::EXCEPTION => ['onException', 5]],
+            [ExceptionEvent::class => ['onException', 5]],
             $this->eventListener::getSubscribedEvents(),
         );
     }

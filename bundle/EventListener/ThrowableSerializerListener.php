@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
 use function get_debug_type;
@@ -28,7 +27,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         // Must happen BEFORE Symfony Security component ExceptionListener
-        return [KernelEvents::EXCEPTION => ['onException', 5]];
+        return [ExceptionEvent::class => ['onException', 5]];
     }
 
     /**

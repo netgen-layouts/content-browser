@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 #[CoversClass(SetBackendListener::class)]
 final class SetBackendListenerTest extends TestCase
@@ -44,7 +43,7 @@ final class SetBackendListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => ['onKernelRequest', 1]],
+            [RequestEvent::class => ['onKernelRequest', 1]],
             $this->eventListener::getSubscribedEvents(),
         );
     }
