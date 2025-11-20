@@ -10,8 +10,6 @@ parameters:
         - tests/application/public/bundles/
         - tests/application/src/Kernel.php
 
-    treatPhpDocTypesAsCertain: false
-
     ignoreErrors:
         # Symfony
 
