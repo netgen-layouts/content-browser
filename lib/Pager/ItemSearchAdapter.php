@@ -39,7 +39,7 @@ final class ItemSearchAdapter implements AdapterInterface
      *
      * @return iterable<int, \Netgen\ContentBrowser\Item\ItemInterface>
      */
-    public function getSlice($offset, $length): iterable
+    public function getSlice(int $offset, int $length): iterable
     {
         if (method_exists($this->backend, 'searchItems')) {
             // Cloning the query to replace offset & limit in the query with current values
