@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\ContentBrowser\Tests\Pager;
 
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Backend\SearchQuery;
 use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
-use Netgen\ContentBrowser\Tests\Stubs\BackendInterface;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
