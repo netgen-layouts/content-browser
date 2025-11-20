@@ -23,8 +23,6 @@ final class SetBackendListenerTest extends TestCase
 
     private Container $container;
 
-    private BackendRegistry $backendRegistry;
-
     private SetBackendListener $eventListener;
 
     protected function setUp(): void
@@ -32,11 +30,12 @@ final class SetBackendListenerTest extends TestCase
         $this->backendMock = $this->createMock(BackendInterface::class);
 
         $this->container = new Container();
-        $this->backendRegistry = new BackendRegistry(['item_type' => $this->backendMock]);
+
+        $backendRegistry = new BackendRegistry(['item_type' => $this->backendMock]);
 
         $this->eventListener = new SetBackendListener(
             $this->container,
-            $this->backendRegistry,
+            $backendRegistry,
         );
     }
 
