@@ -16,12 +16,9 @@ use function mb_trim;
 
 final class ItemValueResolver implements ValueResolverInterface
 {
-    private BackendRegistry $backendRegistry;
-
-    public function __construct(BackendRegistry $backendRegistry)
-    {
-        $this->backendRegistry = $backendRegistry;
-    }
+    public function __construct(
+        private BackendRegistry $backendRegistry,
+    ) {}
 
     /**
      * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>

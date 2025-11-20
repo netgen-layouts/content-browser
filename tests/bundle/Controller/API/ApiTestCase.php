@@ -20,7 +20,7 @@ abstract class ApiTestCase extends KernelTestCase
         browser as protected baseBrowser;
     }
 
-    protected MockObject&BackendInterface $backendMock;
+    final protected MockObject&BackendInterface $backendMock;
 
     protected function setUp(): void
     {

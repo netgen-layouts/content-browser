@@ -15,12 +15,9 @@ use function is_a;
 
 final class LocationValueResolver implements ValueResolverInterface
 {
-    private BackendRegistry $backendRegistry;
-
-    public function __construct(BackendRegistry $backendRegistry)
-    {
-        $this->backendRegistry = $backendRegistry;
-    }
+    public function __construct(
+        private BackendRegistry $backendRegistry,
+    ) {}
 
     /**
      * @return iterable<\Netgen\ContentBrowser\Item\LocationInterface>
