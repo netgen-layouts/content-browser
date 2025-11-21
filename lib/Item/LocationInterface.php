@@ -9,15 +9,15 @@ interface LocationInterface
     /**
      * Returns the location ID.
      */
-    public function getLocationId(): int|string;
+    public int|string $locationId { get; }
 
     /**
      * Returns the name.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns the parent ID. Parent ID is null if location has no parent.
      */
-    public function getParentId(): int|string|null;
+    public int|string|null $parentId { get; }
 }

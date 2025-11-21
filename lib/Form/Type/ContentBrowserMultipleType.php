@@ -137,7 +137,7 @@ final class ContentBrowserMultipleType extends AbstractType
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
                 $item = $backend->loadItem($itemValue);
-                $items[$item->getValue()] = $item;
+                $items[$item->value] = $item;
             } catch (NotFoundException) {
                 // Do nothing
             }

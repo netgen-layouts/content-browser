@@ -9,20 +9,20 @@ interface ItemInterface
     /**
      * Returns the value.
      */
-    public function getValue(): int|string;
+    public int|string $value { get; }
 
     /**
      * Returns the name.
      */
-    public function getName(): string;
+    public string $name { get; }
 
     /**
      * Returns if the item is visible.
      */
-    public function isVisible(): bool;
+    public bool $isVisible { get; }
 
     /**
      * Returns if the item is selectable.
      */
-    public function isSelectable(): bool;
+    public bool $isSelectable { get; }
 }

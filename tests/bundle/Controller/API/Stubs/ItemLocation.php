@@ -9,39 +9,21 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class ItemLocation implements ItemInterface, LocationInterface
 {
+    public int $locationId {
+        get => $this->value;
+    }
+
+    public true $isVisible {
+        get => true;
+    }
+
+    public true $isSelectable {
+        get => true;
+    }
+
     public function __construct(
-        private int $value,
-        private string $name,
-        private ?int $parentId = null,
+        private(set) int $value,
+        private(set) string $name,
+        private(set) ?int $parentId = null,
     ) {}
-
-    public function getValue(): int
-    {
-        return $this->value;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function isVisible(): true
-    {
-        return true;
-    }
-
-    public function isSelectable(): true
-    {
-        return true;
-    }
-
-    public function getLocationId(): int
-    {
-        return $this->value;
-    }
-
-    public function getParentId(): ?int
-    {
-        return $this->parentId;
-    }
 }

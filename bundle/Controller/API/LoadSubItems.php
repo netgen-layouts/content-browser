@@ -66,11 +66,11 @@ final class LoadSubItems extends AbstractController
 
         while (true) {
             $path[] = [
-                'id' => $location->getLocationId(),
-                'name' => $location->getName(),
+                'id' => $location->locationId,
+                'name' => $location->name,
             ];
 
-            $parentId = $location->getParentId();
+            $parentId = $location->parentId;
             if ($parentId === null) {
                 break;
             }

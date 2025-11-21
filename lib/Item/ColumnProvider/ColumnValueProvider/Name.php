@@ -11,6 +11,6 @@ final class Name implements ColumnValueProviderInterface
 {
     public function getValue(ItemInterface $item): string
     {
-        return $item->getName();
+        return $item->name;
     }
 }

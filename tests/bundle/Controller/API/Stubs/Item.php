@@ -8,28 +8,16 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 final class Item implements ItemInterface
 {
+    public true $isVisible {
+        get => true;
+    }
+
+    public true $isSelectable {
+        get => true;
+    }
+
     public function __construct(
-        private int $value,
-        private string $name,
+        private(set) int $value,
+        private(set) string $name,
     ) {}
-
-    public function getValue(): int
-    {
-        return $this->value;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function isVisible(): true
-    {
-        return true;
-    }
-
-    public function isSelectable(): true
-    {
-        return true;
-    }
 }

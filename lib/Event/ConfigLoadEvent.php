@@ -9,23 +9,17 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class ConfigLoadEvent extends Event
 {
-    public function __construct(
-        private Configuration $config,
-    ) {}
-
-    /**
-     * Returns the configuration which is being loaded.
-     */
-    public function getConfig(): Configuration
-    {
-        return $this->config;
-    }
-
     /**
      * Returns the item type for which the configuration is being loaded.
      */
-    public function getItemType(): string
-    {
-        return $this->config->getItemType();
+    public string $itemType {
+        get => $this->config->getItemType();
     }
+
+    public function __construct(
+        /**
+         * Returns the configuration which is being loaded.
+         */
+        private(set) Configuration $config,
+    ) {}
 }

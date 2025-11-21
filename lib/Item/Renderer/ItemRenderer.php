@@ -34,7 +34,7 @@ final class ItemRenderer implements ItemRendererInterface
             $this->logger->critical(
                 sprintf(
                     'An error occurred while rendering an item with "%s" value: %s',
-                    $item->getValue(),
+                    $item->value,
                     $t->getMessage(),
                 ),
                 ['error' => $t],

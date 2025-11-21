@@ -20,16 +20,16 @@ final class ItemSerializer implements ItemSerializerInterface
     {
         $data = [
             'location_id' => null,
-            'value' => $item->getValue(),
-            'name' => $item->getName(),
-            'visible' => $item->isVisible(),
-            'selectable' => $item->isSelectable(),
+            'value' => $item->value,
+            'name' => $item->name,
+            'visible' => $item->isVisible,
+            'selectable' => $item->isSelectable,
             'has_sub_items' => false,
             'columns' => $this->columnProvider->provideColumns($item),
         ];
 
         if ($item instanceof LocationInterface) {
-            $data['location_id'] = $item->getLocationId();
+            $data['location_id'] = $item->locationId;
             $data['has_sub_items'] = $this->backend->getSubItemsCount($item) > 0;
         }
 
@@ -39,15 +39,15 @@ final class ItemSerializer implements ItemSerializerInterface
     public function serializeLocation(LocationInterface $location): array
     {
         return [
-            'id' => $location->getLocationId(),
-            'parent_id' => $location->getParentId(),
-            'name' => $location->getName(),
+            'id' => $location->locationId,
+            'parent_id' => $location->parentId,
+            'name' => $location->name,
             'has_sub_items' => $this->backend->getSubItemsCount($location) > 0,
             'has_sub_locations' => $this->backend->getSubLocationsCount($location) > 0,
             // Used exclusively to display columns for parent location
             'visible' => true,
             'columns' => [
-                'name' => $location->getName(),
+                'name' => $location->name,
             ],
         ];
     }
