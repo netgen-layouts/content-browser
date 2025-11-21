@@ -16,7 +16,6 @@ services:
     netgen_content_browser.controller.api.load_config:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadConfig
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.backend"
             - "@netgen_content_browser.config"
@@ -24,21 +23,21 @@ services:
             - "@translator"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_content_browser.controller.api.load_sub_locations:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubLocations
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_content_browser.controller.api.load_sub_items:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadSubItems
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
@@ -46,11 +45,11 @@ services:
             - "%netgen_content_browser.browser.default_limit%"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_content_browser.controller.api.search_items:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\SearchItems
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
@@ -58,26 +57,27 @@ services:
             - "%netgen_content_browser.browser.default_limit%"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_content_browser.controller.api.render_item:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.config"
             - "@netgen_content_browser.item_renderer"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     netgen_content_browser.controller.api.load_items_by_value:
         class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue
         parent: netgen_content_browser.controller.base
-        public: true
         arguments:
             - "@netgen_content_browser.backend"
             - "@netgen_content_browser.item_serializer"
         tags:
             - { name: container.service_subscriber }
+            - { name: controller.service_arguments }
 
     # Event listeners
 
