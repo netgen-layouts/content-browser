@@ -46,8 +46,8 @@ final class ItemSearchAdapterTest extends TestCase
         $items = [new Item(1), new Item(2), new Item(3)];
 
         $searchQuery = clone $this->searchQuery;
-        $searchQuery->setOffset(5);
-        $searchQuery->setLimit(10);
+        $searchQuery->offset = 5;
+        $searchQuery->limit = 10;
 
         $this->backendMock
             ->expects(self::once())

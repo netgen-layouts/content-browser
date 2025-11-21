@@ -9,7 +9,7 @@ interface SearchResultInterface
     /**
      * Returns the result of running the search query.
      *
-     * @return iterable<\Netgen\ContentBrowser\Item\ItemInterface>
+     * @var iterable<\Netgen\ContentBrowser\Item\ItemInterface>
      */
-    public function getResults(): iterable;
+    public iterable $results { get; }
 }

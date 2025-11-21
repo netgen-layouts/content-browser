@@ -9,76 +9,50 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class SearchQuery
 {
-    private int $offset = 0;
-
-    private int $limit = 25;
-
-    public function __construct(
-        private string $searchText,
-        private ?LocationInterface $location = null,
-    ) {}
-
-    /**
-     * Returns the search text in the query.
-     */
-    public function getSearchText(): string
-    {
-        return $this->searchText;
-    }
-
-    /**
-     * Returns the location in which to perform the search.
-     */
-    public function getLocation(): ?LocationInterface
-    {
-        return $this->location;
-    }
-
     /**
      * Returns the offset with which the search is performed.
      */
-    public function getOffset(): int
-    {
-        return $this->offset;
-    }
+    public int $offset = 0 {
+        /*
+         * Sets the offset with which the search is performed.
+         *
+         * Must be equal or larger than zero.
+         */
+        set {
+            if ($value < 0) {
+                throw new OutOfBoundsException('Search offset must be an integer equal or larger than zero.');
+            }
 
-    /**
-     * Sets the offset with which the search is performed.
-     *
-     * Must be equal or larger than zero.
-     */
-    public function setOffset(int $offset): self
-    {
-        if ($offset < 0) {
-            throw new OutOfBoundsException('Search offset must be an integer equal or larger than zero.');
+            $this->offset = $value;
         }
-
-        $this->offset = $offset;
-
-        return $this;
     }
 
     /**
      * Returns the limit with which the search is performed.
      */
-    public function getLimit(): int
-    {
-        return $this->limit;
-    }
+    public int $limit = 25 {
+        /*
+         * Sets the limit with which the search is performed.
+         *
+         * Must be larger than zero.
+         */
+        set {
+            if ($value <= 0) {
+                throw new OutOfBoundsException('Search limit must be an integer larger than zero.');
+            }
 
-    /**
-     * Sets the limit with which the search is performed.
-     *
-     * Must be larger than zero.
-     */
-    public function setLimit(int $limit): self
-    {
-        if ($limit <= 0) {
-            throw new OutOfBoundsException('Search limit must be an integer larger than zero.');
+            $this->limit = $value;
         }
-
-        $this->limit = $limit;
-
-        return $this;
     }
+
+    public function __construct(
+        /**
+         * Returns the search text in the query.
+         */
+        private(set) string $searchText,
+        /**
+         * Returns the location in which to perform the search.
+         */
+        private(set) ?LocationInterface $location = null,
+    ) {}
 }

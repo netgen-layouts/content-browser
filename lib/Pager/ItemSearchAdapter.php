@@ -33,9 +33,9 @@ final class ItemSearchAdapter implements AdapterInterface
     {
         // Cloning the query to replace offset & limit in the query with current values
         $searchQuery = clone $this->searchQuery;
-        $searchQuery->setOffset($offset);
-        $searchQuery->setLimit($length);
+        $searchQuery->offset = $offset;
+        $searchQuery->limit = $length;
 
-        return $this->backend->searchItems($searchQuery)->getResults();
+        return $this->backend->searchItems($searchQuery)->results;
     }
 }
