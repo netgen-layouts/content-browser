@@ -13,6 +13,6 @@ use Attribute;
 final class AsColumnValueProvider
 {
     public function __construct(
-        public string $identifier,
+        private(set) string $identifier,
     ) {}
 }
