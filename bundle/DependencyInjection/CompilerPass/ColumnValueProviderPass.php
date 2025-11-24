@@ -13,8 +13,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ColumnValueProviderPass implements CompilerPassInterface
 {
-    use DefinitionClassTrait;
-
     private const string SERVICE_NAME = 'netgen_content_browser.column_provider';
     private const string TAG_NAME = 'netgen_content_browser.column_value_provider';
 
