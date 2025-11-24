@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Netgen\ContentBrowser\Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 use function dirname;
 use function sys_get_temp_dir;
 
-final class Kernel extends BaseKernel implements CompilerPassInterface
+final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
@@ -29,16 +27,5 @@ final class Kernel extends BaseKernel implements CompilerPassInterface
     public function getLogDir(): string
     {
         return sys_get_temp_dir() . '/ngcb/logs';
-    }
-
-    public function process(ContainerBuilder $container): void
-    {
-        $container
-            ->findDefinition('netgen_content_browser.item_renderer')
-            ->setPublic(true);
-
-        $container
-            ->findDefinition('netgen_content_browser.registry.backend')
-            ->setPublic(true);
     }
 }
