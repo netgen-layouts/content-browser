@@ -8,6 +8,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
+use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -38,6 +39,7 @@ abstract class ApiTestCase extends KernelTestCase
             ->use(
                 function (): void {
                     $this->mockBackend(static::getContainer());
+                    $this->mockConfig(static::getContainer());
                     $this->mockItemRenderer(static::getContainer());
                 },
             );
@@ -47,25 +49,58 @@ abstract class ApiTestCase extends KernelTestCase
     {
         $container->set(
             'netgen_content_browser.registry.backend',
-            new BackendRegistry(['test' => $this->backendMock]),
+            new BackendRegistry(
+                [
+                    'test' => $this->backendMock,
+                    'test_preview_disabled' => $this->backendMock,
+                ],
+            ),
+        );
+    }
+
+    private function mockConfig(Container $container): void
+    {
+        $config = new Configuration(
+            'test',
+            'Test',
+            [
+                'columns' => [
+                    'name' => [
+                        'name' => 'columns.name',
+                        'value_provider' => 'name',
+                    ],
+                ],
+                'default_columns' => ['name'],
+                'preview' => [
+                    'enabled' => true,
+                    'template' => 'template.html.twig',
+                ],
+            ],
+        );
+
+        $configPreviewDisabled = new Configuration(
+            'test_preview_disabled',
+            'Test (Preview disabled)',
+            [
+                'columns' => [
+                    'name' => [
+                        'name' => 'columns.name',
+                        'value_provider' => 'name',
+                    ],
+                ],
+                'default_columns' => ['name'],
+                'preview' => [
+                    'enabled' => false,
+                ],
+            ],
         );
 
         $container->set(
-            'netgen_content_browser.config.test',
-            new Configuration(
-                'test',
-                'Test',
+            'netgen_content_browser.registry.config',
+            new ConfigRegistry(
                 [
-                    'columns' => [
-                        'name' => [
-                            'name' => 'columns.name',
-                            'value_provider' => 'name',
-                        ],
-                    ],
-                    'default_columns' => ['name'],
-                    'preview' => [
-                        'enabled' => true,
-                    ],
+                    'test' => $config,
+                    'test_preview_disabled' => $configPreviewDisabled,
                 ],
             ),
         );

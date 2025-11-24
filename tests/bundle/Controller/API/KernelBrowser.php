@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
-use Netgen\ContentBrowser\Config\Configuration;
 use Zenstruck\Assert;
 use Zenstruck\Browser;
 use Zenstruck\Browser\KernelBrowser as BaseKernelBrowser;
@@ -16,18 +15,6 @@ use const JSON_THROW_ON_ERROR;
 
 final class KernelBrowser extends BaseKernelBrowser
 {
-    public function withConfig(Configuration $config): self
-    {
-        return $this->use(
-            function () use ($config): void {
-                $this->client()->getContainer()->set(
-                    'netgen_content_browser.config.test',
-                    $config,
-                );
-            },
-        );
-    }
-
     public function assertJsonIs(string $expected): self
     {
         $decoded = json_decode(

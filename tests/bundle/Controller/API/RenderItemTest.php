@@ -6,7 +6,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Netgen\Bundle\ContentBrowserBundle\Controller\API\RenderItem;
 use Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\Stubs\Item;
-use Netgen\ContentBrowser\Config\Configuration;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,25 +20,6 @@ final class RenderItemTest extends ApiTestCase
             ->willReturn(new Item(42, 'Item 42'));
 
         $this->browser()
-            ->withConfig(
-                new Configuration(
-                    'test',
-                    'Test',
-                    [
-                        'columns' => [
-                            'name' => [
-                                'name' => 'columns.name',
-                                'value_provider' => 'name',
-                            ],
-                        ],
-                        'default_columns' => ['name'],
-                        'preview' => [
-                            'enabled' => true,
-                            'template' => 'template.html.twig',
-                        ],
-                    ],
-                ),
-            )
             ->get('/cb/api/test/render/42')
             ->assertHtml()
             ->assertStatus(Response::HTTP_OK)
@@ -49,25 +29,7 @@ final class RenderItemTest extends ApiTestCase
     public function testRenderItemWithDisabledPreview(): void
     {
         $this->browser()
-            ->withConfig(
-                new Configuration(
-                    'test',
-                    'Test',
-                    [
-                        'columns' => [
-                            'name' => [
-                                'name' => 'columns.name',
-                                'value_provider' => 'name',
-                            ],
-                        ],
-                        'default_columns' => ['name'],
-                        'preview' => [
-                            'enabled' => false,
-                        ],
-                    ],
-                ),
-            )
-            ->get('/cb/api/test/render/42')
+            ->get('/cb/api/test_preview_disabled/render/42')
             ->assertHtml()
             ->assertStatus(Response::HTTP_OK)
             ->assertContentIs('');
