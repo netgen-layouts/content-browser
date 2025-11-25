@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 
 use Netgen\ContentBrowser\Event\ConfigLoadEvent;
-use Netgen\ContentBrowser\Event\ContentBrowserEvents;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -46,9 +45,7 @@ final class SetConfigListener implements EventSubscriberInterface
         $customParams = $request->query->all('customParams');
         $config->addParameters($customParams);
 
-        $configLoadEvent = new ConfigLoadEvent($config);
-
-        $this->eventDispatcher->dispatch($configLoadEvent, ContentBrowserEvents::CONFIG_LOAD);
+        $this->eventDispatcher->dispatch(new ConfigLoadEvent($config));
 
         $this->container->set('netgen_content_browser.config', $config);
     }
