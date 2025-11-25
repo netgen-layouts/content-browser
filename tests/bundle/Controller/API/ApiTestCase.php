@@ -6,7 +6,6 @@ namespace Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API;
 
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
-use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -40,7 +39,6 @@ abstract class ApiTestCase extends KernelTestCase
                 function (): void {
                     $this->mockBackend(static::getContainer());
                     $this->mockConfig(static::getContainer());
-                    $this->mockItemRenderer(static::getContainer());
                 },
             );
     }
@@ -73,7 +71,7 @@ abstract class ApiTestCase extends KernelTestCase
                 'default_columns' => ['name'],
                 'preview' => [
                     'enabled' => true,
-                    'template' => 'template.html.twig',
+                    'template' => 'item.html.twig',
                 ],
             ],
         );
@@ -104,16 +102,5 @@ abstract class ApiTestCase extends KernelTestCase
                 ],
             ),
         );
-    }
-
-    private function mockItemRenderer(Container $container): void
-    {
-        $itemRendererMock = $this->createMock(ItemRendererInterface::class);
-
-        $itemRendererMock
-            ->method('renderItem')
-            ->willReturn('rendered item');
-
-        $container->set('netgen_content_browser.item_renderer', $itemRendererMock);
     }
 }
