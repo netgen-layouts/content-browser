@@ -39,6 +39,8 @@ interface BackendInterface
 
     /**
      * Returns the count of locations below provided location.
+     *
+     * @return int<0, max>
      */
     public function getSubLocationsCount(LocationInterface $location): int;
 
@@ -51,6 +53,8 @@ interface BackendInterface
 
     /**
      * Returns the location items count.
+     *
+     * @return int<0, max>
      */
     public function getSubItemsCount(LocationInterface $location): int;
 
@@ -59,8 +63,10 @@ interface BackendInterface
      */
     public function searchItems(SearchQuery $searchQuery): SearchResultInterface;
 
-    /*
+    /**
      * Returns the count of searched items.
+     *
+     * @return int<0, max>
      */
     public function searchItemsCount(SearchQuery $searchQuery): int;
 }
