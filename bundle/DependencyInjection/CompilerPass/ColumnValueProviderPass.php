@@ -33,6 +33,6 @@ final class ColumnValueProviderPass implements CompilerPassInterface
             }
         }
 
-        $columnProvider->addArgument(new Definition(ServiceLocator::class, [$valueProviders]));
+        $columnProvider->replaceArgument(2, new Definition(ServiceLocator::class, [$valueProviders]));
     }
 }

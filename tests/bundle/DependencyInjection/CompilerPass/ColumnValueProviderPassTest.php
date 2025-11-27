@@ -27,7 +27,7 @@ final class ColumnValueProviderPassTest extends AbstractContainerBuilderTestCase
     public function testProcess(): void
     {
         $columnProvider = new Definition(stdClass::class);
-        $columnProvider->setArguments([null, null]);
+        $columnProvider->setArguments([null, null, null]);
         $this->setDefinition('netgen_content_browser.column_provider', $columnProvider);
 
         $columnValueProvider = new Definition(stdClass::class);
