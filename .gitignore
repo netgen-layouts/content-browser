@@ -9,3 +9,4 @@ composer.lock
 composer.phar
 phpunit.phar
 studio.json
+tests/application/config/reference.php
