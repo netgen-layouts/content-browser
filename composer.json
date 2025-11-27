@@ -24,7 +24,7 @@
         "symfony/framework-bundle": "^7.3",
         "symfony/http-foundation": "^7.3",
         "symfony/http-kernel": "^7.3",
-        "symfony/monolog-bundle": "^3.10",
+        "symfony/monolog-bundle": "^3.11 || ^4.0",
         "symfony/options-resolver": "^7.3",
         "symfony/property-access": "^7.3",
         "symfony/routing": "^7.3",
