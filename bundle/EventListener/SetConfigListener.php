@@ -7,9 +7,9 @@ namespace Netgen\Bundle\ContentBrowserBundle\EventListener;
 use Netgen\ContentBrowser\Event\ConfigLoadEvent;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class SetConfigListener implements EventSubscriberInterface
 {

@@ -12,10 +12,10 @@ use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[CoversClass(SetConfigListener::class)]
 final class SetConfigListenerTest extends TestCase
