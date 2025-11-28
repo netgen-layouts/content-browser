@@ -49,10 +49,10 @@ final class SearchQuery
         /**
          * Returns the search text in the query.
          */
-        private(set) string $searchText,
+        public private(set) string $searchText,
         /**
          * Returns the location in which to perform the search.
          */
-        private(set) ?LocationInterface $location = null,
+        public private(set) ?LocationInterface $location = null,
     ) {}
 }

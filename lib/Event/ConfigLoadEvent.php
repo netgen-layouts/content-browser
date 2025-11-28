@@ -20,6 +20,6 @@ final class ConfigLoadEvent extends Event
         /**
          * Returns the configuration which is being loaded.
          */
-        private(set) Configuration $config,
+        public private(set) Configuration $config,
     ) {}
 }

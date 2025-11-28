@@ -13,6 +13,6 @@ use Attribute;
 final class AsBackend
 {
     public function __construct(
-        private(set) string $itemType,
+        public private(set) string $itemType,
     ) {}
 }

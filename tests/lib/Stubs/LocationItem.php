@@ -22,8 +22,8 @@ final class LocationItem implements ItemInterface, LocationInterface
     }
 
     public function __construct(
-        private(set) int $value,
-        private(set) int $locationId,
-        private(set) ?int $parentId = null,
+        public private(set) int $value,
+        public private(set) int $locationId,
+        public private(set) ?int $parentId = null,
     ) {}
 }
