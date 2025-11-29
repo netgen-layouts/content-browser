@@ -14,7 +14,6 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
-use function get_debug_type;
 use function sprintf;
 
 final class ThrowableSerializerListener implements EventSubscriberInterface
@@ -85,7 +84,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
         $this->logger->critical(
             sprintf(
                 'Uncaught PHP error %s: "%s" at %s line %s',
-                get_debug_type($throwable),
+                $throwable::class,
                 $throwable->getMessage(),
                 $throwable->getFile(),
                 $throwable->getLine(),
