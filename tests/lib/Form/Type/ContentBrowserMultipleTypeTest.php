@@ -87,7 +87,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException());
@@ -114,7 +114,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadItem');
 
         $form = $this->factory->create(

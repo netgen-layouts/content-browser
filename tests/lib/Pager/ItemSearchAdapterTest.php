@@ -33,7 +33,7 @@ final class ItemSearchAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('searchItemsCount')
             ->with(self::identicalTo($this->searchQuery))
             ->willReturn(3);
@@ -50,7 +50,7 @@ final class ItemSearchAdapterTest extends TestCase
         $searchQuery->limit = 10;
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('searchItems')
             ->with(self::equalTo($searchQuery))
             ->willReturn(new SearchResult($items));

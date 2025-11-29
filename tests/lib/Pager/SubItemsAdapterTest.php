@@ -32,7 +32,7 @@ final class SubItemsAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($this->location))
             ->willReturn(3);
@@ -45,7 +45,7 @@ final class SubItemsAdapterTest extends TestCase
         $items = [new Item(1), new Item(2), new Item(3)];
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getSubItems')
             ->with(
                 self::identicalTo($this->location),

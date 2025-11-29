@@ -43,7 +43,7 @@ final class LocationValueResolverTest extends TestCase
         $location = new Location(42);
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willReturn($location);
@@ -62,7 +62,7 @@ final class LocationValueResolverTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLocation');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -78,7 +78,7 @@ final class LocationValueResolverTest extends TestCase
         $request->attributes->set('locationId', 42);
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLocation');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -98,7 +98,7 @@ final class LocationValueResolverTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLocation');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];

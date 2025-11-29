@@ -43,7 +43,7 @@ final class ContentBrowserTypeTest extends TestCase
         $item = new Item(42);
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn($item);
@@ -70,7 +70,7 @@ final class ContentBrowserTypeTest extends TestCase
     public function testBuildViewWithNonExistingItem(): void
     {
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException());
@@ -97,7 +97,7 @@ final class ContentBrowserTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadItem');
 
         $form = $this->factory->create(

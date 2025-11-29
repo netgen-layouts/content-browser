@@ -88,7 +88,7 @@ final class ColumnProviderTest extends TestCase
         $item = new Item(42);
 
         $this->itemRendererMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('renderItem')
             ->with(self::identicalTo($item), self::identicalTo('template.html.twig'))
             ->willReturn('rendered column');

@@ -43,7 +43,7 @@ final class ItemValueResolverTest extends TestCase
         $item = new Item(42);
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn($item);
@@ -62,7 +62,7 @@ final class ItemValueResolverTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadItem');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -78,7 +78,7 @@ final class ItemValueResolverTest extends TestCase
         $request->attributes->set('itemValue', '42');
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadItem');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
@@ -98,7 +98,7 @@ final class ItemValueResolverTest extends TestCase
         $request->attributes->set('itemType', 'value');
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadItem');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];

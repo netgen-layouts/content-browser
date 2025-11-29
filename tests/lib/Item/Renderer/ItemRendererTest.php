@@ -31,7 +31,7 @@ final class ItemRendererTest extends TestCase
         $item = new Item(42);
 
         $this->twigMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),
@@ -50,7 +50,7 @@ final class ItemRendererTest extends TestCase
         $item = new Item(42);
 
         $this->twigMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),

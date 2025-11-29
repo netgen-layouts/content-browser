@@ -39,13 +39,13 @@ final class ItemSerializerTest extends TestCase
         $item = new LocationItem(84, 42);
 
         $this->backendMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getSubItemsCount')
             ->with(self::identicalTo($item))
             ->willReturn(3);
 
         $this->columnProviderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('provideColumns')
             ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);
@@ -73,11 +73,11 @@ final class ItemSerializerTest extends TestCase
         $item = new Item(84);
 
         $this->backendMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getSubItemsCount');
 
         $this->columnProviderMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('provideColumns')
             ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);

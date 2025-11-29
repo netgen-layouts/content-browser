@@ -94,7 +94,7 @@ final class ThrowableSerializerListenerTest extends TestCase
         );
 
         $this->loggerMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('critical');
 
         $this->eventListener->onException($event);
