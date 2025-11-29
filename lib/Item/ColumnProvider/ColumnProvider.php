@@ -10,6 +10,7 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\Renderer\ItemRendererInterface;
 use Psr\Container\ContainerInterface;
 
+use function array_map;
 use function sprintf;
 
 final class ColumnProvider implements ColumnProviderInterface
@@ -22,13 +23,10 @@ final class ColumnProvider implements ColumnProviderInterface
 
     public function provideColumns(ItemInterface $item): array
     {
-        $columns = [];
-
-        foreach ($this->config->getColumns() as $columnIdentifier => $columnConfig) {
-            $columns[$columnIdentifier] = $this->provideColumn($item, $columnConfig);
-        }
-
-        return $columns;
+        return array_map(
+            fn (array $columnConfig): string => $this->provideColumn($item, $columnConfig),
+            $this->config->getColumns(),
+        );
     }
 
     /**

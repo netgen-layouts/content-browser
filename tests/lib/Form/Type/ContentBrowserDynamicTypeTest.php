@@ -124,7 +124,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
             ],
         );
 
-        self::assertSame($options['item_types'], ['value1']);
+        self::assertSame(['value1'], $options['item_types']);
     }
 
     public function testConfigureOptionsWithMissingItemTypes(): void
@@ -135,7 +135,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
         $options = $optionsResolver->resolve();
 
-        self::assertSame($options['item_types'], []);
+        self::assertSame([], $options['item_types']);
     }
 
     public function testConfigureOptionsWithInvalidItemTypesItem(): void

@@ -150,9 +150,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ],
         );
 
-        self::assertSame($options['item_type'], 'value');
-        self::assertSame($options['min'], 3);
-        self::assertSame($options['max'], 5);
+        self::assertSame('value', $options['item_type']);
+        self::assertSame(3, $options['min']);
+        self::assertSame(5, $options['max']);
     }
 
     public function testConfigureOptionsWithNormalizedMax(): void
@@ -169,9 +169,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
             ],
         );
 
-        self::assertSame($options['item_type'], 'value');
-        self::assertSame($options['min'], 3);
-        self::assertSame($options['max'], 3);
+        self::assertSame('value', $options['item_type']);
+        self::assertSame(3, $options['min']);
+        self::assertSame(3, $options['max']);
     }
 
     public function testConfigureOptionsWithMissingItemType(): void
@@ -183,7 +183,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve([]);
+        $optionsResolver->resolve();
     }
 
     public function testConfigureOptionsWithInvalidItemType(): void

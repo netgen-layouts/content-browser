@@ -131,7 +131,7 @@ final class ContentBrowserTypeTest extends TestCase
             ],
         );
 
-        self::assertSame($options['item_type'], 'value');
+        self::assertSame('value', $options['item_type']);
     }
 
     public function testConfigureOptionsWithMissingItemType(): void
@@ -143,7 +143,7 @@ final class ContentBrowserTypeTest extends TestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve([]);
+        $optionsResolver->resolve();
     }
 
     public function testConfigureOptionsWithInvalidItemType(): void

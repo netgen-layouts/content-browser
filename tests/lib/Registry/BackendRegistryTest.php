@@ -62,13 +62,7 @@ final class BackendRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $backends = [];
-        foreach ($this->registry as $identifier => $backend) {
-            $backends[$identifier] = $backend;
-        }
-
-        self::assertSame($this->registry->getBackends(), $backends);
+        self::assertSame($this->registry->getBackends(), [...$this->registry]);
     }
 
     public function testCount(): void

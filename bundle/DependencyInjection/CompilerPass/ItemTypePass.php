@@ -41,7 +41,7 @@ final class ItemTypePass implements CompilerPassInterface
         $itemTypesConfig = $container->getParameter('netgen_content_browser.item_types');
 
         foreach ($itemTypesConfig as $itemType => $itemTypeConfig) {
-            if (preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $itemType) !== 1) {
+            if (preg_match('/^[A-Za-z]\w*$/', $itemType) !== 1) {
                 throw new RuntimeException(
                     sprintf(
                         'Item type must begin with a letter and be followed by any combination of letters, digits and underscore, "%s" given.',

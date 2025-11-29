@@ -61,13 +61,7 @@ final class ConfigRegistryTest extends TestCase
     public function testGetIterator(): void
     {
         self::assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
-
-        $configs = [];
-        foreach ($this->registry as $identifier => $config) {
-            $configs[$identifier] = $config;
-        }
-
-        self::assertSame($this->registry->getConfigs(), $configs);
+        self::assertSame($this->registry->getConfigs(), [...$this->registry]);
     }
 
     public function testCount(): void

@@ -98,7 +98,7 @@ final class LoadSubItemsTest extends ApiTestCase
                         return $location;
                     }
 
-                    throw new NotFoundException();
+                    throw new NotFoundException('Location not found.');
                 },
             );
 
