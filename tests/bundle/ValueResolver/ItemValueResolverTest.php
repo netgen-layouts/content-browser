@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 #[CoversClass(ItemValueResolver::class)]
 final class ItemValueResolverTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private ItemValueResolver $valueResolver;
 

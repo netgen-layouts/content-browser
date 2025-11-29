@@ -19,11 +19,11 @@ abstract class TestCase extends BaseTestCase
 {
     final protected FormConfigBuilder $builder;
 
-    final protected MockObject $dispatcher;
+    final protected MockObject&EventDispatcherInterface $dispatcher;
 
     final protected FormTypeInterface $formType;
 
-    final protected MockObject $validatorMock;
+    final protected MockObject&ValidatorInterface $validatorMock;
 
     final protected FormFactoryInterface $factory;
 

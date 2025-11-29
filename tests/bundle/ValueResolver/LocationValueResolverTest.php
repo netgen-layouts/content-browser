@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 #[CoversClass(LocationValueResolver::class)]
 final class LocationValueResolverTest extends TestCase
 {
-    private MockObject $backendMock;
+    private MockObject&BackendInterface $backendMock;
 
     private LocationValueResolver $valueResolver;
 
