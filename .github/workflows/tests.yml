@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests:
-    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.scipt }}${{ matrix.deps == 'lowest' && ' / lowest' || '' }}
+    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.script }}${{ matrix.deps == 'lowest' && ' / lowest' || '' }}
     runs-on: ubuntu-latest
 
     strategy:
