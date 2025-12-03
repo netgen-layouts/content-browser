@@ -56,7 +56,16 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
 
         $loader->load('default_settings.yaml');
 
-        $this->doPrepend($container, 'framework/twig.yaml', 'twig');
+        $prependConfigs = [
+            'framework/twig.yaml' => 'twig',
+        ];
+
+        foreach ($prependConfigs as $configFile => $prependConfig) {
+            $configFile = __DIR__ . '/../Resources/config/' . $configFile;
+            $config = Yaml::parse((string) file_get_contents($configFile));
+            $container->prependExtensionConfig($prependConfig, $config);
+            $container->addResource(new FileResource($configFile));
+        }
     }
 
     /**
@@ -65,17 +74,6 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
     public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
         return new Configuration($this);
-    }
-
-    /**
-     * Allow an extension to prepend the extension configurations.
-     */
-    private function doPrepend(ContainerBuilder $container, string $fileName, string $configName): void
-    {
-        $configFile = __DIR__ . '/../Resources/config/' . $fileName;
-        $config = Yaml::parse((string) file_get_contents($configFile));
-        $container->prependExtensionConfig($configName, $config);
-        $container->addResource(new FileResource($configFile));
     }
 
     private function registerAutoConfiguration(ContainerBuilder $container): void
