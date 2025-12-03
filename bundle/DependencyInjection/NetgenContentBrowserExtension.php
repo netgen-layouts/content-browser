@@ -57,7 +57,7 @@ final class NetgenContentBrowserExtension extends Extension implements PrependEx
         $loader->load('default_settings.yaml');
 
         $prependConfigs = [
-            'framework/twig.yaml' => 'twig',
+            'twig.yaml' => 'twig',
         ];
 
         foreach ($prependConfigs as $configFile => $prependConfig) {
