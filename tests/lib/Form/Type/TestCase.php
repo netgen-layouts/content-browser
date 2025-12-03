@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
 
     final protected FormFactoryInterface $factory;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         parent::setUp();
 

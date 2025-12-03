@@ -22,7 +22,7 @@ abstract class ApiTestCase extends KernelTestCase
 
     final protected MockObject&BackendInterface $backendMock;
 
-    protected function setUp(): void
+    final protected function setUp(): void
     {
         $this->backendMock = $this->createMock(BackendInterface::class);
     }
