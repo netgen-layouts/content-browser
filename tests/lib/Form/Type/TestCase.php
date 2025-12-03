@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
 {
     final protected FormConfigBuilder $builder;
 
-    final protected MockObject&EventDispatcherInterface $dispatcher;
+    final protected MockObject&EventDispatcherInterface $dispatcherMock;
 
     final protected FormTypeInterface $formType;
 
@@ -43,8 +43,8 @@ abstract class TestCase extends BaseTestCase
             ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock))
             ->getFormFactory();
 
-        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-        $this->builder = new FormConfigBuilder('name', null, $this->dispatcher);
+        $this->dispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $this->builder = new FormConfigBuilder('name', null, $this->dispatcherMock);
         $this->builder->setFormFactory($this->factory);
     }
 
