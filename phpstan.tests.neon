@@ -8,13 +8,12 @@ includes:
 parameters:
     excludePaths:
         - tests/application/public/bundles/
-        - tests/application/src/Kernel.php
 
     ignoreErrors:
         # Symfony
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ does not specify its types: TData#'
 
-        # Content Browser specifics
+        # Netgen Content Browser
 
         - '#Method Netgen\\Bundle\\ContentBrowserBundle\\Tests\\Controller\\API\\ApiTestCase::browser\(\) should return Netgen\\Bundle\\ContentBrowserBundle\\Tests\\Controller\\API\\KernelBrowser but returns Zenstruck\\Browser\\KernelBrowser#'
