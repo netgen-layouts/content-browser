@@ -9,7 +9,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\ContentBrowserBundle\EventListener\ThrowableSerializerListener;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,13 +28,13 @@ final class ThrowableSerializerListenerTest extends TestCase
 {
     private ThrowableSerializerListener $eventListener;
 
-    private MockObject&LoggerInterface $loggerMock;
+    private Stub&LoggerInterface $loggerStub;
 
     protected function setUp(): void
     {
-        $this->loggerMock = $this->createMock(LoggerInterface::class);
+        $this->loggerStub = self::createStub(LoggerInterface::class);
 
-        $this->eventListener = new ThrowableSerializerListener(false, $this->loggerMock);
+        $this->eventListener = new ThrowableSerializerListener(false, $this->loggerStub);
     }
 
     public function testGetSubscribedEvents(): void
@@ -49,12 +49,12 @@ final class ThrowableSerializerListenerTest extends TestCase
     {
         $throwable = new NotFoundHttpException('Some message');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
@@ -82,22 +82,25 @@ final class ThrowableSerializerListenerTest extends TestCase
     {
         $throwable = new RuntimeException('Some message');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
         );
 
-        $this->loggerMock
+        $loggerMock = $this->createMock(LoggerInterface::class);
+        $loggerMock
             ->expects($this->once())
             ->method('critical');
 
-        $this->eventListener->onException($event);
+        $eventListener = new ThrowableSerializerListener(false, $loggerMock);
+
+        $eventListener->onException($event);
 
         self::assertInstanceOf(
             JsonResponse::class,
@@ -117,18 +120,18 @@ final class ThrowableSerializerListenerTest extends TestCase
     {
         $throwable = new NotFoundHttpException('Some message', new Exception('Previous exception'));
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             $throwable,
         );
 
-        $this->eventListener = new ThrowableSerializerListener(true, $this->loggerMock);
+        $this->eventListener = new ThrowableSerializerListener(true, $this->loggerStub);
         $this->eventListener->onException($event);
 
         self::assertInstanceOf(
@@ -159,12 +162,12 @@ final class ThrowableSerializerListenerTest extends TestCase
 
     public function testOnExceptionInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
             new NotFoundHttpException('Some message'),
@@ -177,12 +180,12 @@ final class ThrowableSerializerListenerTest extends TestCase
 
     public function testOnExceptionWithNoContentBrowserRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
         $event = new ExceptionEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
             new NotFoundHttpException('Some message'),

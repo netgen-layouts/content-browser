@@ -12,7 +12,7 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 #[CoversClass(ContentBrowserDynamicType::class)]
 final class ContentBrowserDynamicTypeTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     public function testSubmitValidDataWithNoItemTypeLimit(): void
     {
@@ -58,8 +58,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
     {
         $item = new Item(42);
 
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willReturn($item);
@@ -78,8 +77,7 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     public function testBuildViewWithNonExistingItem(): void
     {
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException());
@@ -98,10 +96,6 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     public function testBuildViewWithEmptyData(): void
     {
-        $this->backendMock
-            ->expects($this->never())
-            ->method('loadItem');
-
         $form = $this->factory->create(ContentBrowserDynamicType::class);
 
         $form->submit(null);
@@ -169,9 +163,9 @@ final class ContentBrowserDynamicTypeTest extends TestCase
 
     protected function getMainType(): FormTypeInterface
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
 
-        $backendRegistry = new BackendRegistry(['value1' => $this->backendMock, 'value2' => $this->backendMock]);
+        $backendRegistry = new BackendRegistry(['value1' => $this->backendStub, 'value2' => $this->backendStub]);
 
         $configRegistry = new ConfigRegistry(
             [

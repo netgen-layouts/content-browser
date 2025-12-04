@@ -8,24 +8,24 @@ use Netgen\ContentBrowser\Pager\PagerFactory;
 use Pagerfanta\Adapter\AdapterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(PagerFactory::class)]
 final class PagerFactoryTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Pagerfanta\Adapter\AdapterInterface<\Netgen\ContentBrowser\Item\ItemInterface>
+     * @var \PHPUnit\Framework\MockObject\Stub&\Pagerfanta\Adapter\AdapterInterface<\Netgen\ContentBrowser\Item\ItemInterface>
      */
-    private MockObject&AdapterInterface $adapterMock;
+    private Stub&AdapterInterface $adapterStub;
 
     private PagerFactory $pagerFactory;
 
     protected function setUp(): void
     {
-        $this->adapterMock = $this->createMock(AdapterInterface::class);
+        $this->adapterStub = self::createStub(AdapterInterface::class);
 
-        $this->adapterMock
+        $this->adapterStub
             ->method('getNbResults')
             ->willReturn(500);
 
@@ -36,7 +36,7 @@ final class PagerFactoryTest extends TestCase
     public function testBuildPager(int $page, int $limit, int $currentPage, int $maxPerPage): void
     {
         $pager = $this->pagerFactory->buildPager(
-            $this->adapterMock,
+            $this->adapterStub,
             $page,
             $limit,
         );

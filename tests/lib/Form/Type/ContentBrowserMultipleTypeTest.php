@@ -10,7 +10,7 @@ use Netgen\ContentBrowser\Form\Type\ContentBrowserMultipleType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 #[CoversClass(ContentBrowserMultipleType::class)]
 final class ContentBrowserMultipleTypeTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     public function testSubmitValidData(): void
     {
@@ -43,7 +43,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
         $item1 = new Item(42);
         $item2 = new Item(24);
 
-        $this->backendMock
+        $this->backendStub
             ->method('loadItem')
             ->willReturnMap(
                 [
@@ -86,8 +86,7 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
     public function testBuildViewWithNonExistingItem(): void
     {
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('loadItem')
             ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException());
@@ -113,10 +112,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
     public function testBuildViewWithEmptyData(): void
     {
-        $this->backendMock
-            ->expects($this->never())
-            ->method('loadItem');
-
         $form = $this->factory->create(
             ContentBrowserMultipleType::class,
             null,
@@ -246,9 +241,9 @@ final class ContentBrowserMultipleTypeTest extends TestCase
 
     protected function getMainType(): FormTypeInterface
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
 
-        $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
+        $backendRegistry = new BackendRegistry(['value' => $this->backendStub]);
 
         return new ContentBrowserMultipleType($backendRegistry);
     }

@@ -16,12 +16,12 @@ final class LoadSubLocationsTest extends ApiTestCase
     {
         $location = new Location(41, 'Location 41');
 
-        $this->backendMock
+        $this->backendStub
             ->method('loadLocation')
             ->with(self::identicalTo('41'))
             ->willReturn($location);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubLocations')
             ->with(self::identicalTo($location))
             ->willReturn(

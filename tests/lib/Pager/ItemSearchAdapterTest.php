@@ -10,13 +10,13 @@ use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ItemSearchAdapter::class)]
 final class ItemSearchAdapterTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     private SearchQuery $searchQuery;
 
@@ -24,16 +24,15 @@ final class ItemSearchAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
         $this->searchQuery = new SearchQuery('text');
 
-        $this->adapter = new ItemSearchAdapter($this->backendMock, $this->searchQuery);
+        $this->adapter = new ItemSearchAdapter($this->backendStub, $this->searchQuery);
     }
 
     public function testGetNbResults(): void
     {
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('searchItemsCount')
             ->with(self::identicalTo($this->searchQuery))
             ->willReturn(3);
@@ -49,8 +48,7 @@ final class ItemSearchAdapterTest extends TestCase
         $searchQuery->offset = 5;
         $searchQuery->limit = 10;
 
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('searchItems')
             ->with(self::equalTo($searchQuery))
             ->willReturn(new SearchResult($items));

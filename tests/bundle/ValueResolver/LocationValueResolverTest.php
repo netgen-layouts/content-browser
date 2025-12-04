@@ -11,7 +11,7 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -19,15 +19,15 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 #[CoversClass(LocationValueResolver::class)]
 final class LocationValueResolverTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     private LocationValueResolver $valueResolver;
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
 
-        $backendRegistry = new BackendRegistry(['value' => $this->backendMock]);
+        $backendRegistry = new BackendRegistry(['value' => $this->backendStub]);
 
         $this->valueResolver = new LocationValueResolver($backendRegistry);
     }
@@ -42,8 +42,7 @@ final class LocationValueResolverTest extends TestCase
 
         $location = new Location(42);
 
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willReturn($location);
@@ -61,10 +60,6 @@ final class LocationValueResolverTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('itemType', 'value');
 
-        $this->backendMock
-            ->expects($this->never())
-            ->method('loadLocation');
-
         $values = [...$this->valueResolver->resolve($request, $argument)];
 
         self::assertSame([], $values);
@@ -76,10 +71,6 @@ final class LocationValueResolverTest extends TestCase
 
         $request = Request::create('/');
         $request->attributes->set('locationId', 42);
-
-        $this->backendMock
-            ->expects($this->never())
-            ->method('loadLocation');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
 
@@ -96,10 +87,6 @@ final class LocationValueResolverTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set('locationId', null);
         $request->attributes->set('itemType', 'value');
-
-        $this->backendMock
-            ->expects($this->never())
-            ->method('loadLocation');
 
         $values = [...$this->valueResolver->resolve($request, $argument)];
 

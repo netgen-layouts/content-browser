@@ -20,7 +20,7 @@ final class LoadSubItemsTest extends ApiTestCase
     {
         $location = new Location(41, 'Location 41', 40);
 
-        $this->backendMock
+        $this->backendStub
             ->method('loadLocation')
             ->willReturnMap(
                 [
@@ -29,12 +29,12 @@ final class LoadSubItemsTest extends ApiTestCase
                 ],
             );
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(
@@ -55,7 +55,7 @@ final class LoadSubItemsTest extends ApiTestCase
     {
         $location = new ItemLocation(41, 'Item 41', 40);
 
-        $this->backendMock
+        $this->backendStub
             ->method('loadLocation')
             ->willReturnMap(
                 [
@@ -64,12 +64,12 @@ final class LoadSubItemsTest extends ApiTestCase
                 ],
             );
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(
@@ -90,7 +90,7 @@ final class LoadSubItemsTest extends ApiTestCase
     {
         $location = new ItemLocation(41, 'Item 41', 40);
 
-        $this->backendMock
+        $this->backendStub
             ->method('loadLocation')
             ->willReturnCallback(
                 static function (int|string $id) use ($location): LocationInterface {
@@ -102,12 +102,12 @@ final class LoadSubItemsTest extends ApiTestCase
                 },
             );
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(2);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItems')
             ->with(self::identicalTo($location))
             ->willReturn(

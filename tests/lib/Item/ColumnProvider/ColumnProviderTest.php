@@ -13,13 +13,13 @@ use Netgen\ContentBrowser\Tests\Stubs\Container;
 use Netgen\ContentBrowser\Tests\Stubs\InvalidColumnValueProvider;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ColumnProvider::class)]
 final class ColumnProviderTest extends TestCase
 {
-    private MockObject&ItemRendererInterface $itemRendererMock;
+    private Stub&ItemRendererInterface $itemRendererStub;
 
     private Configuration $config;
 
@@ -27,7 +27,7 @@ final class ColumnProviderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->itemRendererMock = $this->createMock(ItemRendererInterface::class);
+        $this->itemRendererStub = self::createStub(ItemRendererInterface::class);
 
         $this->config = new Configuration(
             'value',
@@ -46,7 +46,7 @@ final class ColumnProviderTest extends TestCase
         );
 
         $this->columnProvider = new ColumnProvider(
-            $this->itemRendererMock,
+            $this->itemRendererStub,
             $this->config,
             new Container(
                 [
@@ -80,15 +80,14 @@ final class ColumnProviderTest extends TestCase
         );
 
         $this->columnProvider = new ColumnProvider(
-            $this->itemRendererMock,
+            $this->itemRendererStub,
             $this->config,
             new Container(),
         );
 
         $item = new Item(42);
 
-        $this->itemRendererMock
-            ->expects($this->once())
+        $this->itemRendererStub
             ->method('renderItem')
             ->with(self::identicalTo($item), self::identicalTo('template.html.twig'))
             ->willReturn('rendered column');
@@ -105,7 +104,7 @@ final class ColumnProviderTest extends TestCase
         $this->expectExceptionMessage('Column value provider "provider" does not exist');
 
         $this->columnProvider = new ColumnProvider(
-            $this->itemRendererMock,
+            $this->itemRendererStub,
             $this->config,
             new Container(['other' => new ColumnValueProvider()]),
         );

@@ -10,35 +10,35 @@ use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(BackendRegistry::class)]
 final class BackendRegistryTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     private BackendRegistry $registry;
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
 
         $this->registry = new BackendRegistry(
             [
-                'value' => $this->backendMock,
+                'value' => $this->backendStub,
             ],
         );
     }
 
     public function testGetBackends(): void
     {
-        self::assertSame(['value' => $this->backendMock], $this->registry->getBackends());
+        self::assertSame(['value' => $this->backendStub], $this->registry->getBackends());
     }
 
     public function testGetBackend(): void
     {
-        self::assertSame($this->backendMock, $this->registry->getBackend('value'));
+        self::assertSame($this->backendStub, $this->registry->getBackend('value'));
     }
 
     public function testGetBackendThrowsInvalidArgumentException(): void
@@ -78,7 +78,7 @@ final class BackendRegistryTest extends TestCase
 
     public function testOffsetGet(): void
     {
-        self::assertSame($this->backendMock, $this->registry['value']);
+        self::assertSame($this->backendStub, $this->registry['value']);
     }
 
     public function testOffsetSet(): void
@@ -86,7 +86,7 @@ final class BackendRegistryTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Method call not supported.');
 
-        $this->registry['value'] = $this->backendMock;
+        $this->registry['value'] = $this->backendStub;
     }
 
     public function testOffsetUnset(): void

@@ -15,7 +15,7 @@ final class SearchItemsTest extends ApiTestCase
 {
     public function testSearchItems(): void
     {
-        $this->backendMock
+        $this->backendStub
             ->method('searchItems')
             ->willReturn(
                 new SearchResult(
@@ -26,7 +26,7 @@ final class SearchItemsTest extends ApiTestCase
                 ),
             );
 
-        $this->backendMock
+        $this->backendStub
             ->method('searchItemsCount')
             ->willReturn(2);
 

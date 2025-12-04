@@ -14,7 +14,7 @@ final class LoadConfigTest extends ApiTestCase
 {
     public function testLoadConfig(): void
     {
-        $this->backendMock
+        $this->backendStub
             ->method('getSections')
             ->willReturn(
                 [

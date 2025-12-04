@@ -8,7 +8,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\User\InMemoryUser;
@@ -20,11 +20,11 @@ abstract class ApiTestCase extends KernelTestCase
         browser as protected baseBrowser;
     }
 
-    final protected MockObject&BackendInterface $backendMock;
+    final protected Stub&BackendInterface $backendStub;
 
     final protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
     }
 
     /**
@@ -49,8 +49,8 @@ abstract class ApiTestCase extends KernelTestCase
             'netgen_content_browser.registry.backend',
             new BackendRegistry(
                 [
-                    'test' => $this->backendMock,
-                    'test_preview_disabled' => $this->backendMock,
+                    'test' => $this->backendStub,
+                    'test_preview_disabled' => $this->backendStub,
                 ],
             ),
         );

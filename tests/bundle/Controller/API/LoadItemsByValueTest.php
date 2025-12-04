@@ -14,7 +14,7 @@ final class LoadItemsByValueTest extends ApiTestCase
 {
     public function testLoadItemsByValue(): void
     {
-        $this->backendMock
+        $this->backendStub
             ->method('loadItem')
             ->willReturnOnConsecutiveCalls(
                 new Item(42, 'Item 42'),

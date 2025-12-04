@@ -9,7 +9,7 @@ use Netgen\Bundle\ContentBrowserBundle\EventListener\SetIsApiRequestListener;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 #[CoversClass(SetBackendListener::class)]
 final class SetBackendListenerTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     private Container $container;
 
@@ -27,11 +27,11 @@ final class SetBackendListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
 
         $this->container = new Container();
 
-        $backendRegistry = new BackendRegistry(['item_type' => $this->backendMock]);
+        $backendRegistry = new BackendRegistry(['item_type' => $this->backendStub]);
 
         $this->eventListener = new SetBackendListener(
             $this->container,
@@ -49,13 +49,13 @@ final class SetBackendListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -63,18 +63,18 @@ final class SetBackendListenerTest extends TestCase
         $this->eventListener->onKernelRequest($event);
 
         self::assertTrue($this->container->has('netgen_content_browser.backend'));
-        self::assertSame($this->backendMock, $this->container->get('netgen_content_browser.backend'));
+        self::assertSame($this->backendStub, $this->container->get('netgen_content_browser.backend'));
     }
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
         );
@@ -86,12 +86,12 @@ final class SetBackendListenerTest extends TestCase
 
     public function testOnKernelRequestWithNoItemType(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -103,12 +103,12 @@ final class SetBackendListenerTest extends TestCase
 
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );

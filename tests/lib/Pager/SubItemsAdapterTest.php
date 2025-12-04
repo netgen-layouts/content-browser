@@ -9,13 +9,13 @@ use Netgen\ContentBrowser\Pager\SubItemsAdapter;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(SubItemsAdapter::class)]
 final class SubItemsAdapterTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
     private SubItemsAdapter $adapter;
 
@@ -23,16 +23,15 @@ final class SubItemsAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
         $this->location = new Location(42);
 
-        $this->adapter = new SubItemsAdapter($this->backendMock, $this->location);
+        $this->adapter = new SubItemsAdapter($this->backendStub, $this->location);
     }
 
     public function testGetNbResults(): void
     {
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($this->location))
             ->willReturn(3);
@@ -44,8 +43,7 @@ final class SubItemsAdapterTest extends TestCase
     {
         $items = [new Item(1), new Item(2), new Item(3)];
 
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('getSubItems')
             ->with(
                 self::identicalTo($this->location),

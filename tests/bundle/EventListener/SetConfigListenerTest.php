@@ -25,7 +25,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             new Container(),
             new ConfigRegistry([]),
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         self::assertSame(
@@ -36,13 +36,13 @@ final class SetConfigListenerTest extends TestCase
 
     public function testOnKernelRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -55,7 +55,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             $configRegistry,
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);
@@ -66,7 +66,7 @@ final class SetConfigListenerTest extends TestCase
 
     public function testOnKernelRequestWithCustomParams(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
 
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -74,7 +74,7 @@ final class SetConfigListenerTest extends TestCase
         $request->query->set('customParams', ['custom' => 'value', 'two' => 'override']);
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -90,7 +90,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             $configRegistry,
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);
@@ -110,13 +110,13 @@ final class SetConfigListenerTest extends TestCase
 
     public function testOnKernelRequestInSubRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'item_type');
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::SUB_REQUEST,
         );
@@ -126,7 +126,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             new ConfigRegistry([]),
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);
@@ -136,12 +136,12 @@ final class SetConfigListenerTest extends TestCase
 
     public function testOnKernelRequestWithNoItemType(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -151,7 +151,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             new ConfigRegistry([]),
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);
@@ -161,12 +161,12 @@ final class SetConfigListenerTest extends TestCase
 
     public function testOnKernelRequestWithNoContentBrowserRequest(): void
     {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, false);
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -176,7 +176,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             new ConfigRegistry([]),
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);
@@ -189,13 +189,13 @@ final class SetConfigListenerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Configuration for item type "unknown" does not exist.');
 
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $kernelStub = self::createStub(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->attributes->set('itemType', 'unknown');
 
         $event = new RequestEvent(
-            $kernelMock,
+            $kernelStub,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
         );
@@ -208,7 +208,7 @@ final class SetConfigListenerTest extends TestCase
         $eventListener = new SetConfigListener(
             $container,
             $configRegistry,
-            $this->createMock(EventDispatcherInterface::class),
+            self::createStub(EventDispatcherInterface::class),
         );
 
         $eventListener->onKernelRequest($event);

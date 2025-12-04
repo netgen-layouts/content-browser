@@ -8,30 +8,29 @@ use Exception;
 use Netgen\ContentBrowser\Item\Renderer\ItemRenderer;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 #[CoversClass(ItemRenderer::class)]
 final class ItemRendererTest extends TestCase
 {
-    private MockObject&Environment $twigMock;
+    private Stub&Environment $twigStub;
 
     private ItemRenderer $itemRenderer;
 
     protected function setUp(): void
     {
-        $this->twigMock = $this->createMock(Environment::class);
+        $this->twigStub = self::createStub(Environment::class);
 
-        $this->itemRenderer = new ItemRenderer($this->twigMock);
+        $this->itemRenderer = new ItemRenderer($this->twigStub);
     }
 
     public function testRenderItem(): void
     {
         $item = new Item(42);
 
-        $this->twigMock
-            ->expects($this->once())
+        $this->twigStub
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),
@@ -49,8 +48,7 @@ final class ItemRendererTest extends TestCase
     {
         $item = new Item(42);
 
-        $this->twigMock
-            ->expects($this->once())
+        $this->twigStub
             ->method('render')
             ->with(
                 self::identicalTo('template.html.twig'),

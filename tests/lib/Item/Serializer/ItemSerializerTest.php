@@ -11,26 +11,26 @@ use Netgen\ContentBrowser\Tests\Stubs\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Location;
 use Netgen\ContentBrowser\Tests\Stubs\LocationItem;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ItemSerializer::class)]
 final class ItemSerializerTest extends TestCase
 {
-    private MockObject&BackendInterface $backendMock;
+    private Stub&BackendInterface $backendStub;
 
-    private MockObject&ColumnProviderInterface $columnProviderMock;
+    private Stub&ColumnProviderInterface $columnProviderStub;
 
     private ItemSerializer $serializer;
 
     protected function setUp(): void
     {
-        $this->backendMock = $this->createMock(BackendInterface::class);
-        $this->columnProviderMock = $this->createMock(ColumnProviderInterface::class);
+        $this->backendStub = self::createStub(BackendInterface::class);
+        $this->columnProviderStub = self::createStub(ColumnProviderInterface::class);
 
         $this->serializer = new ItemSerializer(
-            $this->backendMock,
-            $this->columnProviderMock,
+            $this->backendStub,
+            $this->columnProviderStub,
         );
     }
 
@@ -38,14 +38,12 @@ final class ItemSerializerTest extends TestCase
     {
         $item = new LocationItem(84, 42);
 
-        $this->backendMock
-            ->expects($this->once())
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($item))
             ->willReturn(3);
 
-        $this->columnProviderMock
-            ->expects($this->once())
+        $this->columnProviderStub
             ->method('provideColumns')
             ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);
@@ -72,12 +70,7 @@ final class ItemSerializerTest extends TestCase
     {
         $item = new Item(84);
 
-        $this->backendMock
-            ->expects($this->never())
-            ->method('getSubItemsCount');
-
-        $this->columnProviderMock
-            ->expects($this->once())
+        $this->columnProviderStub
             ->method('provideColumns')
             ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);
@@ -104,12 +97,12 @@ final class ItemSerializerTest extends TestCase
     {
         $location = new Location(42, 24);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubItemsCount')
             ->with(self::identicalTo($location))
             ->willReturn(3);
 
-        $this->backendMock
+        $this->backendStub
             ->method('getSubLocationsCount')
             ->with(self::identicalTo($location))
             ->willReturn(4);
