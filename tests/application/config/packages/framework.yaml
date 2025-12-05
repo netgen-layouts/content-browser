@@ -1,4 +1,5 @@
 framework:
+    secret: secret
     test: true
 
     session:
