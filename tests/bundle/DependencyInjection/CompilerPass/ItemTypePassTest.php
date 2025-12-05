@@ -66,7 +66,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
     public function testProcessThrowsRuntimeExceptionWithoutBackend(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that either "item_type" attribute exists in the tag or a "$defaultItemType" static property exists in the class.');
+        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that "item_type" attribute exists in the tag or your backend uses AsBackend attribute.');
 
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class));
         $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class));
@@ -90,7 +90,7 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
     public function testProcessThrowsRuntimeExceptionWithNoTagType(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that either "item_type" attribute exists in the tag or a "$defaultItemType" static property exists in the class.');
+        $this->expectExceptionMessage('No backend registered for "test" item type. Make sure that "item_type" attribute exists in the tag or your backend uses AsBackend attribute.');
 
         $this->setDefinition('netgen_content_browser.registry.backend', new Definition(stdClass::class));
         $this->setDefinition('netgen_content_browser.registry.config', new Definition(stdClass::class));

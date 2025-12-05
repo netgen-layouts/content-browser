@@ -78,10 +78,9 @@ final class ItemTypePass implements CompilerPassInterface
             if (!is_string($foundBackend)) {
                 throw new RuntimeException(
                     sprintf(
-                        'No backend registered for "%s" item type. Make sure that either "%s" attribute exists in the tag or a "%s" static property exists in the class.',
+                        'No backend registered for "%s" item type. Make sure that "%s" attribute exists in the tag or your backend uses AsBackend attribute.',
                         $itemType,
                         'item_type',
-                        '$defaultItemType',
                     ),
                 );
             }
