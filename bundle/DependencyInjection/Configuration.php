@@ -96,15 +96,11 @@ final class Configuration implements ConfigurationInterface
                                     static function (array $v): array {
                                         $exception = new InvalidConfigurationException('Column specification needs to have either "template" or "value_provider" keys');
 
-                                        if (isset($v['template'], $v['value_provider'])) {
-                                            throw $exception;
-                                        }
-
-                                        if (!isset($v['template']) && !isset($v['value_provider'])) {
-                                            throw $exception;
-                                        }
-
-                                        return $v;
+                                        return match (true) {
+                                            isset($v['template'], $v['value_provider']),
+                                            !isset($v['template']) && !isset($v['value_provider']) => throw $exception,
+                                            default => $v,
+                                        };
                                     },
                                 )
                             ->end()
