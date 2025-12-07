@@ -6,6 +6,7 @@ namespace Netgen\ContentBrowser\Config;
 
 use Netgen\ContentBrowser\Exceptions\InvalidArgumentException;
 
+use function array_key_exists;
 use function sprintf;
 
 final class Configuration
@@ -92,7 +93,7 @@ final class Configuration
 
     public function hasParameter(string $name): bool
     {
-        return isset($this->parameters[$name]);
+        return array_key_exists($name, $this->parameters);
     }
 
     public function getParameter(string $name): mixed

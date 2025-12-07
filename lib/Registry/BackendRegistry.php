@@ -14,6 +14,7 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 use function sprintf;
 
@@ -40,7 +41,7 @@ final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
      */
     public function hasBackend(string $itemType): bool
     {
-        return isset($this->backends[$itemType]);
+        return array_key_exists($itemType, $this->backends);
     }
 
     /**

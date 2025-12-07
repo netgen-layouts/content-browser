@@ -14,6 +14,7 @@ use Netgen\ContentBrowser\Exceptions\RuntimeException;
 use Traversable;
 
 use function array_filter;
+use function array_key_exists;
 use function count;
 use function sprintf;
 
@@ -40,7 +41,7 @@ final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
      */
     public function hasConfig(string $itemType): bool
     {
-        return isset($this->configs[$itemType]);
+        return array_key_exists($itemType, $this->configs);
     }
 
     /**

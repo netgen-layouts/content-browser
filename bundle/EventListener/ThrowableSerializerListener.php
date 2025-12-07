@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
+use function array_key_exists;
 use function sprintf;
 
 final class ThrowableSerializerListener implements EventSubscriberInterface
@@ -53,7 +54,7 @@ final class ThrowableSerializerListener implements EventSubscriberInterface
 
         if ($throwable instanceof HttpExceptionInterface) {
             $statusCode = $throwable->getStatusCode();
-            if (isset(Response::$statusTexts[$statusCode])) {
+            if (array_key_exists($statusCode, Response::$statusTexts)) {
                 $data['status_code'] = $statusCode;
                 $data['status_text'] = Response::$statusTexts[$statusCode];
             }
