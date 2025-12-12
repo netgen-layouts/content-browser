@@ -22,9 +22,6 @@ use function sprintf;
 
 final class NetgenContentBrowserExtension extends Extension implements PrependExtensionInterface
 {
-    /**
-     * @param mixed[] $configs
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = $this->getConfiguration($configs, $container);
