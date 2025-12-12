@@ -8,7 +8,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class LoadSubLocations extends AbstractController
 {
@@ -20,7 +20,7 @@ final class LoadSubLocations extends AbstractController
     /**
      * Returns all locations below specified location.
      */
-    public function __invoke(LocationInterface $location): Response
+    public function __invoke(LocationInterface $location): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 

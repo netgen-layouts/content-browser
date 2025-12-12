@@ -17,7 +17,6 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use function array_find;
-use function is_a;
 
 final class ThrowableConversionListener implements EventSubscriberInterface
 {
@@ -58,7 +57,7 @@ final class ThrowableConversionListener implements EventSubscriberInterface
 
         $throwableClass = array_find(
             $this->throwableMap,
-            static fn (string $targetThrowable, string $sourceThrowable): bool => is_a($throwable, $sourceThrowable, true),
+            static fn (string $targetThrowable, string $sourceThrowable): bool => $throwable instanceof $sourceThrowable,
         );
 
         if ($throwableClass !== null) {

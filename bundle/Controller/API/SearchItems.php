@@ -10,8 +10,8 @@ use Netgen\ContentBrowser\Item\Serializer\ItemSerializerInterface;
 use Netgen\ContentBrowser\Pager\ItemSearchAdapter;
 use Netgen\ContentBrowser\Pager\PagerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 use function mb_trim;
 
@@ -27,7 +27,7 @@ final class SearchItems extends AbstractController
     /**
      * Performs the search for values by using the specified text.
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): JsonResponse
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
