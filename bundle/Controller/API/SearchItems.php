@@ -26,8 +26,6 @@ final class SearchItems extends AbstractController
 
     /**
      * Performs the search for values by using the specified text.
-     *
-     * @throws \Netgen\ContentBrowser\Exceptions\InvalidArgumentException If search text is empty
      */
     public function __invoke(Request $request): Response
     {
