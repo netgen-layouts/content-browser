@@ -24,9 +24,6 @@ final class SubItemsAdapter implements AdapterInterface
     }
 
     /**
-     * @param int $offset
-     * @param int $length
-     *
      * @return iterable<int, \Netgen\ContentBrowser\Item\ItemInterface>
      */
     public function getSlice(int $offset, int $length): iterable
