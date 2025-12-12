@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use function array_find;
 use function is_a;
 
 final class ThrowableConversionListener implements EventSubscriberInterface
@@ -55,14 +56,10 @@ final class ThrowableConversionListener implements EventSubscriberInterface
             return;
         }
 
-        $throwableClass = null;
-        foreach ($this->throwableMap as $sourceThrowable => $targetThrowable) {
-            if (is_a($throwable, $sourceThrowable, true)) {
-                $throwableClass = $targetThrowable;
-
-                break;
-            }
-        }
+        $throwableClass = array_find(
+            $this->throwableMap,
+            static fn (string $targetThrowable, string $sourceThrowable): bool => is_a($throwable, $sourceThrowable, true),
+        );
 
         if ($throwableClass !== null) {
             $convertedThrowable = new $throwableClass(
