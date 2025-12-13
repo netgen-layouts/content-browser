@@ -37,12 +37,12 @@ final class ItemValueResolver implements ValueResolverInterface
             return [];
         }
 
-        $itemValue = mb_trim($request->attributes->get('itemValue', ''));
+        $itemValue = mb_trim($request->attributes->getString('itemValue'));
         if ($itemValue === '') {
             throw new InvalidArgumentException('Required request attribute "itemValue" is empty');
         }
 
-        $backend = $this->backendRegistry->getBackend($request->attributes->get('itemType'));
+        $backend = $this->backendRegistry->getBackend($request->attributes->getString('itemType'));
 
         yield $backend->loadItem($itemValue);
     }

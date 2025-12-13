@@ -31,7 +31,7 @@ final class LoadItemsByValue extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
 
-        $values = mb_trim($request->query->get('values', ''));
+        $values = mb_trim($request->query->getString('values'));
         if ($values === '') {
             throw new InvalidArgumentException('List of values is invalid.');
         }

@@ -31,16 +31,15 @@ final class SetConfigListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        $attributes = $request->attributes;
-        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
             return;
         }
 
-        if (!$attributes->has('itemType')) {
+        if (!$request->attributes->has('itemType')) {
             return;
         }
 
-        $config = $this->configRegistry->getConfig($attributes->get('itemType'));
+        $config = $this->configRegistry->getConfig($request->attributes->getString('itemType'));
 
         $customParams = $request->query->all('customParams');
         $config->addParameters($customParams);

@@ -42,7 +42,7 @@ final class LocationValueResolver implements ValueResolverInterface
             throw new InvalidArgumentException('Required request attribute "locationId" is empty');
         }
 
-        $backend = $this->backendRegistry->getBackend($request->attributes->get('itemType'));
+        $backend = $this->backendRegistry->getBackend($request->attributes->getString('itemType'));
 
         yield $backend->loadLocation($locationId);
     }

@@ -27,16 +27,16 @@ final class SetBackendListener implements EventSubscriberInterface
             return;
         }
 
-        $attributes = $event->getRequest()->attributes;
-        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+        $request = $event->getRequest();
+        if (!$request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME)) {
             return;
         }
 
-        if (!$attributes->has('itemType')) {
+        if (!$request->attributes->has('itemType')) {
             return;
         }
 
-        $backend = $this->backendRegistry->getBackend($attributes->get('itemType'));
+        $backend = $this->backendRegistry->getBackend($request->attributes->getString('itemType'));
         $this->container->set('netgen_content_browser.backend', $backend);
     }
 }
