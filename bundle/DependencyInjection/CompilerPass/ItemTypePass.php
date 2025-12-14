@@ -20,8 +20,6 @@ final class ItemTypePass implements CompilerPassInterface
 
     private const string CONFIG_REGISTRY_SERVICE = 'netgen_content_browser.registry.config';
 
-    private const string BACKEND_TAG_NAME = 'netgen_content_browser.backend';
-
     public function process(ContainerBuilder $container): void
     {
         if (
@@ -34,7 +32,7 @@ final class ItemTypePass implements CompilerPassInterface
         $backendRegistry = $container->findDefinition(self::BACKEND_REGISTRY_SERVICE);
         $configRegistry = $container->findDefinition(self::CONFIG_REGISTRY_SERVICE);
 
-        $backendServices = $container->findTaggedServiceIds(self::BACKEND_TAG_NAME);
+        $backendServices = $container->findTaggedServiceIds('netgen_content_browser.backend');
 
         $backends = [];
         $configs = [];
