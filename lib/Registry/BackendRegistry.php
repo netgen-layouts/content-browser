@@ -19,10 +19,10 @@ use function count;
 use function sprintf;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Backend\BackendInterface>
  * @implements \ArrayAccess<string, \Netgen\ContentBrowser\Backend\BackendInterface>
+ * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Backend\BackendInterface>
  */
-final class BackendRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class BackendRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\ContentBrowser\Backend\BackendInterface> $backends

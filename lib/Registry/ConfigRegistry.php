@@ -19,10 +19,10 @@ use function count;
 use function sprintf;
 
 /**
- * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>
  * @implements \ArrayAccess<string, \Netgen\ContentBrowser\Config\Configuration>
+ * @implements \IteratorAggregate<string, \Netgen\ContentBrowser\Config\Configuration>
  */
-final class ConfigRegistry implements IteratorAggregate, Countable, ArrayAccess
+final class ConfigRegistry implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * @param array<string, \Netgen\ContentBrowser\Config\Configuration> $configs
