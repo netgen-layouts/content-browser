@@ -7,27 +7,27 @@ namespace Netgen\ContentBrowser\Tests\Form\Type;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Form\Type\AbstractContentBrowserType;
-use Netgen\ContentBrowser\Form\Type\ContentBrowserType;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserIntegerType;
 use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Tests\Stubs\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\Stub;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 #[CoversClass(AbstractContentBrowserType::class)]
-#[CoversClass(ContentBrowserType::class)]
-final class ContentBrowserTypeTest extends TestCase
+#[CoversClass(ContentBrowserIntegerType::class)]
+final class ContentBrowserIntegerTypeTest extends TestCase
 {
     private Stub&BackendInterface $backendStub;
 
     public function testSubmitValidData(): void
     {
         $form = $this->factory->create(
-            ContentBrowserType::class,
+            ContentBrowserIntegerType::class,
             null,
             [
                 'item_type' => 'value',
@@ -37,7 +37,7 @@ final class ContentBrowserTypeTest extends TestCase
         $form->submit('42');
 
         self::assertTrue($form->isSynchronized());
-        self::assertSame('42', $form->getData());
+        self::assertSame(42, $form->getData());
     }
 
     public function testBuildView(): void
@@ -46,11 +46,11 @@ final class ContentBrowserTypeTest extends TestCase
 
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
+            ->with(self::identicalTo(42))
             ->willReturn($item);
 
         $form = $this->factory->create(
-            ContentBrowserType::class,
+            ContentBrowserIntegerType::class,
             null,
             [
                 'item_type' => 'value',
@@ -72,11 +72,11 @@ final class ContentBrowserTypeTest extends TestCase
     {
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
+            ->with(self::identicalTo(42))
             ->willThrowException(new NotFoundException());
 
         $form = $this->factory->create(
-            ContentBrowserType::class,
+            ContentBrowserIntegerType::class,
             null,
             [
                 'item_type' => 'value',
@@ -97,7 +97,7 @@ final class ContentBrowserTypeTest extends TestCase
     public function testBuildViewWithEmptyData(): void
     {
         $form = $this->factory->create(
-            ContentBrowserType::class,
+            ContentBrowserIntegerType::class,
             null,
             [
                 'item_type' => 'value',
@@ -168,7 +168,7 @@ final class ContentBrowserTypeTest extends TestCase
 
     public function testGetParent(): void
     {
-        self::assertSame(TextType::class, $this->formType->getParent());
+        self::assertSame(IntegerType::class, $this->formType->getParent());
     }
 
     public function testGetBlockPrefix(): void
@@ -182,6 +182,6 @@ final class ContentBrowserTypeTest extends TestCase
 
         $backendRegistry = new BackendRegistry(['value' => $this->backendStub]);
 
-        return new ContentBrowserType($backendRegistry);
+        return new ContentBrowserIntegerType($backendRegistry);
     }
 }
