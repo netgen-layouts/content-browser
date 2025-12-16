@@ -10,6 +10,6 @@ parameters:
         - tests/application/public/bundles/
 
     ignoreErrors:
-        # Symfony
+        # PHPStan
 
         - '#with generic interface Symfony\\Component\\Form\\\w+ does not specify its types: TData#'
