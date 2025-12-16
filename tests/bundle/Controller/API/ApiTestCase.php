@@ -33,7 +33,10 @@ abstract class ApiTestCase extends KernelTestCase
      */
     final protected function browser(array $options = [], array $server = []): KernelBrowser
     {
-        return $this->baseBrowser($options, $server)
+        /** @var \Netgen\Bundle\ContentBrowserBundle\Tests\Controller\API\KernelBrowser $browser */
+        $browser = $this->baseBrowser($options, $server);
+
+        return $browser
             ->actingAs(new InMemoryUser('admin', 'admin', ['ROLE_ADMIN']))
             ->use(
                 function (): void {
