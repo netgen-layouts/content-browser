@@ -38,7 +38,7 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->eventListener->onKernelRequest($event);
 
-        self::assertTrue($event->getRequest()->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertTrue($request->attributes->getBoolean(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
     public function testOnKernelRequestWithInvalidRoute(): void
@@ -50,7 +50,7 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::MAIN_REQUEST);
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertFalse($request->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
     public function testOnKernelRequestInSubRequest(): void
@@ -61,6 +61,6 @@ final class SetIsApiRequestListenerTest extends TestCase
         $event = new RequestEvent($kernelStub, $request, HttpKernelInterface::SUB_REQUEST);
         $this->eventListener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
+        self::assertFalse($request->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
 }
