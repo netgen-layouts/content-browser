@@ -4,8 +4,3 @@ parameters:
     paths:
         - lib
         - bundle
-
-    ignoreErrors:
-        # PHPStan
-
-        - '#extends generic class Symfony\\Component\\Form\\\w+ but does not specify its types: TData#'
