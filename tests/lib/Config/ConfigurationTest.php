@@ -33,11 +33,7 @@ final class ConfigurationTest extends TestCase
             'default_columns' => ['column1', 'column2'],
         ];
 
-        $parameters = [
-            'default' => 'param',
-        ];
-
-        $this->config = new Configuration('value', 'Value', $configArray, $parameters);
+        $this->config = new Configuration('value', 'Value', $configArray);
     }
 
     public function testGetItemType(): void
@@ -70,11 +66,6 @@ final class ConfigurationTest extends TestCase
     {
         $this->config = new Configuration('value', 'Value', []);
         self::assertSame(0, $this->config->getMaxSelected());
-    }
-
-    public function testGetParameters(): void
-    {
-        self::assertSame(['default' => 'param'], $this->config->getParameters());
     }
 
     public function testHasTree(): void
@@ -154,7 +145,7 @@ final class ConfigurationTest extends TestCase
         self::assertFalse($this->config->hasParameter('other'));
     }
 
-    public function testParameters(): void
+    public function testGetParameters(): void
     {
         $this->config->setParameter('param', 'value');
         $this->config->setParameter('param2', 'value2');
@@ -165,7 +156,6 @@ final class ConfigurationTest extends TestCase
 
         self::assertSame(
             [
-                'default' => 'param',
                 'param' => 'value',
                 'param2' => 'value2',
             ],

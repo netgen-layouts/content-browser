@@ -37,7 +37,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     'preview' => [
                         'template' => 'template.html.twig',
                     ],
-                    'parameters' => [],
                 ],
             ],
         );
@@ -79,7 +78,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     'preview' => [
                         'template' => 'template.html.twig',
                     ],
-                    'parameters' => [],
                 ],
             ],
         );
@@ -103,7 +101,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     'preview' => [
                         'template' => 'template.html.twig',
                     ],
-                    'parameters' => [],
                 ],
             ],
         );
@@ -131,7 +128,6 @@ final class ItemTypePassTest extends AbstractContainerBuilderTestCase
                     'preview' => [
                         'template' => 'template.html.twig',
                     ],
-                    'parameters' => [],
                 ],
             ],
         );

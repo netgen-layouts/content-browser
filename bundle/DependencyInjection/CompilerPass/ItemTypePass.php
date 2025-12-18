@@ -51,8 +51,7 @@ final class ItemTypePass implements CompilerPassInterface
             }
 
             $itemTypeName = $itemTypeConfig['name'];
-            $parameters = $itemTypeConfig['parameters'];
-            unset($itemTypeConfig['name'], $itemTypeConfig['parameters']);
+            unset($itemTypeConfig['name']);
 
             $configServiceName = sprintf('netgen_content_browser.config.%s', $itemType);
 
@@ -60,8 +59,7 @@ final class ItemTypePass implements CompilerPassInterface
                 ->register($configServiceName, Configuration::class)
                 ->addArgument($itemType)
                 ->addArgument($itemTypeName)
-                ->addArgument($itemTypeConfig)
-                ->addArgument($parameters);
+                ->addArgument($itemTypeConfig);
 
             $foundBackend = null;
 

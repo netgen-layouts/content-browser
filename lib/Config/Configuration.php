@@ -12,14 +12,17 @@ use function sprintf;
 final class Configuration
 {
     /**
+     * @var array<string, mixed>
+     */
+    private array $parameters = [];
+
+    /**
      * @param array<string, mixed> $config
-     * @param array<string, mixed> $parameters
      */
     public function __construct(
         private string $itemType,
         private string $itemName,
         private array $config,
-        private array $parameters = [],
     ) {}
 
     public function getItemType(): string

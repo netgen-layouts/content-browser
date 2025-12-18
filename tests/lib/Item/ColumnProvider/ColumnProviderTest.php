@@ -42,7 +42,6 @@ final class ColumnProviderTest extends TestCase
                     ],
                 ],
             ],
-            [],
         );
 
         $this->columnProvider = new ColumnProvider(
