@@ -18,11 +18,6 @@ ngcb_api_item_render:
     controller: netgen_content_browser.controller.api.render_item
     methods: [GET]
 
-ngcb_api_item_values:
-    path: /{itemType}/values
-    controller: netgen_content_browser.controller.api.load_items_by_value
-    methods: [GET]
-
 ngcb_api_search:
     path: /{itemType}/search
     controller: netgen_content_browser.controller.api.search_items

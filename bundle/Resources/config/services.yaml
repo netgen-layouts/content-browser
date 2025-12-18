@@ -69,16 +69,6 @@ services:
             - { name: container.service_subscriber }
             - { name: controller.service_arguments }
 
-    netgen_content_browser.controller.api.load_items_by_value:
-        class: Netgen\Bundle\ContentBrowserBundle\Controller\API\LoadItemsByValue
-        parent: netgen_content_browser.controller.base
-        arguments:
-            - "@netgen_content_browser.backend"
-            - "@netgen_content_browser.item_serializer"
-        tags:
-            - { name: container.service_subscriber }
-            - { name: controller.service_arguments }
-
     # Event listeners
 
     netgen_content_browser.event_listener.set_is_api_request:
