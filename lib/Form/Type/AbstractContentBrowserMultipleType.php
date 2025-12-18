@@ -98,7 +98,7 @@ abstract class AbstractContentBrowserMultipleType extends AbstractType
         $view->vars['item_type'] = $options['item_type'];
 
         if ($form->getData() !== null) {
-            $view->vars['items'] = $this->getItems($form->getData(), $options['item_type']);
+            $view->vars['items'] = $this->getItems((array) $form->getData(), $options['item_type']);
         }
 
         $view->vars['min'] = $options['min'];
@@ -122,13 +122,15 @@ abstract class AbstractContentBrowserMultipleType extends AbstractType
     /**
      * Returns the array of items for all provided item values.
      *
+     * @param array<int|string> $itemValues
+     *
      * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
-    private function getItems(mixed $itemValues, string $itemType): array
+    private function getItems(array $itemValues, string $itemType): array
     {
         $items = [];
 
-        foreach ((array) $itemValues as $itemValue) {
+        foreach ($itemValues as $itemValue) {
             try {
                 $backend = $this->backendRegistry->getBackend($itemType);
                 $item = $backend->loadItem($itemValue);
