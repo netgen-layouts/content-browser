@@ -47,7 +47,7 @@ final class PagerFactoryTest extends TestCase
     }
 
     /**
-     * @return int[][]
+     * @return iterable<mixed>
      */
     public static function buildPagerDataProvider(): iterable
     {

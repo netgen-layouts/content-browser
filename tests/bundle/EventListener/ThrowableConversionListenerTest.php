@@ -132,7 +132,7 @@ final class ThrowableConversionListenerTest extends TestCase
     }
 
     /**
-     * @return array<int, mixed[]>
+     * @return iterable<mixed>
      */
     public static function onExceptionDataProvider(): iterable
     {
