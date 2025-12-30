@@ -32,8 +32,7 @@
         "symfony/twig-bundle": "^7.3 || ^8.0",
         "symfony/yaml": "^7.3 || ^8.0",
         "twig/twig": "^3.22",
-        "pagerfanta/pagerfanta": "^3.8 || ^4.7",
-        "jean85/pretty-package-versions": "^2.1"
+        "pagerfanta/pagerfanta": "^3.8 || ^4.7"
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^3.0",
