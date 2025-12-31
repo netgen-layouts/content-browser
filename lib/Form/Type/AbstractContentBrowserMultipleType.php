@@ -117,6 +117,9 @@ abstract class AbstractContentBrowserMultipleType extends AbstractType
         return 'ngcb_multiple';
     }
 
+    /**
+     * @return class-string<\Symfony\Component\Form\FormTypeInterface>
+     */
     abstract protected function getEntryType(): string;
 
     /**
