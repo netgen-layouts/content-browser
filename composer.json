@@ -43,7 +43,7 @@
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "matthiasnoback/symfony-dependency-injection-test": "^6.2",
-        "zenstruck/browser": "^1.9",
+        "zenstruck/browser": "^1.10",
         "mtdowling/jmespath.php": "^2.8"
     },
     "config": {
