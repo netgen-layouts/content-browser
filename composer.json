@@ -31,7 +31,7 @@
         "symfony/translation-contracts": "^3.6",
         "symfony/twig-bundle": "^7.3 || ^8.0",
         "symfony/yaml": "^7.3 || ^8.0",
-        "twig/twig": "^3.22",
+        "twig/twig": "^3.23",
         "pagerfanta/pagerfanta": "^3.8 || ^4.8"
     },
     "require-dev": {
