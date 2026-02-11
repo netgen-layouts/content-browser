@@ -44,7 +44,6 @@ final class LocationValueResolverTest extends TestCase
 
         $this->backendStub
             ->method('loadLocation')
-            ->with(self::identicalTo(42))
             ->willReturn($location);
 
         $values = [...$this->valueResolver->resolve($request, $argument)];

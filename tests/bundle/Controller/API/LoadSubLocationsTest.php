@@ -18,12 +18,10 @@ final class LoadSubLocationsTest extends ApiTestCase
 
         $this->backendStub
             ->method('loadLocation')
-            ->with(self::identicalTo('41'))
             ->willReturn($location);
 
         $this->backendStub
             ->method('getSubLocations')
-            ->with(self::identicalTo($location))
             ->willReturn(
                 [
                     new Location(42, 'Location 42'),

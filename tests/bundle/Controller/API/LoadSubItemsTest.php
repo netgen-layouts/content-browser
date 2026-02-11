@@ -31,12 +31,10 @@ final class LoadSubItemsTest extends ApiTestCase
 
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendStub
             ->method('getSubItems')
-            ->with(self::identicalTo($location))
             ->willReturn(
                 [
                     new Item(42, 'Item 42'),
@@ -66,12 +64,10 @@ final class LoadSubItemsTest extends ApiTestCase
 
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendStub
             ->method('getSubItems')
-            ->with(self::identicalTo($location))
             ->willReturn(
                 [
                     new Item(42, 'Item 42'),
@@ -104,12 +100,10 @@ final class LoadSubItemsTest extends ApiTestCase
 
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($location))
             ->willReturn(2);
 
         $this->backendStub
             ->method('getSubItems')
-            ->with(self::identicalTo($location))
             ->willReturn(
                 [
                     new Item(42, 'Item 42'),

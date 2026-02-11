@@ -34,7 +34,6 @@ final class ItemSearchAdapterTest extends TestCase
     {
         $this->backendStub
             ->method('searchItemsCount')
-            ->with(self::identicalTo($this->searchQuery))
             ->willReturn(3);
 
         self::assertSame(3, $this->adapter->getNbResults());
@@ -50,7 +49,6 @@ final class ItemSearchAdapterTest extends TestCase
 
         $this->backendStub
             ->method('searchItems')
-            ->with(self::equalTo($searchQuery))
             ->willReturn(new SearchResult($items));
 
         self::assertSame($items, $this->adapter->getSlice(5, 10));

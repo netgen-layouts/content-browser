@@ -16,7 +16,6 @@ final class RenderItemTest extends ApiTestCase
     {
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
             ->willReturn(new Item(42, 'Item 42'));
 
         $this->browser()

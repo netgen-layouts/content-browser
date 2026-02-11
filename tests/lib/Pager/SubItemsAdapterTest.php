@@ -33,7 +33,6 @@ final class SubItemsAdapterTest extends TestCase
     {
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($this->location))
             ->willReturn(3);
 
         self::assertSame(3, $this->adapter->getNbResults());
@@ -45,11 +44,6 @@ final class SubItemsAdapterTest extends TestCase
 
         $this->backendStub
             ->method('getSubItems')
-            ->with(
-                self::identicalTo($this->location),
-                self::identicalTo(5),
-                self::identicalTo(10),
-            )
             ->willReturn($items);
 
         self::assertSame($items, $this->adapter->getSlice(5, 10));

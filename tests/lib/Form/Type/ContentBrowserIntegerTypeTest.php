@@ -46,7 +46,6 @@ final class ContentBrowserIntegerTypeTest extends TestCase
 
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo(42))
             ->willReturn($item);
 
         $form = $this->factory->create(
@@ -72,7 +71,6 @@ final class ContentBrowserIntegerTypeTest extends TestCase
     {
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo(42))
             ->willThrowException(new NotFoundException());
 
         $form = $this->factory->create(

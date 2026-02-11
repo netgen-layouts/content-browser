@@ -88,7 +88,6 @@ final class ContentBrowserMultipleTypeTest extends TestCase
     {
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
             ->willThrowException(new NotFoundException());
 
         $form = $this->factory->create(

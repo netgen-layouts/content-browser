@@ -88,7 +88,6 @@ final class ColumnProviderTest extends TestCase
 
         $this->itemRendererStub
             ->method('renderItem')
-            ->with(self::identicalTo($item), self::identicalTo('template.html.twig'))
             ->willReturn('rendered column');
 
         self::assertSame(

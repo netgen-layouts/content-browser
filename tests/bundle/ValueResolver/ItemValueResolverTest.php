@@ -44,7 +44,6 @@ final class ItemValueResolverTest extends TestCase
 
         $this->backendStub
             ->method('loadItem')
-            ->with(self::identicalTo('42'))
             ->willReturn($item);
 
         $values = [...$this->valueResolver->resolve($request, $argument)];

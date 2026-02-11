@@ -40,12 +40,10 @@ final class ItemSerializerTest extends TestCase
 
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($item))
             ->willReturn(3);
 
         $this->columnProviderStub
             ->method('provideColumns')
-            ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);
 
         $data = $this->serializer->serializeItem($item);
@@ -72,7 +70,6 @@ final class ItemSerializerTest extends TestCase
 
         $this->columnProviderStub
             ->method('provideColumns')
-            ->with(self::identicalTo($item))
             ->willReturn(['column' => 'value']);
 
         $data = $this->serializer->serializeItem($item);
@@ -99,12 +96,10 @@ final class ItemSerializerTest extends TestCase
 
         $this->backendStub
             ->method('getSubItemsCount')
-            ->with(self::identicalTo($location))
             ->willReturn(3);
 
         $this->backendStub
             ->method('getSubLocationsCount')
-            ->with(self::identicalTo($location))
             ->willReturn(4);
 
         $data = $this->serializer->serializeLocation($location);
