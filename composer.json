@@ -36,13 +36,13 @@
     },
     "require-dev": {
         "netgen/layouts-coding-standard": "^3.0",
-        "phpunit/phpunit": "^12.5",
+        "phpunit/phpunit": "^13.0",
         "symfony/runtime": "^7.3 || ^8.0",
         "phpstan/phpstan": "^2.1",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^6.2",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.3",
         "zenstruck/browser": "^1.10",
         "mtdowling/jmespath.php": "^2.8"
     },
