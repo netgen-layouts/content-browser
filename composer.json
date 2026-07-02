@@ -15,11 +15,11 @@
         "netgen/content-browser-ui": "~2.0.0",
         "symfony/asset": "^7.4 || ^8.0",
         "symfony/config": "^7.4 || ^8.0",
-        "symfony/deprecation-contracts": "^3.6",
+        "symfony/deprecation-contracts": "^3.7",
         "symfony/dependency-injection": "^7.4 || ^8.0",
         "symfony/error-handler": "^7.4 || ^8.0",
         "symfony/event-dispatcher": "^7.4 || ^8.0",
-        "symfony/event-dispatcher-contracts": "^3.6",
+        "symfony/event-dispatcher-contracts": "^3.7",
         "symfony/form": "^7.4 || ^8.0",
         "symfony/framework-bundle": "^7.4 || ^8.0",
         "symfony/http-foundation": "^7.4 || ^8.0",
@@ -28,10 +28,10 @@
         "symfony/security-core": "^7.4 || ^8.0",
         "symfony/security-bundle": "^7.4 || ^8.0",
         "symfony/translation": "^7.4 || ^8.0",
-        "symfony/translation-contracts": "^3.6",
+        "symfony/translation-contracts": "^3.7",
         "symfony/twig-bundle": "^7.4 || ^8.0",
         "symfony/yaml": "^7.4 || ^8.0",
-        "twig/twig": "^3.24",
+        "twig/twig": "^3.27",
         "pagerfanta/pagerfanta": "^3.8 || ^4.8"
     },
     "require-dev": {
@@ -44,7 +44,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "matthiasnoback/symfony-dependency-injection-test": "^6.3",
         "zenstruck/browser": "^1.10",
-        "mtdowling/jmespath.php": "^2.8"
+        "mtdowling/jmespath.php": "^2.9"
     },
     "config": {
         "allow-plugins": {
